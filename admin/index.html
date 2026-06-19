@@ -19,8 +19,6 @@
             --accent: #33cc33;
             --accent2: #88ff88;
             --danger: #ff4444;
-            --warning: #ffaa00;
-            --info: #44aaff;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -45,7 +43,6 @@
             pointer-events: none; z-index: 9999;
         }
 
-        /* ===== ШАПКА ===== */
         .header {
             position: relative; z-index: 1;
             border-bottom: 4px solid var(--border);
@@ -79,7 +76,6 @@
             flex-wrap: wrap;
         }
 
-        /* ===== КНОПКИ ===== */
         .btn {
             font-family: 'Press Start 2P', monospace;
             font-size: 11px;
@@ -129,14 +125,6 @@
             padding: 8px 14px;
         }
 
-        .btn-icon {
-            font-size: 16px;
-            padding: 8px 10px;
-            min-width: 40px;
-            text-align: center;
-        }
-
-        /* ===== ОСНОВНОЙ КОНТЕНТ ===== */
         .main-container {
             position: relative; z-index: 1;
             max-width: 1200px;
@@ -144,7 +132,6 @@
             padding: 20px;
         }
 
-        /* ===== КАРТОЧКА ===== */
         .card {
             border: 3px solid var(--border-dim);
             background: var(--surface);
@@ -168,7 +155,6 @@
             gap: 10px;
         }
 
-        /* ===== ФОРМЫ ===== */
         .form-group {
             margin-bottom: 18px;
         }
@@ -202,7 +188,7 @@
 
         textarea.form-input {
             resize: vertical;
-            min-height: 120px;
+            min-height: 250px;
             line-height: 1.6;
         }
 
@@ -215,49 +201,6 @@
             padding-right: 40px;
         }
 
-        /* ===== ВКЛАДКИ ===== */
-        .tabs {
-            display: flex;
-            gap: 4px;
-            margin-bottom: 20px;
-            flex-wrap: wrap;
-        }
-
-        .tab-btn {
-            font-family: 'Press Start 2P', monospace;
-            font-size: 10px;
-            padding: 12px 18px;
-            background: var(--surface2);
-            color: var(--text-dim);
-            border: 3px solid var(--border-dim);
-            cursor: pointer;
-            transition: all 0.1s step-end;
-            text-transform: uppercase;
-            box-shadow: 0 3px 0 #0a0f0a;
-        }
-
-        .tab-btn:hover {
-            border-color: var(--accent);
-            color: var(--accent);
-        }
-
-        .tab-btn.active {
-            background: #0a2a0a;
-            border-color: var(--border);
-            color: var(--glow);
-            text-shadow: 0 0 10px var(--glow);
-            box-shadow: 0 3px 0 var(--glow);
-        }
-
-        .tab-content {
-            display: none;
-        }
-
-        .tab-content.active {
-            display: block;
-        }
-
-        /* ===== УВЕДОМЛЕНИЯ ===== */
         .toast {
             position: fixed;
             top: 20px;
@@ -289,7 +232,6 @@
             to { transform: translateX(0); opacity: 1; }
         }
 
-        /* ===== ЛОГИН ===== */
         .login-container {
             min-height: 100vh;
             display: flex;
@@ -337,11 +279,8 @@
             color: var(--glow);
         }
 
-        .hidden {
-            display: none !important;
-        }
+        .hidden { display: none !important; }
 
-        /* ===== АДАПТИВ ===== */
         @media (max-width: 768px) {
             .header { padding: 15px; }
             .header-title { font-size: 12px; }
@@ -349,13 +288,11 @@
             .card { padding: 15px; }
             .login-card { padding: 25px; }
             .login-title { font-size: 14px; }
-            .tab-btn { font-size: 8px; padding: 10px 12px; }
         }
     </style>
 </head>
 <body>
 
-<!-- ===== СТРАНИЦА ЛОГИНА ===== -->
 <div id="login-page" class="login-container">
     <div class="login-card">
         <div class="login-title">⚔ WPLACE ⚔</div>
@@ -379,9 +316,7 @@
     </div>
 </div>
 
-<!-- ===== ПАНЕЛЬ УПРАВЛЕНИЯ ===== -->
 <div id="admin-page" class="hidden">
-    <!-- Шапка -->
     <div class="header">
         <div>
             <div class="header-title">⚔ WPLACE ADMIN</div>
@@ -393,9 +328,7 @@
         </div>
     </div>
 
-    <!-- Основной контент -->
     <div class="main-container">
-        <!-- Выбор файла -->
         <div class="card">
             <div class="form-group" style="margin-bottom: 0;">
                 <label class="form-label">📄 Редактируемый файл</label>
@@ -407,33 +340,25 @@
             </div>
         </div>
 
-        <!-- Редактор -->
         <div class="card">
             <div class="card-header">
-                <span>📝 РЕДАКТОР</span>
+                <span>📝 РЕДАКТОР JSON</span>
                 <div style="display: flex; gap: 8px;">
-                    <button class="btn btn-small" onclick="formatJSON()">🔧 ФОРМАТИРОВАТЬ</button>
+                    <button class="btn btn-small" onclick="formatJSON()">🔧 ФОРМАТ</button>
                     <button class="btn btn-small btn-primary" onclick="saveFile()">💾 СОХРАНИТЬ</button>
                 </div>
             </div>
             
-            <textarea id="editor-area" class="form-input" rows="20" placeholder="Загрузка..."></textarea>
+            <textarea id="editor-area" class="form-input" rows="20" placeholder="Выберите файл..."></textarea>
             
             <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 15px; flex-wrap: wrap; gap: 10px;">
                 <span id="file-status" style="color: var(--text-dim); font-size: 16px;">Выберите файл</span>
-                <button class="btn btn-small btn-primary" onclick="saveFile()">💾 СОХРАНИТЬ ИЗМЕНЕНИЯ</button>
+                <button class="btn btn-small btn-primary" onclick="saveFile()">💾 СОХРАНИТЬ</button>
             </div>
-        </div>
-
-        <!-- Предпросмотр главной -->
-        <div id="preview-card" class="card hidden">
-            <div class="card-header">👁 ПРЕДПРОСМОТР</div>
-            <div id="preview-content" style="font-size: 16px; color: var(--text-dim);"></div>
         </div>
     </div>
 </div>
 
-<!-- Toast -->
 <div id="toast" class="toast hidden"></div>
 
 <script>
@@ -443,13 +368,11 @@
     
     let token = sessionStorage.getItem("wplace_admin_token");
     
-    // ===== ИНИЦИАЛИЗАЦИЯ =====
     if (token) {
         showAdminPanel();
         loadFile();
     }
 
-    // ===== АВТОРИЗАЦИЯ =====
     function login() {
         token = document.getElementById("token-input").value.trim();
         if (!token) {
@@ -457,7 +380,6 @@
             return;
         }
         
-        // Проверяем токен
         fetch(`https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}`, {
             headers: { "Authorization": `token ${token}` }
         })
@@ -468,7 +390,7 @@
                 loadFile();
                 showToast("✅ Доступ разрешён", "success");
             } else {
-                showToast("❌ Неверный токен", "error");
+                showToast("❌ Неверный токен или нет доступа к репозиторию", "error");
                 token = null;
             }
         })
@@ -481,7 +403,7 @@
         document.getElementById("login-page").classList.remove("hidden");
         document.getElementById("admin-page").classList.add("hidden");
         document.getElementById("token-input").value = "";
-        showToast("Вы вышли из системы", "error");
+        showToast("Вы вышли", "error");
     }
 
     function showAdminPanel() {
@@ -489,7 +411,6 @@
         document.getElementById("admin-page").classList.remove("hidden");
     }
 
-    // ===== ЗАГРУЗКА ФАЙЛА =====
     async function loadFile() {
         if (!token) return;
         
@@ -506,7 +427,10 @@
                 { headers: { "Authorization": `token ${token}`, "Accept": "application/vnd.github.v3+json" } }
             );
             
-            if (!res.ok) throw new Error(`HTTP ${res.status}`);
+            if (!res.ok) {
+                const errData = await res.json().catch(() => ({}));
+                throw new Error(`HTTP ${res.status}: ${errData.message || res.statusText}`);
+            }
             
             const data = await res.json();
             const content = decodeURIComponent(escape(atob(data.content.replace(/\n/g, ""))));
@@ -517,17 +441,13 @@
             
             status.textContent = `✅ Загружен: ${path} | SHA: ${data.sha.substring(0, 7)}`;
             
-            // Пробуем показать предпросмотр
-            showPreview(content, path);
-            
         } catch (err) {
-            editor.value = `// Ошибка загрузки: ${err.message}`;
-            status.textContent = `❌ Ошибка: ${err.message}`;
+            editor.value = `// Ошибка загрузки: ${err.message}\n// Проверьте: токен, название репозитория, наличие файла`;
+            status.textContent = `❌ ${err.message}`;
             showToast("Ошибка загрузки: " + err.message, "error");
         }
     }
 
-    // ===== СОХРАНЕНИЕ =====
     async function saveFile() {
         if (!token) return;
         
@@ -537,7 +457,6 @@
         const path = editor.dataset.path || document.getElementById("file-select").value;
         const status = document.getElementById("file-status");
         
-        // Проверка JSON
         try {
             JSON.parse(content);
         } catch (e) {
@@ -550,7 +469,7 @@
         
         try {
             const body = {
-                message: `📝 Update ${path} via Admin Panel`,
+                message: `📝 Update ${path} via Admin`,
                 content: btoa(unescape(encodeURIComponent(content))),
                 sha: sha,
                 branch: BRANCH
@@ -569,21 +488,23 @@
                 }
             );
             
-            if (!res.ok) throw new Error(`HTTP ${res.status}`);
+            if (!res.ok) {
+                const errData = await res.json().catch(() => ({}));
+                throw new Error(`HTTP ${res.status}: ${errData.message || res.statusText}`);
+            }
             
             const data = await res.json();
             editor.dataset.sha = data.content.sha;
             
             status.textContent = `✅ Сохранено! Сайт обновится через 1-2 минуты | ${new Date().toLocaleTimeString()}`;
-            showToast("✅ Сохранено! Сайт обновится через минуту.", "success");
+            showToast("✅ Сохранено!", "success");
             
         } catch (err) {
-            status.textContent = `❌ Ошибка: ${err.message}`;
-            showToast("❌ Ошибка сохранения: " + err.message, "error");
+            status.textContent = `❌ ${err.message}`;
+            showToast("Ошибка: " + err.message, "error");
         }
     }
 
-    // ===== ФОРМАТИРОВАНИЕ JSON =====
     function formatJSON() {
         const editor = document.getElementById("editor-area");
         try {
@@ -591,69 +512,25 @@
             editor.value = JSON.stringify(obj, null, 2);
             showToast("🔧 JSON отформатирован", "success");
         } catch (e) {
-            showToast("❌ Невалидный JSON: " + e.message, "error");
+            showToast("❌ Ошибка JSON: " + e.message, "error");
         }
     }
 
-    // ===== ПРЕДПРОСМОТР =====
-    function showPreview(content, path) {
-        const previewCard = document.getElementById("preview-card");
-        const previewContent = document.getElementById("preview-content");
-        
-        try {
-            const data = JSON.parse(content);
-            
-            if (path.includes("home")) {
-                previewCard.classList.remove("hidden");
-                previewContent.innerHTML = `
-                    <p><strong>Заголовок:</strong> ${data.title || "—"}</p>
-                    <p><strong>Описание:</strong> ${data.description || "—"}</p>
-                    <p><strong>Ссылка:</strong> ${data.location || "—"}</p>
-                    <p><strong>Координаты:</strong> ${data.coords || "—"}</p>
-                    <p><strong>Шагов WPlace:</strong> ${(data.help_wplace || []).length}</p>
-                    <p><strong>Шагов Blue Marble:</strong> ${(data.help_blue || []).length}</p>
-                    <p><strong>Шагов Helper:</strong> ${(data.help_helper || []).length}</p>
-                `;
-            } else if (path.includes("gallery")) {
-                previewCard.classList.remove("hidden");
-                previewContent.innerHTML = `<p><strong>Артов в галерее:</strong> ${(data || []).length}</p>` +
-                    (data || []).map(item => `<p>• ${item.title} — ${item.date}</p>`).join("");
-            } else if (path.includes("guides")) {
-                previewCard.classList.remove("hidden");
-                previewContent.innerHTML = (data || []).map(g => 
-                    `<p><strong>${g.title}</strong>: ${g.description}</p>`
-                ).join("");
-            } else {
-                previewCard.classList.add("hidden");
-            }
-        } catch {
-            previewCard.classList.add("hidden");
-        }
-    }
-
-    // ===== УВЕДОМЛЕНИЯ =====
     function showToast(message, type) {
         const toast = document.getElementById("toast");
         toast.textContent = message;
         toast.className = `toast toast-${type}`;
-        
         clearTimeout(toast._timeout);
-        toast._timeout = setTimeout(() => {
-            toast.classList.add("hidden");
-        }, 3500);
+        toast._timeout = setTimeout(() => toast.classList.add("hidden"), 4000);
     }
 
-    // ===== ГОРЯЧИЕ КЛАВИШИ =====
     document.addEventListener("keydown", function(e) {
         if ((e.ctrlKey || e.metaKey) && e.key === "s") {
             e.preventDefault();
-            if (!document.getElementById("admin-page").classList.contains("hidden")) {
-                saveFile();
-            }
+            if (!document.getElementById("admin-page").classList.contains("hidden")) saveFile();
         }
     });
 
-    // Enter на странице логина
     document.getElementById("token-input").addEventListener("keydown", function(e) {
         if (e.key === "Enter") login();
     });
