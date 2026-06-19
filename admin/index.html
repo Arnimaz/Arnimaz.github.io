@@ -3,211 +3,562 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WPlace Admin</title>
+    <title>WPlace Admin Panel</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap');
-        
+
         :root {
             --bg: #0a0f0a;
             --surface: #0d1a0d;
+            --surface2: #0f1f0f;
             --border: #00aa44;
+            --border-dim: #1a3a1a;
             --text: #c0ffc0;
+            --text-dim: #669966;
             --glow: #00ff66;
+            --accent: #33cc33;
+            --accent2: #88ff88;
+            --danger: #ff4444;
+            --warning: #ffaa00;
+            --info: #44aaff;
         }
-        
+
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        
+
         body {
             background: var(--bg);
+            background-image:
+                linear-gradient(0deg, rgba(0,170,68,0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0,170,68,0.03) 1px, transparent 1px);
+            background-size: 8px 8px;
             color: var(--text);
             font-family: 'VT323', monospace;
             font-size: 20px;
             min-height: 100vh;
-            padding: 40px;
+            image-rendering: pixelated;
         }
-        
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            border: 4px solid var(--border);
-            padding: 30px;
+
+        body::before {
+            content: "";
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.04) 2px, rgba(0,0,0,0.04) 4px);
+            pointer-events: none; z-index: 9999;
+        }
+
+        /* ===== ШАПКА ===== */
+        .header {
+            position: relative; z-index: 1;
+            border-bottom: 4px solid var(--border);
             background: var(--surface);
-            box-shadow: 0 0 20px rgba(0,255,102,0.2);
+            padding: 20px 30px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 15px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
         }
-        
-        h1 {
+
+        .header-title {
             font-family: 'Press Start 2P', monospace;
-            font-size: 18px;
+            font-size: 16px;
             color: var(--glow);
-            text-align: center;
-            margin-bottom: 30px;
+            text-shadow: 0 0 10px var(--glow), 0 0 30px var(--glow);
+            letter-spacing: 2px;
+        }
+
+        .header-subtitle {
+            font-size: 18px;
+            color: var(--text-dim);
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        /* ===== КНОПКИ ===== */
+        .btn {
+            font-family: 'Press Start 2P', monospace;
+            font-size: 11px;
+            padding: 12px 20px;
+            background: var(--surface2);
+            color: var(--text);
+            border: 3px solid var(--border-dim);
+            cursor: pointer;
+            transition: all 0.1s step-end;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 3px 0 #0a1a0a;
+            image-rendering: pixelated;
+            text-decoration: none;
+            display: inline-block;
+            white-space: nowrap;
+        }
+
+        .btn:hover {
+            border-color: var(--glow);
+            color: #ffffff;
             text-shadow: 0 0 10px var(--glow);
+            box-shadow: 0 3px 0 var(--glow), 0 0 20px rgba(0,255,102,0.2);
+            transform: translateY(-2px);
         }
-        
-        label {
-            display: block;
-            color: #88ff88;
-            margin-top: 20px;
-            font-size: 18px;
+
+        .btn:active {
+            transform: translateY(1px);
+            box-shadow: 0 1px 0 var(--glow);
         }
-        
-        input, textarea, select {
-            width: 100%;
-            padding: 12px;
-            margin-top: 8px;
-            background: #0a1a0a;
-            border: 2px solid #2a4a2a;
+
+        .btn-primary {
+            background: #0a2a0a;
+            border-color: var(--border);
             color: var(--glow);
-            font-family: 'VT323', monospace;
-            font-size: 18px;
+            box-shadow: 0 3px 0 #0a4a0a;
         }
-        
-        textarea {
-            min-height: 100px;
-            resize: vertical;
+
+        .btn-danger {
+            background: #1a0a0a;
+            border-color: #4a2a2a;
+            color: #ff8888;
         }
-        
-        button {
+
+        .btn-small {
+            font-size: 9px;
+            padding: 8px 14px;
+        }
+
+        .btn-icon {
+            font-size: 16px;
+            padding: 8px 10px;
+            min-width: 40px;
+            text-align: center;
+        }
+
+        /* ===== ОСНОВНОЙ КОНТЕНТ ===== */
+        .main-container {
+            position: relative; z-index: 1;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* ===== КАРТОЧКА ===== */
+        .card {
+            border: 3px solid var(--border-dim);
+            background: var(--surface);
+            padding: 25px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 0 #0a0f0a;
+            image-rendering: pixelated;
+        }
+
+        .card-header {
             font-family: 'Press Start 2P', monospace;
             font-size: 14px;
-            padding: 16px 32px;
-            background: #0a2a0a;
-            color: var(--glow);
-            border: 4px solid var(--border);
-            cursor: pointer;
-            margin-top: 30px;
+            color: var(--accent2);
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--border-dim);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        /* ===== ФОРМЫ ===== */
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 18px;
+            color: var(--accent2);
+            margin-bottom: 6px;
+            text-shadow: 0 0 6px rgba(136,255,136,0.3);
+        }
+
+        .form-input {
             width: 100%;
+            padding: 12px 15px;
+            background: #050a05;
+            border: 2px solid var(--border-dim);
+            color: var(--glow);
+            font-family: 'VT323', monospace;
+            font-size: 20px;
+            letter-spacing: 0.5px;
+            outline: none;
+            transition: all 0.1s step-end;
+            image-rendering: pixelated;
+        }
+
+        .form-input:focus {
+            border-color: var(--glow);
+            box-shadow: 0 0 15px rgba(0,255,102,0.15);
+        }
+
+        textarea.form-input {
+            resize: vertical;
+            min-height: 120px;
+            line-height: 1.6;
+        }
+
+        select.form-input {
+            cursor: pointer;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%2300ff66' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 15px center;
+            padding-right: 40px;
+        }
+
+        /* ===== ВКЛАДКИ ===== */
+        .tabs {
+            display: flex;
+            gap: 4px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .tab-btn {
+            font-family: 'Press Start 2P', monospace;
+            font-size: 10px;
+            padding: 12px 18px;
+            background: var(--surface2);
+            color: var(--text-dim);
+            border: 3px solid var(--border-dim);
+            cursor: pointer;
+            transition: all 0.1s step-end;
             text-transform: uppercase;
-            box-shadow: 0 4px 0 #0a4a0a;
+            box-shadow: 0 3px 0 #0a0f0a;
         }
-        
-        button:hover {
-            background: #0d3a0d;
-            box-shadow: 0 4px 0 var(--glow), 0 0 20px rgba(0,255,102,0.3);
+
+        .tab-btn:hover {
+            border-color: var(--accent);
+            color: var(--accent);
         }
-        
-        .message {
+
+        .tab-btn.active {
+            background: #0a2a0a;
+            border-color: var(--border);
+            color: var(--glow);
+            text-shadow: 0 0 10px var(--glow);
+            box-shadow: 0 3px 0 var(--glow);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* ===== УВЕДОМЛЕНИЯ ===== */
+        .toast {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 10000;
+            padding: 15px 25px;
+            border: 3px solid;
+            font-family: 'Press Start 2P', monospace;
+            font-size: 11px;
+            letter-spacing: 1px;
+            animation: slideIn 0.2s step-end;
+            max-width: 450px;
+        }
+
+        .toast-success {
+            background: #0a2a0a;
+            border-color: var(--glow);
+            color: var(--glow);
+        }
+
+        .toast-error {
+            background: #2a0a0a;
+            border-color: var(--danger);
+            color: var(--danger);
+        }
+
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        /* ===== ЛОГИН ===== */
+        .login-container {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .login-card {
+            position: relative; z-index: 1;
+            width: 100%;
+            max-width: 500px;
+            border: 6px solid var(--border);
+            background: var(--surface);
+            padding: 40px;
             text-align: center;
-            margin-top: 20px;
-            padding: 15px;
+            box-shadow:
+                inset 0 0 60px rgba(0,170,68,0.1),
+                0 0 30px rgba(0,170,68,0.2),
+                0 0 80px rgba(0,170,68,0.05);
         }
-        
-        .success { background: #0a2a0a; border: 2px solid #00ff66; }
-        .error { background: #2a0a0a; border: 2px solid #ff4444; }
-        
-        .hidden { display: none; }
+
+        .login-title {
+            font-family: 'Press Start 2P', monospace;
+            font-size: 20px;
+            color: var(--glow);
+            text-shadow: 0 0 15px var(--glow), 0 0 40px var(--glow);
+            margin-bottom: 8px;
+        }
+
+        .login-subtitle {
+            font-size: 22px;
+            color: var(--text-dim);
+            margin-bottom: 30px;
+        }
+
+        .login-help {
+            font-size: 15px;
+            color: var(--text-dim);
+            margin-top: 20px;
+            line-height: 1.6;
+        }
+
+        .login-help a {
+            color: var(--glow);
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        /* ===== АДАПТИВ ===== */
+        @media (max-width: 768px) {
+            .header { padding: 15px; }
+            .header-title { font-size: 12px; }
+            .btn { font-size: 9px; padding: 10px 14px; }
+            .card { padding: 15px; }
+            .login-card { padding: 25px; }
+            .login-title { font-size: 14px; }
+            .tab-btn { font-size: 8px; padding: 10px 12px; }
+        }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>⚔ WPLACE ADMIN ⚔</h1>
+
+<!-- ===== СТРАНИЦА ЛОГИНА ===== -->
+<div id="login-page" class="login-container">
+    <div class="login-card">
+        <div class="login-title">⚔ WPLACE ⚔</div>
+        <div class="login-subtitle">ADMIN CONSOLE v2.0</div>
         
-        <div id="login-section">
-            <label>🔑 GitHub Token</label>
-            <input type="password" id="token-input" placeholder="Введите токен...">
-            <p style="font-size: 14px; color: #669966; margin-top: 8px;">
-                Создайте токен на <a href="https://github.com/settings/tokens" target="_blank" style="color: #00ff66;">github.com/settings/tokens</a> с правами "repo"
-            </p>
-            <button onclick="login()">▶ ВОЙТИ</button>
+        <div class="form-group">
+            <label class="form-label">🔑 GitHub Token</label>
+            <input type="password" id="token-input" class="form-input" placeholder="ghp_xxxxxxxxxxxx" autofocus>
         </div>
         
-        <div id="editor-section" class="hidden">
-            <label>📄 Файл для редактирования</label>
-            <select id="file-select" onchange="loadFile()">
-                <option value="content/home.json">🏠 Главная</option>
-                <option value="content/gallery.json">🖼 Галерея</option>
-                <option value="content/guides.json">📚 Гайды</option>
-            </select>
-            
-            <label>📝 Содержимое</label>
-            <textarea id="content-area" rows="15"></textarea>
-            
-            <button onclick="saveFile()">💾 СОХРАНИТЬ</button>
-            <div id="message-box" class="message hidden"></div>
-            
-            <button onclick="logout()" style="margin-top: 10px; font-size: 10px; background: #1a0a0a; border-color: #4a2a2a;">
-                ВЫЙТИ
-            </button>
+        <button class="btn btn-primary" onclick="login()" style="width: 100%; font-size: 13px;">
+            ▶ ВОЙТИ
+        </button>
+        
+        <div class="login-help">
+            Нужен токен с правами <strong>repo</strong><br>
+            <a href="https://github.com/settings/tokens/new" target="_blank">
+                Создать токен →
+            </a>
+        </div>
+    </div>
+</div>
+
+<!-- ===== ПАНЕЛЬ УПРАВЛЕНИЯ ===== -->
+<div id="admin-page" class="hidden">
+    <!-- Шапка -->
+    <div class="header">
+        <div>
+            <div class="header-title">⚔ WPLACE ADMIN</div>
+            <div class="header-subtitle">Pixel Console v2.0</div>
+        </div>
+        <div class="header-actions">
+            <a href="/" class="btn btn-small" target="_blank">🌐 САЙТ</a>
+            <button class="btn btn-small btn-danger" onclick="logout()">🚪 ВЫЙТИ</button>
         </div>
     </div>
 
-    <script>
-        const REPO_OWNER = "Arnimaz";
-        const REPO_NAME = "Arnimaz.github.io";
-        const BRANCH = "main";
-        
-        let token = sessionStorage.getItem("wplace_github_token");
-        
-        if (token) {
-            document.getElementById("login-section").classList.add("hidden");
-            document.getElementById("editor-section").classList.remove("hidden");
-            loadFile();
+    <!-- Основной контент -->
+    <div class="main-container">
+        <!-- Выбор файла -->
+        <div class="card">
+            <div class="form-group" style="margin-bottom: 0;">
+                <label class="form-label">📄 Редактируемый файл</label>
+                <select id="file-select" class="form-input" onchange="loadFile()">
+                    <option value="content/home.json">🏠 Главная страница (home.json)</option>
+                    <option value="content/gallery.json">🖼 Галерея (gallery.json)</option>
+                    <option value="content/guides.json">📚 Гайды (guides.json)</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Редактор -->
+        <div class="card">
+            <div class="card-header">
+                <span>📝 РЕДАКТОР</span>
+                <div style="display: flex; gap: 8px;">
+                    <button class="btn btn-small" onclick="formatJSON()">🔧 ФОРМАТИРОВАТЬ</button>
+                    <button class="btn btn-small btn-primary" onclick="saveFile()">💾 СОХРАНИТЬ</button>
+                </div>
+            </div>
+            
+            <textarea id="editor-area" class="form-input" rows="20" placeholder="Загрузка..."></textarea>
+            
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 15px; flex-wrap: wrap; gap: 10px;">
+                <span id="file-status" style="color: var(--text-dim); font-size: 16px;">Выберите файл</span>
+                <button class="btn btn-small btn-primary" onclick="saveFile()">💾 СОХРАНИТЬ ИЗМЕНЕНИЯ</button>
+            </div>
+        </div>
+
+        <!-- Предпросмотр главной -->
+        <div id="preview-card" class="card hidden">
+            <div class="card-header">👁 ПРЕДПРОСМОТР</div>
+            <div id="preview-content" style="font-size: 16px; color: var(--text-dim);"></div>
+        </div>
+    </div>
+</div>
+
+<!-- Toast -->
+<div id="toast" class="toast hidden"></div>
+
+<script>
+    const REPO_OWNER = "Arnimaz";
+    const REPO_NAME = "Arnimaz.github.io";
+    const BRANCH = "main";
+    
+    let token = sessionStorage.getItem("wplace_admin_token");
+    
+    // ===== ИНИЦИАЛИЗАЦИЯ =====
+    if (token) {
+        showAdminPanel();
+        loadFile();
+    }
+
+    // ===== АВТОРИЗАЦИЯ =====
+    function login() {
+        token = document.getElementById("token-input").value.trim();
+        if (!token) {
+            showToast("Введите токен!", "error");
+            return;
         }
         
-        function login() {
-            token = document.getElementById("token-input").value.trim();
-            if (!token) {
-                showMessage("Введите токен!", "error");
-                return;
+        // Проверяем токен
+        fetch(`https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}`, {
+            headers: { "Authorization": `token ${token}` }
+        })
+        .then(res => {
+            if (res.ok) {
+                sessionStorage.setItem("wplace_admin_token", token);
+                showAdminPanel();
+                loadFile();
+                showToast("✅ Доступ разрешён", "success");
+            } else {
+                showToast("❌ Неверный токен", "error");
+                token = null;
             }
-            sessionStorage.setItem("wplace_github_token", token);
-            document.getElementById("login-section").classList.add("hidden");
-            document.getElementById("editor-section").classList.remove("hidden");
-            loadFile();
+        })
+        .catch(() => showToast("❌ Ошибка соединения", "error"));
+    }
+
+    function logout() {
+        sessionStorage.removeItem("wplace_admin_token");
+        token = null;
+        document.getElementById("login-page").classList.remove("hidden");
+        document.getElementById("admin-page").classList.add("hidden");
+        document.getElementById("token-input").value = "";
+        showToast("Вы вышли из системы", "error");
+    }
+
+    function showAdminPanel() {
+        document.getElementById("login-page").classList.add("hidden");
+        document.getElementById("admin-page").classList.remove("hidden");
+    }
+
+    // ===== ЗАГРУЗКА ФАЙЛА =====
+    async function loadFile() {
+        if (!token) return;
+        
+        const path = document.getElementById("file-select").value;
+        const editor = document.getElementById("editor-area");
+        const status = document.getElementById("file-status");
+        
+        editor.value = "Загрузка...";
+        status.textContent = "⏳ Загрузка...";
+        
+        try {
+            const res = await fetch(
+                `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${path}?ref=${BRANCH}`,
+                { headers: { "Authorization": `token ${token}`, "Accept": "application/vnd.github.v3+json" } }
+            );
+            
+            if (!res.ok) throw new Error(`HTTP ${res.status}`);
+            
+            const data = await res.json();
+            const content = decodeURIComponent(escape(atob(data.content.replace(/\n/g, ""))));
+            
+            editor.value = content;
+            editor.dataset.sha = data.sha;
+            editor.dataset.path = path;
+            
+            status.textContent = `✅ Загружен: ${path} | SHA: ${data.sha.substring(0, 7)}`;
+            
+            // Пробуем показать предпросмотр
+            showPreview(content, path);
+            
+        } catch (err) {
+            editor.value = `// Ошибка загрузки: ${err.message}`;
+            status.textContent = `❌ Ошибка: ${err.message}`;
+            showToast("Ошибка загрузки: " + err.message, "error");
+        }
+    }
+
+    // ===== СОХРАНЕНИЕ =====
+    async function saveFile() {
+        if (!token) return;
+        
+        const editor = document.getElementById("editor-area");
+        const content = editor.value;
+        const sha = editor.dataset.sha;
+        const path = editor.dataset.path || document.getElementById("file-select").value;
+        const status = document.getElementById("file-status");
+        
+        // Проверка JSON
+        try {
+            JSON.parse(content);
+        } catch (e) {
+            showToast("❌ Ошибка JSON: " + e.message, "error");
+            status.textContent = "❌ Невалидный JSON";
+            return;
         }
         
-        async function loadFile() {
-            const path = document.getElementById("file-select").value;
-            const apiUrl = `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${path}?ref=${BRANCH}`;
-            
-            try {
-                const res = await fetch(apiUrl, {
-                    headers: {
-                        "Authorization": `token ${token}`,
-                        "Accept": "application/vnd.github.v3+json"
-                    }
-                });
-                
-                if (!res.ok) throw new Error("Ошибка загрузки");
-                
-                const data = await res.json();
-                const content = atob(data.content.replace(/\n/g, ""));
-                document.getElementById("content-area").value = content;
-                
-                // Сохраняем SHA для обновления
-                document.getElementById("content-area").dataset.sha = data.sha;
-                
-                showMessage("Файл загружен", "success");
-                setTimeout(() => hideMessage(), 2000);
-            } catch (err) {
-                showMessage("Ошибка: " + err.message, "error");
-            }
-        }
+        status.textContent = "⏳ Сохранение...";
         
-        async function saveFile() {
-            const path = document.getElementById("file-select").value;
-            const content = document.getElementById("content-area").value;
-            const sha = document.getElementById("content-area").dataset.sha;
+        try {
+            const body = {
+                message: `📝 Update ${path} via Admin Panel`,
+                content: btoa(unescape(encodeURIComponent(content))),
+                sha: sha,
+                branch: BRANCH
+            };
             
-            // Проверяем валидность JSON
-            try {
-                JSON.parse(content);
-            } catch (e) {
-                showMessage("Ошибка JSON: " + e.message, "error");
-                return;
-            }
-            
-            const apiUrl = `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${path}`;
-            
-            try {
-                const body = {
-                    message: `Update ${path} via admin`,
-                    content: btoa(unescape(encodeURIComponent(content))),
-                    sha: sha,
-                    branch: BRANCH
-                };
-                
-                const res = await fetch(apiUrl, {
+            const res = await fetch(
+                `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${path}`,
+                {
                     method: "PUT",
                     headers: {
                         "Authorization": `token ${token}`,
@@ -215,34 +566,98 @@
                         "Content-Type": "application/json"
                     },
                     body: JSON.stringify(body)
-                });
-                
-                if (!res.ok) throw new Error("Ошибка сохранения");
-                
-                const data = await res.json();
-                document.getElementById("content-area").dataset.sha = data.content.sha;
-                
-                showMessage("✅ Сохранено! Сайт обновится через минуту.", "success");
-            } catch (err) {
-                showMessage("Ошибка: " + err.message, "error");
+                }
+            );
+            
+            if (!res.ok) throw new Error(`HTTP ${res.status}`);
+            
+            const data = await res.json();
+            editor.dataset.sha = data.content.sha;
+            
+            status.textContent = `✅ Сохранено! Сайт обновится через 1-2 минуты | ${new Date().toLocaleTimeString()}`;
+            showToast("✅ Сохранено! Сайт обновится через минуту.", "success");
+            
+        } catch (err) {
+            status.textContent = `❌ Ошибка: ${err.message}`;
+            showToast("❌ Ошибка сохранения: " + err.message, "error");
+        }
+    }
+
+    // ===== ФОРМАТИРОВАНИЕ JSON =====
+    function formatJSON() {
+        const editor = document.getElementById("editor-area");
+        try {
+            const obj = JSON.parse(editor.value);
+            editor.value = JSON.stringify(obj, null, 2);
+            showToast("🔧 JSON отформатирован", "success");
+        } catch (e) {
+            showToast("❌ Невалидный JSON: " + e.message, "error");
+        }
+    }
+
+    // ===== ПРЕДПРОСМОТР =====
+    function showPreview(content, path) {
+        const previewCard = document.getElementById("preview-card");
+        const previewContent = document.getElementById("preview-content");
+        
+        try {
+            const data = JSON.parse(content);
+            
+            if (path.includes("home")) {
+                previewCard.classList.remove("hidden");
+                previewContent.innerHTML = `
+                    <p><strong>Заголовок:</strong> ${data.title || "—"}</p>
+                    <p><strong>Описание:</strong> ${data.description || "—"}</p>
+                    <p><strong>Ссылка:</strong> ${data.location || "—"}</p>
+                    <p><strong>Координаты:</strong> ${data.coords || "—"}</p>
+                    <p><strong>Шагов WPlace:</strong> ${(data.help_wplace || []).length}</p>
+                    <p><strong>Шагов Blue Marble:</strong> ${(data.help_blue || []).length}</p>
+                    <p><strong>Шагов Helper:</strong> ${(data.help_helper || []).length}</p>
+                `;
+            } else if (path.includes("gallery")) {
+                previewCard.classList.remove("hidden");
+                previewContent.innerHTML = `<p><strong>Артов в галерее:</strong> ${(data || []).length}</p>` +
+                    (data || []).map(item => `<p>• ${item.title} — ${item.date}</p>`).join("");
+            } else if (path.includes("guides")) {
+                previewCard.classList.remove("hidden");
+                previewContent.innerHTML = (data || []).map(g => 
+                    `<p><strong>${g.title}</strong>: ${g.description}</p>`
+                ).join("");
+            } else {
+                previewCard.classList.add("hidden");
+            }
+        } catch {
+            previewCard.classList.add("hidden");
+        }
+    }
+
+    // ===== УВЕДОМЛЕНИЯ =====
+    function showToast(message, type) {
+        const toast = document.getElementById("toast");
+        toast.textContent = message;
+        toast.className = `toast toast-${type}`;
+        
+        clearTimeout(toast._timeout);
+        toast._timeout = setTimeout(() => {
+            toast.classList.add("hidden");
+        }, 3500);
+    }
+
+    // ===== ГОРЯЧИЕ КЛАВИШИ =====
+    document.addEventListener("keydown", function(e) {
+        if ((e.ctrlKey || e.metaKey) && e.key === "s") {
+            e.preventDefault();
+            if (!document.getElementById("admin-page").classList.contains("hidden")) {
+                saveFile();
             }
         }
-        
-        function logout() {
-            sessionStorage.removeItem("wplace_github_token");
-            location.reload();
-        }
-        
-        function showMessage(text, type) {
-            const box = document.getElementById("message-box");
-            box.textContent = text;
-            box.className = "message " + type;
-            box.classList.remove("hidden");
-        }
-        
-        function hideMessage() {
-            document.getElementById("message-box").classList.add("hidden");
-        }
-    </script>
+    });
+
+    // Enter на странице логина
+    document.getElementById("token-input").addEventListener("keydown", function(e) {
+        if (e.key === "Enter") login();
+    });
+</script>
+
 </body>
 </html>
