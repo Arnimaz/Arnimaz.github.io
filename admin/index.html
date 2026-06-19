@@ -1,10 +1,248 @@
 <!DOCTYPE html>
-<html>
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WPlace Admin</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap');
+        
+        :root {
+            --bg: #0a0f0a;
+            --surface: #0d1a0d;
+            --border: #00aa44;
+            --text: #c0ffc0;
+            --glow: #00ff66;
+        }
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: 'VT323', monospace;
+            font-size: 20px;
+            min-height: 100vh;
+            padding: 40px;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            border: 4px solid var(--border);
+            padding: 30px;
+            background: var(--surface);
+            box-shadow: 0 0 20px rgba(0,255,102,0.2);
+        }
+        
+        h1 {
+            font-family: 'Press Start 2P', monospace;
+            font-size: 18px;
+            color: var(--glow);
+            text-align: center;
+            margin-bottom: 30px;
+            text-shadow: 0 0 10px var(--glow);
+        }
+        
+        label {
+            display: block;
+            color: #88ff88;
+            margin-top: 20px;
+            font-size: 18px;
+        }
+        
+        input, textarea, select {
+            width: 100%;
+            padding: 12px;
+            margin-top: 8px;
+            background: #0a1a0a;
+            border: 2px solid #2a4a2a;
+            color: var(--glow);
+            font-family: 'VT323', monospace;
+            font-size: 18px;
+        }
+        
+        textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+        
+        button {
+            font-family: 'Press Start 2P', monospace;
+            font-size: 14px;
+            padding: 16px 32px;
+            background: #0a2a0a;
+            color: var(--glow);
+            border: 4px solid var(--border);
+            cursor: pointer;
+            margin-top: 30px;
+            width: 100%;
+            text-transform: uppercase;
+            box-shadow: 0 4px 0 #0a4a0a;
+        }
+        
+        button:hover {
+            background: #0d3a0d;
+            box-shadow: 0 4px 0 var(--glow), 0 0 20px rgba(0,255,102,0.3);
+        }
+        
+        .message {
+            text-align: center;
+            margin-top: 20px;
+            padding: 15px;
+        }
+        
+        .success { background: #0a2a0a; border: 2px solid #00ff66; }
+        .error { background: #2a0a0a; border: 2px solid #ff4444; }
+        
+        .hidden { display: none; }
+    </style>
 </head>
 <body>
-    <script src="https://unpkg.com/netlify-cms@^2/dist/netlify-cms.js"></script>
+    <div class="container">
+        <h1>⚔ WPLACE ADMIN ⚔</h1>
+        
+        <div id="login-section">
+            <label>🔑 GitHub Token</label>
+            <input type="password" id="token-input" placeholder="Введите токен...">
+            <p style="font-size: 14px; color: #669966; margin-top: 8px;">
+                Создайте токен на <a href="https://github.com/settings/tokens" target="_blank" style="color: #00ff66;">github.com/settings/tokens</a> с правами "repo"
+            </p>
+            <button onclick="login()">▶ ВОЙТИ</button>
+        </div>
+        
+        <div id="editor-section" class="hidden">
+            <label>📄 Файл для редактирования</label>
+            <select id="file-select" onchange="loadFile()">
+                <option value="content/home.json">🏠 Главная</option>
+                <option value="content/gallery.json">🖼 Галерея</option>
+                <option value="content/guides.json">📚 Гайды</option>
+            </select>
+            
+            <label>📝 Содержимое</label>
+            <textarea id="content-area" rows="15"></textarea>
+            
+            <button onclick="saveFile()">💾 СОХРАНИТЬ</button>
+            <div id="message-box" class="message hidden"></div>
+            
+            <button onclick="logout()" style="margin-top: 10px; font-size: 10px; background: #1a0a0a; border-color: #4a2a2a;">
+                ВЫЙТИ
+            </button>
+        </div>
+    </div>
+
+    <script>
+        const REPO_OWNER = "Arnimaz";
+        const REPO_NAME = "Arnimaz.github.io";
+        const BRANCH = "main";
+        
+        let token = sessionStorage.getItem("wplace_github_token");
+        
+        if (token) {
+            document.getElementById("login-section").classList.add("hidden");
+            document.getElementById("editor-section").classList.remove("hidden");
+            loadFile();
+        }
+        
+        function login() {
+            token = document.getElementById("token-input").value.trim();
+            if (!token) {
+                showMessage("Введите токен!", "error");
+                return;
+            }
+            sessionStorage.setItem("wplace_github_token", token);
+            document.getElementById("login-section").classList.add("hidden");
+            document.getElementById("editor-section").classList.remove("hidden");
+            loadFile();
+        }
+        
+        async function loadFile() {
+            const path = document.getElementById("file-select").value;
+            const apiUrl = `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${path}?ref=${BRANCH}`;
+            
+            try {
+                const res = await fetch(apiUrl, {
+                    headers: {
+                        "Authorization": `token ${token}`,
+                        "Accept": "application/vnd.github.v3+json"
+                    }
+                });
+                
+                if (!res.ok) throw new Error("Ошибка загрузки");
+                
+                const data = await res.json();
+                const content = atob(data.content.replace(/\n/g, ""));
+                document.getElementById("content-area").value = content;
+                
+                // Сохраняем SHA для обновления
+                document.getElementById("content-area").dataset.sha = data.sha;
+                
+                showMessage("Файл загружен", "success");
+                setTimeout(() => hideMessage(), 2000);
+            } catch (err) {
+                showMessage("Ошибка: " + err.message, "error");
+            }
+        }
+        
+        async function saveFile() {
+            const path = document.getElementById("file-select").value;
+            const content = document.getElementById("content-area").value;
+            const sha = document.getElementById("content-area").dataset.sha;
+            
+            // Проверяем валидность JSON
+            try {
+                JSON.parse(content);
+            } catch (e) {
+                showMessage("Ошибка JSON: " + e.message, "error");
+                return;
+            }
+            
+            const apiUrl = `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${path}`;
+            
+            try {
+                const body = {
+                    message: `Update ${path} via admin`,
+                    content: btoa(unescape(encodeURIComponent(content))),
+                    sha: sha,
+                    branch: BRANCH
+                };
+                
+                const res = await fetch(apiUrl, {
+                    method: "PUT",
+                    headers: {
+                        "Authorization": `token ${token}`,
+                        "Accept": "application/vnd.github.v3+json",
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(body)
+                });
+                
+                if (!res.ok) throw new Error("Ошибка сохранения");
+                
+                const data = await res.json();
+                document.getElementById("content-area").dataset.sha = data.content.sha;
+                
+                showMessage("✅ Сохранено! Сайт обновится через минуту.", "success");
+            } catch (err) {
+                showMessage("Ошибка: " + err.message, "error");
+            }
+        }
+        
+        function logout() {
+            sessionStorage.removeItem("wplace_github_token");
+            location.reload();
+        }
+        
+        function showMessage(text, type) {
+            const box = document.getElementById("message-box");
+            box.textContent = text;
+            box.className = "message " + type;
+            box.classList.remove("hidden");
+        }
+        
+        function hideMessage() {
+            document.getElementById("message-box").classList.add("hidden");
+        }
+    </script>
 </body>
 </html>
