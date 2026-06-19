@@ -10,63 +10,78 @@ publish_mode: editorial_workflow
 collections:
   - name: "home"
     label: "🏠 Главная страница"
-    file: "content/home.json"
-    format: "json"
-    fields:
-      - { label: "Заголовок арта", name: "title", widget: "string", default: "🎯 Актуальный арт" }
-      - { label: "Описание", name: "description", widget: "text", default: "Сейчас мы рисуем новый пиксель-арт на WPlace. Присоединяйся!" }
-      - { label: "Ссылка на арт", name: "location", widget: "string", default: "https://wplace.live/?lat=53.38222746808291&lng=27.91098632812499&zoom=22" }
-      - { label: "Координаты", name: "coords", widget: "string", default: "1182, 663, 782, 510" }
-      - label: "Инструкция WPlace"
-        name: "help_wplace"
-        widget: "list"
-        summary: "{{fields.text}}"
-        field: { label: "Шаг", name: "text", widget: "string" }
-      - label: "Инструкция Blue Marble"
-        name: "help_blue"
-        widget: "list"
-        summary: "{{fields.text}}"
-        field: { label: "Шаг", name: "text", widget: "string" }
-      - label: "Инструкция WPlace Helper"
-        name: "help_helper"
-        widget: "list"
-        summary: "{{fields.text}}"
-        field: { label: "Шаг", name: "text", widget: "string" }
+    editor:
+      preview: false
+    files:
+      - name: "home"
+        label: "Главная страница"
+        file: "content/home.json"
+        format: "json"
+        fields:
+          - { label: "Заголовок арта", name: "title", widget: "string", default: "🎯 Актуальный арт" }
+          - { label: "Описание", name: "description", widget: "text", default: "Сейчас мы рисуем новый пиксель-арт на WPlace. Присоединяйся!" }
+          - { label: "Ссылка на арт", name: "location", widget: "string", default: "https://wplace.live/?lat=53.38222746808291&lng=27.91098632812499&zoom=22" }
+          - { label: "Координаты", name: "coords", widget: "string", default: "1182, 663, 782, 510" }
+          - label: "Инструкция WPlace"
+            name: "help_wplace"
+            widget: "list"
+            summary: "{{fields.text}}"
+            field: { label: "Шаг", name: "text", widget: "string" }
+          - label: "Инструкция Blue Marble"
+            name: "help_blue"
+            widget: "list"
+            summary: "{{fields.text}}"
+            field: { label: "Шаг", name: "text", widget: "string" }
+          - label: "Инструкция WPlace Helper"
+            name: "help_helper"
+            widget: "list"
+            summary: "{{fields.text}}"
+            field: { label: "Шаг", name: "text", widget: "string" }
 
   - name: "gallery"
     label: "🖼 Галерея"
-    file: "content/gallery.json"
-    format: "json"
-    fields:
-      - label: "Арты"
-        name: "items"
-        widget: "list"
-        summary: "{{fields.title}} — {{fields.date}}"
+    editor:
+      preview: false
+    files:
+      - name: "gallery"
+        label: "Галерея артов"
+        file: "content/gallery.json"
+        format: "json"
         fields:
-          - { label: "Название", name: "title", widget: "string" }
-          - { label: "Дата", name: "date", widget: "string" }
-          - { label: "Изображение", name: "image", widget: "image", required: false }
+          - label: "Арты"
+            name: "items"
+            widget: "list"
+            summary: "{{fields.title}} — {{fields.date}}"
+            fields:
+              - { label: "Название", name: "title", widget: "string" }
+              - { label: "Дата", name: "date", widget: "string" }
+              - { label: "Изображение", name: "image", widget: "image", required: false }
 
   - name: "guides"
     label: "📚 Гайды"
-    file: "content/guides.json"
-    format: "json"
-    fields:
-      - label: "Расширения"
-        name: "items"
-        widget: "list"
-        summary: "{{fields.title}}"
+    editor:
+      preview: false
+    files:
+      - name: "guides"
+        label: "Гайды по расширениям"
+        file: "content/guides.json"
+        format: "json"
         fields:
-          - { label: "Название", name: "title", widget: "string" }
-          - { label: "Описание", name: "description", widget: "text" }
-          - label: "Установка ПК"
-            name: "install_pc"
+          - label: "Расширения"
+            name: "items"
             widget: "list"
-            summary: "{{fields.text}}"
-            field: { label: "Шаг", name: "text", widget: "string" }
-          - label: "Установка Телефон"
-            name: "install_phone"
-            widget: "list"
-            summary: "{{fields.text}}"
-            field: { label: "Шаг", name: "text", widget: "string" }
-          - { label: "Примечание", name: "note", widget: "text", required: false }
+            summary: "{{fields.title}}"
+            fields:
+              - { label: "Название", name: "title", widget: "string" }
+              - { label: "Описание", name: "description", widget: "text" }
+              - label: "Установка ПК"
+                name: "install_pc"
+                widget: "list"
+                summary: "{{fields.text}}"
+                field: { label: "Шаг", name: "text", widget: "string" }
+              - label: "Установка Телефон"
+                name: "install_phone"
+                widget: "list"
+                summary: "{{fields.text}}"
+                field: { label: "Шаг", name: "text", widget: "string" }
+              - { label: "Примечание", name: "note", widget: "text", required: false }
