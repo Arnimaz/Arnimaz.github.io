@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WPlace Admin — Pixel Console</title>
+    <title>WPlace Admin</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap');
 
@@ -13,7 +13,6 @@
             --border: #00aa44;
             --text: #c0ffc0;
             --glow: #00ff66;
-            --accent: #33cc33;
             --accent2: #88ff88;
             --danger: #ff4444;
         }
@@ -86,15 +85,6 @@
             color: var(--accent2);
             text-shadow: 0 0 8px rgba(136,255,136,0.5);
             margin-top: 8px;
-        }
-
-        .blink {
-            animation: blink 1.2s step-end infinite;
-            color: var(--glow);
-        }
-        @keyframes blink {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0; }
         }
 
         .login-box {
@@ -175,21 +165,9 @@
             line-height: 1.8;
         }
 
-        .info-line span {
-            color: var(--accent2);
-        }
+        .info-line span { color: var(--accent2); }
 
-        .cursor {
-            display: inline-block;
-            width: 10px;
-            height: 20px;
-            background: var(--glow);
-            animation: blink 1s step-end infinite;
-            vertical-align: middle;
-            margin-left: 4px;
-        }
-
-        .hidden { display: none; }
+        .hidden { display: none !important; }
 
         .error-msg {
             color: var(--danger);
@@ -223,7 +201,8 @@
 </head>
 <body>
 
-<div class="console-container">
+<!-- Консоль входа (скрывается после авторизации) -->
+<div class="console-container" id="console-box">
     <div class="console-header">
         <div class="console-title">> WPLACE_ADMIN</div>
         <div class="console-subtitle">Pixel Console v1.0</div>
@@ -240,10 +219,10 @@
     <div id="success-box" class="hidden">
         <p class="info-line">
             > АУТЕНТИФИКАЦИЯ УСПЕШНА<br>
-            > ДОБРО ПОЖАЛОВАТЬ, <span>ADMIN</span><span class="cursor"></span>
+            > ДОБРО ПОЖАЛОВАТЬ, <span>ADMIN</span>
         </p>
         <br>
-        <button class="pixel-btn" onclick="loadCMS()">▶ ОТКРЫТЬ CMS</button>
+        <button class="pixel-btn" onclick="showCMS()">▶ ОТКРЫТЬ CMS</button>
         <br>
         <a href="/" class="admin-link">← ВЕРНУТЬСЯ НА САЙТ</a>
     </div>
@@ -254,15 +233,20 @@
     </p>
 </div>
 
+<!-- Контейнер для CMS (изначально скрыт) -->
+<div id="cms-container" class="hidden"></div>
+
 <!-- Netlify CMS -->
 <script src="https://unpkg.com/netlify-cms@^2/dist/netlify-cms.js"></script>
 
 <script>
     const ADMIN_PASSWORD = "wplace2025";
 
+    // Если уже авторизован в консоли — показываем CMS сразу
     if (sessionStorage.getItem("wplace_admin_auth") === "true") {
-        document.getElementById("login-box").classList.add("hidden");
-        document.getElementById("success-box").classList.remove("hidden");
+        document.getElementById("console-box").classList.add("hidden");
+        document.getElementById("cms-container").classList.remove("hidden");
+        initCMS();
     }
 
     function checkPass() {
@@ -285,16 +269,37 @@
         }
     }
 
-    function loadCMS() {
-        // Показать CMS вместо консоли
-        document.querySelector('.console-container').classList.add('hidden');
-        // CMS загрузится автоматически через скрипт netlify-cms.js
-        window.location.reload();
+    function showCMS() {
+        document.getElementById("console-box").classList.add("hidden");
+        document.getElementById("cms-container").classList.remove("hidden");
+        initCMS();
+    }
+
+    function initCMS() {
+        // CMS сама встроится в #cms-container
+        // Netlify CMS автоматически инициализируется при загрузке скрипта
+        // и ищет config.yml
+        if (window.CMS) {
+            window.CMS.init({
+                config: {
+                    load_config_file: true
+                }
+            });
+        }
     }
 
     document.getElementById("pass-input").addEventListener("keydown", function(e) {
         if (e.key === "Enter") checkPass();
     });
+
+    // Автоинициализация CMS если консоль скрыта
+    if (sessionStorage.getItem("wplace_admin_auth") === "true") {
+        setTimeout(() => {
+            document.getElementById("console-box").classList.add("hidden");
+            document.getElementById("cms-container").classList.remove("hidden");
+            initCMS();
+        }, 100);
+    }
 </script>
 
 </body>
