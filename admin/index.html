@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WPlace Admin Panel</title>
+    <title>WPlace Admin</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap');
 
@@ -16,9 +16,9 @@
             --text: #c0ffc0;
             --text-dim: #669966;
             --glow: #00ff66;
-            --accent: #33cc33;
             --accent2: #88ff88;
             --danger: #ff4444;
+            --warning: #ffaa00;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -47,158 +47,162 @@
             position: relative; z-index: 1;
             border-bottom: 4px solid var(--border);
             background: var(--surface);
-            padding: 20px 30px;
+            padding: 15px 25px;
             display: flex;
             align-items: center;
             justify-content: space-between;
             flex-wrap: wrap;
-            gap: 15px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+            gap: 10px;
         }
 
         .header-title {
             font-family: 'Press Start 2P', monospace;
-            font-size: 16px;
+            font-size: 14px;
             color: var(--glow);
-            text-shadow: 0 0 10px var(--glow), 0 0 30px var(--glow);
-            letter-spacing: 2px;
-        }
-
-        .header-subtitle {
-            font-size: 18px;
-            color: var(--text-dim);
-        }
-
-        .header-actions {
-            display: flex;
-            gap: 10px;
-            align-items: center;
-            flex-wrap: wrap;
+            text-shadow: 0 0 10px var(--glow);
         }
 
         .btn {
             font-family: 'Press Start 2P', monospace;
-            font-size: 11px;
-            padding: 12px 20px;
+            font-size: 10px;
+            padding: 10px 16px;
             background: var(--surface2);
             color: var(--text);
             border: 3px solid var(--border-dim);
             cursor: pointer;
             transition: all 0.1s step-end;
             text-transform: uppercase;
-            letter-spacing: 1px;
             box-shadow: 0 3px 0 #0a1a0a;
-            image-rendering: pixelated;
             text-decoration: none;
-            display: inline-block;
             white-space: nowrap;
         }
-
-        .btn:hover {
-            border-color: var(--glow);
-            color: #ffffff;
-            text-shadow: 0 0 10px var(--glow);
-            box-shadow: 0 3px 0 var(--glow), 0 0 20px rgba(0,255,102,0.2);
-            transform: translateY(-2px);
-        }
-
-        .btn:active {
-            transform: translateY(1px);
-            box-shadow: 0 1px 0 var(--glow);
-        }
-
-        .btn-primary {
-            background: #0a2a0a;
-            border-color: var(--border);
-            color: var(--glow);
-            box-shadow: 0 3px 0 #0a4a0a;
-        }
-
-        .btn-danger {
-            background: #1a0a0a;
-            border-color: #4a2a2a;
-            color: #ff8888;
-        }
-
-        .btn-small {
-            font-size: 9px;
-            padding: 8px 14px;
-        }
+        .btn:hover { border-color: var(--glow); color: #fff; text-shadow: 0 0 10px var(--glow); transform: translateY(-2px); }
+        .btn:active { transform: translateY(1px); }
+        .btn-primary { background: #0a2a0a; border-color: var(--border); color: var(--glow); }
+        .btn-danger { background: #1a0a0a; border-color: #4a2a2a; color: #ff8888; }
+        .btn-small { font-size: 8px; padding: 6px 10px; }
 
         .main-container {
             position: relative; z-index: 1;
-            max-width: 1200px;
+            max-width: 1100px;
             margin: 0 auto;
             padding: 20px;
         }
 
+        .tabs {
+            display: flex;
+            gap: 4px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        .tab-btn {
+            font-family: 'Press Start 2P', monospace;
+            font-size: 10px;
+            padding: 12px 16px;
+            background: var(--surface2);
+            color: var(--text-dim);
+            border: 3px solid var(--border-dim);
+            cursor: pointer;
+            text-transform: uppercase;
+            box-shadow: 0 3px 0 #0a0f0a;
+        }
+        .tab-btn:hover { border-color: var(--accent2); color: var(--accent2); }
+        .tab-btn.active {
+            background: #0a2a0a;
+            border-color: var(--border);
+            color: var(--glow);
+            text-shadow: 0 0 10px var(--glow);
+        }
+
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+
         .card {
             border: 3px solid var(--border-dim);
             background: var(--surface);
-            padding: 25px;
+            padding: 20px;
             margin-bottom: 20px;
-            box-shadow: 0 4px 0 #0a0f0a;
-            image-rendering: pixelated;
         }
 
         .card-header {
             font-family: 'Press Start 2P', monospace;
-            font-size: 14px;
+            font-size: 12px;
             color: var(--accent2);
-            margin-bottom: 20px;
-            padding-bottom: 15px;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
             border-bottom: 2px solid var(--border-dim);
             display: flex;
-            align-items: center;
             justify-content: space-between;
+            align-items: center;
             flex-wrap: wrap;
-            gap: 10px;
+            gap: 8px;
         }
 
-        .form-group {
-            margin-bottom: 18px;
-        }
-
+        .form-group { margin-bottom: 14px; }
         .form-label {
             display: block;
             font-size: 18px;
             color: var(--accent2);
-            margin-bottom: 6px;
-            text-shadow: 0 0 6px rgba(136,255,136,0.3);
+            margin-bottom: 5px;
         }
-
         .form-input {
             width: 100%;
-            padding: 12px 15px;
+            padding: 10px 12px;
             background: #050a05;
             border: 2px solid var(--border-dim);
             color: var(--glow);
             font-family: 'VT323', monospace;
             font-size: 20px;
-            letter-spacing: 0.5px;
             outline: none;
-            transition: all 0.1s step-end;
-            image-rendering: pixelated;
+        }
+        .form-input:focus { border-color: var(--glow); box-shadow: 0 0 10px rgba(0,255,102,0.1); }
+        textarea.form-input { resize: vertical; min-height: 80px; line-height: 1.5; }
+
+        .help-text { font-size: 14px; color: var(--text-dim); margin-top: 4px; }
+
+        .gallery-item-admin {
+            border: 2px solid var(--border-dim);
+            background: #0a0f0a;
+            padding: 12px;
+            margin-bottom: 10px;
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .gallery-item-admin input {
+            flex: 1;
+            min-width: 120px;
+            padding: 8px;
+            background: #050a05;
+            border: 2px solid var(--border-dim);
+            color: var(--glow);
+            font-family: 'VT323', monospace;
+            font-size: 18px;
         }
 
-        .form-input:focus {
-            border-color: var(--glow);
-            box-shadow: 0 0 15px rgba(0,255,102,0.15);
+        .guide-item-admin {
+            border: 2px solid var(--border-dim);
+            background: #0a0f0a;
+            padding: 15px;
+            margin-bottom: 12px;
         }
 
-        textarea.form-input {
-            resize: vertical;
-            min-height: 250px;
-            line-height: 1.6;
+        .step-list { list-style: none; padding: 0; }
+        .step-list li {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 6px;
+            align-items: center;
         }
-
-        select.form-input {
-            cursor: pointer;
-            appearance: none;
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%2300ff66' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
-            background-repeat: no-repeat;
-            background-position: right 15px center;
-            padding-right: 40px;
+        .step-list li input {
+            flex: 1;
+            padding: 6px 8px;
+            background: #050a05;
+            border: 2px solid var(--border-dim);
+            color: var(--glow);
+            font-family: 'VT323', monospace;
+            font-size: 18px;
         }
 
         .toast {
@@ -206,26 +210,14 @@
             top: 20px;
             right: 20px;
             z-index: 10000;
-            padding: 15px 25px;
+            padding: 14px 22px;
             border: 3px solid;
             font-family: 'Press Start 2P', monospace;
-            font-size: 11px;
-            letter-spacing: 1px;
+            font-size: 10px;
             animation: slideIn 0.2s step-end;
-            max-width: 450px;
         }
-
-        .toast-success {
-            background: #0a2a0a;
-            border-color: var(--glow);
-            color: var(--glow);
-        }
-
-        .toast-error {
-            background: #2a0a0a;
-            border-color: var(--danger);
-            color: var(--danger);
-        }
+        .toast-success { background: #0a2a0a; border-color: var(--glow); color: var(--glow); }
+        .toast-error { background: #2a0a0a; border-color: var(--danger); color: var(--danger); }
 
         @keyframes slideIn {
             from { transform: translateX(100%); opacity: 0; }
@@ -239,122 +231,129 @@
             justify-content: center;
             padding: 20px;
         }
-
         .login-card {
             position: relative; z-index: 1;
             width: 100%;
-            max-width: 500px;
-            border: 6px solid var(--border);
+            max-width: 480px;
+            border: 5px solid var(--border);
             background: var(--surface);
-            padding: 40px;
+            padding: 35px;
             text-align: center;
-            box-shadow:
-                inset 0 0 60px rgba(0,170,68,0.1),
-                0 0 30px rgba(0,170,68,0.2),
-                0 0 80px rgba(0,170,68,0.05);
+            box-shadow: 0 0 30px rgba(0,170,68,0.2);
         }
-
         .login-title {
             font-family: 'Press Start 2P', monospace;
-            font-size: 20px;
+            font-size: 18px;
             color: var(--glow);
-            text-shadow: 0 0 15px var(--glow), 0 0 40px var(--glow);
-            margin-bottom: 8px;
+            text-shadow: 0 0 15px var(--glow);
+            margin-bottom: 6px;
         }
-
-        .login-subtitle {
-            font-size: 22px;
-            color: var(--text-dim);
-            margin-bottom: 30px;
-        }
-
-        .login-help {
-            font-size: 15px;
-            color: var(--text-dim);
-            margin-top: 20px;
-            line-height: 1.6;
-        }
-
-        .login-help a {
-            color: var(--glow);
-        }
+        .login-subtitle { font-size: 20px; color: var(--text-dim); margin-bottom: 25px; }
+        .login-help { font-size: 14px; color: var(--text-dim); margin-top: 18px; line-height: 1.5; }
+        .login-help a { color: var(--glow); }
 
         .hidden { display: none !important; }
-
-        @media (max-width: 768px) {
-            .header { padding: 15px; }
-            .header-title { font-size: 12px; }
-            .btn { font-size: 9px; padding: 10px 14px; }
-            .card { padding: 15px; }
-            .login-card { padding: 25px; }
-            .login-title { font-size: 14px; }
-        }
     </style>
 </head>
 <body>
 
+<!-- ЛОГИН -->
 <div id="login-page" class="login-container">
     <div class="login-card">
         <div class="login-title">⚔ WPLACE ⚔</div>
-        <div class="login-subtitle">ADMIN CONSOLE v2.0</div>
-        
+        <div class="login-subtitle">ADMIN PANEL v3.0</div>
         <div class="form-group">
             <label class="form-label">🔑 GitHub Token</label>
-            <input type="password" id="token-input" class="form-input" placeholder="ghp_xxxxxxxxxxxx" autofocus>
+            <input type="password" id="token-input" class="form-input" placeholder="ghp_...">
         </div>
-        
-        <button class="btn btn-primary" onclick="login()" style="width: 100%; font-size: 13px;">
-            ▶ ВОЙТИ
-        </button>
-        
+        <button class="btn btn-primary" onclick="login()" style="width:100%;font-size:12px;">▶ ВОЙТИ</button>
         <div class="login-help">
-            Нужен токен с правами <strong>repo</strong><br>
-            <a href="https://github.com/settings/tokens/new" target="_blank">
-                Создать токен →
-            </a>
+            Токен с правами <strong>repo</strong><br>
+            <a href="https://github.com/settings/tokens/new" target="_blank">Создать токен →</a>
         </div>
     </div>
 </div>
 
+<!-- АДМИНКА -->
 <div id="admin-page" class="hidden">
     <div class="header">
-        <div>
-            <div class="header-title">⚔ WPLACE ADMIN</div>
-            <div class="header-subtitle">Pixel Console v2.0</div>
-        </div>
-        <div class="header-actions">
+        <div class="header-title">⚔ WPLACE ADMIN v3.0</div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;">
             <a href="/" class="btn btn-small" target="_blank">🌐 САЙТ</a>
             <button class="btn btn-small btn-danger" onclick="logout()">🚪 ВЫЙТИ</button>
         </div>
     </div>
 
     <div class="main-container">
-        <div class="card">
-            <div class="form-group" style="margin-bottom: 0;">
-                <label class="form-label">📄 Редактируемый файл</label>
-                <select id="file-select" class="form-input" onchange="loadFile()">
-                    <option value="content/home.json">🏠 Главная страница (home.json)</option>
-                    <option value="content/gallery.json">🖼 Галерея (gallery.json)</option>
-                    <option value="content/guides.json">📚 Гайды (guides.json)</option>
-                </select>
-            </div>
+        <!-- Вкладки -->
+        <div class="tabs">
+            <button class="tab-btn active" onclick="switchTab('home-tab')">🏠 Главная</button>
+            <button class="tab-btn" onclick="switchTab('gallery-tab')">🖼 Галерея</button>
+            <button class="tab-btn" onclick="switchTab('guides-tab')">📚 Гайды</button>
         </div>
 
-        <div class="card">
-            <div class="card-header">
-                <span>📝 РЕДАКТОР JSON</span>
-                <div style="display: flex; gap: 8px;">
-                    <button class="btn btn-small" onclick="formatJSON()">🔧 ФОРМАТ</button>
-                    <button class="btn btn-small btn-primary" onclick="saveFile()">💾 СОХРАНИТЬ</button>
+        <!-- === ГЛАВНАЯ === -->
+        <div id="home-tab" class="tab-content active">
+            <div class="card">
+                <div class="card-header">🎯 АКТУАЛЬНЫЙ АРТ</div>
+                <div class="form-group">
+                    <label class="form-label">Заголовок</label>
+                    <input type="text" id="home-title" class="form-input">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Ссылка на картинку</label>
+                    <input type="text" id="home-image" class="form-input" placeholder="/images/art.png или https://...">
+                    <div class="help-text">Загрузите картинку в репозиторий (папка images/) и укажите путь</div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Описание под картинкой</label>
+                    <textarea id="home-desc" class="form-input" rows="3"></textarea>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Ссылка на арт (WPlace)</label>
+                    <input type="text" id="home-location" class="form-input">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Координаты</label>
+                    <input type="text" id="home-coords" class="form-input">
                 </div>
             </div>
-            
-            <textarea id="editor-area" class="form-input" rows="20" placeholder="Выберите файл..."></textarea>
-            
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 15px; flex-wrap: wrap; gap: 10px;">
-                <span id="file-status" style="color: var(--text-dim); font-size: 16px;">Выберите файл</span>
-                <button class="btn btn-small btn-primary" onclick="saveFile()">💾 СОХРАНИТЬ</button>
+
+            <div class="card">
+                <div class="card-header">🖌 ИНСТРУКЦИЯ — WPlace (сайт)</div>
+                <ol class="step-list" id="steps-wplace"></ol>
+                <button class="btn btn-small" onclick="addStep('wplace')">+ Шаг</button>
             </div>
+            <div class="card">
+                <div class="card-header">🔷 ИНСТРУКЦИЯ — Blue Marble</div>
+                <ol class="step-list" id="steps-blue"></ol>
+                <button class="btn btn-small" onclick="addStep('blue')">+ Шаг</button>
+            </div>
+            <div class="card">
+                <div class="card-header">🧩 ИНСТРУКЦИЯ — WPlace Helper</div>
+                <ol class="step-list" id="steps-helper"></ol>
+                <button class="btn btn-small" onclick="addStep('helper')">+ Шаг</button>
+            </div>
+
+            <button class="btn btn-primary" onclick="saveHome()" style="width:100%;font-size:12px;">💾 СОХРАНИТЬ ГЛАВНУЮ</button>
+        </div>
+
+        <!-- === ГАЛЕРЕЯ === -->
+        <div id="gallery-tab" class="tab-content">
+            <div class="card">
+                <div class="card-header">🖼 АРТЫ <button class="btn btn-small" onclick="addGalleryItem()">+ ДОБАВИТЬ</button></div>
+                <div id="gallery-items"></div>
+            </div>
+            <button class="btn btn-primary" onclick="saveGallery()" style="width:100%;font-size:12px;">💾 СОХРАНИТЬ ГАЛЕРЕЮ</button>
+        </div>
+
+        <!-- === ГАЙДЫ === -->
+        <div id="guides-tab" class="tab-content">
+            <div class="card">
+                <div class="card-header">📚 ГАЙДЫ <button class="btn btn-small" onclick="addGuideItem()">+ ДОБАВИТЬ</button></div>
+                <div id="guides-items"></div>
+            </div>
+            <button class="btn btn-primary" onclick="saveGuides()" style="width:100%;font-size:12px;">💾 СОХРАНИТЬ ГАЙДЫ</button>
         </div>
     </div>
 </div>
@@ -365,176 +364,248 @@
     const REPO_OWNER = "Arnimaz";
     const REPO_NAME = "Arnimaz.github.io";
     const BRANCH = "main";
-    
     let token = sessionStorage.getItem("wplace_admin_token");
     
-    if (token) {
-        showAdminPanel();
-        loadFile();
-    }
+    let homeData = {};
+    let galleryData = [];
+    let guidesData = [];
 
-    function login() {
+    if (token) { showAdmin(); loadAll(); }
+
+    // ===== АВТОРИЗАЦИЯ =====
+    async function login() {
         token = document.getElementById("token-input").value.trim();
-        if (!token) {
-            showToast("Введите токен!", "error");
-            return;
+        if (!token) return toast("Введите токен", "error");
+        const res = await fetch(`https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}`, {
+            headers: { Authorization: `token ${token}` }
+        });
+        if (res.ok) {
+            sessionStorage.setItem("wplace_admin_token", token);
+            showAdmin();
+            loadAll();
+            toast("✅ Доступ разрешён", "success");
+        } else {
+            toast("❌ Неверный токен", "error");
         }
-        
-        fetch(`https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}`, {
-            headers: { "Authorization": `token ${token}` }
-        })
-        .then(res => {
-            if (res.ok) {
-                sessionStorage.setItem("wplace_admin_token", token);
-                showAdminPanel();
-                loadFile();
-                showToast("✅ Доступ разрешён", "success");
-            } else {
-                showToast("❌ Неверный токен или нет доступа к репозиторию", "error");
-                token = null;
-            }
-        })
-        .catch(() => showToast("❌ Ошибка соединения", "error"));
     }
 
     function logout() {
         sessionStorage.removeItem("wplace_admin_token");
-        token = null;
-        document.getElementById("login-page").classList.remove("hidden");
-        document.getElementById("admin-page").classList.add("hidden");
-        document.getElementById("token-input").value = "";
-        showToast("Вы вышли", "error");
+        location.reload();
     }
 
-    function showAdminPanel() {
+    function showAdmin() {
         document.getElementById("login-page").classList.add("hidden");
         document.getElementById("admin-page").classList.remove("hidden");
     }
 
-    async function loadFile() {
-        if (!token) return;
-        
-        const path = document.getElementById("file-select").value;
-        const editor = document.getElementById("editor-area");
-        const status = document.getElementById("file-status");
-        
-        editor.value = "Загрузка...";
-        status.textContent = "⏳ Загрузка...";
-        
-        try {
-            const res = await fetch(
-                `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${path}?ref=${BRANCH}`,
-                { headers: { "Authorization": `token ${token}`, "Accept": "application/vnd.github.v3+json" } }
-            );
-            
-            if (!res.ok) {
-                const errData = await res.json().catch(() => ({}));
-                throw new Error(`HTTP ${res.status}: ${errData.message || res.statusText}`);
-            }
-            
-            const data = await res.json();
-            const content = decodeURIComponent(escape(atob(data.content.replace(/\n/g, ""))));
-            
-            editor.value = content;
-            editor.dataset.sha = data.sha;
-            editor.dataset.path = path;
-            
-            status.textContent = `✅ Загружен: ${path} | SHA: ${data.sha.substring(0, 7)}`;
-            
-        } catch (err) {
-            editor.value = `// Ошибка загрузки: ${err.message}\n// Проверьте: токен, название репозитория, наличие файла`;
-            status.textContent = `❌ ${err.message}`;
-            showToast("Ошибка загрузки: " + err.message, "error");
-        }
+    // ===== ЗАГРУЗКА ДАННЫХ =====
+    async function loadJSON(path) {
+        const res = await fetch(`https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${path}?ref=${BRANCH}`, {
+            headers: { Authorization: `token ${token}`, Accept: "application/vnd.github.v3+json" }
+        });
+        if (!res.ok) throw new Error("Ошибка загрузки " + path);
+        const data = await res.json();
+        return { content: JSON.parse(decodeURIComponent(escape(atob(data.content.replace(/\n/g, ""))))), sha: data.sha };
     }
 
-    async function saveFile() {
-        if (!token) return;
-        
-        const editor = document.getElementById("editor-area");
-        const content = editor.value;
-        const sha = editor.dataset.sha;
-        const path = editor.dataset.path || document.getElementById("file-select").value;
-        const status = document.getElementById("file-status");
-        
-        try {
-            JSON.parse(content);
-        } catch (e) {
-            showToast("❌ Ошибка JSON: " + e.message, "error");
-            status.textContent = "❌ Невалидный JSON";
-            return;
-        }
-        
-        status.textContent = "⏳ Сохранение...";
-        
-        try {
-            const body = {
-                message: `📝 Update ${path} via Admin`,
-                content: btoa(unescape(encodeURIComponent(content))),
-                sha: sha,
-                branch: BRANCH
-            };
-            
-            const res = await fetch(
-                `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${path}`,
-                {
-                    method: "PUT",
-                    headers: {
-                        "Authorization": `token ${token}`,
-                        "Accept": "application/vnd.github.v3+json",
-                        "Content-Type": "application/json"
-                    },
-                    body: JSON.stringify(body)
-                }
-            );
-            
-            if (!res.ok) {
-                const errData = await res.json().catch(() => ({}));
-                throw new Error(`HTTP ${res.status}: ${errData.message || res.statusText}`);
-            }
-            
-            const data = await res.json();
-            editor.dataset.sha = data.content.sha;
-            
-            status.textContent = `✅ Сохранено! Сайт обновится через 1-2 минуты | ${new Date().toLocaleTimeString()}`;
-            showToast("✅ Сохранено!", "success");
-            
-        } catch (err) {
-            status.textContent = `❌ ${err.message}`;
-            showToast("Ошибка: " + err.message, "error");
-        }
+    async function saveJSON(path, content, sha) {
+        const body = {
+            message: `📝 Update ${path} via Admin`,
+            content: btoa(unescape(encodeURIComponent(JSON.stringify(content, null, 2)))),
+            sha: sha,
+            branch: BRANCH
+        };
+        const res = await fetch(`https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${path}`, {
+            method: "PUT",
+            headers: { Authorization: `token ${token}`, "Content-Type": "application/json" },
+            body: JSON.stringify(body)
+        });
+        if (!res.ok) throw new Error("Ошибка сохранения");
+        const data = await res.json();
+        return data.content.sha;
     }
 
-    function formatJSON() {
-        const editor = document.getElementById("editor-area");
+    async function loadAll() {
         try {
-            const obj = JSON.parse(editor.value);
-            editor.value = JSON.stringify(obj, null, 2);
-            showToast("🔧 JSON отформатирован", "success");
-        } catch (e) {
-            showToast("❌ Ошибка JSON: " + e.message, "error");
-        }
+            const home = await loadJSON("content/home.json");
+            homeData = home.content;
+            homeData._sha = home.sha;
+            renderHome();
+        } catch(e) { toast("Ошибка загрузки главной: " + e.message, "error"); }
+
+        try {
+            const gallery = await loadJSON("content/gallery.json");
+            galleryData = gallery.content;
+            galleryData._sha = gallery.sha;
+            renderGallery();
+        } catch(e) { toast("Ошибка загрузки галереи: " + e.message, "error"); }
+
+        try {
+            const guides = await loadJSON("content/guides.json");
+            guidesData = guides.content;
+            guidesData._sha = guides.sha;
+            renderGuides();
+        } catch(e) { toast("Ошибка загрузки гайдов: " + e.message, "error"); }
     }
 
-    function showToast(message, type) {
-        const toast = document.getElementById("toast");
-        toast.textContent = message;
-        toast.className = `toast toast-${type}`;
-        clearTimeout(toast._timeout);
-        toast._timeout = setTimeout(() => toast.classList.add("hidden"), 4000);
+    // ===== РЕНДЕР ГЛАВНОЙ =====
+    function renderHome() {
+        document.getElementById("home-title").value = homeData.title || "";
+        document.getElementById("home-image").value = homeData.image || "";
+        document.getElementById("home-desc").value = homeData.description || "";
+        document.getElementById("home-location").value = homeData.location || "";
+        document.getElementById("home-coords").value = homeData.coords || "";
+        renderSteps("wplace", homeData.help_wplace || []);
+        renderSteps("blue", homeData.help_blue || []);
+        renderSteps("helper", homeData.help_helper || []);
     }
 
-    document.addEventListener("keydown", function(e) {
-        if ((e.ctrlKey || e.metaKey) && e.key === "s") {
-            e.preventDefault();
-            if (!document.getElementById("admin-page").classList.contains("hidden")) saveFile();
-        }
-    });
+    function renderSteps(type, steps) {
+        const el = document.getElementById(`steps-${type}`);
+        el.innerHTML = steps.map((s, i) => `
+            <li>
+                <span style="font-family:'Press Start 2P',monospace;font-size:11px;color:var(--accent2);min-width:25px;">${i+1}.</span>
+                <input value="${s.replace(/"/g, '&quot;')}" onchange="updateStep('${type}',${i},this.value)">
+                <button class="btn btn-small btn-danger" onclick="removeStep('${type}',${i})" style="padding:4px 8px;">✕</button>
+            </li>`).join("");
+    }
 
-    document.getElementById("token-input").addEventListener("keydown", function(e) {
-        if (e.key === "Enter") login();
-    });
+    function addStep(type) {
+        const key = type === "wplace" ? "help_wplace" : type === "blue" ? "help_blue" : "help_helper";
+        if (!homeData[key]) homeData[key] = [];
+        homeData[key].push("");
+        renderSteps(type, homeData[key]);
+    }
+
+    function updateStep(type, index, value) {
+        const key = type === "wplace" ? "help_wplace" : type === "blue" ? "help_blue" : "help_helper";
+        homeData[key][index] = value;
+    }
+
+    function removeStep(type, index) {
+        const key = type === "wplace" ? "help_wplace" : type === "blue" ? "help_blue" : "help_helper";
+        homeData[key].splice(index, 1);
+        renderSteps(type, homeData[key]);
+    }
+
+    async function saveHome() {
+        homeData.title = document.getElementById("home-title").value;
+        homeData.image = document.getElementById("home-image").value;
+        homeData.description = document.getElementById("home-desc").value;
+        homeData.location = document.getElementById("home-location").value;
+        homeData.coords = document.getElementById("home-coords").value;
+
+        try {
+            const sha = await saveJSON("content/home.json", homeData, homeData._sha);
+            homeData._sha = sha;
+            toast("✅ Главная сохранена!", "success");
+        } catch(e) { toast("❌ " + e.message, "error"); }
+    }
+
+    // ===== РЕНДЕР ГАЛЕРЕИ =====
+    function renderGallery() {
+        const el = document.getElementById("gallery-items");
+        el.innerHTML = galleryData.map((item, i) => `
+            <div class="gallery-item-admin">
+                <input placeholder="Название" value="${item.title || ''}" onchange="galleryData[${i}].title=this.value">
+                <input placeholder="Дата" value="${item.date || ''}" onchange="galleryData[${i}].date=this.value" style="max-width:160px;">
+                <input placeholder="Ссылка на картинку" value="${item.image || ''}" onchange="galleryData[${i}].image=this.value">
+                <button class="btn btn-small btn-danger" onclick="galleryData.splice(${i},1);renderGallery();">✕</button>
+            </div>`).join("");
+    }
+
+    function addGalleryItem() {
+        galleryData.push({ title: "", date: "", image: "" });
+        renderGallery();
+    }
+
+    async function saveGallery() {
+        try {
+            const sha = await saveJSON("content/gallery.json", galleryData, galleryData._sha);
+            galleryData._sha = sha;
+            toast("✅ Галерея сохранена!", "success");
+        } catch(e) { toast("❌ " + e.message, "error"); }
+    }
+
+    // ===== РЕНДЕР ГАЙДОВ =====
+    function renderGuides() {
+        const el = document.getElementById("guides-items");
+        el.innerHTML = guidesData.map((guide, i) => `
+            <div class="guide-item-admin">
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+                    <strong style="color:var(--accent2);">Гайд #${i+1}</strong>
+                    <button class="btn btn-small btn-danger" onclick="guidesData.splice(${i},1);renderGuides();">✕ Удалить</button>
+                </div>
+                <input class="form-input" placeholder="Название (напр: 🔷 Blue Marble)" value="${guide.title || ''}" onchange="guidesData[${i}].title=this.value" style="margin-bottom:6px;">
+                <textarea class="form-input" placeholder="Описание" rows="2" onchange="guidesData[${i}].description=this.value" style="margin-bottom:6px;">${guide.description || ''}</textarea>
+                
+                <div class="help-text" style="margin-top:6px;">Установка на ПК:</div>
+                <ol class="step-list" id="guide-pc-${i}"></ol>
+                <button class="btn btn-small" onclick="addGuideStep(${i},'pc')">+ Шаг ПК</button>
+                
+                <div class="help-text" style="margin-top:6px;">Установка на телефон:</div>
+                <ol class="step-list" id="guide-phone-${i}"></ol>
+                <button class="btn btn-small" onclick="addGuideStep(${i},'phone')">+ Шаг телефон</button>
+                
+                <input class="form-input" placeholder="Примечание (необязательно)" value="${guide.note || ''}" onchange="guidesData[${i}].note=this.value" style="margin-top:6px;">
+            </div>`).join("");
+
+        // Рендерим шаги для каждого гайда
+        guidesData.forEach((guide, i) => {
+            renderGuideSteps(i, "pc", guide.install_pc || []);
+            renderGuideSteps(i, "phone", guide.install_phone || []);
+        });
+    }
+
+    function renderGuideSteps(guideIndex, type, steps) {
+        const el = document.getElementById(`guide-${type}-${guideIndex}`);
+        if (!el) return;
+        el.innerHTML = steps.map((s, si) => `
+            <li>
+                <span style="font-family:'Press Start 2P',monospace;font-size:10px;color:var(--accent2);min-width:20px;">${si+1}.</span>
+                <input value="${s.replace(/"/g, '&quot;')}" onchange="guidesData[${guideIndex}].install_${type}[${si}]=this.value">
+                <button class="btn btn-small btn-danger" onclick="guidesData[${guideIndex}].install_${type}.splice(${si},1);renderGuides();" style="padding:4px 8px;">✕</button>
+            </li>`).join("");
+    }
+
+    function addGuideItem() {
+        guidesData.push({ title: "", description: "", install_pc: [], install_phone: [], note: "" });
+        renderGuides();
+    }
+
+    function addGuideStep(guideIndex, type) {
+        const key = `install_${type}`;
+        if (!guidesData[guideIndex][key]) guidesData[guideIndex][key] = [];
+        guidesData[guideIndex][key].push("");
+        renderGuideSteps(guideIndex, type, guidesData[guideIndex][key]);
+    }
+
+    async function saveGuides() {
+        try {
+            const sha = await saveJSON("content/guides.json", guidesData, guidesData._sha);
+            guidesData._sha = sha;
+            toast("✅ Гайды сохранены!", "success");
+        } catch(e) { toast("❌ " + e.message, "error"); }
+    }
+
+    // ===== ОБЩЕЕ =====
+    function switchTab(tabId) {
+        document.querySelectorAll(".tab-content").forEach(t => t.classList.remove("active"));
+        document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
+        document.getElementById(tabId).classList.add("active");
+        event.target.classList.add("active");
+    }
+
+    function toast(msg, type) {
+        const t = document.getElementById("toast");
+        t.textContent = msg;
+        t.className = `toast toast-${type}`;
+        clearTimeout(t._t);
+        t._t = setTimeout(() => t.classList.add("hidden"), 3500);
+    }
+
+    document.getElementById("token-input").addEventListener("keydown", e => { if (e.key === "Enter") login(); });
 </script>
-
 </body>
 </html>
