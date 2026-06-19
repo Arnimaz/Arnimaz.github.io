@@ -7,5 +7,31 @@
 </head>
 <body>
     <script src="https://unpkg.com/netlify-cms@^2/dist/netlify-cms.js"></script>
+    <script>
+        // Автоматический вход через GitHub
+        const netlifyIdentity = window.netlifyIdentity || {};
+        window.netlifyIdentity = netlifyIdentity;
+        
+        // Подключаем скрипт Identity после загрузки CMS
+        const script = document.createElement('script');
+        script.src = 'https://identity.netlify.com/v1/netlify-identity-widget.js';
+        script.onload = function() {
+            netlifyIdentity.init();
+            
+            // Показываем кнопку GitHub при загрузке
+            netlifyIdentity.on('init', function(user) {
+                if (!user) {
+                    // Если не авторизован — открываем окно входа
+                    netlifyIdentity.open('login');
+                }
+            });
+            
+            netlifyIdentity.on('login', function() {
+                // После входа перезагружаем CMS
+                window.location.reload();
+            });
+        };
+        document.head.appendChild(script);
+    </script>
 </body>
 </html>
