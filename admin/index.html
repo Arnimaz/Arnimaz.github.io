@@ -16,7 +16,6 @@
             --accent: #33cc33;
             --accent2: #88ff88;
             --danger: #ff4444;
-            --warning: #ffaa00;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -244,7 +243,7 @@
             > ДОБРО ПОЖАЛОВАТЬ, <span>ADMIN</span><span class="cursor"></span>
         </p>
         <br>
-        <a href="/admin/#/" class="pixel-btn" id="admin-link">▶ ОТКРЫТЬ CMS</a>
+        <button class="pixel-btn" onclick="loadCMS()">▶ ОТКРЫТЬ CMS</button>
         <br>
         <a href="/" class="admin-link">← ВЕРНУТЬСЯ НА САЙТ</a>
     </div>
@@ -255,11 +254,12 @@
     </p>
 </div>
 
+<!-- Netlify CMS -->
+<script src="https://unpkg.com/netlify-cms@^2/dist/netlify-cms.js"></script>
+
 <script>
-    // ⚠️ ПОМЕНЯЙ ПАРОЛЬ ЗДЕСЬ:
     const ADMIN_PASSWORD = "wplace2025";
 
-    // Проверка, авторизован ли уже
     if (sessionStorage.getItem("wplace_admin_auth") === "true") {
         document.getElementById("login-box").classList.add("hidden");
         document.getElementById("success-box").classList.remove("hidden");
@@ -276,21 +276,22 @@
             loginBox.classList.add("hidden");
             successBox.classList.remove("hidden");
             error.classList.remove("show");
-            // Перенаправление через 0.5 секунды
-            setTimeout(() => {
-                window.location.href = "/admin/#/";
-            }, 500);
         } else {
             error.classList.add("show");
             input.value = "";
             input.focus();
-            // Эффект дрожания
             input.style.borderColor = "#ff4444";
             setTimeout(() => { input.style.borderColor = "#2a4a2a"; }, 300);
         }
     }
 
-    // Вход по Enter
+    function loadCMS() {
+        // Показать CMS вместо консоли
+        document.querySelector('.console-container').classList.add('hidden');
+        // CMS загрузится автоматически через скрипт netlify-cms.js
+        window.location.reload();
+    }
+
     document.getElementById("pass-input").addEventListener("keydown", function(e) {
         if (e.key === "Enter") checkPass();
     });
