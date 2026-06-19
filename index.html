@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WPlace — Пиксель-Арт Сообщество</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap');
+
+        :root {
+            --bg: #0a0a0a;
+            --surface: #1a1a2e;
+            --border: #00ff88;
+            --text: #e0ffe0;
+            --glow: #00ff88;
+            --accent: #ff6b6b;
+            --accent2: #ffd93d;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background: var(--bg);
+            background-image:
+                linear-gradient(0deg, rgba(0,255,136,0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0,255,136,0.03) 1px, transparent 1px);
+            background-size: 8px 8px;
+            color: var(--text);
+            font-family: 'VT323', monospace;
+            font-size: 20px;
+            line-height: 1.5;
+            min-height: 100vh;
+            image-rendering: pixelated;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: "";
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.08) 2px, rgba(0,0,0,0.08) 4px);
+            pointer-events: none; z-index: 9999;
+        }
+
+        .container { max-width: 900px; margin: 0 auto; padding: 20px; position: relative; z-index: 1; }
+
+        header {
+            text-align: center; padding: 30px 20px; margin-bottom: 20px;
+            border: 4px solid var(--border); background: var(--surface);
+            box-shadow: inset 0 0 30px rgba(0,255,136,0.1), 0 0 20px rgba(0,255,136,0.3), 0 0 60px rgba(0,255,136,0.1);
+            position: relative; image-rendering: pixelated;
+        }
+        header::after { content: ""; position: absolute; bottom: -4px; left: -4px; width: calc(100% + 8px); height: 4px; background: var(--border); }
+
+        .site-title { font-family: 'Press Start 2P', monospace; font-size: 28px; color: var(--glow); text-shadow: 0 0 10px var(--glow), 0 0 40px var(--glow), 0 0 80px var(--glow); letter-spacing: 3px; margin-bottom: 10px; }
+        .site-subtitle { font-family: 'VT323', monospace; font-size: 24px; color: #88cc88; text-shadow: 0 0 8px rgba(136,204,136,0.6); }
+
+        nav { display: flex; gap: 4px; margin-bottom: 20px; flex-wrap: wrap; justify-content: center; }
+
+        .tab-btn {
+            font-family: 'Press Start 2P', monospace; font-size: 13px; padding: 14px 20px;
+            background: var(--surface); color: var(--text); border: 4px solid #2a2a4a;
+            cursor: pointer; transition: all 0.1s step-end; text-transform: uppercase;
+            letter-spacing: 1px; box-shadow: 0 4px 0 #0a0a15; image-rendering: pixelated;
+            flex: 1 1 auto; min-width: 120px; max-width: 200px;
+        }
+        .tab-btn:hover { border-color: var(--glow); color: var(--glow); text-shadow: 0 0 10px var(--glow); box-shadow: 0 4px 0 var(--glow); transform: translateY(-2px); }
+        .tab-btn:active { transform: translateY(2px); box-shadow: 0 2px 0 var(--glow); }
+        .tab-btn.active { background: #0d2a1a; border-color: var(--glow); color: var(--glow); text-shadow: 0 0 10px var(--glow); box-shadow: 0 0 15px var(--glow), 0 4px 0 var(--glow); }
+
+        .tab-content { display: none; border: 4px solid #2a2a4a; background: var(--surface); padding: 30px; box-shadow: inset 0 0 40px rgba(0,0,0,0.5); image-rendering: pixelated; animation: fadeIn 0.2s step-end; }
+        .tab-content.active { display: block; }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+
+        .card { border: 3px solid #3a3a5a; background: #111128; padding: 20px; margin-bottom: 20px; box-shadow: 0 4px 0 #0a0a15; transition: all 0.1s step-end; }
+        .card:hover { border-color: var(--accent2); box-shadow: 0 4px 0 var(--accent2), 0 0 20px rgba(255,217,61,0.2); }
+        .card h3 { font-family: 'Press Start 2P', monospace; font-size: 14px; color: var(--accent2); margin-bottom: 15px; text-shadow: 0 0 8px rgba(255,217,61,0.4); }
+
+        a { color: var(--glow); text-decoration: none; border-bottom: 2px dashed var(--glow); transition: all 0.1s step-end; font-weight: bold; }
+        a:hover { border-bottom-style: solid; text-shadow: 0 0 10px var(--glow); }
+
+        .link-pixel { display: inline-block; background: #0a1a10; border: 2px solid var(--glow); padding: 8px 16px; color: var(--glow); font-family: 'VT323', monospace; font-size: 18px; letter-spacing: 1px; word-break: break-all; margin: 5px 0; box-shadow: 0 3px 0 #0a5a2a; transition: all 0.1s step-end; }
+        .link-pixel:hover { background: #0d2a1a; box-shadow: 0 3px 0 var(--glow); }
+
+        ol.pixel-list { list-style: none; counter-reset: pixel-counter; padding-left: 0; }
+        ol.pixel-list li { counter-increment: pixel-counter; padding: 12px 12px 12px 50px; margin-bottom: 8px; background: #0a0a1a; border: 2px solid #2a2a4a; position: relative; transition: all 0.1s step-end; }
+        ol.pixel-list li::before { content: counter(pixel-counter); position: absolute; left: 10px; top: 10px; font-family: 'Press Start 2P', monospace; font-size: 12px; color: var(--accent2); background: #1a1a30; border: 2px solid #3a3a5a; padding: 4px 8px; min-width: 30px; text-align: center; }
+        ol.pixel-list li:hover { border-color: var(--glow); background: #0d0d20; }
+
+        .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 16px; }
+        .gallery-item { border: 3px solid #2a2a4a; background: #0a0a1a; padding: 8px; transition: all 0.1s step-end; text-align: center; }
+        .gallery-item:hover { border-color: var(--accent); box-shadow: 0 0 20px rgba(255,107,107,0.3); transform: scale(1.03); }
+        .gallery-item img { width: 100%; aspect-ratio: 1; object-fit: cover; border: 2px solid #3a3a5a; display: block; }
+        .gallery-item .placeholder { width: 100%; aspect-ratio: 1; background: repeating-linear-gradient(45deg, #1a1a30 0px, #1a1a30 8px, #111128 8px, #111128 16px); border: 2px solid #3a3a5a; display: flex; align-items: center; justify-content: center; font-family: 'Press Start 2P', monospace; font-size: 10px; color: #4a4a6a; image-rendering: pixelated; }
+        .gallery-item .label { font-family: 'VT323', monospace; font-size: 16px; margin-top: 8px; color: #aaa; }
+
+        .note { border: 3px dashed #3a3a5a; background: #0a0a15; padding: 15px; margin-top: 15px; font-style: italic; color: #88aacc; }
+
+        footer { text-align: center; padding: 20px; margin-top: 30px; font-size: 16px; color: #3a3a5a; border-top: 2px solid #1a1a2e; }
+
+        @media (max-width: 600px) {
+            .site-title { font-size: 18px; }
+            .tab-btn { font-size: 10px; padding: 10px 8px; }
+            .tab-content { padding: 15px; }
+            .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1 class="site-title" id="site-title">⚔ WPLACE ⚔</h1>
+        <p class="site-subtitle" id="site-subtitle">Пиксель-арт сообщество</p>
+    </header>
+
+    <nav>
+        <button class="tab-btn active" onclick="openTab('home')">🏠 Главная</button>
+        <button class="tab-btn" onclick="openTab('gallery')">🖼 Галерея</button>
+        <button class="tab-btn" onclick="openTab('guides')">📚 Гайды</button>
+    </nav>
+
+    <!-- Главная -->
+    <div id="home" class="tab-content active">
+        <div id="current-art-section"></div>
+        <div id="help-section"></div>
+        <div id="community-section"></div>
+    </div>
+
+    <!-- Галерея -->
+    <div id="gallery" class="tab-content">
+        <h3 style="font-family: 'Press Start 2P', monospace; font-size: 16px; color: var(--accent); margin-bottom: 20px;">
+            📜 История наших артов
+        </h3>
+        <div class="gallery-grid" id="gallery-grid"></div>
+    </div>
+
+    <!-- Гайды -->
+    <div id="guides" class="tab-content">
+        <h3 style="font-family: 'Press Start 2P', monospace; font-size: 16px; color: var(--accent2); margin-bottom: 20px;">
+            🔧 Установка расширений
+        </h3>
+        <div id="guides-content"></div>
+        <div class="card" id="faq-section">
+            <h3>❓ Частые вопросы</h3>
+            <p><strong>Расширения не работают?</strong> — Попробуйте обновить страницу WPlace после установки.</p>
+            <p><strong>Не видно кнопку Overlay?</strong> — Убедитесь, что вы залогинены на WPlace и используете актуальную версию сайта.</p>
+        </div>
+    </div>
+
+    <footer>
+        <p>WPlace Pixel Art Community © 2025 | Сделано с ❤️ на пикселях</p>
+        <p style="font-size: 12px;">github pages | пиксель-арт это навсегда</p>
+    </footer>
+</div>
+
+<script>
+    // ===== ЗАГРУЗКА КОНТЕНТА ИЗ ФАЙЛОВ =====
+    async function loadContent(path, fallback) {
+        try {
+            const res = await fetch(path);
+            if (!res.ok) throw new Error('not found');
+            return await res.text();
+        } catch {
+            return fallback;
+        }
+    }
+
+    async function loadJSON(path, fallback) {
+        try {
+            const res = await fetch(path);
+            if (!res.ok) throw new Error('not found');
+            return await res.json();
+        } catch {
+            return fallback;
+        }
+    }
+
+    async function initContent() {
+        // Загружаем главную
+        const homeData = await loadJSON('/content/home.json', {
+            title: "🎯 Актуальный арт",
+            description: "Сейчас мы рисуем новый пиксель-арт на WPlace. Присоединяйся!",
+            location: "https://wplace.live/?lat=53.38222746808291&lng=27.91098632812499&zoom=22",
+            coords: "1182, 663, 782, 510",
+            help_wplace: ["Открываете вкладку Overlays", "Нажимаете на кнопку \"Новый Overlay\"", "Вставляете фото на пикселе по ссылке ниже"],
+            help_blue: ["Ставите точку на пикселе по ссылке ниже / вводите координаты: 1182 663 782 510", "Нажимаете на кнопку \"Upload Template\" и выбираете файл с артом", "Нажимаете на кнопку \"Create\""],
+            help_helper: ["Нажимаете на кнопку \"Галерея\"", "Находите арт и нажимаете на кнопку \"Загрузить\""]
+        });
+
+        document.getElementById('current-art-section').innerHTML = `
+            <div class="card">
+                <h3>${homeData.title}</h3>
+                <p>${homeData.description}</p>
+                <p style="margin-top: 10px;">📍 <strong>Местоположение арта:</strong><br>
+                <a href="${homeData.location}" class="link-pixel" target="_blank">🔗 ОТКРЫТЬ НА WPLACE</a></p>
+                <p style="margin-top: 10px; font-size: 14px; color: #88aacc;">Координаты: ${homeData.coords}</p>
+            </div>`;
+
+        document.getElementById('help-section').innerHTML = `
+            <div class="card">
+                <h3>🖌 Как помочь с этим артом</h3>
+                <p style="color: var(--accent2); margin-bottom: 10px;">⚡ <strong>С помощью WPlace (сайт):</strong></p>
+                <ol class="pixel-list">${homeData.help_wplace.map(s => `<li>${s}</li>`).join('')}</ol>
+                <p style="color: var(--accent2); margin: 15px 0 10px;">🔷 <strong>С помощью Blue Marble:</strong></p>
+                <ol class="pixel-list">${homeData.help_blue.map(s => `<li>${s}</li>`).join('')}</ol>
+                <p style="color: var(--accent2); margin: 15px 0 10px;">🧩 <strong>С помощью WPlace Helper:</strong></p>
+                <ol class="pixel-list">${homeData.help_helper.map(s => `<li>${s}</li>`).join('')}</ol>
+                <div class="note">💡 <strong>Ссылка на местоположение арта:</strong><br><a href="${homeData.location}" target="_blank">${homeData.location}</a></div>
+            </div>`;
+
+        document.getElementById('community-section').innerHTML = `
+            <div class="card">
+                <h3>💬 Наш Discord</h3>
+                <p>Обсуждаем пиксель-арты, координируем рисование, помогаем новичкам.</p>
+                <p style="margin-top: 10px;">🔗 <em>Ссылка появится позже</em></p>
+            </div>`;
+
+        // Загружаем галерею
+        const galleryData = await loadJSON('/content/gallery.json', [
+            { title: "Арт #1", date: "Декабрь 2024", image: "" },
+            { title: "Арт #2", date: "Январь 2025", image: "" },
+            { title: "Арт #3", date: "Февраль 2025", image: "" },
+            { title: "Арт #4", date: "Март 2025", image: "" },
+            { title: "Арт #5", date: "Апрель 2025", image: "" },
+            { title: "Арт #6", date: "Май 2025", image: "" }
+        ]);
+
+        document.getElementById('gallery-grid').innerHTML = galleryData.map(item => `
+            <div class="gallery-item">
+                ${item.image ? `<img src="${item.image}" alt="${item.title}">` : '<div class="placeholder">[ АРТ ]</div>'}
+                <div class="label">${item.title}<br><small>${item.date}</small></div>
+            </div>`).join('');
+
+        // Загружаем гайды
+        const guidesData = await loadJSON('/content/guides.json', [
+            {
+                title: "🔷 Blue Marble",
+                description: "Продвинутый инструмент для точного размещения пикселей и загрузки шаблонов артов.",
+                install_pc: ["Перейдите в магазин расширений вашего браузера", "Найдите Blue Marble или перейдите по прямой ссылке", "Нажмите Установить", "После установки иконка появится в панели расширений"],
+                install_phone: ["Установите браузер Kiwi Browser (Android) — он поддерживает расширения Chrome", "Откройте магазин расширений Chrome в Kiwi Browser", "Найдите и установите Blue Marble", "Готово! Расширение будет работать как на ПК"],
+                note: "⚠ iOS (iPhone) не поддерживает браузерные расширения. Используйте WPlace Helper через сайт."
+            },
+            {
+                title: "🧩 WPlace Helper",
+                description: "Удобный помощник с галереей шаблонов и быстрой загрузкой артов.",
+                install_pc: ["Перейдите в магазин расширений браузера", "Найдите WPlace Helper", "Нажмите Установить", "Откройте WPlace и используйте кнопку Галерея"],
+                install_phone: ["Установите Kiwi Browser (Android)", "Установите расширение через магазин Chrome внутри Kiwi", "Либо используйте мобильную версию сайта WPlace — базовая функциональность доступна без расширений"],
+                note: ""
+            }
+        ]);
+
+        document.getElementById('guides-content').innerHTML = guidesData.map(g => `
+            <div class="card">
+                <h3>${g.title}</h3>
+                <p><strong>Что это:</strong> ${g.description}</p>
+                <p style="margin-top: 10px;"><strong>📥 Установка на ПК:</strong></p>
+                <ol class="pixel-list">${g.install_pc.map(s => `<li>${s}</li>`).join('')}</ol>
+                <p style="margin-top: 10px;"><strong>📱 На телефон:</strong></p>
+                <ol class="pixel-list">${g.install_phone.map(s => `<li>${s}</li>`).join('')}</ol>
+                ${g.note ? `<div class="note">${g.note}</div>` : ''}
+            </div>`).join('');
+    }
+
+    initContent();
+
+    function openTab(tabId) {
+        document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        document.getElementById(tabId).classList.add('active');
+        event.target.classList.add('active');
+    }
+</script>
+
+</body>
+</html>
