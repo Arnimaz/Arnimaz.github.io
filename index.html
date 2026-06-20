@@ -92,7 +92,7 @@
         .gallery-item img { width: 100%; aspect-ratio: 1; object-fit: contain; border: 2px solid #3a3a5a; display: block; image-rendering: pixelated; background: #050510; }
         .gallery-item .label { font-family: 'VT323', monospace; font-size: 20px; margin-top: 10px; color: #eee; }
 
-        /* Модалка */
+        /* МОДАЛКА */
         .modal-overlay {
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(0,0,0,0.92); z-index: 100000;
@@ -101,28 +101,33 @@
         .modal-overlay.active { display: flex; }
         .modal {
             border: 5px solid var(--border); background: var(--surface);
-            padding: 25px 20px; max-width: 750px; width: 100%; text-align: center;
+            padding: 25px; max-width: 750px; width: 100%; text-align: center;
             box-shadow: 0 0 50px rgba(0,255,136,0.4); animation: fadeIn 0.2s step-end;
-            z-index: 100001; position: relative; max-height: 90vh; overflow-y: auto;
-            display: flex; flex-direction: column; align-items: center; gap: 12px;
+            z-index: 100001; max-height: 90vh; overflow-y: auto;
         }
-        .modal .counter { font-size: 16px; color: var(--text-dim); }
-        .modal .nav-buttons { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; }
+        .modal .counter { font-size: 16px; color: var(--text-dim); margin-bottom: 10px; }
+        .modal img { max-width: 100%; max-height: 50vh; image-rendering: pixelated; border: 3px solid #3a3a5a; background: #050510; margin-bottom: 15px; }
+        .modal h3 { font-family: 'Press Start 2P', monospace; font-size: 15px; color: var(--accent2); margin-bottom: 10px; text-shadow: 0 0 10px rgba(255,217,61,0.5); }
+        .modal .desc { font-size: 20px; color: #ddd; line-height: 1.6; word-break: break-word; margin-bottom: 15px; }
+        .modal .desc a { font-size: 20px; }
+
+        /* Кнопки навигации */
+        .modal-nav-row {
+            display: flex; justify-content: center; align-items: center; gap: 12px; flex-wrap: wrap;
+            margin-bottom: 15px;
+        }
         .modal .nav-btn {
             font-family: 'Press Start 2P', monospace; font-size: 14px;
             background: #0a2a0a; color: var(--glow); border: 3px solid var(--border);
-            cursor: pointer; padding: 10px 14px; box-shadow: 0 3px 0 #0a4a0a;
-            white-space: nowrap;
+            cursor: pointer; padding: 10px 16px; box-shadow: 0 3px 0 #0a4a0a;
+            white-space: nowrap; min-width: 50px;
         }
         .modal .nav-btn:hover { background: #0d3a0d; }
-        .modal img { max-width: 100%; max-height: 50vh; image-rendering: pixelated; border: 3px solid #3a3a5a; background: #050510; }
-        .modal h3 { font-family: 'Press Start 2P', monospace; font-size: 15px; color: var(--accent2); text-shadow: 0 0 10px rgba(255,217,61,0.5); }
-        .modal .desc { font-size: 20px; color: #ddd; line-height: 1.6; word-break: break-word; }
-        .modal .desc a { font-size: 20px; }
+        .modal .nav-btn:disabled { opacity: 0.3; cursor: default; }
         .modal .close-btn {
             font-family: 'Press Start 2P', monospace; font-size: 13px; padding: 14px 24px;
             background: #0a2a0a; color: var(--glow); border: 3px solid var(--border);
-            cursor: pointer; box-shadow: 0 4px 0 #0a4a0a; width: 100%; max-width: 300px;
+            cursor: pointer; box-shadow: 0 4px 0 #0a4a0a; width: 100%; max-width: 300px; margin: 0 auto;
         }
         .modal .close-btn:hover { background: #0d3a0d; transform: translateY(-2px); }
 
@@ -135,10 +140,10 @@
             .gallery-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
             .gallery-item { padding: 6px; }
             .gallery-item .label { font-size: 16px; }
-            .modal { padding: 20px 12px; gap: 10px; }
+            .modal { padding: 18px 12px; }
             .modal .nav-btn { font-size: 11px; padding: 8px 10px; }
             .modal h3 { font-size: 13px; }
-            .modal .desc { font-size: 18px; }
+            .modal .desc { font-size: 17px; }
             .modal .close-btn { font-size: 11px; padding: 12px; }
         }
         @media (max-width: 480px) {
@@ -148,6 +153,10 @@
             .gallery-grid { grid-template-columns: repeat(2, 1fr); gap: 6px; }
             ol.pixel-list li { padding: 10px 8px 10px 45px; font-size: 15px; }
             ol.pixel-list li::before { font-size: 8px; min-width: 20px; padding: 3px 4px; left: 5px; }
+            .modal { padding: 15px 10px; max-height: 95vh; }
+            .modal .nav-btn { font-size: 10px; padding: 6px 8px; min-width: 40px; }
+            .modal .close-btn { font-size: 10px; padding: 10px; max-width: 100%; }
+            .modal img { max-height: 35vh; }
         }
     </style>
 </head>
@@ -185,16 +194,18 @@
     </footer>
 </div>
 
+<!-- МОДАЛКА -->
 <div class="modal-overlay" id="modal-overlay" onclick="closeModal(event)">
     <div class="modal" id="modal-box">
         <div class="counter" id="modal-counter"></div>
-        <div class="nav-buttons" id="modal-nav-buttons">
-            <button class="nav-btn" id="modal-prev" onclick="navModal(-1)">◀ НАЗАД</button>
-            <button class="nav-btn" id="modal-next" onclick="navModal(1)">ВПЕРЁД ▶</button>
-        </div>
         <img id="modal-img" src="" alt="">
         <h3 id="modal-title"></h3>
         <div class="desc" id="modal-desc"></div>
+        <div class="modal-nav-row" id="modal-nav-row">
+            <button class="nav-btn" id="modal-prev" onclick="navModal(-1)">◀ НАЗАД</button>
+            <span style="font-family:'Press Start 2P',monospace;font-size:12px;color:var(--text-dim);" id="modal-nav-counter"></span>
+            <button class="nav-btn" id="modal-next" onclick="navModal(1)">ВПЕРЁД ▶</button>
+        </div>
         <button class="close-btn" onclick="closeModal()">✕ ЗАКРЫТЬ</button>
     </div>
 </div>
@@ -226,8 +237,7 @@
         document.getElementById("site-footer").innerHTML = `<p>${settingsData.footer}</p>`;
 
         const homeData = await loadJSON('/content/home.json', {
-            title: "🎯 Актуальный арт", image: "", description: "", location: "",
-            help_wplace: [], help_blue: [], help_helper: []
+            title: "", image: "", description: "", location: "", help_wplace: [], help_blue: [], help_helper: []
         });
         window._homeData = homeData;
         document.getElementById('current-art-section').innerHTML = `
@@ -270,24 +280,18 @@
         if (type === 'helper') return window._homeData?.help_helper?.[index] || { text: "", image: "", detail: "" };
         const parts = type.split('_');
         if (parts[0] === 'guide') {
-            const guideType = parts[1];
-            const guideTitle = parts.slice(2).join('_');
+            const guideType = parts[1]; const guideTitle = parts.slice(2).join('_');
             const guide = window._guidesData?.find(g => g.title === guideTitle);
-            if (guide) {
-                const steps = guideType === 'pc' ? guide.install_pc : guide.install_phone;
-                return steps?.[index] || { text: "", image: "", detail: "" };
-            }
+            if (guide) { const steps = guideType === 'pc' ? guide.install_pc : guide.install_phone; return steps?.[index] || { text: "", image: "", detail: "" }; }
         }
         return { text: "", image: "", detail: "" };
     }
 
     function openStepModal(type, index) {
-        currentStepType = type;
-        currentStepIndex = index;
-        modalMode = 'step';
+        currentStepType = type; currentStepIndex = index; modalMode = 'step';
         showStepInModal();
         document.getElementById("modal-overlay").classList.add("active");
-        document.getElementById("modal-nav-buttons").style.display = 'none';
+        document.getElementById("modal-nav-row").style.display = 'none';
     }
 
     function showStepInModal() {
@@ -313,11 +317,10 @@
     }
 
     function openGalleryItem(index) {
-        currentGalleryIndex = index;
-        modalMode = 'gallery';
+        currentGalleryIndex = index; modalMode = 'gallery';
         showGalleryModal();
         document.getElementById("modal-overlay").classList.add("active");
-        document.getElementById("modal-nav-buttons").style.display = 'flex';
+        document.getElementById("modal-nav-row").style.display = 'flex';
     }
 
     function navModal(dir) {
@@ -330,13 +333,15 @@
     }
 
     function showGalleryModal() {
-        const data = window._galleryData[currentGalleryIndex];
-        if (!data) return;
+        const data = window._galleryData[currentGalleryIndex]; if (!data) return;
         document.getElementById("modal-img").style.display = 'block';
         document.getElementById("modal-img").src = data.image || "";
         document.getElementById("modal-title").textContent = data.title || "Без названия";
         document.getElementById("modal-desc").innerHTML = makeLinksClickable(data.description || "");
-        document.getElementById("modal-counter").textContent = `${currentGalleryIndex + 1} / ${window._galleryData.length}`;
+        document.getElementById("modal-counter").textContent = `Арт ${currentGalleryIndex + 1} из ${window._galleryData.length}`;
+        document.getElementById("modal-nav-counter").textContent = `${currentGalleryIndex + 1}/${window._galleryData.length}`;
+        document.getElementById("modal-prev").disabled = window._galleryData.length <= 1;
+        document.getElementById("modal-next").disabled = window._galleryData.length <= 1;
     }
 
     function closeModal(event) {
@@ -354,10 +359,7 @@
     document.addEventListener('keydown', function(e) {
         if (!document.getElementById("modal-overlay").classList.contains("active")) return;
         if (e.key === "Escape") closeModal();
-        if (modalMode === 'gallery') {
-            if (e.key === "ArrowLeft") navModal(-1);
-            if (e.key === "ArrowRight") navModal(1);
-        }
+        if (modalMode === 'gallery') { if (e.key === "ArrowLeft") navModal(-1); if (e.key === "ArrowRight") navModal(1); }
     });
 
     initContent();
