@@ -1,8 +1,32 @@
 [
-  { "title": "Арт #1", "date": "Декабрь 2024", "image": "" },
-  { "title": "Арт #2", "date": "Январь 2025", "image": "" },
-  { "title": "Арт #3", "date": "Февраль 2025", "image": "" },
-  { "title": "Арт #4", "date": "Март 2025", "image": "" },
-  { "title": "Арт #5", "date": "Апрель 2025", "image": "" },
-  { "title": "Арт #6", "date": "Май 2025", "image": "" }
+  {
+    "title": "Арт #1",
+    "date": "",
+    "image": "images/Frieren.png"
+  },
+  {
+    "title": "Арт #2",
+    "date": "",
+    "image": ""
+  },
+  {
+    "title": "Арт #3",
+    "date": "",
+    "image": ""
+  },
+  {
+    "title": "Арт #4",
+    "date": "",
+    "image": ""
+  },
+  {
+    "title": "Арт #5",
+    "date": "",
+    "image": ""
+  },
+  {
+    "title": "Арт #6",
+    "date": "",
+    "image": ""
+  }
 ]
