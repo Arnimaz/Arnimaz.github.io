@@ -71,7 +71,7 @@
             padding: 8px 14px; background: #0a1a2a; color: #44aaff;
             border: 2px solid #2a4a5a; cursor: pointer;
             box-shadow: 0 3px 0 #0a1a2a; text-decoration: none;
-            transition: all 0.1s step-end; margin: 5px;
+            transition: all 0.1s step-end; margin: 5px; vertical-align: middle;
         }
         .btn-download:hover { border-color: #44aaff; text-shadow: 0 0 10px #44aaff; transform: translateY(-2px); }
 
@@ -79,6 +79,8 @@
         .art-image-container img { max-width: 100%; height: auto; image-rendering: pixelated; display: block; margin: 0 auto; }
         .art-info { text-align: center; font-size: 22px; color: var(--accent2); margin-top: 15px; text-shadow: 0 0 10px rgba(255,217,61,0.4); }
         .art-info a { font-size: 22px; }
+
+        .location-row { display: flex; align-items: center; flex-wrap: wrap; gap: 10px; margin-top: 15px; justify-content: center; }
 
         ol.pixel-list { list-style: none; counter-reset: pixel-counter; padding-left: 0; }
         ol.pixel-list li { 
@@ -277,10 +279,9 @@
         window._homeData = homeData;
         document.getElementById('current-art-section').innerHTML = `
             <div class="card"><h3>${homeData.title}</h3>
-            ${homeData.image ? `<div class="art-image-container"><img src="${homeData.image}" alt="Актуальный арт" id="home-art-image"></div>
-            <div style="text-align:center;margin-bottom:15px;"><button class="btn-download" onclick="downloadImage('${homeData.image}', 'wplace-art.png')">💾 СКАЧАТЬ АРТ</button></div>` : ''}
+            ${homeData.image ? `<div class="art-image-container"><img src="${homeData.image}" alt="Актуальный арт" id="home-art-image"></div>` : ''}
             <div class="art-info">${makeLinksClickable(homeData.description)}</div>
-            ${homeData.location ? `<p style="margin-top:15px;">📍 <strong>Местоположение:</strong><br><a href="${homeData.location}" class="link-pixel" target="_blank">🔗 ОТКРЫТЬ НА WPLACE</a></p>` : ''}</div>`;
+            ${homeData.location ? `<div class="location-row">📍 <strong>Местоположение:</strong> <a href="${homeData.location}" class="link-pixel" target="_blank">🔗 ОТКРЫТЬ НА WPLACE</a> ${homeData.image ? `<button class="btn-download" onclick="downloadImage('${homeData.image}', 'wplace-art.png')">💾 СКАЧАТЬ АРТ</button>` : ''}</div>` : (homeData.image ? `<div class="location-row"><button class="btn-download" onclick="downloadImage('${homeData.image}', 'wplace-art.png')">💾 СКАЧАТЬ АРТ</button></div>` : '')}</div>`;
         document.getElementById('help-section').innerHTML = `
             <div class="card"><h3>🖌 Как помочь с этим артом</h3>
             <p style="color:var(--accent2);margin-bottom:10px;">⚡ <strong>WPlace (сайт):</strong></p><ol class="pixel-list">${renderStepsList(homeData.help_wplace, 'wplace')}</ol>
