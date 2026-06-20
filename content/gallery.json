@@ -5,11 +5,6 @@
     "image": "https://arnimaz.github.io/images/Frieren.png"
   },
   {
-    "title": "Albedo",
-    "description": "https://wplace.live/?lat=53.56677953305217&lng=27.86879882812499&zoom=12.462407933527613",
-    "image": "https://arnimaz.github.io/images/Albedo.jpg"
-  },
-  {
     "title": "Neko Arc",
     "description": "https://wplace.live/?lat=53.435980998747&lng=27.955634765624993&zoom=12.71916929668066",
     "image": "https://arnimaz.github.io/images/Neko_Arc.png"
@@ -18,5 +13,10 @@
     "title": "Ula and Zmora",
     "description": "https://wplace.live/?lat=53.38715508229152&lng=27.995537109375&zoom=12.655548087849914",
     "image": "https://arnimaz.github.io/images/Ula_and_Zmora.png"
+  },
+  {
+    "title": "Albedo",
+    "description": "https://wplace.live/?lat=53.56677953305217&lng=27.86879882812499&zoom=12.462407933527613",
+    "image": "https://arnimaz.github.io/images/Albedo.jpg"
   }
 ]
