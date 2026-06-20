@@ -187,10 +187,7 @@
 <div class="tab-content space-y-10" id="home-tab">
 <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 gap-6">
 <div class="terminal-border p-6 bg-black">
-<h3 class="text-2xl font-bold mb-6 flex items-center gap-2 border-b border-[var(--neon-green)] pb-2">
-<span class="material-symbols-outlined">featured_play_list</span>
-                            ДАННЫЕ ГЕРОЯ
-                        </h3>
+<h3 class="text-2xl font-bold mb-6 flex items-center gap-2 border-b border-[var(--neon-green)] pb-2"><span class="material-symbols-outlined">featured_play_list</span> НАСТРОЙКА АРТА</h3>
 <div class="space-y-4">
 <div>
 <label class="block text-xs uppercase mb-1">ЗАГОЛОВОК АРТА</label>
@@ -216,7 +213,7 @@
                             ВИЗУАЛИЗАЦИЯ
                         </h3>
 <div class="flex-1 border-2 border-dashed border-[var(--neon-green)] flex items-center justify-center overflow-hidden min-h-[250px]" id="home-image-preview">
-<img alt="" class="max-w-full max-h-[350px] object-contain" id="home-preview-img" src="">
+<img alt="" class="max-w-full max-h-[350px] object-contain" id="home-preview-img" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MDAiIGhlaWdodD0iMzAwIj48cmVjdCB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgcng9IjgiIGZpbGw9IiNlOGVhZWQiLz48cGF0aCBkPSJNMTcwIDEzMCBsMzAgNDAgbDIwLTE1IGw0MCA1NSBIMTQweiIgZmlsbD0iI2JkYzFjNiIvPjxjaXJjbGUgY3g9IjI1MCIgY3k9IjEyMCIgcj0iMTgiIGZpbGw9IiNiZGMxYzYiLz48L3N2Zz4=">
 <div class="text-center opacity-40" id="no-preview">
 <span class="material-symbols-outlined text-6xl block mb-2">image_not_supported</span>
 <p class="">ОТСУТСТВУЮТ ДАННЫЕ</p>
@@ -227,7 +224,7 @@
 <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
 <div class="terminal-border p-6 bg-black">
 <div class="flex items-center justify-between mb-4 border-b border-[var(--neon-green)] pb-2">
-<h4 class="text-lg font-bold">WPLACE HELPERS</h4>
+<h4 class="text-lg font-bold">WPLACE</h4>
 <button class="w-8 h-8 btn-terminal flex items-center justify-center" onclick="addStep('wplace')">
 <span class="material-symbols-outlined">add</span>
 </button>
@@ -245,7 +242,7 @@
 </div>
 <div class="terminal-border p-6 bg-black">
 <div class="flex items-center justify-between mb-4 border-b border-[var(--neon-green)] pb-2">
-<h4 class="text-lg font-bold">ОБЩАЯ ПОМОЩЬ</h4>
+<h4 class="text-lg font-bold">WPLACE HELPER</h4>
 <button class="w-8 h-8 btn-terminal flex items-center justify-center" onclick="addStep('helper')">
 <span class="material-symbols-outlined">add</span>
 </button>
@@ -671,6 +668,8 @@
     });
     document.getElementById("token-input").addEventListener("keydown", e => { if(e.key==="Enter")login(); });
 </script>
+
+
 
 
 </body></html>
