@@ -1,7 +1,7 @@
 <!DOCTYPE html><html lang="ru" style=""><head>
 <meta charset="utf-8">
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
-<title>WPlace — Пиксель-Арт Сообщество</title>
+<title>Masters_of_Cum — official site</title>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 <link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&amp;display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=VT323&amp;family=Source+Code+Pro:wght@400;700&amp;display=swap" rel="stylesheet">
@@ -40,22 +40,6 @@
             border-top: 2px solid var(--neon-border);
             position: relative;
             overflow: hidden;
-        }
-
-        .cyber-panel::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 1px;
-            background: linear-gradient(90deg, transparent, var(--accent), transparent);
-            animation: scan-line 4s linear infinite;
-        }
-
-        @keyframes scan-line {
-            0% { transform: translateX(-100%); }
-            100% { transform: translateX(100%); }
         }
 
         .neon-text {
@@ -164,12 +148,11 @@
             border: 1px solid var(--border);
         }
         
-        .image-container img {
-            transition: filter 0.3s ease;
-        }
-        
-        .image-container:hover img {
-            filter: brightness(1.1);
+        img { 
+            image-rendering: pixelated !important; 
+            image-rendering: -moz-crisp-edges !important; 
+            image-rendering: crisp-edges !important; 
+            filter: none !important; 
         }
 
         /* Terminal Admin Styles */
@@ -240,8 +223,8 @@
             color: #000;
         }
     </style>
-<style>.cyber-panel::before { display: none !important; } .image-container img { filter: none !important; image-rendering: pixelated !important; image-rendering: crisp-edges !important; }</style><style>img { image-rendering: pixelated !important; image-rendering: -moz-crisp-edges !important; image-rendering: crisp-edges !important; filter: none !important; }</style></head>
-<body class="antialiased" style="background-image: none !important;">
+</head>
+<body class="antialiased">
 <!-- Main Site Interface -->
 <div class="max-w-6xl mx-auto px-4 py-8" id="main-site-container">
 <!-- Header -->
@@ -255,14 +238,14 @@
 <!-- Navigation -->
 <nav class="cyber-panel flex justify-center p-1 mb-12 sticky top-4 z-50 neon-border-glow rounded-sm">
 <div class="flex w-full md:w-auto gap-4">
-<button class="tab-btn active flex items-center gap-2 px-8 py-4 font-bold text-xs uppercase tracking-widest" onclick="openTab('home')"><span class="material-symbols-outlined text-lg">terminal</span> ГЛАВНАЯ</button>
-<button class="tab-btn flex items-center gap-2 px-8 py-4 font-bold text-xs uppercase tracking-widest" onclick="openTab('gallery')"><span class="material-symbols-outlined text-lg">gallery_thumbnail</span> ГАЛЕРЕЯ</button>
-<button class="tab-btn flex items-center gap-2 px-8 py-4 font-bold text-xs uppercase tracking-widest" onclick="openTab('guides')"><span class="material-symbols-outlined text-lg">memory</span> ГАЙДЫ</button>
+<button class="tab-btn flex items-center gap-2 px-8 py-4 font-bold text-xs uppercase tracking-widest" onclick="openTab('home')"><span class="material-symbols-outlined text-lg">home</span> ГЛАВНАЯ</button>
+<button class="tab-btn flex items-center gap-2 px-8 py-4 font-bold text-xs uppercase tracking-widest active" onclick="openTab('gallery')"><span class="material-symbols-outlined text-lg">image</span> ГАЛЕРЕЯ</button>
+<button class="tab-btn flex items-center gap-2 px-8 py-4 font-bold text-xs uppercase tracking-widest" onclick="openTab('guides')"><span class="material-symbols-outlined text-lg">library_books</span> ГАЙДЫ</button>
 </div>
 </nav>
 <!-- Main Content -->
 <main>
-<div class="tab-content active space-y-12" id="home">
+<div class="tab-content space-y-12" id="home">
 <div id="current-art-section">
             <div class="cyber-panel p-8 md:p-12 neon-border-glow rounded-sm">
                 <div class="flex items-center gap-4 mb-8">
@@ -272,7 +255,7 @@
                 <div class="flex flex-col lg:flex-row gap-10">
                     
                     <div class="flex-grow flex flex-col justify-center">
-                        <div class="text-xl text-[var(--text-dim)] mb-10 leading-relaxed font-medium"></div>
+                        <div class="text-xl text-[var(--text-dim)] mb-10 leading-relaxed font-medium">Соединение с сервером...</div>
                         <div class="flex flex-wrap gap-4 pt-8 border-t border-[var(--border)]">
                             
                             
@@ -302,31 +285,19 @@
                 </div>
             </div></div>
 </div>
-<div class="tab-content" id="gallery">
-<div class="flex items-center gap-4 mb-10 pb-4 border-b border-[var(--border)]">
-<span class="material-symbols-outlined text-[var(--accent)] text-4xl neon-text">database</span>
-<div>
-<h2 class="text-3xl font-black text-white uppercase tracking-tight">Архив Операций</h2>
-<p class="text-[var(--text-dim)] text-xs font-mono">История завершенных пиксель-арт проектов</p>
-</div>
-</div>
+<div class="tab-content active" id="gallery">
+
 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6" id="gallery-grid"><p class="col-span-full text-center py-20 text-[var(--text-dim)] font-mono uppercase tracking-widest opacity-50">Архив не содержит данных.</p></div>
 </div>
 <div class="tab-content" id="guides">
-<div class="flex items-center gap-4 mb-10 pb-4 border-b border-[var(--border)]">
-<span class="material-symbols-outlined text-[var(--accent)] text-4xl neon-text">integration_instructions</span>
-<div>
-<h2 class="text-3xl font-black text-white uppercase tracking-tight"></h2>
-<p class="text-[var(--text-dim)] text-xs font-mono"></p>
-</div>
-</div>
+
 <div class="space-y-8" id="guides-content"><p class="text-center py-16 text-[var(--text-dim)] font-mono uppercase tracking-widest">База данных пуста.</p></div>
 </div>
 </main>
 <!-- Footer -->
-<footer class="mt-32 pt-12 border-t border-[var(--border)] text-center text-[var(--text-dim)] font-mono text-[10px] tracking-widest pb-12 uppercase" id="site-footer"><p class="">Telegram контакт - <a class="text-[var(--accent)] hover:underline" href="https://t.me/Arnimaz">@Arnimaz</a></p></footer>
+<footer class="mt-32 pt-12 border-t border-[var(--border)] text-center text-[var(--text-dim)] font-mono text-[10px] tracking-widest pb-12 uppercase" id="site-footer"><p class="">Telegram контакт - <a href="https://t.me/Arnimaz" target="_blank" class="text-[var(--accent)] hover:underline decoration-dashed">@Arnimaz</a></p></footer>
 </div>
-<!-- Terminal Admin Interface (Placeholder logic, toggleable via script/URL) -->
+<!-- Terminal Admin Interface -->
 <div id="admin-panel-container">
 <div class="terminal-header">
         &gt; WPLACE_ADMIN_TERMINAL_V.2.0.5 <span class="float-right">[ОНЛАЙН]</span>
@@ -337,11 +308,6 @@
 <div class="mb-4 font-bold border-b border-[#00ff41] pb-2">АВТОРИЗАЦИЯ_</div>
 <input class="terminal-input mb-4" placeholder="Введите_токен_GITHUB..." type="password">
 <button class="terminal-btn w-full">ПОДКЛЮЧИТЬСЯ</button>
-</div>
-<div class="terminal-box text-xs">
-<div class="mb-2 font-bold opacity-70">СИСТЕМНЫЙ_ЛОГ:</div>
-<div class="opacity-50">... Ожидание ввода</div>
-<div class="opacity-50">... Соединение зашифровано</div>
 </div>
 </div>
 <div class="md:col-span-2">
@@ -354,28 +320,25 @@
 </div>
 </div>
 </div>
-<div class="mt-12 opacity-50 text-[10px] text-center">
-        COMMAND LINE INTERFACE • OBSIDIAN TECH • 1994-2025
-    </div>
 </div>
 <!-- Modal -->
 <div class="modal-overlay fixed inset-0 z-[100] modal-blur flex items-center justify-center p-4 transition-opacity opacity-0 pointer-events-none" id="modal-overlay" onclick="closeModal(event)">
 <div class="modal cyber-panel w-full max-w-4xl max-h-[90vh] overflow-y-auto p-8 md:p-12 scale-95 transition-transform rounded-sm shadow-2xl" id="modal-box">
 <div class="flex justify-between items-center mb-8 border-b border-[var(--border)] pb-4">
-<span class="text-[var(--accent)] font-mono text-xs tracking-widest neon-text" id="modal-counter">DATA_LINK_ESTABLISHED</span>
+<span class="text-[var(--accent)] font-mono text-xs tracking-widest neon-text" id="modal-counter">ГАЙД</span>
 <button class="text-[var(--text-dim)] hover:text-[var(--accent)] transition-colors" onclick="closeModal()">
 <span class="material-symbols-outlined text-3xl">close</span>
 </button>
 </div>
 <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
 <div class="image-container border-2 border-[var(--border)] p-2">
-<img alt="" class="w-full object-contain max-h-[60vh]" id="modal-img" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MDAiIGhlaWdodD0iMzAwIj48cmVjdCB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgcng9IjgiIGZpbGw9IiNlOGVhZWQiLz48cGF0aCBkPSJNMTcwIDEzMCBsMzAgNDAgbDIwLTE1IGw0MCA1NSBIMTQweiIgZmlsbD0iI2JkYzFjNiIvPjxjaXJjbGUgY3g9IjI1MCIgY3k9IjEyMCIgcj0iMTgiIGZpbGw9IiNiZGMxYzYiLz48L3N2Zz4=">
+<img alt="" class="w-full object-contain max-h-[60vh]" id="modal-img" src="">
 </div>
 <div class="flex flex-col h-full">
-<h3 class="text-3xl font-black text-white mb-6 uppercase tracking-tight neon-text" id="modal-title"></h3>
+<h3 class="text-3xl font-black text-white mb-6 uppercase tracking-tight neon-text" id="modal-title">ШАГ 00</h3>
 <div class="text-[var(--text-dim)] leading-relaxed mb-10 flex-grow" id="modal-desc"></div>
 <div class="flex flex-col gap-4 mt-auto">
-<button class="btn-action w-full py-4 rounded-sm flex items-center justify-center gap-3" id="modal-download" onclick="downloadModalImage()" style="display:none;">
+<button class="btn-action w-full py-4 rounded-sm flex items-center justify-center gap-3" id="modal-download" onclick="downloadModalImage()" style="display: none;">
 <span class="material-symbols-outlined">download</span> Загрузить данные
                     </button>
 <div class="flex items-center justify-between bg-[var(--surface-bright)] p-1 rounded-sm border border-[var(--border)]" id="modal-nav-row">
@@ -400,7 +363,7 @@
 
     function makeLinksClickable(text) {
         if (!text) return "";
-        return text.replace(/(https?:\/\/[^\s<>]+)/g, '<a href="$1" target="_blank" class="text-[var(--accent)] hover:underline decoration-dashed">$1</a>');
+        return text.toString().replace(/(https?:\/\/[^\s<>]+)/g, '<a href="$1" target="_blank" class="text-[var(--accent)] hover:underline decoration-dashed">$1</a>');
     }
 
     function downloadImage(url, filename) {
@@ -426,24 +389,29 @@
     }
 
     async function initContent() {
+        // Hardcoded values as defaults in fallback
         const settingsData = await loadJSON('/content/settings.json', {
-            siteTitle: "WPlace — Пиксель-Арт Сообщество", headerTitle: "⚔ WPLACE ⚔",
-            headerSubtitle: "Сообщество Пиксель-Арта", footer: "WPlace Pixel Art Community © 2025 | Obsidian Tech UI"
+            siteTitle: "Masters_of_Cum — official site", 
+            headerTitle: "Masters_of_Cum",
+            headerSubtitle: "official site", 
+            footer: "Telegram контакт - <a href='https://t.me/Arnimaz' target='_blank' class='text-[var(--accent)] hover:underline decoration-dashed'>@Arnimaz</a>"
         });
+        
         document.title = settingsData.siteTitle;
         document.querySelector(".site-title").textContent = settingsData.headerTitle;
         document.querySelector(".site-subtitle").textContent = settingsData.headerSubtitle;
         document.getElementById("site-footer").innerHTML = `<p>${settingsData.footer}</p>`;
 
         const homeData = await loadJSON('/content/home.json', {
-            title: "ТЕКУЩАЯ ОПЕРАЦИЯ", image: "", description: "", location: "", help_wplace: [], help_blue: [], help_helper: []
+            title: "АКТУАЛЬНЫЙ АРТ", image: "", description: "Соединение с сервером...", location: "", help_wplace: [], help_blue: [], help_helper: []
         });
         window._homeData = homeData;
+        
         document.getElementById('current-art-section').innerHTML = `
             <div class="cyber-panel p-8 md:p-12 neon-border-glow rounded-sm">
                 <div class="flex items-center gap-4 mb-8">
                     <span class="material-symbols-outlined text-[var(--accent)] neon-text text-3xl">radar</span>
-                    <h3 class="text-2xl font-black text-white uppercase tracking-tight">${homeData.title || 'ТЕКУЩАЯ ЦЕЛЬ'}</h3>
+                    <h3 class="text-2xl font-black text-white uppercase tracking-tight">${homeData.title || 'АКТУАЛЬНЫЙ АРТ'}</h3>
                 </div>
                 <div class="flex flex-col lg:flex-row gap-10">
                     ${homeData.image ? `<div class="image-container flex-shrink-0 lg:w-1/3 border-2 border-[var(--border)] p-2"><img src="${homeData.image}" alt="Актуальный арт" class="w-full h-auto"></div>` : ''}
@@ -465,7 +433,7 @@
             <div class="cyber-panel p-8 md:p-12 neon-border-glow rounded-sm">
                 <div class="flex items-center gap-4 mb-10">
                     <span class="material-symbols-outlined text-[var(--accent)] neon-text text-3xl">precision_manufacturing</span>
-                    <h3 class="text-2xl font-black text-white uppercase tracking-tight">Как помочь</h3>
+                    <h3 class="text-2xl font-black text-white uppercase tracking-tight">КАК ПОМОЧЬ</h3>
                 </div>
                 <div class="grid grid-cols-1 lg:grid-cols-3 gap-10">
                     <div class="space-y-4">
@@ -489,8 +457,8 @@
 
         const guidesData = await loadJSON('/content/guides.json', []);
         window._guidesData = guidesData;
-        document.getElementById('guides-content').innerHTML = guidesData.length > 0
-            ? guidesData.map(g => {
+        if (guidesData.length > 0) {
+            document.getElementById('guides-content').innerHTML = guidesData.map(g => {
                 let html = '';
                 if (g.install_pc && g.install_pc.length > 0) html += `<div class="bg-[rgba(0,255,136,0.1)] border border-[var(--border)] px-4 py-2 text-[10px] font-bold text-[var(--accent)] uppercase mb-4 mt-8 inline-block tracking-widest"> 🖥 ПК </div><ol class="pixel-list space-y-3 list-none">${renderStepsList(g.install_pc, 'guide_pc_'+g.title)}</ol>`;
                 if (g.install_phone && g.install_phone.length > 0) {
@@ -512,8 +480,8 @@
                     ${html}
                     ${g.note && g.note.toString().trim() ? `<div class="mt-10 p-6 rounded-sm bg-[rgba(0,255,136,0.03)] border-l-4 border-[var(--accent)] text-sm italic text-[var(--text-dim)] font-mono leading-relaxed"><span class="text-[var(--accent)] not-italic font-bold block mb-2 uppercase tracking-tighter">[!] ПРИМЕЧАНИЕ СИСТЕМЫ:</span>${makeLinksClickable(g.note)}</div>` : ''}
                 </div>`;
-            }).join('')
-            : '<p class="text-center py-16 text-[var(--text-dim)] font-mono uppercase tracking-widest">База данных пуста.</p>';
+            }).join('');
+        }
     }
 
     function renderStepsList(steps, type) {
@@ -611,7 +579,7 @@
         document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
         document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
         document.getElementById(tabId).classList.add('active');
-        event.currentTarget.classList.add('active');
+        if (event) event.currentTarget.classList.add('active');
         window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
@@ -622,7 +590,6 @@
         if (modalMode === 'gallery') { if (e.key === "ArrowLeft") navModal(-1); if (e.key === "ArrowRight") navModal(1); }
     });
 
-    // Check for admin toggle (e.g., via hash or hidden command)
     window.addEventListener('hashchange', () => {
         if(window.location.hash === '#admin') {
             document.getElementById('main-site-container').style.display = 'none';
@@ -639,6 +606,8 @@
 
     initContent();
 </script>
+
+
 
 
 </body></html>
