@@ -278,12 +278,32 @@
 
         const guidesData = await loadJSON('/content/guides.json', []);
         window._guidesData = guidesData;
-        document.getElementById('guides-content').innerHTML = guidesData.length > 0
-            ? guidesData.map(g => `
+                document.getElementById('guides-content').innerHTML = guidesData.length > 0
+            ? guidesData.map(g => {
+                // Группируем шаги телефона по категориям
+                let phoneStepsHtml = '';
+                if (g.install_phone && g.install_phone.length > 0) {
+                    const sections = {};
+                    let currentSection = 'Общее';
+                    g.install_phone.forEach(step => {
+                        const text = typeof step === 'object' ? step.text : step;
+                        if (text.includes('Android Chrome:')) currentSection = '📱 Android (Chrome)';
+                        else if (text.includes('Android Edge:')) currentSection = '📱 Android (Edge)';
+                        else if (text.includes('Android Firefox:')) currentSection = '📱 Android (Firefox)';
+                        else if (text.includes('iPhone iOS:')) currentSection = '📱 iPhone (iOS)';
+                        if (!sections[currentSection]) sections[currentSection] = [];
+                        sections[currentSection].push(step);
+                    });
+                    for (const [title, steps] of Object.entries(sections)) {
+                        phoneStepsHtml += `<p style="margin-top:10px;color:var(--accent2);"><strong>${title}:</strong></p><ol class="pixel-list">${renderStepsList(steps, 'guide_phone_'+g.title)}</ol>`;
+                    }
+                }
+                return `
                 <div class="card"><h3>${g.title}</h3><p><strong>Что это:</strong> ${makeLinksClickable(g.description)}</p>
-                ${g.install_pc&&g.install_pc.length>0?`<p style="margin-top:10px;"><strong>📥 Установка на ПК:</strong></p><ol class="pixel-list">${renderStepsList(g.install_pc, 'guide_pc_'+g.title)}</ol>`:''}
-                ${g.install_phone&&g.install_phone.length>0?`<p style="margin-top:10px;"><strong>📱 На телефон:</strong></p><ol class="pixel-list">${renderStepsList(g.install_phone, 'guide_phone_'+g.title)}</ol>`:''}
-                ${g.note?`<div class="note">${makeLinksClickable(g.note)}</div>`:''}</div>`).join('')
+                ${g.install_pc&&g.install_pc.length>0?`<p style="margin-top:10px;color:var(--accent2);"><strong>💻 Установка на ПК:</strong></p><ol class="pixel-list">${renderStepsList(g.install_pc, 'guide_pc_'+g.title)}</ol>`:''}
+                ${phoneStepsHtml}
+                ${g.note?`<div class="note">${makeLinksClickable(g.note)}</div>`:''}</div>`;
+            }).join('')
             : '<p style="color:#88aacc;text-align:center;">Гайды не добавлены.</p>';
     }
 
