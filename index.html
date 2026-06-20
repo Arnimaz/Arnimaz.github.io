@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title id="page-title">WPlace — Пиксель-Арт Сообщество</title>
+    <title>WPlace — Пиксель-Арт Сообщество</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap');
 
@@ -82,6 +82,7 @@
         }
         .art-image-container img { max-width: 100%; height: auto; image-rendering: pixelated; display: block; margin: 0 auto; }
         .art-info { text-align: center; font-size: 22px; color: var(--accent2); margin-top: 15px; text-shadow: 0 0 10px rgba(255,217,61,0.4); }
+        .art-info a { font-size: 22px; }
 
         ol.pixel-list { list-style: none; counter-reset: pixel-counter; padding-left: 0; }
         ol.pixel-list li { 
@@ -119,6 +120,7 @@
         .modal img { max-width: 100%; max-height: 60vh; image-rendering: pixelated; border: 3px solid #3a3a5a; margin-bottom: 20px; background: #050510; }
         .modal h3 { font-family: 'Press Start 2P', monospace; font-size: 16px; color: var(--accent2); margin-bottom: 12px; text-shadow: 0 0 10px rgba(255,217,61,0.5); }
         .modal .desc { font-size: 22px; color: #ddd; margin-bottom: 20px; line-height: 1.6; }
+        .modal .desc a { font-size: 22px; }
         .modal .close-btn {
             font-family: 'Press Start 2P', monospace; font-size: 13px; padding: 12px 24px;
             background: #0a2a0a; color: var(--glow); border: 3px solid var(--border); cursor: pointer;
@@ -205,13 +207,20 @@
 <script>
     let currentGalleryIndex = 0;
 
+    function makeLinksClickable(text) {
+        if (!text) return "";
+        return text.replace(
+            /(https?:\/\/[^\s<>]+)/g,
+            '<a href="$1" target="_blank" style="color:#00ff88;border-bottom:2px dashed #00ff88;">$1</a>'
+        );
+    }
+
     async function loadJSON(path, fallback) {
         try { const res = await fetch(path); if (!res.ok) throw new Error('not found'); return await res.json(); }
         catch { return fallback; }
     }
 
     async function initContent() {
-        // SETTINGS
         const settingsData = await loadJSON('/content/settings.json', {
             siteTitle: "WPlace — Пиксель-Арт Сообщество",
             headerTitle: "⚔ WPLACE ⚔",
@@ -223,7 +232,6 @@
         document.querySelector(".site-subtitle").textContent = settingsData.headerSubtitle;
         document.getElementById("site-footer").innerHTML = `<p>${settingsData.footer}</p>`;
 
-        // HOME
         const homeData = await loadJSON('/content/home.json', {
             title: "🎯 Актуальный арт", image: "", description: "Сейчас мы рисуем новый пиксель-арт на WPlace. Присоединяйся!",
             location: "https://wplace.live/?lat=53.38222746808291&lng=27.91098632812499&zoom=22",
@@ -234,15 +242,14 @@
         document.getElementById('current-art-section').innerHTML = `
             <div class="card"><h3>${homeData.title}</h3>
             ${homeData.image ? `<div class="art-image-container"><img src="${homeData.image}" alt="Актуальный арт"></div>` : ''}
-            <div class="art-info">${homeData.description}</div>
+            <div class="art-info">${makeLinksClickable(homeData.description)}</div>
             <p style="margin-top:15px;">📍 <strong>Местоположение:</strong><br><a href="${homeData.location}" class="link-pixel" target="_blank">🔗 ОТКРЫТЬ НА WPLACE</a></p></div>`;
         document.getElementById('help-section').innerHTML = `
             <div class="card"><h3>🖌 Как помочь с этим артом</h3>
-            <p style="color:var(--accent2);margin-bottom:10px;">⚡ <strong>WPlace (сайт):</strong></p><ol class="pixel-list">${homeData.help_wplace.map(s=>`<li>${s}</li>`).join('')}</ol>
-            <p style="color:var(--accent2);margin:15px 0 10px;">🔷 <strong>Blue Marble:</strong></p><ol class="pixel-list">${homeData.help_blue.map(s=>`<li>${s}</li>`).join('')}</ol>
-            <p style="color:var(--accent2);margin:15px 0 10px;">🧩 <strong>WPlace Helper:</strong></p><ol class="pixel-list">${homeData.help_helper.map(s=>`<li>${s}</li>`).join('')}</ol></div>`;
+            <p style="color:var(--accent2);margin-bottom:10px;">⚡ <strong>WPlace (сайт):</strong></p><ol class="pixel-list">${homeData.help_wplace.map(s=>`<li>${makeLinksClickable(s)}</li>`).join('')}</ol>
+            <p style="color:var(--accent2);margin:15px 0 10px;">🔷 <strong>Blue Marble:</strong></p><ol class="pixel-list">${homeData.help_blue.map(s=>`<li>${makeLinksClickable(s)}</li>`).join('')}</ol>
+            <p style="color:var(--accent2);margin:15px 0 10px;">🧩 <strong>WPlace Helper:</strong></p><ol class="pixel-list">${homeData.help_helper.map(s=>`<li>${makeLinksClickable(s)}</li>`).join('')}</ol></div>`;
 
-        // GALLERY
         const galleryData = await loadJSON('/content/gallery.json', []);
         window._galleryData = galleryData;
         document.getElementById('gallery-grid').innerHTML = galleryData.length > 0
@@ -253,14 +260,13 @@
                 </div>`).join('')
             : '<p style="color:#88aacc;text-align:center;">Галерея пуста.</p>';
 
-        // GUIDES
         const guidesData = await loadJSON('/content/guides.json', []);
         document.getElementById('guides-content').innerHTML = guidesData.length > 0
             ? guidesData.map(g => `
-                <div class="card"><h3>${g.title}</h3><p><strong>Что это:</strong> ${g.description}</p>
-                ${g.install_pc&&g.install_pc.length>0?`<p style="margin-top:10px;"><strong>📥 Установка на ПК:</strong></p><ol class="pixel-list">${g.install_pc.map(s=>`<li>${s}</li>`).join('')}</ol>`:''}
-                ${g.install_phone&&g.install_phone.length>0?`<p style="margin-top:10px;"><strong>📱 На телефон:</strong></p><ol class="pixel-list">${g.install_phone.map(s=>`<li>${s}</li>`).join('')}</ol>`:''}
-                ${g.note?`<div class="note">${g.note}</div>`:''}</div>`).join('')
+                <div class="card"><h3>${g.title}</h3><p><strong>Что это:</strong> ${makeLinksClickable(g.description)}</p>
+                ${g.install_pc&&g.install_pc.length>0?`<p style="margin-top:10px;"><strong>📥 Установка на ПК:</strong></p><ol class="pixel-list">${g.install_pc.map(s=>`<li>${makeLinksClickable(s)}</li>`).join('')}</ol>`:''}
+                ${g.install_phone&&g.install_phone.length>0?`<p style="margin-top:10px;"><strong>📱 На телефон:</strong></p><ol class="pixel-list">${g.install_phone.map(s=>`<li>${makeLinksClickable(s)}</li>`).join('')}</ol>`:''}
+                ${g.note?`<div class="note">${makeLinksClickable(g.note)}</div>`:''}</div>`).join('')
             : '<p style="color:#88aacc;text-align:center;">Гайды не добавлены.</p>';
     }
 
@@ -270,7 +276,7 @@
         const data = window._galleryData[currentGalleryIndex]; if (!data) return;
         document.getElementById("modal-img").src = data.image || "";
         document.getElementById("modal-title").textContent = data.title || "Без названия";
-        document.getElementById("modal-desc").textContent = data.description || "";
+        document.getElementById("modal-desc").innerHTML = makeLinksClickable(data.description || "");
         document.getElementById("modal-counter").textContent = `${currentGalleryIndex + 1} / ${window._galleryData.length}`;
         document.getElementById("modal-overlay").classList.add("active");
     }
