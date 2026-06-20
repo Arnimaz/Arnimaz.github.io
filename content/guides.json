@@ -1,7 +1,7 @@
 [
   {
     "title": "🔷 Blue Marble — Руководство по установке",
-    "description": "Blue Marble — продвинутый инструмент для точного размещения пикселей и загрузки шаблонов артов на WPlace.",
+    "description": "",
     "install_pc": [
       {
         "text": "Установите TamperMonkey для Chrome",
