@@ -53,7 +53,8 @@
         .gallery-admin-card textarea { min-height: 55px; resize: vertical; }
         .gallery-admin-card .card-actions { display: flex; gap: 6px; flex-wrap: wrap; justify-content: space-between; align-items: center; margin-top: 6px; }
         .step-admin-item { border: 2px solid var(--border-dim); background: #0a0f0a; padding: 12px; margin-bottom: 8px; }
-        .step-admin-item input { width: 100%; padding: 7px 8px; background: #050a05; border: 2px solid var(--border-dim); color: var(--glow); font-family: 'VT323', monospace; font-size: 17px; margin-bottom: 5px; }
+        .step-admin-item input, .step-admin-item textarea { width: 100%; padding: 7px 8px; background: #050a05; border: 2px solid var(--border-dim); color: var(--glow); font-family: 'VT323', monospace; font-size: 17px; margin-bottom: 5px; }
+        .step-admin-item textarea { min-height: 50px; resize: vertical; }
         .step-admin-item .row { display: flex; gap: 8px; align-items: center; }
         .step-admin-item .row input { flex: 1; }
         .guide-item-admin { border: 2px solid var(--border-dim); background: #0a0f0a; padding: 14px; margin-bottom: 10px; }
@@ -84,7 +85,7 @@
 <div id="login-page" class="login-container">
     <div class="login-card">
         <div class="login-title">⚔ WPLACE ⚔</div>
-        <div class="login-subtitle">ADMIN PRO v7.0</div>
+        <div class="login-subtitle">ADMIN PRO v8.0</div>
         <div class="form-group"><label class="form-label">🔑 GitHub Token</label><input type="password" id="token-input" class="form-input" placeholder="ghp_..." autofocus></div>
         <button class="btn btn-primary btn-full" onclick="login()">▶ ВОЙТИ</button>
         <div class="login-help">Токен с правами <strong>repo</strong><br><a href="https://github.com/settings/tokens/new" target="_blank">Создать токен →</a></div>
@@ -93,7 +94,7 @@
 
 <div id="admin-page" class="hidden">
     <div class="header">
-        <div class="header-left"><div class="header-title">⚔ WPLACE ADMIN v7.0</div><div class="header-status"><span class="dot"></span>ONLINE</div></div>
+        <div class="header-left"><div class="header-title">⚔ WPLACE ADMIN v8.0</div><div class="header-status"><span class="dot"></span>ONLINE</div></div>
         <div style="display:flex;gap:6px;flex-wrap:wrap;">
             <a href="/" class="btn btn-small btn-info" target="_blank">🌐 САЙТ</a>
             <button class="btn btn-small btn-warning" onclick="loadAll()">🔄</button>
@@ -238,10 +239,11 @@
     function renderStepsAdmin(type, steps) {
         const el = document.getElementById(`steps-${type}`);
         el.innerHTML = steps.length === 0 ? '<p style="color:var(--text-dim);padding:8px;">Пусто</p>' : steps.map((s, i) => {
-            const stepData = typeof s === 'object' ? s : { text: s, image: "" };
+            const stepData = typeof s === 'object' ? s : { text: s, image: "", detail: "" };
             return `<div class="step-admin-item">
-                <div class="row"><span style="font-family:Press Start 2P;font-size:10px;color:var(--accent2);min-width:22px;">${i+1}.</span><input value="${(stepData.text||'').replace(/"/g, '&quot;')}" onchange="updateStepText('${type}',${i},this.value)" placeholder="Текст шага"></div>
-                <input value="${stepData.image||''}" onchange="updateStepImage('${type}',${i},this.value)" placeholder="Ссылка на фото (необязательно)">
+                <div class="row"><span style="font-family:Press Start 2P;font-size:10px;color:var(--accent2);min-width:22px;">${i+1}.</span><input value="${(stepData.text||'').replace(/"/g, '&quot;')}" onchange="updateStepField('${type}',${i},'text',this.value)" placeholder="Текст шага"></div>
+                <input value="${stepData.image||''}" onchange="updateStepField('${type}',${i},'image',this.value)" placeholder="Ссылка на фото (необязательно)">
+                <textarea onchange="updateStepField('${type}',${i},'detail',this.value)" placeholder="Подробности (показываются при нажатии)" rows="2">${(stepData.detail||'').replace(/</g, '&lt;')}</textarea>
                 <button class="btn btn-small btn-danger" onclick="removeStep('${type}',${i})" style="margin-top:5px;">✕ Удалить</button>
             </div>`;
         }).join("");
@@ -249,18 +251,13 @@
     function addStep(type) {
         const key = type==="wplace"?"help_wplace":type==="blue"?"help_blue":"help_helper";
         if(!homeData[key])homeData[key]=[];
-        homeData[key].push({ text: "", image: "" });
+        homeData[key].push({ text: "", image: "", detail: "" });
         renderStepsAdmin(type, homeData[key]);
     }
-    function updateStepText(type, i, v) {
+    function updateStepField(type, i, field, v) {
         const key = type==="wplace"?"help_wplace":type==="blue"?"help_blue":"help_helper";
-        if (typeof homeData[key][i] === 'object') homeData[key][i].text = v;
-        else homeData[key][i] = { text: v, image: "" };
-    }
-    function updateStepImage(type, i, v) {
-        const key = type==="wplace"?"help_wplace":type==="blue"?"help_blue":"help_helper";
-        if (typeof homeData[key][i] === 'object') homeData[key][i].image = v;
-        else homeData[key][i] = { text: homeData[key][i] || "", image: v };
+        if (typeof homeData[key][i] !== 'object') homeData[key][i] = { text: homeData[key][i] || "", image: "", detail: "" };
+        homeData[key][i][field] = v;
     }
     function removeStep(type, i) {
         const key = type==="wplace"?"help_wplace":type==="blue"?"help_blue":"help_helper";
@@ -319,16 +316,17 @@
     function renderGuideStepsAdmin(gi, type, steps) {
         const el = document.getElementById(`guide-${type}-${gi}`); if(!el)return;
         el.innerHTML = steps.length === 0 ? '<p style="color:var(--text-dim);font-size:14px;">Пусто</p>' : steps.map((s, si) => {
-            const sd = typeof s === 'object' ? s : { text: s, image: "" };
+            const sd = typeof s === 'object' ? s : { text: s, image: "", detail: "" };
             return `<div class="step-admin-item">
-                <input value="${(sd.text||'').replace(/"/g, '&quot;')}" onchange="guidesData[${gi}].install_${type}[${si}]=typeof guidesData[${gi}].install_${type}[${si}]==='object'?(guidesData[${gi}].install_${type}[${si}].text=this.value,guidesData[${gi}].install_${type}[${si}]):{text:this.value,image:''}" placeholder="Текст">
-                <input value="${sd.image||''}" onchange="if(typeof guidesData[${gi}].install_${type}[${si}]!=='object')guidesData[${gi}].install_${type}[${si}]={text:guidesData[${gi}].install_${type}[${si}]||'',image:''};guidesData[${gi}].install_${type}[${si}].image=this.value" placeholder="Фото (ссылка)">
+                <input value="${(sd.text||'').replace(/"/g, '&quot;')}" onchange="if(typeof guidesData[${gi}].install_${type}[${si}]!=='object')guidesData[${gi}].install_${type}[${si}]={text:guidesData[${gi}].install_${type}[${si}]||'',image:'',detail:''};guidesData[${gi}].install_${type}[${si}].text=this.value" placeholder="Текст">
+                <input value="${sd.image||''}" onchange="if(typeof guidesData[${gi}].install_${type}[${si}]!=='object')guidesData[${gi}].install_${type}[${si}]={text:'',image:'',detail:''};guidesData[${gi}].install_${type}[${si}].image=this.value" placeholder="Фото (ссылка)">
+                <textarea onchange="if(typeof guidesData[${gi}].install_${type}[${si}]!=='object')guidesData[${gi}].install_${type}[${si}]={text:'',image:'',detail:''};guidesData[${gi}].install_${type}[${si}].detail=this.value" placeholder="Подробности" rows="2">${(sd.detail||'').replace(/</g, '&lt;')}</textarea>
                 <button class="btn btn-small btn-danger" onclick="guidesData[${gi}].install_${type}.splice(${si},1);renderGuides();">✕</button>
             </div>`;
         }).join("");
     }
     function addGuideItem() { guidesData.push({ title: "", description: "", install_pc: [], install_phone: [], note: "" }); renderGuides(); }
-    function addGuideStep(gi, type) { const key = `install_${type}`; if(!guidesData[gi][key])guidesData[gi][key]=[]; guidesData[gi][key].push({ text: "", image: "" }); renderGuides(); }
+    function addGuideStep(gi, type) { const key = `install_${type}`; if(!guidesData[gi][key])guidesData[gi][key]=[]; guidesData[gi][key].push({ text: "", image: "", detail: "" }); renderGuides(); }
     async function saveGuides() { try { guidesData._sha = await saveJSON("content/guides.json", guidesData, guidesData._sha); document.getElementById("stats-last-save").textContent = new Date().toLocaleTimeString(); updateStats(); toast("✅ Сохранено!", "success"); } catch(e) { toast("❌ "+e.message, "error"); } }
 
     // SETTINGS
@@ -343,11 +341,11 @@
         settingsData.headerTitle = document.getElementById("settings-headerTitle").value;
         settingsData.headerSubtitle = document.getElementById("settings-headerSubtitle").value;
         settingsData.footer = document.getElementById("settings-footer").value;
-        try { settingsData._sha = settingsData._sha ? await saveJSON("content/settings.json", settingsData, settingsData._sha) : await saveJSON("content/settings.json", settingsData, null); toast("✅ Настройки сохранены!", "success"); } catch(e) { toast("❌ "+e.message, "error"); }
+        try { settingsData._sha = settingsData._sha ? await saveJSON("content/settings.json", settingsData, settingsData._sha) : await saveJSON("content/settings.json", settingsData, null); document.getElementById("stats-last-save").textContent = new Date().toLocaleTimeString(); toast("✅ Настройки сохранены!", "success"); } catch(e) { toast("❌ "+e.message, "error"); }
     }
 
     async function resetAll() {
-        homeData = { title: "🎯 Актуальный арт", image: "", description: "", location: "", help_wplace: [], help_blue: [], help_helper: [] };
+        homeData = { title: "", image: "", description: "", location: "", help_wplace: [], help_blue: [], help_helper: [] };
         galleryData = [];
         guidesData = [];
         settingsData = { siteTitle: "WPlace", headerTitle: "⚔ WPLACE ⚔", headerSubtitle: "Пиксель-арт сообщество", footer: "© 2025" };
@@ -383,5 +381,6 @@
     document.addEventListener("keydown", function(e) { if((e.ctrlKey||e.metaKey)&&e.key==="s"){ e.preventDefault(); const at = document.querySelector(".tab-content.active"); if(at.id==="home-tab")saveHome(); else if(at.id==="gallery-tab")saveGallery(); else if(at.id==="guides-tab")saveGuides(); else if(at.id==="settings-tab")saveSettings(); } });
     document.getElementById("token-input").addEventListener("keydown", e => { if(e.key==="Enter")login(); });
 </script>
+
 </body>
 </html>
