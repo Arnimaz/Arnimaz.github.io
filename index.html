@@ -266,12 +266,10 @@
             ? guidesData.map(g => {
                 let html = '';
                 
-                // ПК шаги
                 if (g.install_pc && g.install_pc.length > 0) {
                     html += `<div class="section-title">💻 ПК</div><ol class="pixel-list">${renderStepsList(g.install_pc, 'guide_pc_'+g.title)}</ol>`;
                 }
                 
-                // Телефонные шаги группируем по section
                 if (g.install_phone && g.install_phone.length > 0) {
                     const sections = {};
                     g.install_phone.forEach(step => {
@@ -292,7 +290,7 @@
                     }
                 }
                 
-                return `<div class="card"><h3>${g.title}</h3><p>${makeLinksClickable(g.description)}</p>${html}${g.note && g.note.trim() ? `<div class="note">${makeLinksClickable(g.note)}</div>` : ''}</div>`;
+                return `<div class="card"><h3>${g.title}</h3><p>${makeLinksClickable(g.description)}</p>${html}${g.note && g.note.toString().trim() ? `<div class="note">${makeLinksClickable(g.note)}</div>` : ''}</div>`;
             }).join('')
             : '<p style="color:#88aacc;text-align:center;">Гайды не добавлены.</p>';
     }
@@ -311,7 +309,7 @@
         if (type === 'helper') return window._homeData?.help_helper?.[index] || { text: "", image: "", detail: "" };
         const parts = type.split('_');
         if (parts[0] === 'guide') {
-            const guideType = parts[1]; // pc или phone
+            const guideType = parts[1];
             const guideTitle = parts.slice(2).join('_');
             const guide = window._guidesData?.find(g => g.title === guideTitle);
             if (guide) {
@@ -337,7 +335,7 @@
         document.getElementById("modal-title").textContent = `Шаг ${currentStepIndex + 1}`;
         document.getElementById("modal-desc").innerHTML = 
             '<p style="margin-bottom:12px;font-size:20px;text-align:center;">' + makeLinksClickable(stepData.text || "Нет описания") + '</p>' +
-            (stepData.detail ? '<div class="note"><strong>📋 Подробности:</strong><br>' + makeLinksClickable(stepData.detail) + '</div>' : '');
+            (stepData.detail && stepData.detail.toString().trim() ? '<div class="note"><strong>📋 Подробности:</strong><br>' + makeLinksClickable(stepData.detail) + '</div>' : '');
         document.getElementById("modal-counter").textContent = "";
     }
 
