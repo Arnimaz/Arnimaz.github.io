@@ -1,5 +1,4 @@
-<html class="dark" lang="ru" style=""><head></head><body class="antialiased">```html
-
+<html class="dark" lang="ru" style=""><head></head><body class="antialiased">
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>Masters_of_Cum — official site</title>
@@ -129,6 +128,13 @@
             padding: 2rem;
             position: relative;
         }
+
+        .terminal-input {
+            background: black;
+            border: 1px solid #00ff41;
+            color: #00ff41;
+            font-family: 'JetBrains Mono', monospace;
+        }
     </style>
 <div class="max-w-6xl mx-auto px-6 py-12" id="main-site-container">
 <!-- Header -->
@@ -227,19 +233,50 @@
 <!-- Admin Interface -->
 <div id="admin-panel-container">
 <div class="terminal-header border-b border-[#00ff41] pb-4 mb-8 flex justify-between font-mono">
-<span class="">&gt; obsidian_tech_admin_v4.1.0</span>
+<span class="">&gt; obsidian_tech_admin_v4.2.0</span>
+<div class="flex gap-4">
+<button class="text-white/60 hover:text-[#00ff41] text-xs uppercase" onclick="window.location.hash = ''">EXIT_CONSOLE</button>
 <span class="text-white/40">[SECURE_SESSION]</span>
 </div>
-<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-<div class="terminal-box border border-[#00ff41] p-6 bg-[#00ff41]/5 rounded">
-<div class="mb-6 font-bold uppercase">AUTH_LEVEL: ROOT</div>
-<input class="bg-black border border-[#00ff41] text-[#00ff41] w-full p-3 mb-4 font-mono outline-none" placeholder="GITHUB_TOKEN" type="password"/>
-<button class="bg-[#00ff41] text-black w-full py-3 font-bold uppercase hover:bg-white transition-colors">ESTABLISH CONNECTION</button>
 </div>
-<div class="md:col-span-2 border border-[#00ff41] p-6 bg-[#00ff41]/5 rounded h-[400px] flex items-center justify-center opacity-40">
-<div class="text-center">
-<span class="material-symbols-outlined text-5xl mb-4">terminal</span>
-<p class="font-mono text-sm">WAITING FOR AUTHORIZATION...</p>
+<div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+<div class="md:col-span-1 space-y-4">
+<div class="terminal-box border border-[#00ff41] p-6 bg-[#00ff41]/5 rounded">
+<div class="mb-4 font-bold uppercase text-xs tracking-widest text-[#00ff41]">MENU</div>
+<nav class="flex flex-col gap-2">
+<button class="text-left py-2 px-4 bg-[#00ff41] text-black font-bold text-xs uppercase" onclick="switchAdminTab('logs')">SYSTEM_LOGS</button>
+<button class="text-left py-2 px-4 border border-[#00ff41]/40 text-[#00ff41] hover:bg-[#00ff41]/10 font-bold text-xs uppercase" onclick="switchAdminTab('suggestions')">SUGGESTIONS_QUEUE</button>
+</nav>
+</div>
+<div class="terminal-box border border-[#00ff41] p-6 bg-[#00ff41]/5 rounded">
+<div class="mb-4 font-bold uppercase text-xs tracking-widest text-[#00ff41]">AUTH</div>
+<input class="bg-black border border-[#00ff41] text-[#00ff41] w-full p-3 mb-4 font-mono text-xs outline-none" placeholder="GITHUB_TOKEN" type="password"/>
+<button class="bg-[#00ff41] text-black w-full py-3 font-bold text-xs uppercase hover:bg-white transition-colors">CONNECT</button>
+</div>
+</div>
+<div class="md:col-span-3 border border-[#00ff41] p-8 bg-[#00ff41]/5 rounded min-h-[500px]">
+<div id="admin-tab-logs">
+<div class="flex items-center gap-4 mb-6">
+<span class="material-symbols-outlined">terminal</span>
+<h2 class="font-bold uppercase tracking-widest">SYSTEM_LOGS</h2>
+</div>
+<div class="font-mono text-xs space-y-2 opacity-80" id="terminal-output">
+<div>[00:00:00] SYSTEM INITIALIZED...</div>
+<div>[00:00:01] LOADING LOCAL_STORAGE DATA...</div>
+<div>[00:00:01] READY.</div>
+</div>
+</div>
+<div class="hidden" id="admin-tab-suggestions">
+<div class="flex items-center justify-between mb-8">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined">inbox</span>
+<h2 class="font-bold uppercase tracking-widest">SUGGESTIONS_QUEUE</h2>
+</div>
+<button class="text-xs border border-red-500 text-red-500 px-4 py-1 hover:bg-red-500 hover:text-black transition-colors font-bold" onclick="clearSuggestions()">PURGE_ALL</button>
+</div>
+<div class="space-y-6" id="admin-suggestions-list">
+<p class="text-center py-10 opacity-40 italic">NO_PENDING_SUGGESTIONS</p>
+</div>
 </div>
 </div>
 </div>
@@ -397,6 +434,8 @@
                 </div>`;
             }).join('');
         }
+        
+        loadSuggestionsIntoAdmin();
     }
 
     function renderStepsList(steps, type) {
@@ -528,6 +567,7 @@
             document.getElementById('admin-panel-container').style.display = 'block';
             document.body.style.background = '#000';
             document.body.style.backgroundImage = 'none';
+            loadSuggestionsIntoAdmin();
         } else {
             document.getElementById('main-site-container').style.display = 'block';
             document.getElementById('admin-panel-container').style.display = 'none';
@@ -535,6 +575,87 @@
             document.body.style.backgroundImage = '';
         }
     });
+
+    function switchAdminTab(tab) {
+        const logs = document.getElementById('admin-tab-logs');
+        const sugs = document.getElementById('admin-tab-suggestions');
+        const buttons = document.querySelectorAll('#admin-panel-container nav button');
+        
+        buttons.forEach(btn => {
+            btn.classList.remove('bg-[#00ff41]', 'text-black');
+            btn.classList.add('border', 'border-[#00ff41]/40', 'text-[#00ff41]');
+        });
+
+        if (tab === 'logs') {
+            logs.classList.remove('hidden');
+            sugs.classList.add('hidden');
+            event.target.classList.add('bg-[#00ff41]', 'text-black');
+            event.target.classList.remove('border', 'border-[#00ff41]/40', 'text-[#00ff41]');
+        } else {
+            logs.classList.add('hidden');
+            sugs.classList.remove('hidden');
+            event.target.classList.add('bg-[#00ff41]', 'text-black');
+            event.target.classList.remove('border', 'border-[#00ff41]/40', 'text-[#00ff41]');
+            loadSuggestionsIntoAdmin();
+        }
+    }
+
+    function loadSuggestionsIntoAdmin() {
+        const list = document.getElementById('admin-suggestions-list');
+        const output = document.getElementById('terminal-output');
+        const data = JSON.parse(localStorage.getItem('moc_suggestions') || '[]');
+        
+        if (data.length === 0) {
+            list.innerHTML = '<p class="text-center py-10 opacity-40 italic">NO_PENDING_SUGGESTIONS</p>';
+        } else {
+            list.innerHTML = data.map((s, i) => `
+                <div class="border border-[#00ff41]/20 p-6 bg-[#00ff41]/5 rounded group relative">
+                    <div class="flex justify-between items-start mb-4">
+                        <div class="flex items-center gap-3">
+                            <span class="text-[#00ff41] font-bold text-xs uppercase tracking-widest">[REC_${(i+1).toString().padStart(3,'0')}]</span>
+                            <span class="text-white/40 text-[10px] font-mono">${s.timestamp}</span>
+                        </div>
+                        <button onclick="removeSuggestion(${i})" class="text-red-500/50 hover:text-red-500 transition-colors"><span class="material-symbols-outlined text-sm">delete</span></button>
+                    </div>
+                    <div class="grid grid-cols-1 lg:grid-cols-4 gap-6">
+                        ${s.image ? `<div class="lg:col-span-1 aspect-square border border-white/10 rounded overflow-hidden bg-black"><img src="${s.image}" class="w-full h-full object-cover"></div>` : ''}
+                        <div class="lg:col-span-3 space-y-3">
+                            <h4 class="text-white font-bold uppercase tracking-tight">${s.title}</h4>
+                            <div class="flex gap-2">
+                                <span class="text-[#00ff41] text-[10px] font-bold">CONTACT:</span>
+                                <span class="text-white/60 text-xs font-mono">${s.contact}</span>
+                            </div>
+                            <div class="p-3 bg-black/40 border border-[#00ff41]/10 rounded text-xs text-white/70 leading-relaxed font-mono">
+                                <span class="text-[#00ff41]/40 block text-[10px] mb-1">COMMENT:</span>
+                                ${s.description || 'N/A'}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+        
+        // Log update
+        const time = new Date().toLocaleTimeString();
+        const logEntry = document.createElement('div');
+        logEntry.textContent = `[${time}] DATA_RECONCILIATION: ${data.length} RECORDS FOUND.`;
+        output.appendChild(logEntry);
+        output.scrollTop = output.scrollHeight;
+    }
+
+    function removeSuggestion(idx) {
+        let data = JSON.parse(localStorage.getItem('moc_suggestions') || '[]');
+        data.splice(idx, 1);
+        localStorage.setItem('moc_suggestions', JSON.stringify(data));
+        loadSuggestionsIntoAdmin();
+    }
+
+    function clearSuggestions() {
+        if(confirm('PURGE ALL RECORDS?')) {
+            localStorage.setItem('moc_suggestions', '[]');
+            loadSuggestionsIntoAdmin();
+        }
+    }
 
     // Handle initial hash
     if(window.location.hash === '#admin') window.dispatchEvent(new Event('hashchange'));
@@ -576,16 +697,21 @@ async function submitSuggestion(e) {
             }); 
         } 
         
-        if (!imageData && !url) throw new Error('MISSING_ASSET_DATA'); 
+        const suggestion = {
+            title,
+            image: imageData || url,
+            description: desc,
+            contact,
+            timestamp: new Date().toLocaleString()
+        };
 
-        // Direct submission simulation (In a real scenario, this would post to a backend API)
-        // Since we are removing GitHub Token requirement, we'll simulate a successful log 
-        // Or if the environment supports it, use an anonymous edge function.
+        // Save to localStorage so admin panel can see it (Same browser test flow)
+        let existing = JSON.parse(localStorage.getItem('moc_suggestions') || '[]');
+        existing.unshift(suggestion);
+        localStorage.setItem('moc_suggestions', JSON.stringify(existing));
         
-        console.log("Suggestion Data:", { title, image: imageData || url, description: desc, contact, timestamp: new Date().toISOString() });
-        
-        // Mocking a successful submission delay
-        await new Promise(resolve => setTimeout(resolve, 1500));
+        // Simulating processing delay
+        await new Promise(resolve => setTimeout(resolve, 1200));
         
         showToast('ПРЕДЛОЖЕНИЕ УСПЕШНО ОТПРАВЛЕНО'); 
         e.target.reset(); 
@@ -600,4 +726,4 @@ async function submitSuggestion(e) {
     } 
 }
 </script>
-```</body></html>
+</body></html>
