@@ -284,8 +284,7 @@
             <div class="card"><h3>${homeData.title}</h3>
             ${homeData.image ? `<div class="art-image-container"><img src="${homeData.image}" alt="Актуальный арт"></div>` : ''}
             <div class="art-info">${makeLinksClickable(homeData.description)}</div>
-            ${homeData.location ? `<p style="margin-top:15px;">📍 <strong>Местоположение:</strong><br><a href="${homeData.location}" class="link-pixel" target="_blank">🔗 ОТКРЫТЬ НА WPLACE</a>${homeData.image ? ` <button class="btn-download" onclick="downloadImage('${homeData.image}','wplace-art.png')">💾 СКАЧАТЬ</button>` : ''}</p>` : (homeData.image ? `<p style="margin-top:15px;"><button class="btn-download" onclick="downloadImage('${homeData.image}','wplace-art.png')">💾 СКАЧАТЬ АРТ</button></p>` : '')}</div>`;
-        document.getElementById('help-section').innerHTML = `
+                        ${homeData.location ? `<p style="margin-top:15px;">📍 <strong>Местоположение:</strong></p><div style="text-align:right;margin-top:5px;"><a href="${homeData.location}" class="link-pixel" target="_blank">🔗 ОТКРЫТЬ НА WPLACE</a>${homeData.image ? ` <button class="btn-download" onclick="downloadImage('${homeData.image}','wplace-art.png')">💾 СКАЧАТЬ</button>` : ''}</div>` : (homeData.image ? `<div style="text-align:right;margin-top:15px;"><button class="btn-download" onclick="downloadImage('${homeData.image}','wplace-art.png')">💾 СКАЧАТЬ АРТ</button></div>` : '')};
             <div class="card"><h3>🖌 Как помочь с этим артом</h3>
             <p style="color:var(--accent2);margin-bottom:10px;">⚡ <strong>WPlace (сайт):</strong></p><ol class="pixel-list">${renderStepsList(homeData.help_wplace, 'wplace')}</ol>
             <p style="color:var(--accent2);margin:15px 0 10px;">🔷 <strong>Blue Marble:</strong></p><ol class="pixel-list">${renderStepsList(homeData.help_blue, 'blue')}</ol>
