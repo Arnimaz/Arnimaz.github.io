@@ -1,9 +1,11 @@
-<!DOCTYPE html><html lang="ru" style=""><head>
-<meta charset="utf-8">
-<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<!DOCTYPE html>
+
+<html lang="ru" style=""><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>MOC_ADMIN // OBSIDIAN_TECH_TERMINAL</title>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=VT323&amp;family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=VT323&amp;family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&amp;display=swap" rel="stylesheet"/>
 <style>
         :root {
             --neon-green: #00ff41;
@@ -108,20 +110,19 @@
 <div>
 <label class="block text-sm uppercase mb-2">ТОКЕН АУТЕНТИФИКАЦИИ</label>
 <div class="relative">
-<input autofocus="" class="input-field w-full py-3 px-4" id="token-input" placeholder="ghp_************************************" type="password">
+<input autofocus="" class="input-field w-full py-3 px-4" id="token-input" placeholder="ghp_************************************" type="password"/>
 </div>
 </div>
 <button class="btn-terminal w-full py-4 text-2xl font-bold flex items-center justify-center gap-2" onclick="login()">
                 ВЫПОЛНИТЬ ВХОД
             </button>
 </div>
-
 </div>
 </div>
 <!-- ADMIN DASHBOARD -->
-<div class="hidden min-h-screen flex" id="admin-page">
+<div class="hidden min-h-screen flex flex-col lg:flex-row" id="admin-page">
 <!-- Sidebar -->
-<aside class="w-72 border-r-2 border-[var(--neon-green)] bg-black flex flex-col fixed h-full z-20">
+<aside class="w-full lg:w-72 border-b-2 lg:border-b-0 lg:border-r-2 border-[var(--neon-green)] bg-black flex flex-col relative lg:fixed lg:h-full z-20">
 <div class="p-6 border-b-2 border-[var(--neon-green)]">
 <div class="flex items-center gap-3">
 <div class="text-3xl text-[var(--neon-green)]">
@@ -129,24 +130,23 @@
 </div>
 <div>
 <div class="text-xl font-bold tracking-tighter">ADMIN_PANEL</div>
-
 </div>
 </div>
 </div>
-<nav class="flex-1 p-4 space-y-2">
-<button class="sidebar-btn active w-full flex items-center gap-3 px-4 py-3 text-lg transition-all" onclick="switchTab('home-tab', this)">
+<nav class="flex-1 p-4 flex flex-row lg:flex-col gap-2 lg:space-y-2 overflow-x-auto lg:overflow-x-visible">
+<button class="sidebar-btn active w-full flex items-center gap-3 px-4 py-3 text-lg transition-all whitespace-nowrap" onclick="switchTab('home-tab', this)">
 <span class="material-symbols-outlined">dashboard</span>
                 ГЛАВНЫЙ ЭКРАН
             </button>
-<button class="sidebar-btn w-full flex items-center gap-3 px-4 py-3 text-lg transition-all" onclick="switchTab('gallery-tab', this)">
+<button class="sidebar-btn w-full flex items-center gap-3 px-4 py-3 text-lg transition-all whitespace-nowrap" onclick="switchTab('gallery-tab', this)">
 <span class="material-symbols-outlined">image</span>
                 ГАЛЕРЕЯ
             </button>
-<button class="sidebar-btn w-full flex items-center gap-3 px-4 py-3 text-lg transition-all" onclick="switchTab('guides-tab', this)">
+<button class="sidebar-btn w-full flex items-center gap-3 px-4 py-3 text-lg transition-all whitespace-nowrap" onclick="switchTab('guides-tab', this)">
 <span class="material-symbols-outlined">auto_stories</span>
                 РУКОВОДСТВА
             </button>
-<button class="sidebar-btn w-full flex items-center gap-3 px-4 py-3 text-lg transition-all" onclick="switchTab('settings-tab', this)">
+<button class="sidebar-btn w-full flex items-center gap-3 px-4 py-3 text-lg transition-all whitespace-nowrap" onclick="switchTab('settings-tab', this)">
 <span class="material-symbols-outlined">settings</span>
                 НАСТРОЙКИ СИСТЕМЫ
             </button>
@@ -167,13 +167,13 @@
 </div>
 </aside>
 <!-- Main Content -->
-<main class="flex-1 ml-72 flex flex-col">
+<main class="flex-1 lg:ml-72 flex flex-col">
 <!-- Top Bar -->
-<header class="h-20 border-b-2 border-[var(--neon-green)] bg-black sticky top-0 z-10 px-8 flex items-center justify-between">
+<header class="min-h-20 h-auto py-4 md:py-0 border-b-2 border-[var(--neon-green)] bg-black sticky top-0 z-10 px-4 md:px-8 flex flex-col md:flex-row items-center justify-between gap-4">
 <div class="flex items-center gap-4">
 <div class="relative">
 <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-[var(--neon-green)] text-sm">search</span>
-<input class="input-field py-1.5 pl-9 pr-4 text-sm w-64" oninput="quickSearch(this.value)" placeholder="ПОИСК ПО МОДУЛЯМ..." type="text">
+<input class="input-field py-1.5 pl-9 pr-4 text-sm w-full md:w-64" oninput="quickSearch(this.value)" placeholder="ПОИСК ПО МОДУЛЯМ..." type="text"/>
 </div>
 </div>
 <div class="flex items-center gap-6">
@@ -190,7 +190,7 @@
 <div class="p-8 pb-20">
 <!-- HOME TAB -->
 <div class="tab-content space-y-10" id="home-tab">
-<div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-8 gap-6">
 <div class="terminal-border p-6 bg-black">
 <h3 class="text-2xl font-bold mb-6 flex items-center gap-2 border-b border-[var(--neon-green)] pb-2">
 <span class="material-symbols-outlined">featured_play_list</span>
@@ -199,15 +199,15 @@
 <div class="space-y-4">
 <div>
 <label class="block text-xs uppercase mb-1">ЗАГОЛОВОК АРТА</label>
-<input class="input-field w-full p-2.5" id="home-title" type="text">
+<input class="input-field w-full p-2.5" id="home-title" type="text"/>
 </div>
 <div>
 <label class="block text-xs uppercase mb-1">URL ИЗОБРАЖЕНИЯ</label>
-<input class="input-field w-full p-2.5" id="home-image" oninput="previewHomeImage()" type="text">
+<input class="input-field w-full p-2.5" id="home-image" oninput="previewHomeImage()" type="text"/>
 </div>
 <div>
 <label class="block text-xs uppercase mb-1">КООРДИНАТЫ WPLACE / ССЫЛКА</label>
-<input class="input-field w-full p-2.5" id="home-location" type="text">
+<input class="input-field w-full p-2.5" id="home-location" type="text"/>
 </div>
 <div>
 <label class="block text-xs uppercase mb-1">ОПИСАНИЕ</label>
@@ -215,13 +215,13 @@
 </div>
 </div>
 </div>
-<div class="terminal-border p-6 bg-black flex flex-col">
+<div class="terminal-border p-6 bg-black flex flex-col min-h-[300px]">
 <h3 class="text-2xl font-bold mb-6 flex items-center gap-2 border-b border-[var(--neon-green)] pb-2">
 <span class="material-symbols-outlined">image_search</span>
                             ВИЗУАЛИЗАЦИЯ
                         </h3>
 <div class="flex-1 border-2 border-dashed border-[var(--neon-green)] flex items-center justify-center overflow-hidden min-h-[250px]" id="home-image-preview">
-<img alt="" class="max-w-full max-h-[350px] object-contain" id="home-preview-img" src="">
+<img alt="" class="max-w-full max-h-[350px] object-contain" id="home-preview-img" src=""/>
 <div class="text-center opacity-40" id="no-preview">
 <span class="material-symbols-outlined text-6xl block mb-2">image_not_supported</span>
 <p class="">ОТСУТСТВУЮТ ДАННЫЕ</p>
@@ -274,7 +274,7 @@
                         </button>
 </div>
 </div>
-<div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-8" id="gallery-items"></div>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-6 md:gap-8" id="gallery-items"></div>
 </div>
 <!-- GUIDES TAB -->
 <div class="tab-content hidden space-y-10" id="guides-tab">
@@ -299,21 +299,21 @@
 <div class="space-y-6">
 <div>
 <label class="block text-sm uppercase mb-2">НАЗВАНИЕ ВКЛАДКИ</label>
-<input class="input-field w-full p-3" id="settings-siteTitle" type="text">
+<input class="input-field w-full p-3" id="settings-siteTitle" type="text"/>
 </div>
 <div>
 <label class="block text-sm uppercase mb-2">ГЛАВНЫЙ ЗАГОЛОВОК</label>
-<input class="input-field w-full p-3" id="settings-headerTitle" type="text">
+<input class="input-field w-full p-3" id="settings-headerTitle" type="text"/>
 </div>
 </div>
 <div class="space-y-6">
 <div>
 <label class="block text-sm uppercase mb-2">ПОДЗАГОЛОВОК ШАПКИ</label>
-<input class="input-field w-full p-3" id="settings-headerSubtitle" type="text">
+<input class="input-field w-full p-3" id="settings-headerSubtitle" type="text"/>
 </div>
 <div>
 <label class="block text-sm uppercase mb-2">КОПИРАЙТ ФУТЕРА</label>
-<input class="input-field w-full p-3" id="settings-footer" type="text">
+<input class="input-field w-full p-3" id="settings-footer" type="text"/>
 </div>
 </div>
 </div>
@@ -336,7 +336,7 @@
 <span class="material-symbols-outlined">delete_forever</span>
                                 СБРОС ДО ЗАВОДСКИХ
                             </button>
-<input accept=".json" class="hidden" id="import-file" onchange="handleImport(event)" type="file">
+<input accept=".json" class="hidden" id="import-file" onchange="handleImport(event)" type="file"/>
 </div>
 </div>
 </div>
@@ -676,10 +676,4 @@
     });
     document.getElementById("token-input").addEventListener("keydown", e => { if(e.key==="Enter")login(); });
 </script>
-
-
-
-
-
-
 </body></html>
