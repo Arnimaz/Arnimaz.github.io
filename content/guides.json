@@ -4,7 +4,7 @@
     "description": "Blue Marble — продвинутый инструмент для точного размещения пикселей и загрузки шаблонов артов на WPlace.",
     "install_pc": [
       {
-        "text": "Установите TamperMonkey для Chromeee",
+        "text": "Установите TamperMonkey для Chrome",
         "image": "https://arnimaz.github.io/images/guides/1.png",
         "detail": "Ссылка: https://chromewebstore.google.com/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo",
         "section": "💻 ПК"
@@ -44,25 +44,13 @@
       {
         "text": "Установите TamperMonkey из магазина расширений Edge",
         "image": "",
-        "detail": "Edge на Android поддерживает расширения.",
-        "section": "📱 Android (Edge)"
-      },
-      {
-        "text": "Скачайте файл BlueMarble.user.js с GitHub Releases",
-        "image": "",
         "detail": "",
         "section": "📱 Android (Edge)"
       },
       {
-        "text": "Откройте панель управления TamperMonkey",
+        "text": "Скачайте файл BlueMarble.user.js (ссылка в подробностях)",
         "image": "",
-        "detail": "",
-        "section": "📱 Android (Edge)"
-      },
-      {
-        "text": "Перетащите файл BlueMarble.user.js в панель управления",
-        "image": "",
-        "detail": "",
+        "detail": "https://github.com/SwingTheVine/Wplace-BlueMarble/releases/download/pre/BlueMarble.user.js",
         "section": "📱 Android (Edge)"
       },
       {
@@ -72,30 +60,24 @@
         "section": "📱 Android (Edge)"
       },
       {
-        "text": "Включите скрипт и обновите страницу wplace.live",
-        "image": "",
-        "detail": "",
-        "section": "📱 Android (Edge)"
-      },
-      {
-        "text": "Используйте встроенный инструмент Overlays на сайте WPlace",
-        "image": "",
-        "detail": "iOS не поддерживает расширения.",
-        "section": "📱 iPhone (iOS)"
-      },
-      {
-        "text": "Вставьте ссылку на шаблон арта",
+        "text": "Скачайте браузер Edge",
         "image": "",
         "detail": "",
         "section": "📱 iPhone (iOS)"
       },
       {
-        "text": "Нажмите 'Создать' и следуйте инструкциям",
+        "text": "Откройте меню \"Расширения\"",
+        "image": "",
+        "detail": "",
+        "section": "📱 iPhone (iOS)"
+      },
+      {
+        "text": "Установите расширение \"Blue Marble\"",
         "image": "",
         "detail": "",
         "section": "📱 iPhone (iOS)"
       }
     ],
-    "note": "Идите нахуй"
+    "note": ""
   }
 ]
