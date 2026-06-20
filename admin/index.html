@@ -84,23 +84,11 @@
         .help-text { font-size: 13px; color: var(--text-dim); margin-top: 3px; }
 
         .gallery-admin-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 16px; }
-        .gallery-admin-card {
-            border: 2px solid var(--border-dim); background: #0a0f0a; padding: 14px; transition: all 0.1s step-end;
-        }
+        .gallery-admin-card { border: 2px solid var(--border-dim); background: #0a0f0a; padding: 14px; transition: all 0.1s step-end; }
         .gallery-admin-card:hover { border-color: var(--accent2); }
-        .gallery-admin-card .preview-img {
-            width: 100%; aspect-ratio: 1; object-fit: contain; image-rendering: pixelated;
-            border: 2px solid #1a3a1a; background: #050510; margin-bottom: 12px; display: block;
-        }
-        .gallery-admin-card .no-img {
-            width: 100%; aspect-ratio: 1; background: repeating-linear-gradient(45deg, #1a1a30 0px, #1a1a30 8px, #111128 8px, #111128 16px);
-            border: 2px solid #1a3a1a; display: flex; align-items: center; justify-content: center;
-            color: #4a4a6a; font-size: 16px; margin-bottom: 12px;
-        }
-        .gallery-admin-card input, .gallery-admin-card textarea {
-            width: 100%; padding: 8px 10px; background: #050a05; border: 2px solid var(--border-dim);
-            color: var(--glow); font-family: 'VT323', monospace; font-size: 18px; margin-bottom: 7px;
-        }
+        .gallery-admin-card .preview-img { width: 100%; aspect-ratio: 1; object-fit: contain; image-rendering: pixelated; border: 2px solid #1a3a1a; background: #050510; margin-bottom: 12px; display: block; }
+        .gallery-admin-card .no-img { width: 100%; aspect-ratio: 1; background: repeating-linear-gradient(45deg,#1a1a30 0px,#1a1a30 8px,#111128 8px,#111128 16px); border: 2px solid #1a3a1a; display: flex; align-items: center; justify-content: center; color: #4a4a6a; font-size: 16px; margin-bottom: 12px; }
+        .gallery-admin-card input, .gallery-admin-card textarea { width: 100%; padding: 8px 10px; background: #050a05; border: 2px solid var(--border-dim); color: var(--glow); font-family: 'VT323', monospace; font-size: 18px; margin-bottom: 7px; }
         .gallery-admin-card textarea { min-height: 55px; resize: vertical; }
         .gallery-admin-card .card-actions { display: flex; gap: 6px; flex-wrap: wrap; justify-content: space-between; align-items: center; margin-top: 6px; }
 
@@ -115,11 +103,7 @@
         .preview-box { border: 2px dashed var(--border); background: #050a05; padding: 12px; margin-top: 12px; text-align: center; max-height: 250px; overflow-y: auto; }
         .preview-box img { max-width: 100%; max-height: 200px; image-rendering: pixelated; border: 2px solid #1a3a1a; }
 
-        .toast {
-            position: fixed; top: 15px; right: 15px; z-index: 10000; padding: 12px 18px;
-            border: 3px solid; font-family: 'Press Start 2P', monospace; font-size: 9px;
-            animation: slideIn 0.2s step-end; max-width: 400px;
-        }
+        .toast { position: fixed; top: 15px; right: 15px; z-index: 10000; padding: 12px 18px; border: 3px solid; font-family: 'Press Start 2P', monospace; font-size: 9px; animation: slideIn 0.2s step-end; max-width: 400px; }
         .toast-success { background: #0a2a0a; border-color: var(--glow); color: var(--glow); }
         .toast-error { background: #2a0a0a; border-color: var(--danger); color: var(--danger); }
         .toast-info { background: #0a1a2a; border-color: var(--info); color: var(--info); }
@@ -138,14 +122,8 @@
         .stat-value { font-family: 'Press Start 2P', monospace; font-size: 18px; color: var(--glow); }
         .stat-label { font-size: 13px; color: var(--text-dim); margin-top: 3px; }
 
-        @media (max-width: 768px) {
-            .gallery-admin-grid { grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); }
-            .tabs { flex-direction: column; }
-            .tab-btn { text-align: center; font-size: 8px; padding: 8px; }
-        }
-        @media (max-width: 400px) {
-            .gallery-admin-grid { grid-template-columns: 1fr; }
-        }
+        @media (max-width: 768px) { .gallery-admin-grid { grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); } .tabs { flex-direction: column; } .tab-btn { text-align: center; font-size: 8px; padding: 8px; } }
+        @media (max-width: 400px) { .gallery-admin-grid { grid-template-columns: 1fr; } }
     </style>
 </head>
 <body>
@@ -208,9 +186,7 @@
         <!-- ГАЛЕРЕЯ -->
         <div id="gallery-tab" class="tab-content">
             <div class="card">
-                <div class="card-header">🖼 ГАЛЕРЕЯ АРТОВ
-                    <div style="display:flex;gap:6px;"><button class="btn btn-small btn-primary" onclick="addGalleryItem()">+ ДОБАВИТЬ</button><button class="btn btn-small btn-warning" onclick="sortGallery()">🔤</button></div>
-                </div>
+                <div class="card-header">🖼 ГАЛЕРЕЯ АРТОВ <div style="display:flex;gap:6px;"><button class="btn btn-small btn-primary" onclick="addGalleryItem()">+ ДОБАВИТЬ</button><button class="btn btn-small btn-warning" onclick="sortGallery()">🔤</button></div></div>
                 <div class="gallery-admin-grid" id="gallery-items"></div>
             </div>
             <button class="btn btn-primary btn-full" onclick="saveGallery()">💾 СОХРАНИТЬ ГАЛЕРЕЮ</button>
@@ -227,11 +203,10 @@
             <div class="card-grid">
                 <div class="card">
                     <div class="card-header">⚙ ОБЩИЕ НАСТРОЙКИ</div>
-                    <div class="form-group">
-                        <label class="form-label">Текст в футере</label>
-                        <textarea id="settings-footer" class="form-input" rows="2"></textarea>
-                        <div class="help-text">Меняет надпись внизу сайта</div>
-                    </div>
+                    <div class="form-group"><label class="form-label">Название сайта (title)</label><input type="text" id="settings-siteTitle" class="form-input"><div class="help-text">Вкладка браузера</div></div>
+                    <div class="form-group"><label class="form-label">Заголовок в шапке</label><input type="text" id="settings-headerTitle" class="form-input"></div>
+                    <div class="form-group"><label class="form-label">Подзаголовок в шапке</label><input type="text" id="settings-headerSubtitle" class="form-input"></div>
+                    <div class="form-group"><label class="form-label">Текст в футере</label><textarea id="settings-footer" class="form-input" rows="2"></textarea></div>
                 </div>
                 <div class="card">
                     <div class="card-header">🔧 БЫСТРЫЕ ДЕЙСТВИЯ</div>
@@ -294,7 +269,7 @@
         try { const h = await loadJSON("content/home.json"); homeData = h.content; homeData._sha = h.sha; renderHome(); } catch(e) { toast("❌ Главная: "+e.message, "error"); errs++; }
         try { const g = await loadJSON("content/gallery.json"); galleryData = g.content; galleryData._sha = g.sha; renderGallery(); } catch(e) { toast("❌ Галерея: "+e.message, "error"); errs++; }
         try { const gu = await loadJSON("content/guides.json"); guidesData = gu.content; guidesData._sha = gu.sha; renderGuides(); } catch(e) { toast("❌ Гайды: "+e.message, "error"); errs++; }
-        try { const s = await loadJSON("content/settings.json"); settingsData = s.content; settingsData._sha = s.sha; renderSettings(); } catch(e) { settingsData = { footer: "WPlace Pixel Art Community © 2025 | Сделано с ❤️ на пикселях" }; renderSettings(); }
+        try { const s = await loadJSON("content/settings.json"); settingsData = s.content; settingsData._sha = s.sha; renderSettings(); } catch(e) { settingsData = { siteTitle: "WPlace — Пиксель-Арт Сообщество", headerTitle: "⚔ WPLACE ⚔", headerSubtitle: "Пиксель-арт сообщество", footer: "WPlace Pixel Art Community © 2025 | Сделано с ❤️ на пикселях" }; renderSettings(); }
         updateStats();
         if (errs === 0) toast("✅ Данные загружены", "success");
     }
@@ -310,7 +285,6 @@
         document.getElementById("stats-steps-count").textContent = total;
     }
 
-    // HOME
     function renderHome() {
         document.getElementById("home-title").value = homeData.title || "";
         document.getElementById("home-image").value = homeData.image || "";
@@ -343,7 +317,6 @@
         try { homeData._sha = await saveJSON("content/home.json", homeData, homeData._sha); document.getElementById("stats-last-save").textContent = new Date().toLocaleTimeString(); updateStats(); toast("✅ Сохранено!", "success"); } catch(e) { toast("❌ "+e.message, "error"); }
     }
 
-    // GALLERY
     function renderGallery() {
         const el = document.getElementById("gallery-items");
         if (galleryData.length === 0) { el.innerHTML = '<p style="color:var(--text-dim);text-align:center;padding:40px;grid-column:1/-1;">Галерея пуста</p>'; return; }
@@ -365,7 +338,6 @@
     function sortGallery() { galleryData.sort((a,b) => (a.title||"").localeCompare(b.title||"")); renderGallery(); toast("🔤 Отсортировано", "info"); }
     async function saveGallery() { try { galleryData._sha = await saveJSON("content/gallery.json", galleryData, galleryData._sha); document.getElementById("stats-last-save").textContent = new Date().toLocaleTimeString(); updateStats(); toast("✅ Сохранено!", "success"); } catch(e) { toast("❌ "+e.message, "error"); } }
 
-    // GUIDES
     function renderGuides() {
         const el = document.getElementById("guides-items");
         if (guidesData.length === 0) { el.innerHTML = '<p style="color:var(--text-dim);text-align:center;padding:40px;">Нет гайдов</p>'; return; }
@@ -389,18 +361,20 @@
     function addGuideStep(gi, type) { const key = `install_${type}`; if(!guidesData[gi][key])guidesData[gi][key]=[]; guidesData[gi][key].push(""); renderGuideSteps(gi, type, guidesData[gi][key]); }
     async function saveGuides() { try { guidesData._sha = await saveJSON("content/guides.json", guidesData, guidesData._sha); document.getElementById("stats-last-save").textContent = new Date().toLocaleTimeString(); updateStats(); toast("✅ Сохранено!", "success"); } catch(e) { toast("❌ "+e.message, "error"); } }
 
-    // SETTINGS
     function renderSettings() {
+        document.getElementById("settings-siteTitle").value = settingsData.siteTitle || "WPlace — Пиксель-Арт Сообщество";
+        document.getElementById("settings-headerTitle").value = settingsData.headerTitle || "⚔ WPLACE ⚔";
+        document.getElementById("settings-headerSubtitle").value = settingsData.headerSubtitle || "Пиксель-арт сообщество";
         document.getElementById("settings-footer").value = settingsData.footer || "WPlace Pixel Art Community © 2025 | Сделано с ❤️ на пикселях";
     }
     async function saveSettings() {
+        settingsData.siteTitle = document.getElementById("settings-siteTitle").value;
+        settingsData.headerTitle = document.getElementById("settings-headerTitle").value;
+        settingsData.headerSubtitle = document.getElementById("settings-headerSubtitle").value;
         settingsData.footer = document.getElementById("settings-footer").value;
         try {
-            if (settingsData._sha) {
-                settingsData._sha = await saveJSON("content/settings.json", settingsData, settingsData._sha);
-            } else {
-                settingsData._sha = await saveJSON("content/settings.json", settingsData, null);
-            }
+            if (settingsData._sha) { settingsData._sha = await saveJSON("content/settings.json", settingsData, settingsData._sha); }
+            else { settingsData._sha = await saveJSON("content/settings.json", settingsData, null); }
             document.getElementById("stats-last-save").textContent = new Date().toLocaleTimeString();
             toast("✅ Настройки сохранены!", "success");
         } catch(e) { toast("❌ "+e.message, "error"); }
@@ -410,7 +384,7 @@
         homeData = { title: "🎯 Актуальный арт", image: "", description: "Сейчас мы рисуем новый пиксель-арт на WPlace. Присоединяйся!", location: "https://wplace.live/?lat=53.38222746808291&lng=27.91098632812499&zoom=22", help_wplace: ["Открываете вкладку Overlays","Нажимаете \"Новый Overlay\"","Вставляете фото"], help_blue: ["Ставите точку","Нажимаете \"Upload Template\"","Нажимаете \"Create\""], help_helper: ["Нажимаете \"Галерея\"","Находите арт","Нажимаете \"Загрузить\""] };
         galleryData = [{ title: "Арт #1", description: "Описание", image: "" },{ title: "Арт #2", description: "Описание", image: "" }];
         guidesData = [{ title: "🔷 Blue Marble", description: "Инструмент для точного размещения пикселей.", install_pc: ["Магазин расширений","Найти Blue Marble","Установить"], install_phone: ["Kiwi Browser","Найти расширение","Установить"], note: "iOS не поддерживается" },{ title: "🧩 WPlace Helper", description: "Помощник с галереей шаблонов.", install_pc: ["Магазин расширений","Найти WPlace Helper","Установить"], install_phone: ["Kiwi Browser","Установить расширение"], note: "" }];
-        settingsData = { footer: "WPlace Pixel Art Community © 2025 | Сделано с ❤️ на пикселях" };
+        settingsData = { siteTitle: "WPlace — Пиксель-Арт Сообщество", headerTitle: "⚔ WPLACE ⚔", headerSubtitle: "Пиксель-арт сообщество", footer: "WPlace Pixel Art Community © 2025 | Сделано с ❤️ на пикселях" };
         try {
             homeData._sha = await saveJSON("content/home.json", homeData, homeData._sha);
             galleryData._sha = await saveJSON("content/gallery.json", galleryData, galleryData._sha);
