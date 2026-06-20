@@ -174,10 +174,6 @@
         <p class="site-subtitle">Пиксель-арт сообщество</p>
     </header>
 
-    <div style="text-align:center;margin-bottom:10px;position:relative;z-index:1;">
-        <button onclick="hardRefresh()" style="font-family:'Press Start 2P',monospace;font-size:10px;padding:8px 16px;background:#0a2a0a;color:#00ff88;border:2px solid #00ff88;cursor:pointer;box-shadow:0 3px 0 #0a4a0a;">🔄 ОБНОВИТЬ САЙТ</button>
-    </div>
-
     <nav>
         <button class="tab-btn active" onclick="openTab('home')">🏠 Главная</button>
         <button class="tab-btn" onclick="openTab('gallery')">🖼 Галерея</button>
@@ -225,13 +221,6 @@
     let currentStepType = '';
     let modalMode = 'gallery';
 
-    function hardRefresh() {
-        if ('caches' in window) {
-            caches.keys().then(names => { for (let name of names) caches.delete(name); });
-        }
-        location.reload(true);
-    }
-
     function makeLinksClickable(text) {
         if (!text) return "";
         return text.replace(/(https?:\/\/[^\s<>]+)/g, '<a href="$1" target="_blank" style="color:#00ff88;border-bottom:2px dashed #00ff88;">$1</a>');
@@ -275,25 +264,22 @@
         window._guidesData = guidesData;
         document.getElementById('guides-content').innerHTML = guidesData.length > 0
             ? guidesData.map(g => {
-                let phoneSections = '';
-                if (g.install_phone && g.install_phone.length > 0) {
-                    const sections = {};
-                    let currentSection = '📱 На телефон';
-                    g.install_phone.forEach(step => {
-                        const text = typeof step === 'object' ? (step.text || '') : (step || '');
-                        if (text.includes('Android Edge:') || text.includes('Android (Edge)')) currentSection = '📱 Android (Edge)';
-                        else if (text.includes('iPhone iOS:') || text.includes('iPhone (iOS)') || text.includes('iPhone')) currentSection = '📱 iPhone (iOS)';
-                        if (!sections[currentSection]) sections[currentSection] = [];
-                        sections[currentSection].push(step);
-                    });
-                    for (const [title, steps] of Object.entries(sections)) {
-                        phoneSections += `<div class="section-title">${title}</div><ol class="pixel-list">${renderStepsList(steps, 'guide_phone_'+g.title)}</ol>`;
-                    }
+                // Группируем по section (из админки)
+                const allSteps = [...(g.install_pc || []), ...(g.install_phone || [])];
+                const sections = {};
+                allSteps.forEach(step => {
+                    const sd = typeof step === 'object' ? step : { text: step, section: "" };
+                    const sectionName = sd.section || 'Без раздела';
+                    if (!sections[sectionName]) sections[sectionName] = [];
+                    sections[sectionName].push(sd);
+                });
+                let sectionsHtml = '';
+                for (const [title, steps] of Object.entries(sections)) {
+                    sectionsHtml += `<div class="section-title">${title}</div><ol class="pixel-list">${renderStepsList(steps, 'guide_'+g.title)}</ol>`;
                 }
                 return `
                 <div class="card"><h3>${g.title}</h3><p><strong>Что это:</strong> ${makeLinksClickable(g.description)}</p>
-                ${g.install_pc&&g.install_pc.length>0?`<div class="section-title">💻 Установка на ПК</div><ol class="pixel-list">${renderStepsList(g.install_pc, 'guide_pc_'+g.title)}</ol>`:''}
-                ${phoneSections}
+                ${sectionsHtml}
                 ${g.note?`<div class="note">${makeLinksClickable(g.note)}</div>`:''}</div>`;
             }).join('')
             : '<p style="color:#88aacc;text-align:center;">Гайды не добавлены.</p>';
@@ -313,9 +299,12 @@
         if (type === 'helper') return window._homeData?.help_helper?.[index] || { text: "", image: "", detail: "" };
         const parts = type.split('_');
         if (parts[0] === 'guide') {
-            const guideType = parts[1]; const guideTitle = parts.slice(2).join('_');
+            const guideTitle = parts.slice(1).join('_');
             const guide = window._guidesData?.find(g => g.title === guideTitle);
-            if (guide) { const steps = guideType === 'pc' ? guide.install_pc : guide.install_phone; return steps?.[index] || { text: "", image: "", detail: "" }; }
+            if (guide) {
+                const allSteps = [...(guide.install_pc || []), ...(guide.install_phone || [])];
+                return allSteps[index] || { text: "", image: "", detail: "" };
+            }
         }
         return { text: "", image: "", detail: "" };
     }
