@@ -1,66 +1,160 @@
 [
   {
-    "title": "🔷 Blue Marble — Установка и использование",
-    "description": "Blue Marble — продвинутый инструмент для точного размещения пикселей и загрузки шаблонов артов на WPlace. Позволяет быстро находить нужные координаты и автоматически расставлять пиксели по шаблону.",
+    "title": "🔷 Blue Marble — Руководство по установке",
+    "description": "Blue Marble — продвинутый инструмент для точного размещения пикселей и загрузки шаблонов артов на WPlace. Выберите ваше устройство ниже.",
     "install_pc": [
       {
-        "text": "Откройте магазин расширений вашего браузера",
+        "text": "Шаг 1",
         "image": "",
-        "detail": "Chrome: https://chromewebstore.google.com\nEdge: https://microsoftedge.microsoft.com/addons\nFirefox: https://addons.mozilla.org"
+        "detail": ""
       },
       {
-        "text": "В строке поиска введите \"Blue Marble\" и нажмите Enter",
+        "text": "Шаг 2",
         "image": "",
-        "detail": "Официальное расширение называется \"Blue Marble for WPlace\". Обратите внимание на количество установок и рейтинг."
+        "detail": ""
       },
       {
-        "text": "Нажмите кнопку \"Установить\" или \"Добавить\"",
+        "text": "Шаг 3",
         "image": "",
-        "detail": "После установки в правом верхнем углу браузера появится иконка Blue Marble. Закрепите её, нажав на пазл (расширения) и значок булавки."
+        "detail": ""
       },
       {
-        "text": "Перейдите на https://wplace.live/ и авторизуйтесь",
+        "text": "Шаг 4",
         "image": "",
-        "detail": "Расширение работает только на сайте WPlace. Убедитесь, что вы залогинены."
+        "detail": ""
       },
       {
-        "text": "Нажмите на иконку Blue Marble, введите координаты: X, Y, ширина, высота",
+        "text": "Шаг 5",
         "image": "",
-        "detail": "Координаты можно найти в описании арта на нашем сайте. Формат: X Y Ширина Высота (например: 1182 663 782 510)."
-      },
-      {
-        "text": "Нажмите \"Upload Template\" и выберите файл с артом",
-        "image": "",
-        "detail": "Поддерживаются форматы PNG и JPG. Рекомендуется PNG для чёткости пикселей."
-      },
-      {
-        "text": "Нажмите кнопку \"Create\" — расширение начнёт ставить пиксели",
-        "image": "",
-        "detail": "Не закрывайте вкладку и не сворачивайте браузер. Процесс можно остановить в любой момент."
+        "detail": ""
       }
     ],
     "install_phone": [
       {
-        "text": "📱 Google Chrome (Android): Установите приложение \"Kiwi Browser\" из Google Play, затем откройте в нём Chrome Web Store и установите Blue Marble",
+        "text": "📱 Android (Chrome) — Шаг 1",
         "image": "",
-        "detail": "Chrome на Android НЕ поддерживает расширения. Поэтому нужен Kiwi Browser — он работает на том же движке и поддерживает все расширения Chrome. Скачать: https://play.google.com/store/apps/details?id=com.kiwibrowser.browser"
+        "detail": ""
       },
       {
-        "text": "📱 Microsoft Edge (Android): Откройте Edge, нажмите меню (≡) → \"Расширения\" → найдите и установите Blue Marble",
+        "text": "📱 Android (Chrome) — Шаг 2",
         "image": "",
-        "detail": "Edge на Android ПОДДЕРЖИВАЕТ расширения! Это один из немногих мобильных браузеров со встроенной поддержкой. Установка такая же, как на ПК."
+        "detail": ""
       },
       {
-        "text": "📱 Mozilla Firefox (Android): Откройте Firefox, нажмите меню (⋮) → \"Дополнения\" → найдите \"Blue Marble\" и установите",
+        "text": "📱 Android (Chrome) — Шаг 3",
         "image": "",
-        "detail": "Firefox на Android поддерживает дополнения (Add-ons). Если Blue Marble недоступен для Firefox, используйте альтернативу — встроенный инструмент Overlays на сайте WPlace."
+        "detail": ""
       },
       {
-        "text": "Откройте https://wplace.live/ в браузере, нажмите иконку Blue Marble, введите координаты и загрузите шаблон",
+        "text": "📱 Android (Chrome) — Шаг 4",
         "image": "",
-        "detail": "Заранее скопируйте координаты из нашего гайда для удобства. На телефоне удобнее использовать готовые ссылки на арт."
+        "detail": ""
+      },
+      {
+        "text": "📱 Android (Chrome) — Шаг 5",
+        "image": "",
+        "detail": ""
       }
     ],
-    "note": "⚠ iOS (iPhone) не поддерживает браузерные расширения. Пользователям iPhone рекомендуется использовать встроенный инструмент Overlays на сайте WPlace (вкладка Overlays → Новый Overlay)."
+    "note": ""
+  },
+  {
+    "title": "🔷 Blue Marble — Android (Edge)",
+    "description": "Установка Blue Marble на Android через браузер Microsoft Edge.",
+    "install_pc": [],
+    "install_phone": [
+      {
+        "text": "📱 Android (Edge) — Шаг 1",
+        "image": "",
+        "detail": ""
+      },
+      {
+        "text": "📱 Android (Edge) — Шаг 2",
+        "image": "",
+        "detail": ""
+      },
+      {
+        "text": "📱 Android (Edge) — Шаг 3",
+        "image": "",
+        "detail": ""
+      },
+      {
+        "text": "📱 Android (Edge) — Шаг 4",
+        "image": "",
+        "detail": ""
+      },
+      {
+        "text": "📱 Android (Edge) — Шаг 5",
+        "image": "",
+        "detail": ""
+      }
+    ],
+    "note": ""
+  },
+  {
+    "title": "🔷 Blue Marble — Android (Firefox)",
+    "description": "Установка Blue Marble на Android через браузер Mozilla Firefox.",
+    "install_pc": [],
+    "install_phone": [
+      {
+        "text": "📱 Android (Firefox) — Шаг 1",
+        "image": "",
+        "detail": ""
+      },
+      {
+        "text": "📱 Android (Firefox) — Шаг 2",
+        "image": "",
+        "detail": ""
+      },
+      {
+        "text": "📱 Android (Firefox) — Шаг 3",
+        "image": "",
+        "detail": ""
+      },
+      {
+        "text": "📱 Android (Firefox) — Шаг 4",
+        "image": "",
+        "detail": ""
+      },
+      {
+        "text": "📱 Android (Firefox) — Шаг 5",
+        "image": "",
+        "detail": ""
+      }
+    ],
+    "note": ""
+  },
+  {
+    "title": "🔷 Blue Marble — iPhone (iOS)",
+    "description": "Установка Blue Marble на iPhone. iOS не поддерживает расширения, но есть альтернативный способ.",
+    "install_pc": [],
+    "install_phone": [
+      {
+        "text": "📱 iPhone (iOS) — Шаг 1",
+        "image": "",
+        "detail": ""
+      },
+      {
+        "text": "📱 iPhone (iOS) — Шаг 2",
+        "image": "",
+        "detail": ""
+      },
+      {
+        "text": "📱 iPhone (iOS) — Шаг 3",
+        "image": "",
+        "detail": ""
+      },
+      {
+        "text": "📱 iPhone (iOS) — Шаг 4",
+        "image": "",
+        "detail": ""
+      },
+      {
+        "text": "📱 iPhone (iOS) — Шаг 5",
+        "image": "",
+        "detail": ""
+      }
+    ],
+    "note": "⚠ iOS не поддерживает браузерные расширения. Рекомендуется использовать встроенный инструмент Overlays на сайте WPlace."
   }
 ]
