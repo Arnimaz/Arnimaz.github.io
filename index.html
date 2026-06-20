@@ -54,7 +54,7 @@
             background: var(--surface); color: var(--text); border: 4px solid #2a2a4a;
             cursor: pointer; transition: all 0.1s step-end; text-transform: uppercase;
             letter-spacing: 1px; box-shadow: 0 4px 0 #0a0a15; image-rendering: pixelated;
-            flex: 1 1 auto; min-width: 120px; max-width: 200px;
+            flex: 1 1 auto; min-width: 100px; max-width: 180px;
         }
         .tab-btn:hover { border-color: var(--glow); color: var(--glow); text-shadow: 0 0 10px var(--glow); box-shadow: 0 4px 0 var(--glow); transform: translateY(-2px); }
         .tab-btn:active { transform: translateY(2px); box-shadow: 0 2px 0 var(--glow); }
@@ -84,27 +84,31 @@
         .art-info { text-align: center; font-size: 22px; color: var(--accent2); margin-top: 15px; text-shadow: 0 0 10px rgba(255,217,61,0.4); }
         .art-info a { font-size: 22px; }
 
+        /* Шаги кликабельные */
         ol.pixel-list { list-style: none; counter-reset: pixel-counter; padding-left: 0; }
         ol.pixel-list li { 
             counter-increment: pixel-counter; padding: 14px 14px 14px 65px; margin-bottom: 8px;
             background: #0a0a1a; border: 2px solid #2a2a4a; position: relative;
             transition: all 0.1s step-end; word-break: break-word; min-height: 44px;
-            display: flex; align-items: center;
+            display: flex; align-items: center; cursor: pointer;
         }
+        ol.pixel-list li:hover { border-color: var(--glow); background: #0d0d20; }
         ol.pixel-list li::before { 
             content: counter(pixel-counter); position: absolute; left: 10px; top: 50%;
             transform: translateY(-50%); font-family: 'Press Start 2P', monospace; font-size: 11px;
             color: var(--accent2); background: #1a1a30; border: 2px solid #3a3a5a;
             padding: 6px 8px; min-width: 28px; text-align: center; flex-shrink: 0;
         }
-        ol.pixel-list li:hover { border-color: var(--glow); background: #0d0d20; }
+        ol.pixel-list li .step-arrow { margin-left: auto; font-size: 18px; color: var(--accent2); }
 
-        .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 16px; }
+        /* Галерея */
+        .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 16px; }
         .gallery-item { border: 3px solid #2a2a4a; background: #0a0a1a; padding: 10px; transition: all 0.1s step-end; text-align: center; cursor: pointer; }
         .gallery-item:hover { border-color: var(--accent); box-shadow: 0 0 25px rgba(255,107,107,0.4); transform: scale(1.04); }
         .gallery-item img { width: 100%; aspect-ratio: 1; object-fit: contain; border: 2px solid #3a3a5a; display: block; image-rendering: pixelated; background: #050510; }
         .gallery-item .label { font-family: 'VT323', monospace; font-size: 20px; margin-top: 10px; color: #eee; }
 
+        /* Модалка для галереи */
         .modal-overlay {
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(0,0,0,0.92); z-index: 100000;
@@ -115,45 +119,51 @@
             border: 5px solid var(--border); background: var(--surface);
             padding: 30px; max-width: 750px; width: 100%; text-align: center;
             box-shadow: 0 0 50px rgba(0,255,136,0.4); animation: fadeIn 0.2s step-end;
-            z-index: 100001; position: relative;
+            z-index: 100001; position: relative; max-height: 90vh; overflow-y: auto;
         }
-        .modal img { max-width: 100%; max-height: 60vh; image-rendering: pixelated; border: 3px solid #3a3a5a; margin-bottom: 20px; background: #050510; }
+        .modal img { max-width: 100%; max-height: 55vh; image-rendering: pixelated; border: 3px solid #3a3a5a; margin-bottom: 20px; background: #050510; }
         .modal h3 { font-family: 'Press Start 2P', monospace; font-size: 16px; color: var(--accent2); margin-bottom: 12px; text-shadow: 0 0 10px rgba(255,217,61,0.5); }
         .modal .desc { font-size: 22px; color: #ddd; margin-bottom: 20px; line-height: 1.6; }
         .modal .desc a { font-size: 22px; }
         .modal .close-btn {
             font-family: 'Press Start 2P', monospace; font-size: 13px; padding: 12px 24px;
             background: #0a2a0a; color: var(--glow); border: 3px solid var(--border); cursor: pointer;
-            box-shadow: 0 4px 0 #0a4a0a;
+            box-shadow: 0 4px 0 #0a4a0a; margin-top: 10px;
         }
         .modal .close-btn:hover { background: #0d3a0d; transform: translateY(-2px); }
         .modal .nav-btn {
             position: absolute; top: 50%; transform: translateY(-50%);
             font-family: 'Press Start 2P', monospace; font-size: 20px;
             background: #0a2a0a; color: var(--glow); border: 3px solid var(--border);
-            cursor: pointer; padding: 12px 16px; box-shadow: 0 3px 0 #0a4a0a;
+            cursor: pointer; padding: 12px 16px; box-shadow: 0 3px 0 #0a4a0a; z-index: 10;
         }
         .modal .nav-btn:hover { background: #0d3a0d; }
-        .modal .nav-prev { left: -50px; }
-        .modal .nav-next { right: -50px; }
+        .modal .nav-prev { left: -45px; }
+        .modal .nav-next { right: -45px; }
         .modal .counter { font-size: 16px; color: var(--text-dim); margin-bottom: 10px; }
+
+        /* Модалка для шагов */
+        .step-modal-content img { max-width: 100%; max-height: 50vh; margin-top: 15px; border: 3px solid #3a3a5a; }
 
         .note { border: 3px dashed #3a3a5a; background: #0a0a15; padding: 15px; margin-top: 15px; font-style: italic; color: #88aacc; }
 
         footer { text-align: center; padding: 20px; margin-top: 30px; font-size: 16px; color: #3a3a5a; border-top: 2px solid #1a1a2e; }
 
         @media (max-width: 768px) {
-            .modal .nav-btn { position: static; margin: 10px; display: inline-block; }
-            .modal { padding: 20px; }
-            .gallery-grid { grid-template-columns: repeat(2, 1fr); }
-        }
-        @media (max-width: 600px) {
-            .site-title { font-size: 18px; }
-            .tab-btn { font-size: 10px; padding: 10px 8px; }
-            .tab-content { padding: 15px; }
+            .modal .nav-btn { position: static; margin: 8px; display: inline-block; }
+            .modal { padding: 20px; max-height: 95vh; }
             .gallery-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
-            ol.pixel-list li { padding: 12px 10px 12px 55px; font-size: 16px; }
-            ol.pixel-list li::before { font-size: 9px; min-width: 22px; padding: 4px 5px; left: 6px; }
+            .gallery-item { padding: 6px; }
+            .gallery-item .label { font-size: 16px; }
+        }
+        @media (max-width: 480px) {
+            .site-title { font-size: 16px; }
+            .tab-btn { font-size: 9px; padding: 8px 6px; }
+            .tab-content { padding: 12px; }
+            .gallery-grid { grid-template-columns: repeat(2, 1fr); gap: 6px; }
+            ol.pixel-list li { padding: 10px 8px 10px 45px; font-size: 15px; }
+            ol.pixel-list li::before { font-size: 8px; min-width: 20px; padding: 3px 4px; left: 5px; }
+            .modal .nav-btn { font-size: 14px; padding: 8px 10px; }
         }
     </style>
 </head>
@@ -191,14 +201,15 @@
     </footer>
 </div>
 
+<!-- Модалка для галереи и шагов -->
 <div class="modal-overlay" id="modal-overlay" onclick="closeModal(event)">
     <div class="modal" id="modal-box">
         <div class="counter" id="modal-counter"></div>
-        <button class="nav-btn nav-prev" onclick="navGallery(-1)">◀</button>
+        <button class="nav-btn nav-prev" id="modal-prev" onclick="navModal(-1)">◀</button>
         <img id="modal-img" src="" alt="">
         <h3 id="modal-title"></h3>
         <div class="desc" id="modal-desc"></div>
-        <button class="nav-btn nav-next" onclick="navGallery(1)">▶</button>
+        <button class="nav-btn nav-next" id="modal-next" onclick="navModal(1)">▶</button>
         <br>
         <button class="close-btn" onclick="closeModal()">✕ ЗАКРЫТЬ</button>
     </div>
@@ -206,13 +217,13 @@
 
 <script>
     let currentGalleryIndex = 0;
+    let currentStepIndex = 0;
+    let currentStepType = '';
+    let modalMode = 'gallery'; // 'gallery' или 'step'
 
     function makeLinksClickable(text) {
         if (!text) return "";
-        return text.replace(
-            /(https?:\/\/[^\s<>]+)/g,
-            '<a href="$1" target="_blank" style="color:#00ff88;border-bottom:2px dashed #00ff88;">$1</a>'
-        );
+        return text.replace(/(https?:\/\/[^\s<>]+)/g, '<a href="$1" target="_blank" style="color:#00ff88;border-bottom:2px dashed #00ff88;">$1</a>');
     }
 
     async function loadJSON(path, fallback) {
@@ -222,10 +233,8 @@
 
     async function initContent() {
         const settingsData = await loadJSON('/content/settings.json', {
-            siteTitle: "WPlace — Пиксель-Арт Сообщество",
-            headerTitle: "⚔ WPLACE ⚔",
-            headerSubtitle: "Пиксель-арт сообщество",
-            footer: "WPlace Pixel Art Community © 2025 | Сделано с ❤️ на пикселях"
+            siteTitle: "WPlace — Пиксель-Арт Сообщество", headerTitle: "⚔ WPLACE ⚔",
+            headerSubtitle: "Пиксель-арт сообщество", footer: "WPlace Pixel Art Community © 2025 | Сделано с ❤️ на пикселях"
         });
         document.title = settingsData.siteTitle;
         document.querySelector(".site-title").textContent = settingsData.headerTitle;
@@ -235,10 +244,9 @@
         const homeData = await loadJSON('/content/home.json', {
             title: "🎯 Актуальный арт", image: "", description: "Сейчас мы рисуем новый пиксель-арт на WPlace. Присоединяйся!",
             location: "https://wplace.live/?lat=53.38222746808291&lng=27.91098632812499&zoom=22",
-            help_wplace: ["Открываете вкладку Overlays","Нажимаете \"Новый Overlay\"","Вставляете фото"],
-            help_blue: ["Ставите точку","Нажимаете \"Upload Template\"","Нажимаете \"Create\""],
-            help_helper: ["Нажимаете \"Галерея\"","Находите арт","Нажимаете \"Загрузить\""]
+            help_wplace: [], help_blue: [], help_helper: []
         });
+        window._homeData = homeData;
         document.getElementById('current-art-section').innerHTML = `
             <div class="card"><h3>${homeData.title}</h3>
             ${homeData.image ? `<div class="art-image-container"><img src="${homeData.image}" alt="Актуальный арт"></div>` : ''}
@@ -246,52 +254,116 @@
             <p style="margin-top:15px;">📍 <strong>Местоположение:</strong><br><a href="${homeData.location}" class="link-pixel" target="_blank">🔗 ОТКРЫТЬ НА WPLACE</a></p></div>`;
         document.getElementById('help-section').innerHTML = `
             <div class="card"><h3>🖌 Как помочь с этим артом</h3>
-            <p style="color:var(--accent2);margin-bottom:10px;">⚡ <strong>WPlace (сайт):</strong></p><ol class="pixel-list">${homeData.help_wplace.map(s=>`<li>${makeLinksClickable(s)}</li>`).join('')}</ol>
-            <p style="color:var(--accent2);margin:15px 0 10px;">🔷 <strong>Blue Marble:</strong></p><ol class="pixel-list">${homeData.help_blue.map(s=>`<li>${makeLinksClickable(s)}</li>`).join('')}</ol>
-            <p style="color:var(--accent2);margin:15px 0 10px;">🧩 <strong>WPlace Helper:</strong></p><ol class="pixel-list">${homeData.help_helper.map(s=>`<li>${makeLinksClickable(s)}</li>`).join('')}</ol></div>`;
+            <p style="color:var(--accent2);margin-bottom:10px;">⚡ <strong>WPlace (сайт):</strong></p><ol class="pixel-list">${renderStepsList(homeData.help_wplace, 'wplace')}</ol>
+            <p style="color:var(--accent2);margin:15px 0 10px;">🔷 <strong>Blue Marble:</strong></p><ol class="pixel-list">${renderStepsList(homeData.help_blue, 'blue')}</ol>
+            <p style="color:var(--accent2);margin:15px 0 10px;">🧩 <strong>WPlace Helper:</strong></p><ol class="pixel-list">${renderStepsList(homeData.help_helper, 'helper')}</ol></div>`;
 
         const galleryData = await loadJSON('/content/gallery.json', []);
         window._galleryData = galleryData;
-        document.getElementById('gallery-grid').innerHTML = galleryData.length > 0
-            ? galleryData.map((item, i) => `
-                <div class="gallery-item" onclick="openGalleryItem(${i})">
-                    ${item.image ? `<img src="${item.image}" alt="${item.title}">` : '<div style="width:100%;aspect-ratio:1;background:repeating-linear-gradient(45deg,#1a1a30 0px,#1a1a30 8px,#111128 8px,#111128 16px);border:2px solid #3a3a5a;display:flex;align-items:center;justify-content:center;color:#4a4a6a;font-size:14px;">[АРТ]</div>'}
-                    <div class="label">${item.title}</div>
-                </div>`).join('')
-            : '<p style="color:#88aacc;text-align:center;">Галерея пуста.</p>';
+        renderGalleryGrid(galleryData);
 
         const guidesData = await loadJSON('/content/guides.json', []);
         document.getElementById('guides-content').innerHTML = guidesData.length > 0
             ? guidesData.map(g => `
                 <div class="card"><h3>${g.title}</h3><p><strong>Что это:</strong> ${makeLinksClickable(g.description)}</p>
-                ${g.install_pc&&g.install_pc.length>0?`<p style="margin-top:10px;"><strong>📥 Установка на ПК:</strong></p><ol class="pixel-list">${g.install_pc.map(s=>`<li>${makeLinksClickable(s)}</li>`).join('')}</ol>`:''}
-                ${g.install_phone&&g.install_phone.length>0?`<p style="margin-top:10px;"><strong>📱 На телефон:</strong></p><ol class="pixel-list">${g.install_phone.map(s=>`<li>${makeLinksClickable(s)}</li>`).join('')}</ol>`:''}
+                ${g.install_pc&&g.install_pc.length>0?`<p style="margin-top:10px;"><strong>📥 Установка на ПК:</strong></p><ol class="pixel-list">${renderStepsList(g.install_pc, 'guide_pc_'+g.title)}</ol>`:''}
+                ${g.install_phone&&g.install_phone.length>0?`<p style="margin-top:10px;"><strong>📱 На телефон:</strong></p><ol class="pixel-list">${renderStepsList(g.install_phone, 'guide_phone_'+g.title)}</ol>`:''}
                 ${g.note?`<div class="note">${makeLinksClickable(g.note)}</div>`:''}</div>`).join('')
             : '<p style="color:#88aacc;text-align:center;">Гайды не добавлены.</p>';
     }
 
-    function openGalleryItem(index) { currentGalleryIndex = index; showGalleryModal(); }
-    function navGallery(dir) { currentGalleryIndex += dir; if (currentGalleryIndex < 0) currentGalleryIndex = window._galleryData.length - 1; if (currentGalleryIndex >= window._galleryData.length) currentGalleryIndex = 0; showGalleryModal(); }
+    function renderStepsList(steps, type) {
+        if (!steps || steps.length === 0) return '<li style="color:var(--text-dim);">Пусто</li>';
+        return steps.map((s, i) => {
+            const stepData = typeof s === 'object' ? s : { text: s, image: "" };
+            return `<li onclick="openStepModal('${type}', ${i})">${makeLinksClickable(stepData.text)} <span class="step-arrow">▶</span></li>`;
+        }).join('');
+    }
+
+    function getStepData(type, index) {
+        if (type === 'wplace') return window._homeData?.help_wplace?.[index] || { text: "", image: "" };
+        if (type === 'blue') return window._homeData?.help_blue?.[index] || { text: "", image: "" };
+        if (type === 'helper') return window._homeData?.help_helper?.[index] || { text: "", image: "" };
+        return { text: "", image: "" };
+    }
+
+    function openStepModal(type, index) {
+        currentStepType = type;
+        currentStepIndex = index;
+        modalMode = 'step';
+        showStepInModal();
+        document.getElementById("modal-overlay").classList.add("active");
+        document.getElementById("modal-prev").style.display = 'none';
+        document.getElementById("modal-next").style.display = 'none';
+    }
+
+    function showStepInModal() {
+        const data = getStepData(currentStepType, currentStepIndex);
+        const stepData = typeof data === 'object' ? data : { text: data || "", image: "" };
+        document.getElementById("modal-img").src = stepData.image || "";
+        document.getElementById("modal-img").style.display = stepData.image ? 'block' : 'none';
+        document.getElementById("modal-title").textContent = `Шаг ${currentStepIndex + 1}`;
+        document.getElementById("modal-desc").innerHTML = makeLinksClickable(stepData.text || "Нет описания");
+        document.getElementById("modal-counter").textContent = "";
+    }
+
+    function renderGalleryGrid(data) {
+        document.getElementById('gallery-grid').innerHTML = data.length > 0
+            ? data.map((item, i) => `
+                <div class="gallery-item" onclick="openGalleryItem(${i})">
+                    ${item.image ? `<img src="${item.image}" alt="${item.title}">` : '<div style="width:100%;aspect-ratio:1;background:repeating-linear-gradient(45deg,#1a1a30 0px,#1a1a30 8px,#111128 8px,#111128 16px);border:2px solid #3a3a5a;display:flex;align-items:center;justify-content:center;color:#4a4a6a;font-size:14px;">[АРТ]</div>'}
+                    <div class="label">${item.title}</div>
+                </div>`).join('')
+            : '<p style="color:#88aacc;text-align:center;">Галерея пуста.</p>';
+    }
+
+    function openGalleryItem(index) {
+        currentGalleryIndex = index;
+        modalMode = 'gallery';
+        showGalleryModal();
+        document.getElementById("modal-overlay").classList.add("active");
+        document.getElementById("modal-prev").style.display = 'block';
+        document.getElementById("modal-next").style.display = 'block';
+    }
+
+    function navModal(dir) {
+        if (modalMode === 'gallery') {
+            currentGalleryIndex += dir;
+            if (currentGalleryIndex < 0) currentGalleryIndex = window._galleryData.length - 1;
+            if (currentGalleryIndex >= window._galleryData.length) currentGalleryIndex = 0;
+            showGalleryModal();
+        }
+    }
+
     function showGalleryModal() {
-        const data = window._galleryData[currentGalleryIndex]; if (!data) return;
+        const data = window._galleryData[currentGalleryIndex];
+        if (!data) return;
+        document.getElementById("modal-img").style.display = 'block';
         document.getElementById("modal-img").src = data.image || "";
         document.getElementById("modal-title").textContent = data.title || "Без названия";
         document.getElementById("modal-desc").innerHTML = makeLinksClickable(data.description || "");
         document.getElementById("modal-counter").textContent = `${currentGalleryIndex + 1} / ${window._galleryData.length}`;
-        document.getElementById("modal-overlay").classList.add("active");
     }
-    function closeModal(event) { if (event && event.target !== document.getElementById("modal-overlay")) return; document.getElementById("modal-overlay").classList.remove("active"); }
+
+    function closeModal(event) {
+        if (event && event.target !== document.getElementById("modal-overlay")) return;
+        document.getElementById("modal-overlay").classList.remove("active");
+    }
+
     function openTab(tabId) {
         document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
         document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
         document.getElementById(tabId).classList.add('active');
         event.target.classList.add('active');
     }
+
     document.addEventListener('keydown', function(e) {
         if (!document.getElementById("modal-overlay").classList.contains("active")) return;
         if (e.key === "Escape") closeModal();
-        if (e.key === "ArrowLeft") navGallery(-1);
-        if (e.key === "ArrowRight") navGallery(1);
+        if (modalMode === 'gallery') {
+            if (e.key === "ArrowLeft") navModal(-1);
+            if (e.key === "ArrowRight") navModal(1);
+        }
     });
 
     initContent();
