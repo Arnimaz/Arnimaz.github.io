@@ -8,18 +8,9 @@
         @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap');
 
         :root {
-            --bg: #0a0f0a;
-            --surface: #0d1a0d;
-            --surface2: #0f1f0f;
-            --border: #00aa44;
-            --border-dim: #1a3a1a;
-            --text: #c0ffc0;
-            --text-dim: #669966;
-            --glow: #00ff66;
-            --accent2: #88ff88;
-            --danger: #ff4444;
-            --warning: #ffaa00;
-            --info: #44aaff;
+            --bg: #0a0f0a; --surface: #0d1a0d; --surface2: #0f1f0f; --border: #00aa44;
+            --border-dim: #1a3a1a; --text: #c0ffc0; --text-dim: #669966; --glow: #00ff66;
+            --accent2: #88ff88; --danger: #ff4444; --warning: #ffaa00; --info: #44aaff;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -30,47 +21,25 @@
                 linear-gradient(0deg, rgba(0,170,68,0.03) 1px, transparent 1px),
                 linear-gradient(90deg, rgba(0,170,68,0.03) 1px, transparent 1px);
             background-size: 8px 8px;
-            color: var(--text);
-            font-family: 'VT323', monospace;
-            font-size: 20px;
-            min-height: 100vh;
-            image-rendering: pixelated;
+            color: var(--text); font-family: 'VT323', monospace; font-size: 20px;
+            min-height: 100vh; image-rendering: pixelated;
         }
 
         .header {
-            position: relative; z-index: 1;
-            border-bottom: 4px solid var(--border);
-            background: var(--surface);
-            padding: 12px 20px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            gap: 8px;
+            position: relative; z-index: 1; border-bottom: 4px solid var(--border);
+            background: var(--surface); padding: 12px 20px;
+            display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px;
         }
         .header-left { display: flex; align-items: center; gap: 15px; flex-wrap: wrap; }
-        .header-title {
-            font-family: 'Press Start 2P', monospace;
-            font-size: 13px;
-            color: var(--glow);
-            text-shadow: 0 0 10px var(--glow);
-        }
+        .header-title { font-family: 'Press Start 2P', monospace; font-size: 13px; color: var(--glow); text-shadow: 0 0 10px var(--glow); }
         .header-status { font-size: 15px; color: var(--text-dim); }
         .header-status .dot { display: inline-block; width: 8px; height: 8px; background: var(--glow); box-shadow: 0 0 6px var(--glow); margin-right: 4px; }
 
         .btn {
-            font-family: 'Press Start 2P', monospace;
-            font-size: 9px;
-            padding: 8px 12px;
-            background: var(--surface2);
-            color: var(--text);
-            border: 3px solid var(--border-dim);
-            cursor: pointer;
-            transition: all 0.1s step-end;
-            text-transform: uppercase;
-            box-shadow: 0 3px 0 #0a1a0a;
-            text-decoration: none;
-            white-space: nowrap;
+            font-family: 'Press Start 2P', monospace; font-size: 9px; padding: 8px 12px;
+            background: var(--surface2); color: var(--text); border: 3px solid var(--border-dim);
+            cursor: pointer; transition: all 0.1s step-end; text-transform: uppercase;
+            box-shadow: 0 3px 0 #0a1a0a; text-decoration: none; white-space: nowrap;
         }
         .btn:hover { border-color: var(--glow); color: #fff; text-shadow: 0 0 10px var(--glow); transform: translateY(-2px); }
         .btn:active { transform: translateY(1px); box-shadow: 0 1px 0 var(--glow); }
@@ -85,16 +54,9 @@
 
         .tabs { display: flex; gap: 4px; margin-bottom: 15px; flex-wrap: wrap; }
         .tab-btn {
-            font-family: 'Press Start 2P', monospace;
-            font-size: 9px;
-            padding: 10px 14px;
-            background: var(--surface2);
-            color: var(--text-dim);
-            border: 3px solid var(--border-dim);
-            cursor: pointer;
-            text-transform: uppercase;
-            box-shadow: 0 3px 0 #0a0f0a;
-            transition: all 0.1s step-end;
+            font-family: 'Press Start 2P', monospace; font-size: 9px; padding: 10px 14px;
+            background: var(--surface2); color: var(--text-dim); border: 3px solid var(--border-dim);
+            cursor: pointer; text-transform: uppercase; box-shadow: 0 3px 0 #0a0f0a; transition: all 0.1s step-end;
         }
         .tab-btn:hover { border-color: var(--accent2); color: var(--accent2); }
         .tab-btn.active { background: #0a2a0a; border-color: var(--border); color: var(--glow); text-shadow: 0 0 10px var(--glow); }
@@ -104,17 +66,9 @@
 
         .card { border: 3px solid var(--border-dim); background: var(--surface); padding: 18px; margin-bottom: 15px; }
         .card-header {
-            font-family: 'Press Start 2P', monospace;
-            font-size: 11px;
-            color: var(--accent2);
-            margin-bottom: 12px;
-            padding-bottom: 8px;
-            border-bottom: 2px solid var(--border-dim);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 6px;
+            font-family: 'Press Start 2P', monospace; font-size: 11px; color: var(--accent2);
+            margin-bottom: 12px; padding-bottom: 8px; border-bottom: 2px solid var(--border-dim);
+            display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 6px;
         }
         .card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 14px; }
 
@@ -122,148 +76,62 @@
         .form-label { display: block; font-size: 17px; color: var(--accent2); margin-bottom: 4px; }
         .form-label small { font-size: 13px; color: var(--text-dim); }
         .form-input {
-            width: 100%;
-            padding: 9px 10px;
-            background: #050a05;
-            border: 2px solid var(--border-dim);
-            color: var(--glow);
-            font-family: 'VT323', monospace;
-            font-size: 19px;
-            outline: none;
-            transition: all 0.1s step-end;
+            width: 100%; padding: 9px 10px; background: #050a05; border: 2px solid var(--border-dim);
+            color: var(--glow); font-family: 'VT323', monospace; font-size: 19px; outline: none; transition: all 0.1s step-end;
         }
         .form-input:focus { border-color: var(--glow); box-shadow: 0 0 10px rgba(0,255,102,0.1); }
         textarea.form-input { resize: vertical; min-height: 75px; line-height: 1.5; }
-
         .help-text { font-size: 13px; color: var(--text-dim); margin-top: 3px; }
 
-        /* ===== ГАЛЕРЕЯ В АДМИНКЕ (улучшено) ===== */
-        .gallery-admin-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 14px;
-        }
+        /* ГАЛЕРЕЯ В АДМИНКЕ — БОЛЬШИЕ КАРТОЧКИ */
+        .gallery-admin-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 16px; }
         .gallery-admin-card {
-            border: 2px solid var(--border-dim);
-            background: #0a0f0a;
-            padding: 12px;
-            transition: all 0.1s step-end;
+            border: 2px solid var(--border-dim); background: #0a0f0a; padding: 14px; transition: all 0.1s step-end;
         }
         .gallery-admin-card:hover { border-color: var(--accent2); }
         .gallery-admin-card .preview-img {
-            width: 100%;
-            aspect-ratio: 1;
-            object-fit: contain;
-            image-rendering: pixelated;
-            border: 2px solid #1a3a1a;
-            background: #050510;
-            margin-bottom: 10px;
-            display: block;
+            width: 100%; aspect-ratio: 1; object-fit: contain; image-rendering: pixelated;
+            border: 2px solid #1a3a1a; background: #050510; margin-bottom: 12px; display: block;
         }
         .gallery-admin-card .no-img {
-            width: 100%;
-            aspect-ratio: 1;
-            background: repeating-linear-gradient(45deg, #1a1a30 0px, #1a1a30 8px, #111128 8px, #111128 16px);
-            border: 2px solid #1a3a1a;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #4a4a6a;
-            font-size: 14px;
-            margin-bottom: 10px;
+            width: 100%; aspect-ratio: 1; background: repeating-linear-gradient(45deg, #1a1a30 0px, #1a1a30 8px, #111128 8px, #111128 16px);
+            border: 2px solid #1a3a1a; display: flex; align-items: center; justify-content: center;
+            color: #4a4a6a; font-size: 16px; margin-bottom: 12px;
         }
         .gallery-admin-card input, .gallery-admin-card textarea {
-            width: 100%;
-            padding: 7px 8px;
-            background: #050a05;
-            border: 2px solid var(--border-dim);
-            color: var(--glow);
-            font-family: 'VT323', monospace;
-            font-size: 17px;
-            margin-bottom: 6px;
+            width: 100%; padding: 8px 10px; background: #050a05; border: 2px solid var(--border-dim);
+            color: var(--glow); font-family: 'VT323', monospace; font-size: 18px; margin-bottom: 7px;
         }
-        .gallery-admin-card textarea { min-height: 50px; resize: vertical; }
-        .gallery-admin-card .card-actions {
-            display: flex;
-            gap: 6px;
-            flex-wrap: wrap;
-            justify-content: space-between;
-            align-items: center;
-            margin-top: 6px;
-        }
+        .gallery-admin-card textarea { min-height: 55px; resize: vertical; }
+        .gallery-admin-card .card-actions { display: flex; gap: 6px; flex-wrap: wrap; justify-content: space-between; align-items: center; margin-top: 6px; }
 
-        .guide-item-admin {
-            border: 2px solid var(--border-dim);
-            background: #0a0f0a;
-            padding: 14px;
-            margin-bottom: 10px;
-        }
+        .guide-item-admin { border: 2px solid var(--border-dim); background: #0a0f0a; padding: 14px; margin-bottom: 10px; }
 
         .step-list { list-style: none; padding: 0; }
-        .step-list li {
-            display: flex;
-            gap: 6px;
-            margin-bottom: 5px;
-            align-items: flex-start;
-            flex-wrap: wrap;
-        }
+        .step-list li { display: flex; gap: 6px; margin-bottom: 5px; align-items: flex-start; flex-wrap: wrap; }
         .step-list li span { flex-shrink: 0; margin-top: 6px; }
-        .step-list li input {
-            flex: 1;
-            min-width: 120px;
-            padding: 7px 8px;
-            background: #050a05;
-            border: 2px solid var(--border-dim);
-            color: var(--glow);
-            font-family: 'VT323', monospace;
-            font-size: 17px;
-        }
+        .step-list li input { flex: 1; min-width: 120px; padding: 7px 8px; background: #050a05; border: 2px solid var(--border-dim); color: var(--glow); font-family: 'VT323', monospace; font-size: 17px; }
         .step-list li .btn { flex-shrink: 0; margin-top: 2px; }
 
-        .preview-box {
-            border: 2px dashed var(--border);
-            background: #050a05;
-            padding: 12px;
-            margin-top: 12px;
-            text-align: center;
-            max-height: 250px;
-            overflow-y: auto;
-        }
+        .preview-box { border: 2px dashed var(--border); background: #050a05; padding: 12px; margin-top: 12px; text-align: center; max-height: 250px; overflow-y: auto; }
         .preview-box img { max-width: 100%; max-height: 200px; image-rendering: pixelated; border: 2px solid #1a3a1a; }
 
         .toast {
-            position: fixed;
-            top: 15px;
-            right: 15px;
-            z-index: 10000;
-            padding: 12px 18px;
-            border: 3px solid;
-            font-family: 'Press Start 2P', monospace;
-            font-size: 9px;
-            animation: slideIn 0.2s step-end;
-            max-width: 400px;
+            position: fixed; top: 15px; right: 15px; z-index: 10000; padding: 12px 18px;
+            border: 3px solid; font-family: 'Press Start 2P', monospace; font-size: 9px;
+            animation: slideIn 0.2s step-end; max-width: 400px;
         }
         .toast-success { background: #0a2a0a; border-color: var(--glow); color: var(--glow); }
         .toast-error { background: #2a0a0a; border-color: var(--danger); color: var(--danger); }
         .toast-info { background: #0a1a2a; border-color: var(--info); color: var(--info); }
-
         @keyframes slideIn { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
 
         .login-container { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 15px; }
-        .login-card {
-            position: relative; z-index: 1;
-            width: 100%; max-width: 440px;
-            border: 5px solid var(--border);
-            background: var(--surface);
-            padding: 30px;
-            text-align: center;
-            box-shadow: 0 0 30px rgba(0,170,68,0.2);
-        }
+        .login-card { position: relative; z-index: 1; width: 100%; max-width: 440px; border: 5px solid var(--border); background: var(--surface); padding: 30px; text-align: center; box-shadow: 0 0 30px rgba(0,170,68,0.2); }
         .login-title { font-family: 'Press Start 2P', monospace; font-size: 16px; color: var(--glow); text-shadow: 0 0 15px var(--glow); margin-bottom: 4px; }
         .login-subtitle { font-size: 19px; color: var(--text-dim); margin-bottom: 22px; }
         .login-help { font-size: 13px; color: var(--text-dim); margin-top: 15px; line-height: 1.5; }
         .login-help a { color: var(--glow); }
-
         .hidden { display: none !important; }
 
         .stats-bar { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 15px; }
@@ -272,19 +140,12 @@
         .stat-label { font-size: 13px; color: var(--text-dim); margin-top: 3px; }
 
         @media (max-width: 768px) {
-            .header { padding: 10px 12px; }
-            .header-title { font-size: 10px; }
-            .btn { font-size: 7px; padding: 6px 8px; }
-            .card-grid { grid-template-columns: 1fr; }
-            .gallery-admin-grid { grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); }
+            .gallery-admin-grid { grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); }
             .tabs { flex-direction: column; }
             .tab-btn { text-align: center; font-size: 8px; padding: 8px; }
-            .step-list li input { min-width: 80px; font-size: 15px; }
         }
         @media (max-width: 400px) {
             .gallery-admin-grid { grid-template-columns: 1fr; }
-            .header-left { gap: 6px; }
-            .stats-bar { flex-direction: column; }
         }
     </style>
 </head>
@@ -293,11 +154,8 @@
 <div id="login-page" class="login-container">
     <div class="login-card">
         <div class="login-title">⚔ WPLACE ⚔</div>
-        <div class="login-subtitle">ADMIN PRO v5.0</div>
-        <div class="form-group">
-            <label class="form-label">🔑 GitHub Token</label>
-            <input type="password" id="token-input" class="form-input" placeholder="ghp_..." autofocus>
-        </div>
+        <div class="login-subtitle">ADMIN PRO v6.0</div>
+        <div class="form-group"><label class="form-label">🔑 GitHub Token</label><input type="password" id="token-input" class="form-input" placeholder="ghp_..." autofocus></div>
         <button class="btn btn-primary btn-full" onclick="login()">▶ ВОЙТИ</button>
         <div class="login-help">Токен с правами <strong>repo</strong><br><a href="https://github.com/settings/tokens/new" target="_blank">Создать токен →</a></div>
     </div>
@@ -305,10 +163,7 @@
 
 <div id="admin-page" class="hidden">
     <div class="header">
-        <div class="header-left">
-            <div class="header-title">⚔ WPLACE ADMIN v5.0</div>
-            <div class="header-status"><span class="dot"></span>ONLINE</div>
-        </div>
+        <div class="header-left"><div class="header-title">⚔ WPLACE ADMIN v6.0</div><div class="header-status"><span class="dot"></span>ONLINE</div></div>
         <div style="display:flex;gap:6px;flex-wrap:wrap;">
             <a href="/" class="btn btn-small btn-info" target="_blank">🌐 САЙТ</a>
             <button class="btn btn-small btn-warning" onclick="loadAll()">🔄</button>
@@ -317,7 +172,7 @@
     </div>
 
     <div class="main-container">
-        <div class="stats-bar" id="stats-bar">
+        <div class="stats-bar">
             <div class="stat-item"><div class="stat-value" id="stat-art">-</div><div class="stat-label">Акт. арт</div></div>
             <div class="stat-item"><div class="stat-value" id="stat-gallery">-</div><div class="stat-label">Галерея</div></div>
             <div class="stat-item"><div class="stat-value" id="stat-guides">-</div><div class="stat-label">Гайды</div></div>
@@ -354,12 +209,8 @@
         <!-- ГАЛЕРЕЯ -->
         <div id="gallery-tab" class="tab-content">
             <div class="card">
-                <div class="card-header">
-                    🖼 ГАЛЕРЕЯ АРТОВ
-                    <div style="display:flex;gap:6px;">
-                        <button class="btn btn-small btn-primary" onclick="addGalleryItem()">+ ДОБАВИТЬ</button>
-                        <button class="btn btn-small btn-warning" onclick="sortGallery()">🔤</button>
-                    </div>
+                <div class="card-header">🖼 ГАЛЕРЕЯ АРТОВ
+                    <div style="display:flex;gap:6px;"><button class="btn btn-small btn-primary" onclick="addGalleryItem()">+ ДОБАВИТЬ</button><button class="btn btn-small btn-warning" onclick="sortGallery()">🔤</button></div>
                 </div>
                 <div class="gallery-admin-grid" id="gallery-items"></div>
             </div>
@@ -368,10 +219,7 @@
 
         <!-- ГАЙДЫ -->
         <div id="guides-tab" class="tab-content">
-            <div class="card">
-                <div class="card-header">📚 ГАЙДЫ <button class="btn btn-small btn-primary" onclick="addGuideItem()">+ ДОБАВИТЬ</button></div>
-                <div id="guides-items"></div>
-            </div>
+            <div class="card"><div class="card-header">📚 ГАЙДЫ <button class="btn btn-small btn-primary" onclick="addGuideItem()">+ ДОБАВИТЬ</button></div><div id="guides-items"></div></div>
             <button class="btn btn-primary btn-full" onclick="saveGuides()">💾 СОХРАНИТЬ ГАЙДЫ</button>
         </div>
 
@@ -379,8 +227,12 @@
         <div id="settings-tab" class="tab-content">
             <div class="card-grid">
                 <div class="card">
+                    <div class="card-header">⚙ ОБЩИЕ НАСТРОЙКИ</div>
+                    <div class="form-group"><label class="form-label">Текст в футере</label><textarea id="settings-footer" class="form-input" rows="2"></textarea><div class="help-text">Меняет надпись внизу сайта</div></div>
+                </div>
+                <div class="card">
                     <div class="card-header">🔧 БЫСТРЫЕ ДЕЙСТВИЯ</div>
-                    <button class="btn btn-warning" onclick="if(confirm('Сбросить все данные?')) resetAll()" style="width:100%;margin-bottom:8px;">⚠ СБРОСИТЬ ВСЕ ДАННЫЕ</button>
+                    <button class="btn btn-warning" onclick="if(confirm('Сбросить все данные?')) resetAll()" style="width:100%;margin-bottom:8px;">⚠ СБРОСИТЬ ВСЕ</button>
                     <button class="btn btn-info" onclick="exportAll()" style="width:100%;margin-bottom:8px;">📥 ЭКСПОРТ</button>
                     <button class="btn btn-info" onclick="importAll()" style="width:100%;">📤 ИМПОРТ</button>
                     <input type="file" id="import-file" accept=".json" class="hidden" onchange="handleImport(event)">
@@ -393,6 +245,7 @@
                     <p>Сохранение: <strong id="stats-last-save">-</strong></p>
                 </div>
             </div>
+            <button class="btn btn-primary btn-full" onclick="saveSettings()">💾 СОХРАНИТЬ НАСТРОЙКИ</button>
         </div>
     </div>
 </div>
@@ -404,7 +257,7 @@
     const REPO_NAME = "Arnimaz.github.io";
     const BRANCH = "main";
     let token = sessionStorage.getItem("wplace_admin_token");
-    let homeData = {}, galleryData = [], guidesData = [];
+    let homeData = {}, galleryData = [], guidesData = [], settingsData = {};
 
     if (token) { showAdmin(); loadAll(); }
 
@@ -438,6 +291,7 @@
         try { const h = await loadJSON("content/home.json"); homeData = h.content; homeData._sha = h.sha; renderHome(); } catch(e) { toast("❌ Главная: "+e.message, "error"); errs++; }
         try { const g = await loadJSON("content/gallery.json"); galleryData = g.content; galleryData._sha = g.sha; renderGallery(); } catch(e) { toast("❌ Галерея: "+e.message, "error"); errs++; }
         try { const gu = await loadJSON("content/guides.json"); guidesData = gu.content; guidesData._sha = gu.sha; renderGuides(); } catch(e) { toast("❌ Гайды: "+e.message, "error"); errs++; }
+        try { const s = await loadJSON("content/settings.json"); settingsData = s.content; settingsData._sha = s.sha; renderSettings(); } catch(e) { settingsData = { footer: "WPlace Pixel Art Community © 2025 | Сделано с ❤️ на пикселях" }; renderSettings(); }
         updateStats();
         if (errs === 0) toast("✅ Данные загружены", "success");
     }
@@ -462,8 +316,7 @@
         renderSteps("wplace", homeData.help_wplace || []);
         renderSteps("blue", homeData.help_blue || []);
         renderSteps("helper", homeData.help_helper || []);
-        previewHomeImage();
-        updateStats();
+        previewHomeImage(); updateStats();
     }
     function renderSteps(type, steps) {
         const el = document.getElementById(`steps-${type}`);
@@ -476,7 +329,7 @@
         const url = document.getElementById("home-image").value;
         const preview = document.getElementById("home-image-preview");
         const img = document.getElementById("home-preview-img");
-        if (url) { preview.classList.remove("hidden"); img.src = url; img.onerror = () => { img.style.display = "none"; preview.innerHTML += '<p style="color:#ff4444;">Ошибка загрузки</p>'; }; img.onload = () => { img.style.display = "block"; }; }
+        if (url) { preview.classList.remove("hidden"); img.src = url; img.onerror = () => { img.style.display = "none"; preview.innerHTML += '<p style="color:#ff4444;">Ошибка</p>'; }; img.onload = () => { img.style.display = "block"; }; }
         else { preview.classList.add("hidden"); }
     }
     async function saveHome() {
@@ -498,10 +351,7 @@
                 <textarea placeholder="Описание" rows="2" onchange="galleryData[${i}].description=this.value">${item.description || ''}</textarea>
                 <input placeholder="Ссылка на картинку" value="${item.image || ''}" onchange="galleryData[${i}].image=this.value;renderGallery();">
                 <div class="card-actions">
-                    <div>
-                        <button class="btn btn-small btn-info" onclick="moveGalleryItem(${i},-1)" ${i===0?"disabled":""}>▲</button>
-                        <button class="btn btn-small btn-info" onclick="moveGalleryItem(${i},1)" ${i===galleryData.length-1?"disabled":""}>▼</button>
-                    </div>
+                    <div><button class="btn btn-small btn-info" onclick="moveGalleryItem(${i},-1)" ${i===0?"disabled":""}>▲</button><button class="btn btn-small btn-info" onclick="moveGalleryItem(${i},1)" ${i===galleryData.length-1?"disabled":""}>▼</button></div>
                     <button class="btn btn-small btn-danger" onclick="if(confirm('Удалить?')){galleryData.splice(${i},1);renderGallery();}">✕</button>
                 </div>
             </div>`).join("");
@@ -537,15 +387,59 @@
     async function saveGuides() { try { guidesData._sha = await saveJSON("content/guides.json", guidesData, guidesData._sha); document.getElementById("stats-last-save").textContent = new Date().toLocaleTimeString(); updateStats(); toast("✅ Сохранено!", "success"); } catch(e) { toast("❌ "+e.message, "error"); } }
 
     // SETTINGS
+    function renderSettings() {
+        document.getElementById("settings-footer").value = settingsData.footer || "WPlace Pixel Art Community © 2025 | Сделано с ❤️ на пикселях";
+    }
+    async function saveSettings() {
+        settingsData.footer = document.getElementById("settings-footer").value;
+        try {
+            if (settingsData._sha) {
+                settingsData._sha = await saveJSON("content/settings.json", settingsData, settingsData._sha);
+            } else {
+                settingsData._sha = await saveJSON("content/settings.json", settingsData, null);
+            }
+            document.getElementById("stats-last-save").textContent = new Date().toLocaleTimeString();
+            toast("✅ Настройки сохранены!", "success");
+        } catch(e) { toast("❌ "+e.message, "error"); }
+    }
+
     async function resetAll() {
         homeData = { title: "🎯 Актуальный арт", image: "", description: "Сейчас мы рисуем новый пиксель-арт на WPlace. Присоединяйся!", location: "https://wplace.live/?lat=53.38222746808291&lng=27.91098632812499&zoom=22", help_wplace: ["Открываете вкладку Overlays","Нажимаете \"Новый Overlay\"","Вставляете фото"], help_blue: ["Ставите точку","Нажимаете \"Upload Template\"","Нажимаете \"Create\""], help_helper: ["Нажимаете \"Галерея\"","Находите арт","Нажимаете \"Загрузить\""] };
         galleryData = [{ title: "Арт #1", description: "Описание", image: "" },{ title: "Арт #2", description: "Описание", image: "" }];
         guidesData = [{ title: "🔷 Blue Marble", description: "Инструмент для точного размещения пикселей.", install_pc: ["Магазин расширений","Найти Blue Marble","Установить"], install_phone: ["Kiwi Browser","Найти расширение","Установить"], note: "iOS не поддерживается" },{ title: "🧩 WPlace Helper", description: "Помощник с галереей шаблонов.", install_pc: ["Магазин расширений","Найти WPlace Helper","Установить"], install_phone: ["Kiwi Browser","Установить расширение"], note: "" }];
-        try { homeData._sha = await saveJSON("content/home.json", homeData, homeData._sha); galleryData._sha = await saveJSON("content/gallery.json", galleryData, galleryData._sha); guidesData._sha = await saveJSON("content/guides.json", guidesData, guidesData._sha); renderHome(); renderGallery(); renderGuides(); toast("✅ Сброшено", "success"); } catch(e) { toast("❌ "+e.message, "error"); }
+        settingsData = { footer: "WPlace Pixel Art Community © 2025 | Сделано с ❤️ на пикселях" };
+        try {
+            homeData._sha = await saveJSON("content/home.json", homeData, homeData._sha);
+            galleryData._sha = await saveJSON("content/gallery.json", galleryData, galleryData._sha);
+            guidesData._sha = await saveJSON("content/guides.json", guidesData, guidesData._sha);
+            if (settingsData._sha) settingsData._sha = await saveJSON("content/settings.json", settingsData, settingsData._sha);
+            else settingsData._sha = await saveJSON("content/settings.json", settingsData, null);
+            renderHome(); renderGallery(); renderGuides(); renderSettings();
+            toast("✅ Всё сброшено", "success");
+        } catch(e) { toast("❌ "+e.message, "error"); }
     }
-    function exportAll() { const data = { home: homeData, gallery: galleryData, guides: guidesData, date: new Date().toISOString() }; delete data.home._sha; delete data.gallery._sha; delete data.guides._sha; const b = new Blob([JSON.stringify(data,null,2)],{type:"application/json"}); const a = document.createElement("a"); a.href = URL.createObjectURL(b); a.download = `wplace-backup-${new Date().toISOString().slice(0,10)}.json`; a.click(); toast("📥 Экспортировано", "info"); }
+
+    function exportAll() {
+        const data = { home: homeData, gallery: galleryData, guides: guidesData, settings: settingsData, date: new Date().toISOString() };
+        delete data.home._sha; delete data.gallery._sha; delete data.guides._sha; delete data.settings._sha;
+        const b = new Blob([JSON.stringify(data,null,2)],{type:"application/json"});
+        const a = document.createElement("a"); a.href = URL.createObjectURL(b);
+        a.download = `wplace-backup-${new Date().toISOString().slice(0,10)}.json`; a.click();
+        toast("📥 Экспортировано", "info");
+    }
     function importAll() { document.getElementById("import-file").click(); }
-    function handleImport(e) { const f = e.target.files[0]; if(!f)return; const r = new FileReader(); r.onload = function(ev) { try { const d = JSON.parse(ev.target.result); if(d.home){homeData=d.home;renderHome();} if(d.gallery){galleryData=d.gallery;renderGallery();} if(d.guides){guidesData=d.guides;renderGuides();} updateStats(); toast("📤 Импортировано! Сохраните.", "info"); } catch(er) { toast("❌ Ошибка файла", "error"); } }; r.readAsText(f); e.target.value = ""; }
+    function handleImport(e) {
+        const f = e.target.files[0]; if(!f)return;
+        const r = new FileReader();
+        r.onload = function(ev) {
+            try { const d = JSON.parse(ev.target.result);
+                if(d.home){homeData=d.home;renderHome();} if(d.gallery){galleryData=d.gallery;renderGallery();}
+                if(d.guides){guidesData=d.guides;renderGuides();} if(d.settings){settingsData=d.settings;renderSettings();}
+                updateStats(); toast("📤 Импортировано! Сохраните.", "info");
+            } catch(er) { toast("❌ Ошибка файла", "error"); }
+        };
+        r.readAsText(f); e.target.value = "";
+    }
 
     function switchTab(tabId) {
         document.querySelectorAll(".tab-content").forEach(t => t.classList.remove("active"));
@@ -556,7 +450,7 @@
 
     function toast(msg, type) { const t = document.getElementById("toast"); t.textContent = msg; t.className = `toast toast-${type}`; clearTimeout(t._t); t._t = setTimeout(() => t.classList.add("hidden"), 3500); }
 
-    document.addEventListener("keydown", function(e) { if((e.ctrlKey||e.metaKey)&&e.key==="s"){ e.preventDefault(); const at = document.querySelector(".tab-content.active"); if(at.id==="home-tab")saveHome(); else if(at.id==="gallery-tab")saveGallery(); else if(at.id==="guides-tab")saveGuides(); } });
+    document.addEventListener("keydown", function(e) { if((e.ctrlKey||e.metaKey)&&e.key==="s"){ e.preventDefault(); const at = document.querySelector(".tab-content.active"); if(at.id==="home-tab")saveHome(); else if(at.id==="gallery-tab")saveGallery(); else if(at.id==="guides-tab")saveGuides(); else if(at.id==="settings-tab")saveSettings(); } });
     document.getElementById("token-input").addEventListener("keydown", e => { if(e.key==="Enter")login(); });
 </script>
 
