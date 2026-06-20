@@ -1,14 +1,17 @@
-<!DOCTYPE html><html lang="ru" style=""><head>
-<meta charset="utf-8">
-<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<!DOCTYPE html>
+
+<html lang="ru"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>MOC_ADMIN // OBSIDIAN_TECH_TERMINAL</title>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=VT323&amp;family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=VT323&amp;family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&amp;display=swap" rel="stylesheet"/>
 <style>
         :root {
             --neon-green: #00ff41;
             --dark-green: #003b00;
             --bg-black: #050505;
+            --input-bg: #050a05;
             --terminal-font: 'VT323', monospace;
         }
         body {
@@ -21,19 +24,9 @@
             text-shadow: 0 0 5px rgba(0, 255, 65, 0.5);
         }
         
-        /* CRT Scanlines Effect */
-        body::before {
-            content: " ";
-            display: block;
-            position: fixed;
-            top: 0;
-            left: 0;
-            bottom: 0;
-            right: 0;
-            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
-            z-index: 9999;
-            background-size: 100% 3px, 3px 100%;
-            pointer-events: none;
+        /* CRT Scanlines, Grids, and Overlays Removed */
+        body::before, .scanline-overlay, .grid-overlay {
+            display: none !important;
         }
 
         .terminal-border {
@@ -41,7 +34,7 @@
         }
         
         .input-field {
-            background: transparent;
+            background: var(--input-bg) !important;
             border: 1px solid var(--neon-green);
             border-radius: 0;
             color: var(--neon-green);
@@ -52,6 +45,12 @@
             outline: none;
             box-shadow: 0 0 10px var(--neon-green);
             border-color: var(--neon-green);
+        }
+
+        /* Ensure all form elements have the dark background and green text */
+        select.input-field option {
+            background: var(--input-bg);
+            color: var(--neon-green);
         }
 
         .btn-terminal {
@@ -76,6 +75,12 @@
             color: var(--bg-black);
         }
 
+        /* Clean Images: Full Color & High Fidelity */
+        img {
+            filter: none !important; /* Remove any grayscale/desaturation */
+            object-fit: contain !important; /* Prevent cropping */
+        }
+
         /* Custom Scrollbar */
         ::-webkit-scrollbar { width: 10px; background: var(--bg-black); }
         ::-webkit-scrollbar-thumb { background: var(--neon-green); }
@@ -92,27 +97,27 @@
         }
     </style>
 </head>
-<body style="background-color: var(--bg-black); color: var(--neon-green); font-family: var(--terminal-font); position: relative;" class="bg-black">
+<body>
 <!-- LOGIN PAGE -->
 <div class="fixed inset-0 z-50 flex items-center justify-center" id="login-page">
 <div class="w-full max-w-md p-8 terminal-border bg-black">
 <div class="text-center mb-10">
-<div class="text-6xl mb-4">[<span class="material-symbols-outlined text-4xl align-middle">terminal</span>]</div>
+<div class="text-6xl mb-4">[ <span class="material-symbols-outlined text-4xl align-middle">terminal</span> ]</div>
 <h1 class="text-4xl font-bold uppercase tracking-tighter cursor-blink">MASTERS OF CUM</h1>
-<p class="text-lg opacity-80 mt-2">ADMIN CONSOLE</p>
+<p class="text-lg opacity-80 mt-2">КОНСОЛЬ УПРАВЛЕНИЯ АДМИНИСТРАТОРА</p>
 </div>
 <div class="space-y-6">
 <div>
-<label class="block text-sm uppercase mb-2">ТОКЕН АУТЕНТИФИКАЦИИ<br></label>
+<label class="block text-sm uppercase mb-2">ТОКЕН АУТЕНТИФИКАЦИИ (GITHUB)</label>
 <div class="relative">
-<input autofocus="" class="input-field w-full py-3 px-4" id="token-input" placeholder="ghp_************************************" type="password" style="background-color: rgb(5, 10, 5); color: var(--neon-green); border-color: var(--neon-green);">
+<input autofocus="" class="input-field w-full py-3 px-4" id="token-input" placeholder="ghp_************************************" type="password"/>
 </div>
 </div>
 <button class="btn-terminal w-full py-4 text-2xl font-bold flex items-center justify-center gap-2" onclick="login()">
                 ВЫПОЛНИТЬ ВХОД
             </button>
 </div>
-
+<p class="text-center text-xs mt-8 opacity-50 tracking-widest uppercase">ИНТЕРФЕЙС OBSIDIAN TECH V2.4.0_STABLE</p>
 </div>
 </div>
 <!-- ADMIN DASHBOARD -->
@@ -170,7 +175,7 @@
 <div class="flex items-center gap-4">
 <div class="relative">
 <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-[var(--neon-green)] text-sm">search</span>
-<input class="input-field py-1.5 pl-9 pr-4 text-sm w-64" oninput="quickSearch(this.value)" placeholder="ПОИСК ПО МОДУЛЯМ..." type="text" style="background-color: rgb(5, 10, 5); color: var(--neon-green); border-color: var(--neon-green);">
+<input class="input-field py-1.5 pl-9 pr-4 text-sm w-64" oninput="quickSearch(this.value)" placeholder="ПОИСК ПО МОДУЛЯМ..." type="text"/>
 </div>
 </div>
 <div class="flex items-center gap-6">
@@ -196,19 +201,19 @@
 <div class="space-y-4">
 <div>
 <label class="block text-xs uppercase mb-1">ЗАГОЛОВОК АРТА</label>
-<input class="input-field w-full p-2.5" id="home-title" type="text" style="background-color: rgb(5, 10, 5); color: var(--neon-green); border-color: var(--neon-green);">
+<input class="input-field w-full p-2.5" id="home-title" type="text"/>
 </div>
 <div>
 <label class="block text-xs uppercase mb-1">URL ИЗОБРАЖЕНИЯ</label>
-<input class="input-field w-full p-2.5" id="home-image" oninput="previewHomeImage()" type="text" style="background-color: rgb(5, 10, 5); color: var(--neon-green); border-color: var(--neon-green);">
+<input class="input-field w-full p-2.5" id="home-image" oninput="previewHomeImage()" type="text"/>
 </div>
 <div>
 <label class="block text-xs uppercase mb-1">КООРДИНАТЫ WPLACE / ССЫЛКА</label>
-<input class="input-field w-full p-2.5" id="home-location" type="text" style="background-color: rgb(5, 10, 5); color: var(--neon-green); border-color: var(--neon-green);">
+<input class="input-field w-full p-2.5" id="home-location" type="text"/>
 </div>
 <div>
 <label class="block text-xs uppercase mb-1">ОПИСАНИЕ</label>
-<textarea class="input-field w-full p-2.5" id="home-desc" rows="4" style="background-color: rgb(5, 10, 5); color: var(--neon-green); border-color: var(--neon-green);"></textarea>
+<textarea class="input-field w-full p-2.5" id="home-desc" rows="4"></textarea>
 </div>
 </div>
 </div>
@@ -218,7 +223,7 @@
                             ВИЗУАЛИЗАЦИЯ
                         </h3>
 <div class="flex-1 border-2 border-dashed border-[var(--neon-green)] flex items-center justify-center overflow-hidden min-h-[250px]" id="home-image-preview">
-<img alt="" class="max-w-full max-h-[350px] object-contain" id="home-preview-img" src="">
+<img alt="" class="max-w-full max-h-[350px] object-contain" id="home-preview-img" src=""/>
 <div class="text-center opacity-40" id="no-preview">
 <span class="material-symbols-outlined text-6xl block mb-2">image_not_supported</span>
 <p class="">ОТСУТСТВУЮТ ДАННЫЕ</p>
@@ -296,21 +301,21 @@
 <div class="space-y-6">
 <div>
 <label class="block text-sm uppercase mb-2">НАЗВАНИЕ ВКЛАДКИ</label>
-<input class="input-field w-full p-3" id="settings-siteTitle" type="text" style="background-color: rgb(5, 10, 5); color: var(--neon-green); border-color: var(--neon-green);">
+<input class="input-field w-full p-3" id="settings-siteTitle" type="text"/>
 </div>
 <div>
 <label class="block text-sm uppercase mb-2">ГЛАВНЫЙ ЗАГОЛОВОК</label>
-<input class="input-field w-full p-3" id="settings-headerTitle" type="text" style="background-color: rgb(5, 10, 5); color: var(--neon-green); border-color: var(--neon-green);">
+<input class="input-field w-full p-3" id="settings-headerTitle" type="text"/>
 </div>
 </div>
 <div class="space-y-6">
 <div>
 <label class="block text-sm uppercase mb-2">ПОДЗАГОЛОВОК ШАПКИ</label>
-<input class="input-field w-full p-3" id="settings-headerSubtitle" type="text" style="background-color: rgb(5, 10, 5); color: var(--neon-green); border-color: var(--neon-green);">
+<input class="input-field w-full p-3" id="settings-headerSubtitle" type="text"/>
 </div>
 <div>
 <label class="block text-sm uppercase mb-2">КОПИРАЙТ ФУТЕРА</label>
-<input class="input-field w-full p-3" id="settings-footer" type="text" style="background-color: rgb(5, 10, 5); color: var(--neon-green); border-color: var(--neon-green);">
+<input class="input-field w-full p-3" id="settings-footer" type="text"/>
 </div>
 </div>
 </div>
@@ -333,7 +338,7 @@
 <span class="material-symbols-outlined">delete_forever</span>
                                 СБРОС ДО ЗАВОДСКИХ
                             </button>
-<input accept=".json" class="hidden" id="import-file" onchange="handleImport(event)" type="file">
+<input accept=".json" class="hidden" id="import-file" onchange="handleImport(event)" type="file"/>
 </div>
 </div>
 </div>
@@ -503,7 +508,7 @@
         el.innerHTML = galleryData.map((item, i) => `
             <div class="terminal-border bg-black p-4 group">
                 <div class="aspect-video mb-4 border border-[var(--neon-green)] relative overflow-hidden bg-black">
-                    ${item.image ? `<img src="${item.image}" class="w-full h-full object-cover grayscale opacity-70 group-hover:grayscale-0 group-hover:opacity-100 transition-all">` : '<div class="flex items-center justify-center h-full opacity-20"><span class="material-symbols-outlined text-4xl">broken_image</span></div>'}
+                    ${item.image ? `<img src="${item.image}" class="w-full h-full object-contain opacity-100 transition-all">` : '<div class="flex items-center justify-center h-full opacity-20"><span class="material-symbols-outlined text-4xl">broken_image</span></div>'}
                     <div class="absolute inset-0 bg-black/80 opacity-0 group-hover:opacity-100 flex items-center justify-center gap-6 transition-opacity">
                         <button onclick="moveGalleryItem(${i},-1)" class="btn-terminal w-10 h-10 flex items-center justify-center"><span class="material-symbols-outlined">arrow_back</span></button>
                         <button onclick="moveGalleryItem(${i},1)" class="btn-terminal w-10 h-10 flex items-center justify-center"><span class="material-symbols-outlined">arrow_forward</span></button>
@@ -568,7 +573,7 @@
             const sd = typeof s === 'object' ? s : { text: s, image: "", detail: "", section: "" };
             return `<div class="p-4 border border-[var(--neon-green)] relative group bg-black">
                 <div class="flex gap-2 mb-3">
-                    <select onchange="updateGuideField(${gi},'${type}',${si},'section',this.value)" class="bg-black border-[var(--neon-green)] text-xs text-[var(--neon-green)] font-bold py-1 rounded-0 px-2 focus:ring-0 uppercase">
+                    <select onchange="updateGuideField(${gi},'${type}',${si},'section',this.value)" class="input-field text-xs font-bold py-1 rounded-0 px-2 focus:ring-0 uppercase">
                         <option value="">ОБЩЕЕ</option>
                         <option value="💻 ПК" ${sd.section=='💻 ПК'?'selected':''}>PC / WINDOWS</option>
                         <option value="📱 Android (Edge)" ${sd.section=='📱 Android (Edge)'?'selected':''}>ANDROID</option>
@@ -673,14 +678,4 @@
     });
     document.getElementById("token-input").addEventListener("keydown", e => { if(e.key==="Enter")login(); });
 </script>
-
-
-
-
-
-
-
-
-
-
 </body></html>
