@@ -15,8 +15,7 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             background: var(--bg); color: var(--text);
-            font-family: 'VT323', monospace; font-size: 18px;
-            min-height: 100vh; display: flex;
+            font-family: 'VT323', monospace; font-size: 18px; min-height: 100vh;
         }
 
         /* === SIDEBAR === */
@@ -34,9 +33,7 @@
             font-family: 'Press Start 2P', monospace; font-size: 11px;
             color: var(--glow); text-shadow: 0 0 10px var(--glow); line-height: 1.6;
         }
-        .sidebar-logo .logo-sub {
-            font-size: 14px; color: var(--text-dim); margin-top: 4px;
-        }
+        .sidebar-logo .logo-sub { font-size: 14px; color: var(--text-dim); margin-top: 4px; }
         .sidebar-nav { flex: 1; padding: 0 10px; }
         .sidebar-nav button {
             display: block; width: 100%; text-align: left;
@@ -52,10 +49,7 @@
             background: #0a2a0a; text-shadow: 0 0 8px var(--glow);
             box-shadow: inset 0 0 10px rgba(0,255,102,0.1);
         }
-        .sidebar-footer {
-            padding: 15px; border-top: 2px solid var(--border-dim);
-            display: flex; flex-direction: column; gap: 6px;
-        }
+        .sidebar-footer { padding: 15px; border-top: 2px solid var(--border-dim); display: flex; flex-direction: column; gap: 6px; }
 
         /* === MAIN === */
         .main-area { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
@@ -64,16 +58,13 @@
             padding: 10px 20px; display: flex; align-items: center;
             justify-content: space-between; flex-wrap: wrap; gap: 10px;
         }
-        .topbar-title {
-            font-family: 'Press Start 2P', monospace; font-size: 12px; color: var(--glow);
-        }
+        .topbar-title { font-family: 'Press Start 2P', monospace; font-size: 12px; color: var(--glow); }
         .topbar-actions { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
         .quick-search {
             background: #050a05; border: 2px solid var(--border-dim); color: var(--glow);
             font-family: 'VT323', monospace; font-size: 16px; padding: 6px 10px; width: 180px;
         }
         .quick-search:focus { border-color: var(--glow); outline: none; }
-
         .content-area { flex: 1; overflow-y: auto; padding: 20px; }
 
         /* === STATS ROW === */
@@ -170,13 +161,14 @@
         .login-title { font-family: 'Press Start 2P', monospace; font-size: 16px; color: var(--glow); text-shadow: 0 0 15px var(--glow); margin-bottom: 4px; }
         .login-subtitle { font-size: 18px; color: var(--text-dim); margin-bottom: 22px; }
         .hidden { display: none !important; }
+        .flex { display: flex !important; }
 
         /* === RESPONSIVE === */
         @media (max-width: 768px) {
-            body { flex-direction: column; }
+            .admin-layout { flex-direction: column; }
             .sidebar { width: 100%; min-width: 100%; flex-direction: row; flex-wrap: wrap; padding: 8px; gap: 4px; border-right: none; border-bottom: 3px solid var(--border); }
             .sidebar-logo { display: none; }
-            .sidebar-nav { display: flex; gap: 4px; padding: 0; flex: 1; }
+            .sidebar-nav { display: flex; gap: 4px; padding: 0; }
             .sidebar-nav button { font-size: 7px; padding: 8px 10px; flex: 1; text-align: center; }
             .sidebar-footer { display: none; }
             .gallery-admin-grid { grid-template-columns: 1fr; }
@@ -196,105 +188,107 @@
 </div>
 
 <!-- ADMIN -->
-<div id="admin-page" class="hidden" style="display:flex;flex:1;">
-    <!-- SIDEBAR -->
-    <div class="sidebar">
-        <div class="sidebar-logo">
-            <div class="logo-title">Masters_of_Cum</div>
-            <div class="logo-sub">ADMIN CONSOLE</div>
-        </div>
-        <div class="sidebar-nav">
-            <button class="active" onclick="switchTab('home-tab', this)">🏠 Главная</button>
-            <button onclick="switchTab('gallery-tab', this)">🖼 Галерея</button>
-            <button onclick="switchTab('guides-tab', this)">📚 Гайды</button>
-            <button onclick="switchTab('settings-tab', this)">⚙ Настройки</button>
-            <button onclick="switchTab('history-tab', this)">📜 История</button>
-        </div>
-        <div class="sidebar-footer">
-            <a href="/" class="btn btn-info btn-full" target="_blank">🌐 ОТКРЫТЬ САЙТ</a>
-            <button class="btn btn-warning btn-full" onclick="loadAll()">🔄 ОБНОВИТЬ ДАННЫЕ</button>
-            <button class="btn btn-danger btn-full" onclick="logout()">🚪 ВЫХОД</button>
-        </div>
-    </div>
-
-    <!-- MAIN -->
-    <div class="main-area">
-        <div class="topbar">
-            <div class="topbar-title">Masters_of_Cum_ADMIN</div>
-            <div class="topbar-actions">
-                <input type="text" class="quick-search" placeholder="Поиск по сайту..." oninput="quickSearch(this.value)">
-                <button class="btn btn-primary btn-ghost" onclick="publishAll()" title="Сохранить всё">💾 СОХРАНИТЬ ВСЁ</button>
+<div id="admin-page" class="hidden" style="display:none;">
+    <div class="admin-layout" style="display:flex;min-height:100vh;">
+        <!-- SIDEBAR -->
+        <div class="sidebar">
+            <div class="sidebar-logo">
+                <div class="logo-title">Masters_of_Cum</div>
+                <div class="logo-sub">ADMIN CONSOLE</div>
+            </div>
+            <div class="sidebar-nav">
+                <button class="active" onclick="switchTab('home-tab', this)">🏠 Главная</button>
+                <button onclick="switchTab('gallery-tab', this)">🖼 Галерея</button>
+                <button onclick="switchTab('guides-tab', this)">📚 Гайды</button>
+                <button onclick="switchTab('settings-tab', this)">⚙ Настройки</button>
+                <button onclick="switchTab('history-tab', this)">📜 История</button>
+            </div>
+            <div class="sidebar-footer">
+                <a href="/" class="btn btn-info btn-full" target="_blank">🌐 ОТКРЫТЬ САЙТ</a>
+                <button class="btn btn-warning btn-full" onclick="loadAll()">🔄 ОБНОВИТЬ ДАННЫЕ</button>
+                <button class="btn btn-danger btn-full" onclick="logout()">🚪 ВЫХОД</button>
             </div>
         </div>
-        <div class="content-area">
-            <div class="stats-row">
-                <div class="stat-card" onclick="switchTab('home-tab', document.querySelector('.sidebar-nav button'))"><div class="val" id="stat-art">-</div><div class="lbl">Акт. арт</div></div>
-                <div class="stat-card" onclick="switchTab('gallery-tab', document.querySelectorAll('.sidebar-nav button')[1])"><div class="val" id="stat-gallery">-</div><div class="lbl">Галерея</div></div>
-                <div class="stat-card" onclick="switchTab('guides-tab', document.querySelectorAll('.sidebar-nav button')[2])"><div class="val" id="stat-guides">-</div><div class="lbl">Гайды</div></div>
-                <div class="stat-card"><div class="val" id="stat-steps">-</div><div class="lbl">Шаги</div></div>
-            </div>
 
-            <!-- HOME TAB -->
-            <div id="home-tab" class="tab-content">
-                <div class="card-grid">
-                    <div class="card">
-                        <div class="card-header">🎯 АКТУАЛЬНЫЙ АРТ</div>
-                        <div class="form-group"><label class="form-label">Заголовок</label><input type="text" id="home-title" class="form-input"></div>
-                        <div class="form-group"><label class="form-label">Ссылка на картинку</label><input type="text" id="home-image" class="form-input" oninput="previewHomeImage()"></div>
-                        <div class="form-group"><label class="form-label">Описание</label><textarea id="home-desc" class="form-input" rows="3"></textarea></div>
-                        <div class="form-group"><label class="form-label">Ссылка WPlace</label><input type="text" id="home-location" class="form-input"></div>
-                        <div id="home-image-preview" class="hidden" style="border:2px dashed var(--border);background:#050a05;padding:10px;margin-top:10px;text-align:center;"><img id="home-preview-img" src="" style="max-width:100%;max-height:180px;" alt=""></div>
-                    </div>
-                    <div class="card"><div class="card-header">🖌 WPlace <button class="btn btn-primary" onclick="addStep('wplace')">+</button></div><div id="steps-wplace"></div></div>
+        <!-- MAIN -->
+        <div class="main-area">
+            <div class="topbar">
+                <div class="topbar-title">Masters_of_Cum_ADMIN</div>
+                <div class="topbar-actions">
+                    <input type="text" class="quick-search" placeholder="Поиск..." oninput="quickSearch(this.value)">
+                    <button class="btn btn-primary btn-ghost" onclick="publishAll()">💾 СОХРАНИТЬ ВСЁ</button>
                 </div>
-                <div class="card-grid">
-                    <div class="card"><div class="card-header">🔷 Blue Marble <button class="btn btn-primary" onclick="addStep('blue')">+</button></div><div id="steps-blue"></div></div>
-                    <div class="card"><div class="card-header">🧩 WPlace Helper <button class="btn btn-primary" onclick="addStep('helper')">+</button></div><div id="steps-helper"></div></div>
+            </div>
+            <div class="content-area">
+                <div class="stats-row">
+                    <div class="stat-card" onclick="switchTab('home-tab', document.querySelector('.sidebar-nav button'))"><div class="val" id="stat-art">-</div><div class="lbl">Акт. арт</div></div>
+                    <div class="stat-card" onclick="switchTab('gallery-tab', document.querySelectorAll('.sidebar-nav button')[1])"><div class="val" id="stat-gallery">-</div><div class="lbl">Галерея</div></div>
+                    <div class="stat-card" onclick="switchTab('guides-tab', document.querySelectorAll('.sidebar-nav button')[2])"><div class="val" id="stat-guides">-</div><div class="lbl">Гайды</div></div>
+                    <div class="stat-card"><div class="val" id="stat-steps">-</div><div class="lbl">Шаги</div></div>
                 </div>
-                <button class="btn btn-primary btn-full" onclick="saveHome()">💾 СОХРАНИТЬ ГЛАВНУЮ</button>
-            </div>
 
-            <!-- GALLERY TAB -->
-            <div id="gallery-tab" class="tab-content hidden">
-                <div class="card"><div class="card-header">🖼 ГАЛЕРЕЯ <div style="display:flex;gap:6px;"><button class="btn btn-primary" onclick="addGalleryItem()">+ ДОБАВИТЬ</button><button class="btn btn-warning" onclick="sortGallery()">🔤 СОРТИРОВКА</button></div></div><div class="gallery-admin-grid" id="gallery-items"></div></div>
-                <button class="btn btn-primary btn-full" onclick="saveGallery()">💾 СОХРАНИТЬ ГАЛЕРЕЮ</button>
-            </div>
-
-            <!-- GUIDES TAB -->
-            <div id="guides-tab" class="tab-content hidden">
-                <div class="card"><div class="card-header">📚 ГАЙДЫ <button class="btn btn-primary" onclick="addGuideItem()">+ ДОБАВИТЬ</button></div><div id="guides-items"></div></div>
-                <button class="btn btn-primary btn-full" onclick="saveGuides()">💾 СОХРАНИТЬ ГАЙДЫ</button>
-            </div>
-
-            <!-- SETTINGS TAB -->
-            <div id="settings-tab" class="tab-content hidden">
-                <div class="card-grid">
-                    <div class="card">
-                        <div class="card-header">⚙ ОБЩИЕ НАСТРОЙКИ</div>
-                        <div class="form-group"><label class="form-label">Название сайта</label><input type="text" id="settings-siteTitle" class="form-input"></div>
-                        <div class="form-group"><label class="form-label">Заголовок</label><input type="text" id="settings-headerTitle" class="form-input"></div>
-                        <div class="form-group"><label class="form-label">Подзаголовок</label><input type="text" id="settings-headerSubtitle" class="form-input"></div>
-                        <div class="form-group"><label class="form-label">Футер</label><textarea id="settings-footer" class="form-input" rows="2"></textarea></div>
+                <!-- HOME TAB -->
+                <div id="home-tab" class="tab-content">
+                    <div class="card-grid">
+                        <div class="card">
+                            <div class="card-header">🎯 АКТУАЛЬНЫЙ АРТ</div>
+                            <div class="form-group"><label class="form-label">Заголовок</label><input type="text" id="home-title" class="form-input"></div>
+                            <div class="form-group"><label class="form-label">Ссылка на картинку</label><input type="text" id="home-image" class="form-input" oninput="previewHomeImage()"></div>
+                            <div class="form-group"><label class="form-label">Описание</label><textarea id="home-desc" class="form-input" rows="3"></textarea></div>
+                            <div class="form-group"><label class="form-label">Ссылка WPlace</label><input type="text" id="home-location" class="form-input"></div>
+                            <div id="home-image-preview" class="hidden" style="border:2px dashed var(--border);background:#050a05;padding:10px;margin-top:10px;text-align:center;"><img id="home-preview-img" src="" style="max-width:100%;max-height:180px;" alt=""></div>
+                        </div>
+                        <div class="card"><div class="card-header">🖌 WPlace <button class="btn btn-primary" onclick="addStep('wplace')">+</button></div><div id="steps-wplace"></div></div>
                     </div>
-                    <div class="card">
-                        <div class="card-header">🔧 ИНСТРУМЕНТЫ</div>
-                        <button class="btn btn-warning" onclick="if(confirm('Сбросить все данные?')) resetAll()" style="width:100%;margin-bottom:6px;">⚠ СБРОСИТЬ ВСЁ</button>
-                        <button class="btn btn-info" onclick="exportAll()" style="width:100%;margin-bottom:6px;">📥 ЭКСПОРТ ДАННЫХ</button>
-                        <button class="btn btn-info" onclick="importAll()" style="width:100%;margin-bottom:6px;">📤 ИМПОРТ ДАННЫХ</button>
-                        <input type="file" id="import-file" accept=".json" class="hidden" onchange="handleImport(event)">
-                        <hr style="border-color:var(--border-dim);margin:8px 0;">
-                        <button class="btn btn-info" onclick="toggleAutoSave()" style="width:100%;">⏱ АВТОСОХРАНЕНИЕ: <span id="autosave-status">ВЫКЛ</span></button>
+                    <div class="card-grid">
+                        <div class="card"><div class="card-header">🔷 Blue Marble <button class="btn btn-primary" onclick="addStep('blue')">+</button></div><div id="steps-blue"></div></div>
+                        <div class="card"><div class="card-header">🧩 WPlace Helper <button class="btn btn-primary" onclick="addStep('helper')">+</button></div><div id="steps-helper"></div></div>
                     </div>
+                    <button class="btn btn-primary btn-full" onclick="saveHome()">💾 СОХРАНИТЬ ГЛАВНУЮ</button>
                 </div>
-                <button class="btn btn-primary btn-full" onclick="saveSettings()">💾 СОХРАНИТЬ НАСТРОЙКИ</button>
-            </div>
 
-            <!-- HISTORY TAB -->
-            <div id="history-tab" class="tab-content hidden">
-                <div class="card">
-                    <div class="card-header">📜 ИСТОРИЯ ДЕЙСТВИЙ <button class="btn btn-warning" onclick="clearHistory()">ОЧИСТИТЬ</button></div>
-                    <div class="history-log" id="history-log">
-                        <div class="entry">Консоль запущена.</div>
+                <!-- GALLERY TAB -->
+                <div id="gallery-tab" class="tab-content hidden">
+                    <div class="card"><div class="card-header">🖼 ГАЛЕРЕЯ <div style="display:flex;gap:6px;"><button class="btn btn-primary" onclick="addGalleryItem()">+ ДОБАВИТЬ</button><button class="btn btn-warning" onclick="sortGallery()">🔤 СОРТИРОВКА</button></div></div><div class="gallery-admin-grid" id="gallery-items"></div></div>
+                    <button class="btn btn-primary btn-full" onclick="saveGallery()">💾 СОХРАНИТЬ ГАЛЕРЕЮ</button>
+                </div>
+
+                <!-- GUIDES TAB -->
+                <div id="guides-tab" class="tab-content hidden">
+                    <div class="card"><div class="card-header">📚 ГАЙДЫ <button class="btn btn-primary" onclick="addGuideItem()">+ ДОБАВИТЬ</button></div><div id="guides-items"></div></div>
+                    <button class="btn btn-primary btn-full" onclick="saveGuides()">💾 СОХРАНИТЬ ГАЙДЫ</button>
+                </div>
+
+                <!-- SETTINGS TAB -->
+                <div id="settings-tab" class="tab-content hidden">
+                    <div class="card-grid">
+                        <div class="card">
+                            <div class="card-header">⚙ ОБЩИЕ НАСТРОЙКИ</div>
+                            <div class="form-group"><label class="form-label">Название сайта</label><input type="text" id="settings-siteTitle" class="form-input"></div>
+                            <div class="form-group"><label class="form-label">Заголовок</label><input type="text" id="settings-headerTitle" class="form-input"></div>
+                            <div class="form-group"><label class="form-label">Подзаголовок</label><input type="text" id="settings-headerSubtitle" class="form-input"></div>
+                            <div class="form-group"><label class="form-label">Футер</label><textarea id="settings-footer" class="form-input" rows="2"></textarea></div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header">🔧 ИНСТРУМЕНТЫ</div>
+                            <button class="btn btn-warning" onclick="if(confirm('Сбросить все данные?')) resetAll()" style="width:100%;margin-bottom:6px;">⚠ СБРОСИТЬ ВСЁ</button>
+                            <button class="btn btn-info" onclick="exportAll()" style="width:100%;margin-bottom:6px;">📥 ЭКСПОРТ ДАННЫХ</button>
+                            <button class="btn btn-info" onclick="importAll()" style="width:100%;margin-bottom:6px;">📤 ИМПОРТ ДАННЫХ</button>
+                            <input type="file" id="import-file" accept=".json" class="hidden" onchange="handleImport(event)">
+                            <hr style="border-color:var(--border-dim);margin:8px 0;">
+                            <button class="btn btn-info" onclick="toggleAutoSave()" style="width:100%;">⏱ АВТОСОХРАНЕНИЕ: <span id="autosave-status">ВЫКЛ</span></button>
+                        </div>
+                    </div>
+                    <button class="btn btn-primary btn-full" onclick="saveSettings()">💾 СОХРАНИТЬ НАСТРОЙКИ</button>
+                </div>
+
+                <!-- HISTORY TAB -->
+                <div id="history-tab" class="tab-content hidden">
+                    <div class="card">
+                        <div class="card-header">📜 ИСТОРИЯ ДЕЙСТВИЙ <button class="btn btn-warning" onclick="clearHistory()">ОЧИСТИТЬ</button></div>
+                        <div class="history-log" id="history-log">
+                            <div class="entry">Консоль запущена.</div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -311,7 +305,6 @@
     let historyLog = [];
     if (token) { showAdmin(); loadAll(); }
 
-    // === HISTORY ===
     function addHistory(msg, type) {
         historyLog.unshift({ msg, type, time: new Date().toLocaleTimeString() });
         if (historyLog.length > 50) historyLog.pop();
@@ -323,7 +316,6 @@
     }
     function clearHistory() { historyLog = []; renderHistory(); toast("История очищена", "info"); }
 
-    // === TOAST ===
     function toast(msg, type) {
         addHistory(msg, type);
         const t = document.getElementById("toast");
@@ -331,7 +323,6 @@
         clearTimeout(t._t); t._t = setTimeout(() => t.classList.add("hidden"), 3500);
     }
 
-    // === AUTO SAVE ===
     function toggleAutoSave() {
         const status = document.getElementById("autosave-status");
         if (autoSaveInterval) {
@@ -351,7 +342,6 @@
         }
     }
 
-    // === QUICK SEARCH ===
     function quickSearch(query) {
         if (!query) return;
         const q = query.toLowerCase();
@@ -361,7 +351,6 @@
         else if (q.includes("настр") || q.includes("setting")) switchTab("settings-tab", document.querySelectorAll('.sidebar-nav button')[3]);
     }
 
-    // === AUTH ===
     async function login() {
         token = document.getElementById("token-input").value.trim();
         if (!token) return toast("Введите токен", "error");
@@ -370,9 +359,13 @@
         else toast("❌ Неверный токен", "error");
     }
     function logout() { sessionStorage.removeItem("wplace_admin_token"); location.reload(); }
-    function showAdmin() { document.getElementById("login-page").classList.add("hidden"); document.getElementById("admin-page").style.display = 'flex'; }
+    function showAdmin() {
+        document.getElementById("login-page").classList.add("hidden");
+        const ap = document.getElementById("admin-page");
+        ap.classList.remove("hidden");
+        ap.style.display = "block";
+    }
 
-    // === API ===
     async function loadJSON(path) {
         const res = await fetch(`https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${path}?ref=${BRANCH}`, { headers: { Authorization: `token ${token}`, Accept: "application/vnd.github.v3+json" } });
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
@@ -401,7 +394,6 @@
         document.getElementById("stat-steps").textContent = total;
     }
 
-    // === HOME ===
     function renderHome() {
         document.getElementById("home-title").value = homeData.title || "";
         document.getElementById("home-image").value = homeData.image || "";
@@ -456,7 +448,6 @@
         try { homeData._sha = await saveJSON("content/home.json", homeData, homeData._sha); updateStats(); toast("✅ Главная сохранена!", "success"); } catch(e) { toast("❌ "+e.message, "error"); }
     }
 
-    // === GALLERY ===
     function renderGallery() {
         const el = document.getElementById("gallery-items");
         if (galleryData.length === 0) { el.innerHTML = '<p style="color:var(--text-dim);text-align:center;padding:40px;">Пусто</p>'; return; }
@@ -475,7 +466,6 @@
     function sortGallery() { galleryData.sort((a,b) => (a.title||"").localeCompare(b.title||"")); renderGallery(); }
     async function saveGallery() { try { galleryData._sha = await saveJSON("content/gallery.json", galleryData, galleryData._sha); updateStats(); toast("✅ Галерея сохранена!", "success"); } catch(e) { toast("❌ "+e.message, "error"); } }
 
-    // === GUIDES ===
     function renderGuides() {
         const el = document.getElementById("guides-items");
         if (guidesData.length === 0) { el.innerHTML = '<p style="color:var(--text-dim);text-align:center;padding:40px;">Пусто</p>'; return; }
@@ -522,7 +512,6 @@
     function addGuideStep(gi, type) { const key = `install_${type}`; if(!guidesData[gi][key])guidesData[gi][key]=[]; guidesData[gi][key].push({text:"",image:"",detail:"",section:""}); renderGuides(); }
     async function saveGuides() { try { guidesData._sha = await saveJSON("content/guides.json", guidesData, guidesData._sha); updateStats(); toast("✅ Гайды сохранены!", "success"); } catch(e) { toast("❌ "+e.message, "error"); } }
 
-    // === SETTINGS ===
     function renderSettings() {
         document.getElementById("settings-siteTitle").value = settingsData.siteTitle || "";
         document.getElementById("settings-headerTitle").value = settingsData.headerTitle || "";
@@ -537,16 +526,12 @@
         try { settingsData._sha = settingsData._sha ? await saveJSON("content/settings.json", settingsData, settingsData._sha) : await saveJSON("content/settings.json", settingsData, null); toast("✅ Настройки сохранены!", "success"); } catch(e) { toast("❌ "+e.message, "error"); }
     }
 
-    // === PUBLISH ALL ===
     async function publishAll() {
         toast("🚀 Сохранение...", "info");
-        try {
-            await saveHome(); await saveGallery(); await saveGuides(); await saveSettings();
-            toast("✅ Всё опубликовано!", "success");
-        } catch(e) { toast("❌ Ошибка", "error"); }
+        try { await saveHome(); await saveGallery(); await saveGuides(); await saveSettings(); toast("✅ Всё опубликовано!", "success"); }
+        catch(e) { toast("❌ Ошибка", "error"); }
     }
 
-    // === RESET ===
     async function resetAll() {
         homeData = { title: "", image: "", description: "", location: "", help_wplace: [], help_blue: [], help_helper: [] };
         galleryData = []; guidesData = [];
@@ -571,15 +556,14 @@
         r.readAsText(f); e.target.value = "";
     }
 
-    // === SWITCH TAB ===
     function switchTab(tabId, btn) {
         document.querySelectorAll(".tab-content").forEach(t => t.classList.add("hidden"));
         document.querySelectorAll(".sidebar-nav button").forEach(b => b.classList.remove("active"));
-        document.getElementById(tabId).classList.remove("hidden");
+        const tab = document.getElementById(tabId);
+        if (tab) tab.classList.remove("hidden");
         if (btn) btn.classList.add("active");
     }
 
-    // === KEYBOARD ===
     document.addEventListener("keydown", function(e) {
         if ((e.ctrlKey||e.metaKey) && e.key === "s") { e.preventDefault(); publishAll(); }
         if (e.key === "F5") { e.preventDefault(); loadAll(); }
