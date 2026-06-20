@@ -18,7 +18,6 @@
             --glow: #00ff66;
             --accent2: #88ff88;
             --danger: #ff4444;
-            --warning: #ffaa00;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -165,20 +164,16 @@
             background: #0a0f0a;
             padding: 12px;
             margin-bottom: 10px;
-            display: flex;
-            gap: 12px;
-            align-items: center;
-            flex-wrap: wrap;
         }
-        .gallery-item-admin input {
-            flex: 1;
-            min-width: 120px;
+        .gallery-item-admin input, .gallery-item-admin textarea {
+            width: 100%;
             padding: 8px;
             background: #050a05;
             border: 2px solid var(--border-dim);
             color: var(--glow);
             font-family: 'VT323', monospace;
             font-size: 18px;
+            margin-bottom: 6px;
         }
 
         .guide-item-admin {
@@ -257,7 +252,6 @@
 </head>
 <body>
 
-<!-- ЛОГИН -->
 <div id="login-page" class="login-container">
     <div class="login-card">
         <div class="login-title">⚔ WPLACE ⚔</div>
@@ -274,7 +268,6 @@
     </div>
 </div>
 
-<!-- АДМИНКА -->
 <div id="admin-page" class="hidden">
     <div class="header">
         <div class="header-title">⚔ WPLACE ADMIN v3.0</div>
@@ -285,60 +278,30 @@
     </div>
 
     <div class="main-container">
-        <!-- Вкладки -->
         <div class="tabs">
             <button class="tab-btn active" onclick="switchTab('home-tab')">🏠 Главная</button>
             <button class="tab-btn" onclick="switchTab('gallery-tab')">🖼 Галерея</button>
             <button class="tab-btn" onclick="switchTab('guides-tab')">📚 Гайды</button>
         </div>
 
-        <!-- === ГЛАВНАЯ === -->
+        <!-- ГЛАВНАЯ -->
         <div id="home-tab" class="tab-content active">
             <div class="card">
                 <div class="card-header">🎯 АКТУАЛЬНЫЙ АРТ</div>
-                <div class="form-group">
-                    <label class="form-label">Заголовок</label>
-                    <input type="text" id="home-title" class="form-input">
-                </div>
-                <div class="form-group">
-                    <label class="form-label">Ссылка на картинку</label>
-                    <input type="text" id="home-image" class="form-input" placeholder="/images/art.png или https://...">
-                    <div class="help-text">Загрузите картинку в репозиторий (папка images/) и укажите путь</div>
-                </div>
-                <div class="form-group">
-                    <label class="form-label">Описание под картинкой</label>
-                    <textarea id="home-desc" class="form-input" rows="3"></textarea>
-                </div>
-                <div class="form-group">
-                    <label class="form-label">Ссылка на арт (WPlace)</label>
-                    <input type="text" id="home-location" class="form-input">
-                </div>
-                <div class="form-group">
-                    <label class="form-label">Координаты</label>
-                    <input type="text" id="home-coords" class="form-input">
-                </div>
+                <div class="form-group"><label class="form-label">Заголовок</label><input type="text" id="home-title" class="form-input"></div>
+                <div class="form-group"><label class="form-label">Ссылка на картинку</label><input type="text" id="home-image" class="form-input" placeholder="https://arnimaz.github.io/images/art.png"><div class="help-text">Загрузите картинку в репозиторий и укажите полную ссылку</div></div>
+                <div class="form-group"><label class="form-label">Описание под картинкой</label><textarea id="home-desc" class="form-input" rows="3"></textarea></div>
+                <div class="form-group"><label class="form-label">Ссылка на арт (WPlace)</label><input type="text" id="home-location" class="form-input"></div>
             </div>
 
-            <div class="card">
-                <div class="card-header">🖌 ИНСТРУКЦИЯ — WPlace (сайт)</div>
-                <ol class="step-list" id="steps-wplace"></ol>
-                <button class="btn btn-small" onclick="addStep('wplace')">+ Шаг</button>
-            </div>
-            <div class="card">
-                <div class="card-header">🔷 ИНСТРУКЦИЯ — Blue Marble</div>
-                <ol class="step-list" id="steps-blue"></ol>
-                <button class="btn btn-small" onclick="addStep('blue')">+ Шаг</button>
-            </div>
-            <div class="card">
-                <div class="card-header">🧩 ИНСТРУКЦИЯ — WPlace Helper</div>
-                <ol class="step-list" id="steps-helper"></ol>
-                <button class="btn btn-small" onclick="addStep('helper')">+ Шаг</button>
-            </div>
+            <div class="card"><div class="card-header">🖌 ИНСТРУКЦИЯ — WPlace (сайт)</div><ol class="step-list" id="steps-wplace"></ol><button class="btn btn-small" onclick="addStep('wplace')">+ Шаг</button></div>
+            <div class="card"><div class="card-header">🔷 ИНСТРУКЦИЯ — Blue Marble</div><ol class="step-list" id="steps-blue"></ol><button class="btn btn-small" onclick="addStep('blue')">+ Шаг</button></div>
+            <div class="card"><div class="card-header">🧩 ИНСТРУКЦИЯ — WPlace Helper</div><ol class="step-list" id="steps-helper"></ol><button class="btn btn-small" onclick="addStep('helper')">+ Шаг</button></div>
 
             <button class="btn btn-primary" onclick="saveHome()" style="width:100%;font-size:12px;">💾 СОХРАНИТЬ ГЛАВНУЮ</button>
         </div>
 
-        <!-- === ГАЛЕРЕЯ === -->
+        <!-- ГАЛЕРЕЯ -->
         <div id="gallery-tab" class="tab-content">
             <div class="card">
                 <div class="card-header">🖼 АРТЫ <button class="btn btn-small" onclick="addGalleryItem()">+ ДОБАВИТЬ</button></div>
@@ -347,7 +310,7 @@
             <button class="btn btn-primary" onclick="saveGallery()" style="width:100%;font-size:12px;">💾 СОХРАНИТЬ ГАЛЕРЕЮ</button>
         </div>
 
-        <!-- === ГАЙДЫ === -->
+        <!-- ГАЙДЫ -->
         <div id="guides-tab" class="tab-content">
             <div class="card">
                 <div class="card-header">📚 ГАЙДЫ <button class="btn btn-small" onclick="addGuideItem()">+ ДОБАВИТЬ</button></div>
@@ -372,7 +335,6 @@
 
     if (token) { showAdmin(); loadAll(); }
 
-    // ===== АВТОРИЗАЦИЯ =====
     async function login() {
         token = document.getElementById("token-input").value.trim();
         if (!token) return toast("Введите токен", "error");
@@ -389,17 +351,12 @@
         }
     }
 
-    function logout() {
-        sessionStorage.removeItem("wplace_admin_token");
-        location.reload();
-    }
-
+    function logout() { sessionStorage.removeItem("wplace_admin_token"); location.reload(); }
     function showAdmin() {
         document.getElementById("login-page").classList.add("hidden");
         document.getElementById("admin-page").classList.remove("hidden");
     }
 
-    // ===== ЗАГРУЗКА ДАННЫХ =====
     async function loadJSON(path) {
         const res = await fetch(`https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${path}?ref=${BRANCH}`, {
             headers: { Authorization: `token ${token}`, Accept: "application/vnd.github.v3+json" }
@@ -427,35 +384,17 @@
     }
 
     async function loadAll() {
-        try {
-            const home = await loadJSON("content/home.json");
-            homeData = home.content;
-            homeData._sha = home.sha;
-            renderHome();
-        } catch(e) { toast("Ошибка загрузки главной: " + e.message, "error"); }
-
-        try {
-            const gallery = await loadJSON("content/gallery.json");
-            galleryData = gallery.content;
-            galleryData._sha = gallery.sha;
-            renderGallery();
-        } catch(e) { toast("Ошибка загрузки галереи: " + e.message, "error"); }
-
-        try {
-            const guides = await loadJSON("content/guides.json");
-            guidesData = guides.content;
-            guidesData._sha = guides.sha;
-            renderGuides();
-        } catch(e) { toast("Ошибка загрузки гайдов: " + e.message, "error"); }
+        try { const h = await loadJSON("content/home.json"); homeData = h.content; homeData._sha = h.sha; renderHome(); } catch(e) { toast("Ошибка загрузки главной", "error"); }
+        try { const g = await loadJSON("content/gallery.json"); galleryData = g.content; galleryData._sha = g.sha; renderGallery(); } catch(e) { toast("Ошибка загрузки галереи", "error"); }
+        try { const gu = await loadJSON("content/guides.json"); guidesData = gu.content; guidesData._sha = gu.sha; renderGuides(); } catch(e) { toast("Ошибка загрузки гайдов", "error"); }
     }
 
-    // ===== РЕНДЕР ГЛАВНОЙ =====
+    // ===== ГЛАВНАЯ =====
     function renderHome() {
         document.getElementById("home-title").value = homeData.title || "";
         document.getElementById("home-image").value = homeData.image || "";
         document.getElementById("home-desc").value = homeData.description || "";
         document.getElementById("home-location").value = homeData.location || "";
-        document.getElementById("home-coords").value = homeData.coords || "";
         renderSteps("wplace", homeData.help_wplace || []);
         renderSteps("blue", homeData.help_blue || []);
         renderSteps("helper", homeData.help_helper || []);
@@ -494,64 +433,52 @@
         homeData.image = document.getElementById("home-image").value;
         homeData.description = document.getElementById("home-desc").value;
         homeData.location = document.getElementById("home-location").value;
-        homeData.coords = document.getElementById("home-coords").value;
-
-        try {
-            const sha = await saveJSON("content/home.json", homeData, homeData._sha);
-            homeData._sha = sha;
-            toast("✅ Главная сохранена!", "success");
-        } catch(e) { toast("❌ " + e.message, "error"); }
+        try { const sha = await saveJSON("content/home.json", homeData, homeData._sha); homeData._sha = sha; toast("✅ Главная сохранена!", "success"); } catch(e) { toast("❌ " + e.message, "error"); }
     }
 
-    // ===== РЕНДЕР ГАЛЕРЕИ =====
+    // ===== ГАЛЕРЕЯ (обновлено) =====
     function renderGallery() {
         const el = document.getElementById("gallery-items");
         el.innerHTML = galleryData.map((item, i) => `
             <div class="gallery-item-admin">
-                <input placeholder="Название" value="${item.title || ''}" onchange="galleryData[${i}].title=this.value">
-                <input placeholder="Дата" value="${item.date || ''}" onchange="galleryData[${i}].date=this.value" style="max-width:160px;">
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+                    <strong style="color:var(--accent2);">Арт #${i+1}</strong>
+                    <button class="btn btn-small btn-danger" onclick="galleryData.splice(${i},1);renderGallery();">✕</button>
+                </div>
+                <input placeholder="Название арта" value="${item.title || ''}" onchange="galleryData[${i}].title=this.value">
+                <textarea placeholder="Описание (показывается при нажатии)" rows="3" onchange="galleryData[${i}].description=this.value">${item.description || ''}</textarea>
                 <input placeholder="Ссылка на картинку" value="${item.image || ''}" onchange="galleryData[${i}].image=this.value">
-                <button class="btn btn-small btn-danger" onclick="galleryData.splice(${i},1);renderGallery();">✕</button>
             </div>`).join("");
     }
 
     function addGalleryItem() {
-        galleryData.push({ title: "", date: "", image: "" });
+        galleryData.push({ title: "", description: "", image: "" });
         renderGallery();
     }
 
     async function saveGallery() {
-        try {
-            const sha = await saveJSON("content/gallery.json", galleryData, galleryData._sha);
-            galleryData._sha = sha;
-            toast("✅ Галерея сохранена!", "success");
-        } catch(e) { toast("❌ " + e.message, "error"); }
+        try { const sha = await saveJSON("content/gallery.json", galleryData, galleryData._sha); galleryData._sha = sha; toast("✅ Галерея сохранена!", "success"); } catch(e) { toast("❌ " + e.message, "error"); }
     }
 
-    // ===== РЕНДЕР ГАЙДОВ =====
+    // ===== ГАЙДЫ =====
     function renderGuides() {
         const el = document.getElementById("guides-items");
         el.innerHTML = guidesData.map((guide, i) => `
             <div class="guide-item-admin">
                 <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
                     <strong style="color:var(--accent2);">Гайд #${i+1}</strong>
-                    <button class="btn btn-small btn-danger" onclick="guidesData.splice(${i},1);renderGuides();">✕ Удалить</button>
+                    <button class="btn btn-small btn-danger" onclick="guidesData.splice(${i},1);renderGuides();">✕</button>
                 </div>
-                <input class="form-input" placeholder="Название (напр: 🔷 Blue Marble)" value="${guide.title || ''}" onchange="guidesData[${i}].title=this.value" style="margin-bottom:6px;">
+                <input class="form-input" placeholder="Название" value="${guide.title || ''}" onchange="guidesData[${i}].title=this.value" style="margin-bottom:6px;">
                 <textarea class="form-input" placeholder="Описание" rows="2" onchange="guidesData[${i}].description=this.value" style="margin-bottom:6px;">${guide.description || ''}</textarea>
-                
-                <div class="help-text" style="margin-top:6px;">Установка на ПК:</div>
+                <div class="help-text">Установка на ПК:</div>
                 <ol class="step-list" id="guide-pc-${i}"></ol>
                 <button class="btn btn-small" onclick="addGuideStep(${i},'pc')">+ Шаг ПК</button>
-                
                 <div class="help-text" style="margin-top:6px;">Установка на телефон:</div>
                 <ol class="step-list" id="guide-phone-${i}"></ol>
                 <button class="btn btn-small" onclick="addGuideStep(${i},'phone')">+ Шаг телефон</button>
-                
-                <input class="form-input" placeholder="Примечание (необязательно)" value="${guide.note || ''}" onchange="guidesData[${i}].note=this.value" style="margin-top:6px;">
+                <input class="form-input" placeholder="Примечание" value="${guide.note || ''}" onchange="guidesData[${i}].note=this.value" style="margin-top:6px;">
             </div>`).join("");
-
-        // Рендерим шаги для каждого гайда
         guidesData.forEach((guide, i) => {
             renderGuideSteps(i, "pc", guide.install_pc || []);
             renderGuideSteps(i, "phone", guide.install_phone || []);
@@ -582,14 +509,9 @@
     }
 
     async function saveGuides() {
-        try {
-            const sha = await saveJSON("content/guides.json", guidesData, guidesData._sha);
-            guidesData._sha = sha;
-            toast("✅ Гайды сохранены!", "success");
-        } catch(e) { toast("❌ " + e.message, "error"); }
+        try { const sha = await saveJSON("content/guides.json", guidesData, guidesData._sha); guidesData._sha = sha; toast("✅ Гайды сохранены!", "success"); } catch(e) { toast("❌ " + e.message, "error"); }
     }
 
-    // ===== ОБЩЕЕ =====
     function switchTab(tabId) {
         document.querySelectorAll(".tab-content").forEach(t => t.classList.remove("active"));
         document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
