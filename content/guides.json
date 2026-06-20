@@ -1,122 +1,101 @@
 [
   {
     "title": "🔷 Blue Marble — Руководство по установке",
-    "description": "",
+    "description": "Blue Marble — продвинутый инструмент для точного размещения пикселей и загрузки шаблонов артов на WPlace. Выберите ваше устройство и следуйте инструкции.",
     "install_pc": [
       {
         "text": "Установите TamperMonkey для Chrome",
         "image": "https://arnimaz.github.io/images/guides/1.png",
-        "detail": "Ссылка: https://chromewebstore.google.com/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo"
+        "detail": "Ссылка: https://chromewebstore.google.com/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo",
+        "section": "💻 ПК"
       },
       {
         "text": "Откройте управление расширениями",
         "image": "https://arnimaz.github.io/images/guides/2.png",
-        "detail": ""
+        "detail": "",
+        "section": "💻 ПК"
       },
       {
         "text": "Включите режим разработчика и пользовательские скрипты",
         "image": "https://arnimaz.github.io/images/guides/3.png",
-        "detail": ""
+        "detail": "",
+        "section": "💻 ПК"
       },
       {
-        "text": "Скачайте файл BlueMarble.user.js (сыллка в подробности)",
+        "text": "Скачайте файл BlueMarble.user.js (ссылка в подробностях)",
         "image": "",
-        "detail": "https://github.com/SwingTheVine/Wplace-BlueMarble/releases/download/pre/BlueMarble.user.js"
+        "detail": "https://github.com/SwingTheVine/Wplace-BlueMarble/releases/download/pre/BlueMarble.user.js",
+        "section": "💻 ПК"
       },
       {
         "text": "Нажмите 'Установить'",
         "image": "https://arnimaz.github.io/images/guides/4.png",
-        "detail": ""
+        "detail": "",
+        "section": "💻 ПК"
       },
       {
         "text": "Включите скрипт и обновите страницу wplace.live",
         "image": "https://arnimaz.github.io/images/guides/5.png",
         "detail": "",
-        "section": ""
+        "section": "💻 ПК"
       }
     ],
     "install_phone": [
       {
-        "text": "Установите TamperMonkey для Chrome",
+        "text": "Установите TamperMonkey из магазина расширений Edge",
         "image": "",
-        "detail": "Chrome на Android не поддерживает расширения. Kiwi Browser работает на том же движке."
+        "detail": "Edge на Android поддерживает расширения. Откройте меню (≡) → Расширения.",
+        "section": "📱 Android (Edge)"
       },
       {
-        "text": "Откройте управление расширениями",
+        "text": "Скачайте файл BlueMarble.user.js с GitHub Releases",
         "image": "",
-        "detail": ""
+        "detail": "https://github.com/SwingTheVine/Wplace-BlueMarble/releases/download/pre/BlueMarble.user.js",
+        "section": "📱 Android (Edge)"
       },
       {
-        "text": "Включите режим разработчика",
+        "text": "Откройте панель управления TamperMonkey",
         "image": "",
-        "detail": ""
+        "detail": "",
+        "section": "📱 Android (Edge)"
       },
       {
-        "text": "Android Chrome: Откройте панель TamperMonkey и перетащите файл",
+        "text": "Перетащите файл BlueMarble.user.js в панель управления",
         "image": "",
-        "detail": ""
+        "detail": "",
+        "section": "📱 Android (Edge)"
       },
       {
-        "text": "Android Chrome: Нажмите 'Установить', включите скрипт и обновите wplace.live",
+        "text": "Нажмите 'Установить'",
         "image": "",
-        "detail": ""
+        "detail": "",
+        "section": "📱 Android (Edge)"
       },
       {
-        "text": "Android Edge: Откройте Edge и установите TamperMonkey из магазина расширений",
+        "text": "Включите скрипт и обновите страницу wplace.live",
         "image": "",
-        "detail": "Edge на Android поддерживает расширения."
+        "detail": "",
+        "section": "📱 Android (Edge)"
       },
       {
-        "text": "Android Edge: Скачайте BlueMarble.user.js с GitHub Releases",
+        "text": "Используйте встроенный инструмент Overlays на сайте WPlace",
         "image": "",
-        "detail": ""
+        "detail": "iOS не поддерживает расширения. Откройте wplace.live, вкладка Overlays → Новый Overlay.",
+        "section": "📱 iPhone (iOS)"
       },
       {
-        "text": "Android Edge: Откройте панель TamperMonkey и перетащите файл",
+        "text": "Вставьте ссылку на шаблон арта",
         "image": "",
-        "detail": ""
+        "detail": "",
+        "section": "📱 iPhone (iOS)"
       },
       {
-        "text": "Android Edge: Нажмите 'Установить', включите скрипт и обновите wplace.live",
+        "text": "Нажмите 'Создать' и следуйте инструкциям на экране",
         "image": "",
-        "detail": ""
-      },
-      {
-        "text": "Android Firefox: Установите TamperMonkey из Mozilla Add-ons",
-        "image": "",
-        "detail": "Firefox на Android поддерживает дополнения."
-      },
-      {
-        "text": "Android Firefox: Скачайте BlueMarble.user.js с GitHub Releases",
-        "image": "",
-        "detail": ""
-      },
-      {
-        "text": "Android Firefox: Откройте панель TamperMonkey и перетащите файл",
-        "image": "",
-        "detail": ""
-      },
-      {
-        "text": "Android Firefox: Нажмите 'Установить', включите скрипт и обновите wplace.live",
-        "image": "",
-        "detail": ""
-      },
-      {
-        "text": "iPhone iOS: Используйте встроенный инструмент Overlays на сайте WPlace",
-        "image": "",
-        "detail": "iOS не поддерживает расширения. Откройте wplace.live, вкладка Overlays → Новый Overlay."
-      },
-      {
-        "text": "iPhone iOS: Вставьте ссылку на шаблон арта",
-        "image": "",
-        "detail": ""
-      },
-      {
-        "text": "iPhone iOS: Нажмите 'Создать' и следуйте инструкциям на экране",
-        "image": "",
-        "detail": ""
+        "detail": "",
+        "section": "📱 iPhone (iOS)"
       }
     ],
-    "note": ""
+    "note": "⚠ iOS (iPhone) не поддерживает браузерные расширения. Используйте встроенный инструмент Overlays на сайте WPlace."
   }
 ]
