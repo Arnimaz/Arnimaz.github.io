@@ -88,12 +88,7 @@
             padding: 20px;
         }
 
-        .tabs {
-            display: flex;
-            gap: 4px;
-            margin-bottom: 20px;
-            flex-wrap: wrap;
-        }
+        .tabs { display: flex; gap: 4px; margin-bottom: 20px; flex-wrap: wrap; }
         .tab-btn {
             font-family: 'Press Start 2P', monospace;
             font-size: 10px;
@@ -122,7 +117,6 @@
             padding: 20px;
             margin-bottom: 20px;
         }
-
         .card-header {
             font-family: 'Press Start 2P', monospace;
             font-size: 12px;
@@ -138,12 +132,7 @@
         }
 
         .form-group { margin-bottom: 14px; }
-        .form-label {
-            display: block;
-            font-size: 18px;
-            color: var(--accent2);
-            margin-bottom: 5px;
-        }
+        .form-label { display: block; font-size: 18px; color: var(--accent2); margin-bottom: 5px; }
         .form-input {
             width: 100%;
             padding: 10px 12px;
@@ -188,16 +177,26 @@
             display: flex;
             gap: 8px;
             margin-bottom: 6px;
-            align-items: center;
+            align-items: flex-start;
+            flex-wrap: wrap;
+        }
+        .step-list li span {
+            flex-shrink: 0;
+            margin-top: 6px;
         }
         .step-list li input {
             flex: 1;
-            padding: 6px 8px;
+            min-width: 150px;
+            padding: 8px 10px;
             background: #050a05;
             border: 2px solid var(--border-dim);
             color: var(--glow);
             font-family: 'VT323', monospace;
             font-size: 18px;
+        }
+        .step-list li .btn {
+            flex-shrink: 0;
+            margin-top: 2px;
         }
 
         .toast {
@@ -248,6 +247,12 @@
         .login-help a { color: var(--glow); }
 
         .hidden { display: none !important; }
+
+        @media (max-width: 600px) {
+            .header-title { font-size: 10px; }
+            .btn { font-size: 8px; padding: 8px 10px; }
+            .step-list li input { min-width: 100px; font-size: 16px; }
+        }
     </style>
 </head>
 <body>
@@ -389,7 +394,6 @@
         try { const gu = await loadJSON("content/guides.json"); guidesData = gu.content; guidesData._sha = gu.sha; renderGuides(); } catch(e) { toast("Ошибка загрузки гайдов", "error"); }
     }
 
-    // ===== ГЛАВНАЯ =====
     function renderHome() {
         document.getElementById("home-title").value = homeData.title || "";
         document.getElementById("home-image").value = homeData.image || "";
@@ -436,7 +440,6 @@
         try { const sha = await saveJSON("content/home.json", homeData, homeData._sha); homeData._sha = sha; toast("✅ Главная сохранена!", "success"); } catch(e) { toast("❌ " + e.message, "error"); }
     }
 
-    // ===== ГАЛЕРЕЯ (обновлено) =====
     function renderGallery() {
         const el = document.getElementById("gallery-items");
         el.innerHTML = galleryData.map((item, i) => `
@@ -460,7 +463,6 @@
         try { const sha = await saveJSON("content/gallery.json", galleryData, galleryData._sha); galleryData._sha = sha; toast("✅ Галерея сохранена!", "success"); } catch(e) { toast("❌ " + e.message, "error"); }
     }
 
-    // ===== ГАЙДЫ =====
     function renderGuides() {
         const el = document.getElementById("guides-items");
         el.innerHTML = guidesData.map((guide, i) => `
