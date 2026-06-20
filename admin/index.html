@@ -1,310 +1,428 @@
 <!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Masters_of_Cum Admin</title>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap');
+
+<html lang="ru"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Masters_of_Cum Admin | Obsidian Tech</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&amp;family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&amp;display=swap" rel="stylesheet"/>
+<style>
         :root {
-            --bg: #0a0f0a; --surface: #0d1a0d; --surface2: #0f1f0f; --border: #00aa44;
-            --border-dim: #1a3a1a; --text: #c0ffc0; --text-dim: #669966; --glow: #00ff66;
-            --accent2: #88ff88; --danger: #ff4444; --warning: #ffaa00; --info: #44aaff;
-            --sidebar: #080e08;
+            --accent: #00ff88;
+            --surface: #0f0f1c;
+            --surface-container: #1b1b22;
+            --surface-bright: #16162e;
+            --border: rgba(255, 255, 255, 0.08);
+            --text-primary: #f0f0f0;
+            --text-secondary: #a0a0a0;
         }
-        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
-            background: var(--bg); color: var(--text);
-            font-family: 'VT323', monospace; font-size: 18px; min-height: 100vh;
+            background-color: #08080c;
+            color: var(--text-primary);
+            font-family: 'Geist', sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+        .geist-font { font-family: 'Geist', sans-serif; }
+        
+        /* Custom scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: var(--surface-container); border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #2a2a35; }
+
+        .sidebar-btn.active {
+            background: rgba(0, 255, 136, 0.1);
+            color: var(--accent);
+            border-right: 2px solid var(--accent);
+        }
+        .card {
+            background: var(--surface-container);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: border-color 0.2s ease;
+        }
+        .card:hover { border-color: rgba(0, 255, 136, 0.2); }
+        
+        .input-field {
+            background: rgba(0,0,0,0.2);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: var(--text-primary);
+            transition: all 0.2s ease;
+        }
+        .input-field:focus {
+            border-color: var(--accent);
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(0, 255, 136, 0.1);
         }
 
-        .sidebar {
-            width: 240px; min-width: 240px; background: var(--sidebar);
-            border-right: 3px solid var(--border); padding: 20px 0;
-            display: flex; flex-direction: column; z-index: 10;
-            box-shadow: 4px 0 20px rgba(0,0,0,0.5);
+        .btn-glow {
+            transition: all 0.2s ease;
         }
-        .sidebar-logo {
-            text-align: center; padding: 0 15px 20px;
-            border-bottom: 2px solid var(--border-dim); margin-bottom: 15px;
+        .btn-glow:hover {
+            box-shadow: 0 0 15px rgba(0, 255, 136, 0.3);
         }
-        .sidebar-logo .logo-title {
-            font-family: 'Press Start 2P', monospace; font-size: 11px;
-            color: var(--glow); text-shadow: 0 0 10px var(--glow); line-height: 1.6;
+        
+        .toast-animation {
+            animation: slideIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
         }
-        .sidebar-logo .logo-sub { font-size: 14px; color: var(--text-dim); margin-top: 4px; }
-        .sidebar-nav { flex: 1; padding: 0 10px; }
-        .sidebar-nav button {
-            display: block; width: 100%; text-align: left;
-            font-family: 'Press Start 2P', monospace; font-size: 9px;
-            padding: 12px 14px; margin-bottom: 4px;
-            background: transparent; color: var(--text-dim);
-            border: 2px solid transparent; cursor: pointer;
-            transition: all 0.1s step-end; text-transform: uppercase;
+        @keyframes slideIn {
+            from { transform: translateY(100%); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
         }
-        .sidebar-nav button:hover { border-color: var(--border-dim); color: var(--text); background: var(--surface); }
-        .sidebar-nav button.active {
-            border-color: var(--border); color: var(--glow);
-            background: #0a2a0a; text-shadow: 0 0 8px var(--glow);
-            box-shadow: inset 0 0 10px rgba(0,255,102,0.1);
-        }
-        .sidebar-footer { padding: 15px; border-top: 2px solid var(--border-dim); display: flex; flex-direction: column; gap: 6px; }
-
-        .main-area { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
-        .topbar {
-            background: var(--surface); border-bottom: 3px solid var(--border);
-            padding: 10px 20px; display: flex; align-items: center;
-            justify-content: space-between; flex-wrap: wrap; gap: 10px;
-        }
-        .topbar-title { font-family: 'Press Start 2P', monospace; font-size: 12px; color: var(--glow); }
-        .topbar-actions { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
-        .quick-search {
-            background: #050a05; border: 2px solid var(--border-dim); color: var(--glow);
-            font-family: 'VT323', monospace; font-size: 16px; padding: 6px 10px; width: 180px;
-        }
-        .quick-search:focus { border-color: var(--glow); outline: none; }
-        .content-area { flex: 1; overflow-y: auto; padding: 20px; }
-
-        .btn {
-            font-family: 'Press Start 2P', monospace; font-size: 8px; padding: 8px 12px;
-            background: var(--surface2); color: var(--text); border: 2px solid var(--border-dim);
-            cursor: pointer; transition: all 0.1s step-end; text-transform: uppercase;
-            box-shadow: 0 3px 0 #0a1a0a; text-decoration: none; white-space: nowrap;
-        }
-        .btn:hover { border-color: var(--glow); color: #fff; text-shadow: 0 0 10px var(--glow); transform: translateY(-2px); }
-        .btn:active { transform: translateY(1px); box-shadow: 0 1px 0 var(--glow); }
-        .btn-primary { background: #0a2a0a; border-color: var(--border); color: var(--glow); }
-        .btn-danger { background: #1a0a0a; border-color: #4a2a2a; color: #ff8888; }
-        .btn-warning { background: #1a1a0a; border-color: #4a4a2a; color: var(--warning); }
-        .btn-info { background: #0a1a2a; border-color: #2a4a5a; color: var(--info); }
-        .btn-full { width: 100%; font-size: 10px; padding: 14px; }
-
-        .card { border: 2px solid var(--border-dim); background: var(--surface); padding: 16px; margin-bottom: 14px; }
-        .card-header {
-            font-family: 'Press Start 2P', monospace; font-size: 10px; color: var(--accent2);
-            margin-bottom: 10px; padding-bottom: 8px; border-bottom: 2px solid var(--border-dim);
-            display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 6px;
-        }
-        .card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 12px; }
-
-        .form-group { margin-bottom: 10px; }
-        .form-label { display: block; font-size: 16px; color: var(--accent2); margin-bottom: 3px; }
-        .form-input {
-            width: 100%; padding: 8px 10px; background: #050a05; border: 2px solid var(--border-dim);
-            color: var(--glow); font-family: 'VT323', monospace; font-size: 17px; outline: none;
-        }
-        .form-input:focus { border-color: var(--glow); box-shadow: 0 0 10px rgba(0,255,102,0.1); }
-        textarea.form-input { resize: vertical; min-height: 60px; line-height: 1.4; }
-
-        .gallery-admin-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 14px; }
-        .gallery-admin-card { border: 2px solid var(--border-dim); background: #0a0f0a; padding: 12px; }
-        .gallery-admin-card .preview-img { width: 100%; aspect-ratio: 1; object-fit: contain; image-rendering: pixelated; border: 2px solid #1a3a1a; background: #050510; margin-bottom: 10px; display: block; }
-        .gallery-admin-card .no-img { width: 100%; aspect-ratio: 1; background: repeating-linear-gradient(45deg,#1a1a30 0px,#1a1a30 8px,#111128 8px,#111128 16px); border: 2px solid #1a3a1a; display: flex; align-items: center; justify-content: center; color: #4a4a6a; font-size: 14px; margin-bottom: 10px; }
-        .gallery-admin-card input, .gallery-admin-card textarea { width: 100%; padding: 7px 8px; background: #050a05; border: 2px solid var(--border-dim); color: var(--glow); font-family: 'VT323', monospace; font-size: 16px; margin-bottom: 6px; }
-        .gallery-admin-card .card-actions { display: flex; gap: 4px; flex-wrap: wrap; justify-content: space-between; align-items: center; margin-top: 4px; }
-
-        .step-admin-item { border: 2px solid var(--border-dim); background: #0a0f0a; padding: 10px; margin-bottom: 6px; }
-        .step-admin-item input, .step-admin-item textarea, .step-admin-item select { width: 100%; padding: 6px 8px; background: #050a05; border: 2px solid var(--border-dim); color: var(--glow); font-family: 'VT323', monospace; font-size: 16px; margin-bottom: 4px; }
-        .step-admin-item .row { display: flex; gap: 6px; align-items: center; flex-wrap: wrap; }
-        .step-admin-item .row input, .step-admin-item .row select { flex: 1; min-width: 80px; }
-
-        .guide-item-admin { border: 2px solid var(--border-dim); background: #0a0f0a; padding: 12px; margin-bottom: 10px; }
-        .section-header { font-family: 'Press Start 2P', monospace; font-size: 9px; color: var(--accent2); margin: 8px 0 5px; padding: 5px 8px; background: #0a1a0a; border: 2px solid var(--border-dim); display: flex; justify-content: space-between; align-items: center; }
-
-        .toast {
-            position: fixed; bottom: 20px; right: 20px; z-index: 10000;
-            padding: 12px 18px; border: 3px solid; font-family: 'Press Start 2P', monospace;
-            font-size: 9px; animation: slideUp 0.2s step-end; max-width: 400px;
-        }
-        .toast-success { background: #0a2a0a; border-color: var(--glow); color: var(--glow); }
-        .toast-error { background: #2a0a0a; border-color: var(--danger); color: var(--danger); }
-        .toast-info { background: #0a1a2a; border-color: var(--info); color: var(--info); }
-        @keyframes slideUp { from { transform: translateY(100px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
-
-        .login-container { min-height: 100vh; display: flex; align-items: center; justify-content: center; }
-        .login-card {
-            width: 100%; max-width: 420px; border: 5px solid var(--border);
-            background: var(--surface); padding: 30px; text-align: center;
-            box-shadow: 0 0 30px rgba(0,170,68,0.2);
-        }
-        .login-title { font-family: 'Press Start 2P', monospace; font-size: 16px; color: var(--glow); text-shadow: 0 0 15px var(--glow); margin-bottom: 4px; }
-        .login-subtitle { font-size: 18px; color: var(--text-dim); margin-bottom: 22px; }
         .hidden { display: none !important; }
-
-        @media (max-width: 768px) {
-            .admin-layout { flex-direction: column; }
-            .sidebar { width: 100%; min-width: 100%; flex-direction: row; flex-wrap: wrap; padding: 8px; gap: 4px; border-right: none; border-bottom: 3px solid var(--border); }
-            .sidebar-logo { display: none; }
-            .sidebar-nav { display: flex; gap: 4px; padding: 0; }
-            .sidebar-nav button { font-size: 7px; padding: 8px 10px; flex: 1; text-align: center; }
-            .sidebar-footer { display: none; }
-            .gallery-admin-grid { grid-template-columns: 1fr; }
-        }
     </style>
 </head>
-<body>
-
-<!-- LOGIN -->
-<div id="login-page" class="login-container">
-    <div class="login-card">
-        <div class="login-title">Masters_of_Cum</div>
-        <div class="login-subtitle">ADMIN PANEL</div>
-        <div class="form-group"><label class="form-label">🔑 Token</label><input type="password" id="token-input" class="form-input" placeholder="ghp_..." autofocus></div>
-        <button class="btn btn-primary btn-full" onclick="login()">▶ ВОЙТИ</button>
-    </div>
+<body class="geist-font">
+<!-- LOGIN PAGE -->
+<div class="fixed inset-0 z-50 flex items-center justify-center bg-[#08080c] bg-[radial-gradient(circle_at_center,rgba(0,255,136,0.05)_0%,transparent_70%)]" id="login-page">
+<div class="w-full max-w-md p-8 bg-surface-container border border-white/10 rounded-2xl shadow-2xl backdrop-blur-sm card">
+<div class="text-center mb-8">
+<div class="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-accent/10 mb-4">
+<span class="material-symbols-outlined text-accent text-3xl">terminal</span>
 </div>
-
-<!-- ADMIN -->
-<div id="admin-page" class="hidden">
-    <div class="admin-layout" style="display:flex;min-height:100vh;">
-        <!-- SIDEBAR -->
-        <div class="sidebar">
-            <div class="sidebar-logo">
-                <div class="logo-title">Masters_of_Cum</div>
-                <div class="logo-sub">ADMIN CONSOLE</div>
-            </div>
-            <div class="sidebar-nav">
-                <button class="active" onclick="switchTab('home-tab', this)">🏠 Главная</button>
-                <button onclick="switchTab('gallery-tab', this)">🖼 Галерея</button>
-                <button onclick="switchTab('guides-tab', this)">📚 Гайды</button>
-                <button onclick="switchTab('settings-tab', this)">⚙ Настройки</button>
-            </div>
-            <div class="sidebar-footer">
-                <a href="/" class="btn btn-info btn-full" target="_blank">🌐 ОТКРЫТЬ САЙТ</a>
-                <button class="btn btn-warning btn-full" onclick="loadAll()">🔄 ОБНОВИТЬ ДАННЫЕ</button>
-                <button class="btn btn-danger btn-full" onclick="logout()">🚪 ВЫХОД</button>
-            </div>
-        </div>
-
-        <!-- MAIN -->
-        <div class="main-area">
-            <div class="topbar">
-                <div class="topbar-title">Masters_of_Cum_ADMIN</div>
-                <div class="topbar-actions">
-                    <input type="text" class="quick-search" placeholder="Поиск..." oninput="quickSearch(this.value)">
-                    <button class="btn btn-primary" onclick="publishAll()">💾 СОХРАНИТЬ ВСЁ</button>
-                </div>
-            </div>
-            <div class="content-area">
-                <!-- HOME TAB -->
-                <div id="home-tab" class="tab-content">
-                    <div class="card-grid">
-                        <div class="card">
-                            <div class="card-header">🎯 АКТУАЛЬНЫЙ АРТ</div>
-                            <div class="form-group"><label class="form-label">Заголовок</label><input type="text" id="home-title" class="form-input"></div>
-                            <div class="form-group"><label class="form-label">Ссылка на картинку</label><input type="text" id="home-image" class="form-input" oninput="previewHomeImage()"></div>
-                            <div class="form-group"><label class="form-label">Описание</label><textarea id="home-desc" class="form-input" rows="3"></textarea></div>
-                            <div class="form-group"><label class="form-label">Ссылка WPlace</label><input type="text" id="home-location" class="form-input"></div>
-                            <div id="home-image-preview" class="hidden" style="border:2px dashed var(--border);background:#050a05;padding:10px;margin-top:10px;text-align:center;"><img id="home-preview-img" src="" style="max-width:100%;max-height:180px;" alt=""></div>
-                        </div>
-                        <div class="card"><div class="card-header">🖌 WPlace <button class="btn btn-primary" onclick="addStep('wplace')">+</button></div><div id="steps-wplace"></div></div>
-                    </div>
-                    <div class="card-grid">
-                        <div class="card"><div class="card-header">🔷 Blue Marble <button class="btn btn-primary" onclick="addStep('blue')">+</button></div><div id="steps-blue"></div></div>
-                        <div class="card"><div class="card-header">🧩 WPlace Helper <button class="btn btn-primary" onclick="addStep('helper')">+</button></div><div id="steps-helper"></div></div>
-                    </div>
-                    <button class="btn btn-primary btn-full" onclick="saveHome()">💾 СОХРАНИТЬ ГЛАВНУЮ</button>
-                </div>
-
-                <!-- GALLERY TAB -->
-                <div id="gallery-tab" class="tab-content hidden">
-                    <div class="card"><div class="card-header">🖼 ГАЛЕРЕЯ <div style="display:flex;gap:6px;"><button class="btn btn-primary" onclick="addGalleryItem()">+ ДОБАВИТЬ</button><button class="btn btn-warning" onclick="sortGallery()">🔤 СОРТИРОВКА</button></div></div><div class="gallery-admin-grid" id="gallery-items"></div></div>
-                    <button class="btn btn-primary btn-full" onclick="saveGallery()">💾 СОХРАНИТЬ ГАЛЕРЕЮ</button>
-                </div>
-
-                <!-- GUIDES TAB -->
-                <div id="guides-tab" class="tab-content hidden">
-                    <div class="card"><div class="card-header">📚 ГАЙДЫ <button class="btn btn-primary" onclick="addGuideItem()">+ ДОБАВИТЬ</button></div><div id="guides-items"></div></div>
-                    <button class="btn btn-primary btn-full" onclick="saveGuides()">💾 СОХРАНИТЬ ГАЙДЫ</button>
-                </div>
-
-                <!-- SETTINGS TAB -->
-                <div id="settings-tab" class="tab-content hidden">
-                    <div class="card-grid">
-                        <div class="card">
-                            <div class="card-header">⚙ ОБЩИЕ НАСТРОЙКИ</div>
-                            <div class="form-group"><label class="form-label">Название сайта</label><input type="text" id="settings-siteTitle" class="form-input"></div>
-                            <div class="form-group"><label class="form-label">Заголовок</label><input type="text" id="settings-headerTitle" class="form-input"></div>
-                            <div class="form-group"><label class="form-label">Подзаголовок</label><input type="text" id="settings-headerSubtitle" class="form-input"></div>
-                            <div class="form-group"><label class="form-label">Футер</label><textarea id="settings-footer" class="form-input" rows="2"></textarea></div>
-                        </div>
-                        <div class="card">
-                            <div class="card-header">🔧 ИНСТРУМЕНТЫ</div>
-                            <button class="btn btn-warning" onclick="if(confirm('Сбросить все данные?')) resetAll()" style="width:100%;margin-bottom:6px;">⚠ СБРОСИТЬ ВСЁ</button>
-                            <button class="btn btn-info" onclick="exportAll()" style="width:100%;margin-bottom:6px;">📥 ЭКСПОРТ ДАННЫХ</button>
-                            <button class="btn btn-info" onclick="importAll()" style="width:100%;margin-bottom:6px;">📤 ИМПОРТ ДАННЫХ</button>
-                            <input type="file" id="import-file" accept=".json" class="hidden" onchange="handleImport(event)">
-                        </div>
-                    </div>
-                    <button class="btn btn-primary btn-full" onclick="saveSettings()">💾 СОХРАНИТЬ НАСТРОЙКИ</button>
-                </div>
-            </div>
-        </div>
-    </div>
+<h1 class="text-2xl font-bold tracking-tight text-white">Masters of Cum</h1>
+<p class="text-text-secondary text-sm mt-1">Admin Control Console</p>
 </div>
-<div id="toast" class="toast hidden"></div>
-
+<div class="space-y-4">
+<div>
+<label class="block text-xs font-medium uppercase tracking-wider text-text-secondary mb-1.5 ml-1">Authentication Token</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-text-secondary text-lg">key</span>
+<input autofocus="" class="input-field w-full pl-10 py-3 text-sm" id="token-input" placeholder="ghp_************************************" type="password"/>
+</div>
+</div>
+<button class="btn-glow w-full bg-accent text-black font-bold py-3 rounded-lg flex items-center justify-center gap-2 hover:bg-accent/90" onclick="login()">
+<span class="material-symbols-outlined text-lg">login</span>
+                AUTHENTICATE
+            </button>
+</div>
+<p class="text-center text-[10px] text-text-secondary/50 mt-6 tracking-widest uppercase">Obsidian Tech Interface v2.4.0</p>
+</div>
+</div>
+<!-- ADMIN DASHBOARD -->
+<div class="hidden min-h-screen flex" id="admin-page">
+<!-- Sidebar -->
+<aside class="w-64 border-r border-border bg-[#0a0a10] flex flex-col fixed h-full z-20">
+<div class="p-6 border-b border-border">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-lg bg-accent flex items-center justify-center text-black">
+<span class="material-symbols-outlined text-xl">shield</span>
+</div>
+<div>
+<div class="text-sm font-bold text-white tracking-tight">M_O_C</div>
+<div class="text-[10px] text-accent font-medium tracking-widest uppercase">Admin Panel</div>
+</div>
+</div>
+</div>
+<nav class="flex-1 p-4 space-y-1">
+<button class="sidebar-btn active w-full flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium text-text-secondary transition-all hover:bg-white/5" onclick="switchTab('home-tab', this)">
+<span class="material-symbols-outlined text-lg">dashboard</span>
+                Home Content
+            </button>
+<button class="sidebar-btn w-full flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium text-text-secondary transition-all hover:bg-white/5" onclick="switchTab('gallery-tab', this)">
+<span class="material-symbols-outlined text-lg">image</span>
+                Gallery
+            </button>
+<button class="sidebar-btn w-full flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium text-text-secondary transition-all hover:bg-white/5" onclick="switchTab('guides-tab', this)">
+<span class="material-symbols-outlined text-lg">auto_stories</span>
+                Guides
+            </button>
+<button class="sidebar-btn w-full flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium text-text-secondary transition-all hover:bg-white/5" onclick="switchTab('settings-tab', this)">
+<span class="material-symbols-outlined text-lg">settings</span>
+                Site Settings
+            </button>
+</nav>
+<div class="p-4 border-t border-border space-y-2">
+<a class="flex items-center justify-center gap-2 w-full py-2.5 bg-white/5 text-text-primary text-xs font-medium rounded-lg hover:bg-white/10 transition-colors" href="/" target="_blank">
+<span class="material-symbols-outlined text-sm">open_in_new</span>
+                Live Preview
+            </a>
+<button class="flex items-center justify-center gap-2 w-full py-2.5 bg-white/5 text-text-primary text-xs font-medium rounded-lg hover:bg-white/10 transition-colors" onclick="loadAll()">
+<span class="material-symbols-outlined text-sm">refresh</span>
+                Reload Data
+            </button>
+<button class="flex items-center justify-center gap-2 w-full py-2.5 text-red-400 text-xs font-medium rounded-lg hover:bg-red-400/10 transition-colors" onclick="logout()">
+<span class="material-symbols-outlined text-sm">logout</span>
+                Logout
+            </button>
+</div>
+</aside>
+<!-- Main Content -->
+<main class="flex-1 ml-64 flex flex-col">
+<!-- Top Bar -->
+<header class="h-16 border-b border-border bg-[#08080c]/80 backdrop-blur-md sticky top-0 z-10 px-8 flex items-center justify-between">
+<div class="flex items-center gap-4">
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-text-secondary text-sm">search</span>
+<input class="input-field py-1.5 pl-9 pr-4 text-xs w-48 focus:w-64" oninput="quickSearch(this.value)" placeholder="Quick find..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<div class="flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/5 border border-white/5">
+<div class="w-2 h-2 rounded-full bg-accent animate-pulse"></div>
+<span class="text-[10px] font-bold text-accent tracking-tighter uppercase">API Synchronized</span>
+</div>
+<button class="btn-glow flex items-center gap-2 bg-accent px-5 py-2 rounded-lg text-black text-xs font-bold" onclick="publishAll()">
+<span class="material-symbols-outlined text-sm">cloud_upload</span>
+                    SAVE &amp; PUBLISH
+                </button>
+</div>
+</header>
+<div class="p-8 pb-20">
+<!-- HOME TAB -->
+<div class="tab-content space-y-8" id="home-tab">
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+<div class="card p-6">
+<div class="flex items-center justify-between mb-6">
+<h3 class="text-lg font-semibold flex items-center gap-2">
+<span class="material-symbols-outlined text-accent">featured_play_list</span>
+                                Hero Content
+                            </h3>
+</div>
+<div class="space-y-4">
+<div class="form-group">
+<label class="block text-xs font-medium text-text-secondary mb-1.5">Art Title</label>
+<input class="input-field w-full p-2.5 text-sm" id="home-title" type="text"/>
+</div>
+<div class="form-group">
+<label class="block text-xs font-medium text-text-secondary mb-1.5">Image URL</label>
+<input class="input-field w-full p-2.5 text-sm" id="home-image" oninput="previewHomeImage()" type="text"/>
+</div>
+<div class="form-group">
+<label class="block text-xs font-medium text-text-secondary mb-1.5">WPlace Coordinate/Link</label>
+<input class="input-field w-full p-2.5 text-sm" id="home-location" type="text"/>
+</div>
+<div class="form-group">
+<label class="block text-xs font-medium text-text-secondary mb-1.5">Description</label>
+<textarea class="input-field w-full p-2.5 text-sm" id="home-desc" rows="4"></textarea>
+</div>
+</div>
+</div>
+<div class="card p-6 flex flex-col">
+<h3 class="text-lg font-semibold flex items-center gap-2 mb-6">
+<span class="material-symbols-outlined text-accent">image_search</span>
+                            Preview
+                        </h3>
+<div class="flex-1 rounded-xl border border-dashed border-border bg-black/40 flex items-center justify-center overflow-hidden min-h-[200px]" id="home-image-preview">
+<img alt="" class="max-w-full max-h-[300px] object-contain" id="home-preview-img" src=""/>
+<div class="text-text-secondary/30 text-center" id="no-preview">
+<span class="material-symbols-outlined text-4xl block mb-2">image_not_supported</span>
+<p class="text-xs">No image provided</p>
+</div>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<div class="card p-6">
+<div class="flex items-center justify-between mb-4">
+<h4 class="text-xs font-bold text-accent uppercase tracking-widest">WPlace Helpers</h4>
+<button class="w-7 h-7 rounded bg-accent/10 text-accent hover:bg-accent hover:text-black transition-colors flex items-center justify-center" onclick="addStep('wplace')">
+<span class="material-symbols-outlined text-sm">add</span>
+</button>
+</div>
+<div class="space-y-3" id="steps-wplace"></div>
+</div>
+<div class="card p-6">
+<div class="flex items-center justify-between mb-4">
+<h4 class="text-xs font-bold text-accent uppercase tracking-widest">Blue Marble</h4>
+<button class="w-7 h-7 rounded bg-accent/10 text-accent hover:bg-accent hover:text-black transition-colors flex items-center justify-center" onclick="addStep('blue')">
+<span class="material-symbols-outlined text-sm">add</span>
+</button>
+</div>
+<div class="space-y-3" id="steps-blue"></div>
+</div>
+<div class="card p-6">
+<div class="flex items-center justify-between mb-4">
+<h4 class="text-xs font-bold text-accent uppercase tracking-widest">General Helper</h4>
+<button class="w-7 h-7 rounded bg-accent/10 text-accent hover:bg-accent hover:text-black transition-colors flex items-center justify-center" onclick="addStep('helper')">
+<span class="material-symbols-outlined text-sm">add</span>
+</button>
+</div>
+<div class="space-y-3" id="steps-helper"></div>
+</div>
+</div>
+</div>
+<!-- GALLERY TAB -->
+<div class="tab-content hidden" id="gallery-tab">
+<div class="flex items-center justify-between mb-6">
+<h2 class="text-2xl font-bold">Image Gallery</h2>
+<div class="flex gap-3">
+<button class="flex items-center gap-2 px-4 py-2 rounded-lg bg-white/5 border border-white/5 text-sm hover:bg-white/10" onclick="sortGallery()">
+<span class="material-symbols-outlined text-sm">sort_by_alpha</span>
+                            Sort A-Z
+                        </button>
+<button class="flex items-center gap-2 bg-accent px-5 py-2 rounded-lg text-black text-xs font-bold btn-glow" onclick="addGalleryItem()">
+<span class="material-symbols-outlined text-sm">add</span>
+                            ADD ARTWORK
+                        </button>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-6" id="gallery-items"></div>
+</div>
+<!-- GUIDES TAB -->
+<div class="tab-content hidden space-y-6" id="guides-tab">
+<div class="flex items-center justify-between mb-6">
+<h2 class="text-2xl font-bold">Knowledge Base</h2>
+<button class="flex items-center gap-2 bg-accent px-5 py-2 rounded-lg text-black text-xs font-bold btn-glow" onclick="addGuideItem()">
+<span class="material-symbols-outlined text-sm">library_add</span>
+                        NEW GUIDE
+                    </button>
+</div>
+<div class="space-y-6" id="guides-items"></div>
+</div>
+<!-- SETTINGS TAB -->
+<div class="tab-content hidden" id="settings-tab">
+<div class="max-w-4xl mx-auto space-y-8">
+<div class="card p-8">
+<h3 class="text-lg font-semibold mb-6 flex items-center gap-3">
+<span class="material-symbols-outlined text-accent">settings_suggest</span>
+                            Global Configuration
+                        </h3>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div class="space-y-4">
+<div>
+<label class="block text-xs font-medium text-text-secondary mb-1.5 uppercase">Site Title</label>
+<input class="input-field w-full p-2.5 text-sm" id="settings-siteTitle" type="text"/>
+</div>
+<div>
+<label class="block text-xs font-medium text-text-secondary mb-1.5 uppercase">Header Title</label>
+<input class="input-field w-full p-2.5 text-sm" id="settings-headerTitle" type="text"/>
+</div>
+</div>
+<div class="space-y-4">
+<div>
+<label class="block text-xs font-medium text-text-secondary mb-1.5 uppercase">Header Subtitle</label>
+<input class="input-field w-full p-2.5 text-sm" id="settings-headerSubtitle" type="text"/>
+</div>
+<div>
+<label class="block text-xs font-medium text-text-secondary mb-1.5 uppercase">Footer Copyright</label>
+<input class="input-field w-full p-2.5 text-sm" id="settings-footer" type="text"/>
+</div>
+</div>
+</div>
+</div>
+<div class="card p-8 border-red-500/10">
+<h3 class="text-lg font-semibold mb-6 text-red-400 flex items-center gap-3">
+<span class="material-symbols-outlined">warning</span>
+                            Advanced Maintenance
+                        </h3>
+<div class="flex flex-wrap gap-4">
+<button class="flex items-center gap-2 px-6 py-3 bg-blue-500/10 text-blue-400 rounded-xl border border-blue-500/20 hover:bg-blue-500/20 transition-all font-medium" onclick="exportAll()">
+<span class="material-symbols-outlined">download</span>
+                                Export Database (.JSON)
+                            </button>
+<button class="flex items-center gap-2 px-6 py-3 bg-accent/10 text-accent rounded-xl border border-accent/20 hover:bg-accent/20 transition-all font-medium" onclick="importAll()">
+<span class="material-symbols-outlined">upload</span>
+                                Import Overwrite
+                            </button>
+<button class="flex items-center gap-2 px-6 py-3 bg-red-500/10 text-red-500 rounded-xl border border-red-500/20 hover:bg-red-500/20 transition-all font-medium" onclick="if(confirm('Wipe everything? This is irreversible.')) resetAll()">
+<span class="material-symbols-outlined">delete_forever</span>
+                                Factory Reset
+                            </button>
+<input accept=".json" class="hidden" id="import-file" onchange="handleImport(event)" type="file"/>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+<!-- TOAST NOTIFICATION -->
+<div class="fixed bottom-8 right-8 z-[100] hidden" id="toast">
+<div class="toast-animation min-w-[300px] px-6 py-4 rounded-xl border flex items-center gap-4 shadow-2xl backdrop-blur-md" id="toast-body">
+<span class="material-symbols-outlined text-2xl" id="toast-icon"></span>
+<div>
+<p class="text-sm font-semibold" id="toast-msg"></p>
+</div>
+</div>
+</div>
 <script>
     const REPO_OWNER = "Arnimaz", REPO_NAME = "Arnimaz.github.io", BRANCH = "main";
     let token = sessionStorage.getItem("wplace_admin_token");
     let homeData = {}, galleryData = [], guidesData = [], settingsData = {};
+    
     if (token) { showAdmin(); loadAll(); }
 
     function toast(msg, type) {
         const t = document.getElementById("toast");
-        t.textContent = msg; t.className = `toast toast-${type}`;
-        clearTimeout(t._t); t._t = setTimeout(() => t.classList.add("hidden"), 3500);
-    }
+        const body = document.getElementById("toast-body");
+        const icon = document.getElementById("toast-icon");
+        const m = document.getElementById("toast-msg");
+        
+        m.textContent = msg;
+        t.classList.remove("hidden");
+        
+        if (type === 'success') {
+            body.className = "toast-animation min-w-[300px] px-6 py-4 rounded-xl border border-accent/30 bg-[#0a2015]/90 text-accent flex items-center gap-4 shadow-2xl backdrop-blur-md";
+            icon.textContent = "check_circle";
+        } else if (type === 'error') {
+            body.className = "toast-animation min-w-[300px] px-6 py-4 rounded-xl border border-red-500/30 bg-[#200a0a]/90 text-red-400 flex items-center gap-4 shadow-2xl backdrop-blur-md";
+            icon.textContent = "error";
+        } else {
+            body.className = "toast-animation min-w-[300px] px-6 py-4 rounded-xl border border-blue-500/30 bg-[#0a1520]/90 text-blue-400 flex items-center gap-4 shadow-2xl backdrop-blur-md";
+            icon.textContent = "info";
+        }
 
-    function quickSearch(query) {
-        if (!query) return;
-        const q = query.toLowerCase();
-        if (q.includes("арт") || q.includes("art")) switchTab("home-tab", document.querySelector('.sidebar-nav button'));
-        else if (q.includes("галер") || q.includes("gallery")) switchTab("gallery-tab", document.querySelectorAll('.sidebar-nav button')[1]);
-        else if (q.includes("гайд") || q.includes("guide")) switchTab("guides-tab", document.querySelectorAll('.sidebar-nav button')[2]);
-        else if (q.includes("настр") || q.includes("setting")) switchTab("settings-tab", document.querySelectorAll('.sidebar-nav button')[3]);
+        clearTimeout(t._timer);
+        t._timer = setTimeout(() => t.classList.add("hidden"), 4000);
     }
 
     async function login() {
         const input = document.getElementById("token-input");
-        if (!input) return;
         token = input.value.trim();
-        if (!token) return toast("Введите токен", "error");
+        if (!token) return toast("Access token required", "error");
+        
         try {
             const res = await fetch(`https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}`, { headers: { Authorization: `token ${token}` } });
-            if (res.ok) { sessionStorage.setItem("wplace_admin_token", token); showAdmin(); await loadAll(); toast("✅ Доступ разрешён", "success"); }
-            else toast("❌ Неверный токен", "error");
-        } catch(e) { toast("❌ Ошибка соединения", "error"); }
-    }
-    function logout() { sessionStorage.removeItem("wplace_admin_token"); location.reload(); }
-    function showAdmin() {
-        const lp = document.getElementById("login-page");
-        const ap = document.getElementById("admin-page");
-        if (lp) lp.style.display = "none";
-        if (ap) { ap.classList.remove("hidden"); }
+            if (res.ok) {
+                sessionStorage.setItem("wplace_admin_token", token);
+                showAdmin();
+                await loadAll();
+                toast("System access granted", "success");
+            } else {
+                toast("Invalid authentication token", "error");
+            }
+        } catch(e) {
+            toast("Connection failure", "error");
+        }
     }
 
+    function logout() { sessionStorage.removeItem("wplace_admin_token"); location.reload(); }
+    
+    function showAdmin() {
+        document.getElementById("login-page").style.display = "none";
+        document.getElementById("admin-page").classList.remove("hidden");
+    }
+
+    // GITHUB API CORE
     async function loadJSON(path) {
         const res = await fetch(`https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${path}?ref=${BRANCH}`, { headers: { Authorization: `token ${token}`, Accept: "application/vnd.github.v3+json" } });
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
         const data = await res.json();
         return { content: JSON.parse(decodeURIComponent(escape(atob(data.content.replace(/\n/g, ""))))), sha: data.sha };
     }
+
     async function saveJSON(path, content, sha) {
-        const body = { message: `📝 Update ${path}`, content: btoa(unescape(encodeURIComponent(JSON.stringify(content, null, 2)))), sha: sha, branch: BRANCH };
+        const body = { message: `dashboard_update: ${path}`, content: btoa(unescape(encodeURIComponent(JSON.stringify(content, null, 2)))), sha: sha, branch: BRANCH };
         const res = await fetch(`https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${path}`, { method: "PUT", headers: { Authorization: `token ${token}`, "Content-Type": "application/json" }, body: JSON.stringify(body) });
         if (!res.ok) { const err = await res.json().catch(() => ({})); throw new Error(err.message || `HTTP ${res.status}`); }
         return (await res.json()).content.sha;
     }
+
     async function loadAll() {
-        let errs = 0;
-        try { const h = await loadJSON("content/home.json"); homeData = h.content; homeData._sha = h.sha; renderHome(); } catch(e) { toast("❌ Главная", "error"); errs++; }
-        try { const g = await loadJSON("content/gallery.json"); galleryData = g.content; galleryData._sha = g.sha; renderGallery(); } catch(e) { toast("❌ Галерея", "error"); errs++; }
-        try { const gu = await loadJSON("content/guides.json"); guidesData = gu.content; guidesData._sha = gu.sha; renderGuides(); } catch(e) { toast("❌ Гайды", "error"); errs++; }
-        try { const s = await loadJSON("content/settings.json"); settingsData = s.content; settingsData._sha = s.sha; renderSettings(); } catch(e) { settingsData = { siteTitle: "WPlace", headerTitle: "⚔ WPLACE ⚔", headerSubtitle: "Пиксель-арт сообщество", footer: "© 2025" }; renderSettings(); }
-        if (errs === 0) toast("✅ Данные загружены", "success");
+        try { const h = await loadJSON("content/home.json"); homeData = h.content; homeData._sha = h.sha; renderHome(); } catch(e) { console.error(e); }
+        try { const g = await loadJSON("content/gallery.json"); galleryData = g.content; galleryData._sha = g.sha; renderGallery(); } catch(e) { console.error(e); }
+        try { const gu = await loadJSON("content/guides.json"); guidesData = gu.content; guidesData._sha = gu.sha; renderGuides(); } catch(e) { console.error(e); }
+        try { const s = await loadJSON("content/settings.json"); settingsData = s.content; settingsData._sha = s.sha; renderSettings(); } catch(e) { 
+            settingsData = { siteTitle: "WPlace", headerTitle: "⚔ WPLACE ⚔", headerSubtitle: "Pixel Art Community", footer: "© 2025" }; 
+            renderSettings(); 
+        }
+        toast("Data synchronized successfully", "success");
     }
 
+    // RENDERING LOGIC
     function renderHome() {
         document.getElementById("home-title").value = homeData.title || "";
         document.getElementById("home-image").value = homeData.image || "";
@@ -315,114 +433,165 @@
         renderStepsAdmin("helper", homeData.help_helper || []);
         previewHomeImage();
     }
+
     function renderStepsAdmin(type, steps) {
         const el = document.getElementById(`steps-${type}`);
         if (!el) return;
-        el.innerHTML = steps.length === 0 ? '<p style="color:var(--text-dim);padding:8px;">Пусто</p>' : steps.map((s, i) => {
+        el.innerHTML = steps.length === 0 ? '<p class="text-text-secondary/40 text-[10px] text-center py-2">No steps active</p>' : steps.map((s, i) => {
             const sd = typeof s === 'object' ? s : { text: s, image: "", detail: "" };
-            return `<div class="step-admin-item">
-                <div class="row"><span style="font-family:Press Start 2P;font-size:10px;color:var(--accent2);min-width:22px;">${i+1}.</span><input value="${(sd.text||'').replace(/"/g,'&quot;')}" onchange="updateStepField('${type}',${i},'text',this.value)" placeholder="Текст шага"></div>
-                <input value="${sd.image||''}" onchange="updateStepField('${type}',${i},'image',this.value)" placeholder="Ссылка на фото">
-                <textarea onchange="updateStepField('${type}',${i},'detail',this.value)" placeholder="Подробности" rows="2">${(sd.detail||'').replace(/</g,'&lt;')}</textarea>
-                <button class="btn btn-danger" onclick="removeStep('${type}',${i})" style="margin-top:4px;">✕ Удалить</button>
+            return `<div class="p-3 bg-white/5 rounded-lg border border-white/5 space-y-2">
+                <div class="flex gap-2">
+                    <span class="text-[10px] font-bold text-accent">${i+1}</span>
+                    <input class="input-field w-full py-1 px-2 text-xs" value="${(sd.text||'').replace(/"/g,'&quot;')}" onchange="updateStepField('${type}',${i},'text',this.value)" placeholder="Step title">
+                </div>
+                <input class="input-field w-full py-1 px-2 text-[10px]" value="${sd.image||''}" onchange="updateStepField('${type}',${i},'image',this.value)" placeholder="Image URL">
+                <textarea class="input-field w-full py-1 px-2 text-[10px]" onchange="updateStepField('${type}',${i},'detail',this.value)" placeholder="Details" rows="2">${(sd.detail||'').replace(/</g,'&lt;')}</textarea>
+                <button class="text-[10px] text-red-400 hover:text-red-300 flex items-center gap-1" onclick="removeStep('${type}',${i})"><span class="material-symbols-outlined text-xs">close</span>Remove</button>
             </div>`;
         }).join("");
     }
-    function addStep(type) { const key = type==="wplace"?"help_wplace":type==="blue"?"help_blue":"help_helper"; if(!homeData[key])homeData[key]=[]; homeData[key].push({text:"",image:"",detail:""}); renderStepsAdmin(type, homeData[key]); }
-    function updateStepField(type, i, field, v) { const key = type==="wplace"?"help_wplace":type==="blue"?"help_blue":"help_helper"; if(typeof homeData[key][i]!=='object')homeData[key][i]={text:homeData[key][i]||"",image:"",detail:""}; homeData[key][i][field]=v; }
-    function removeStep(type, i) { const key = type==="wplace"?"help_wplace":type==="blue"?"help_blue":"help_helper"; homeData[key].splice(i,1); renderStepsAdmin(type, homeData[key]); }
+
+    function updateStepField(type, i, field, v) {
+        const key = type==="wplace"?"help_wplace":type==="blue"?"help_blue":"help_helper";
+        if(typeof homeData[key][i]!=='object') homeData[key][i]={text:homeData[key][i]||"",image:"",detail:""};
+        homeData[key][i][field]=v;
+    }
+    
+    function addStep(type) {
+        const key = type==="wplace"?"help_wplace":type==="blue"?"help_blue":"help_helper";
+        if(!homeData[key]) homeData[key]=[];
+        homeData[key].push({text:"",image:"",detail:""});
+        renderStepsAdmin(type, homeData[key]);
+    }
+
+    function removeStep(type, i) {
+        const key = type==="wplace"?"help_wplace":type==="blue"?"help_blue":"help_helper";
+        homeData[key].splice(i,1);
+        renderStepsAdmin(type, homeData[key]);
+    }
+
     function previewHomeImage() {
         const url = document.getElementById("home-image").value;
-        const p = document.getElementById("home-image-preview"), img = document.getElementById("home-preview-img");
-        if (url) { p.classList.remove("hidden"); img.src = url; img.onerror = () => { img.style.display = "none"; p.innerHTML += '<p style="color:#ff4444;">Ошибка</p>'; }; img.onload = () => { img.style.display = "block"; }; }
-        else p.classList.add("hidden");
+        const img = document.getElementById("home-preview-img");
+        const placeholder = document.getElementById("no-preview");
+        if (url) {
+            img.src = url;
+            img.classList.remove("hidden");
+            placeholder.classList.add("hidden");
+            img.onerror = () => { img.classList.add("hidden"); placeholder.classList.remove("hidden"); };
+        } else {
+            img.classList.add("hidden");
+            placeholder.classList.remove("hidden");
+        }
     }
+
     async function saveHome() {
         homeData.title = document.getElementById("home-title").value;
         homeData.image = document.getElementById("home-image").value;
         homeData.description = document.getElementById("home-desc").value;
         homeData.location = document.getElementById("home-location").value;
-        ['wplace', 'blue', 'helper'].forEach(type => {
-            const key = type==="wplace"?"help_wplace":type==="blue"?"help_blue":"help_helper";
-            const container = document.getElementById(`steps-${type}`);
-            if (container) {
-                const items = container.querySelectorAll('.step-admin-item');
-                const steps = [];
-                items.forEach(item => {
-                    const inputs = item.querySelectorAll('input');
-                    if (inputs.length > 0 && inputs[0].value.trim()) {
-                        steps.push({ text: inputs[0].value, image: inputs.length > 1 ? inputs[1].value : '', detail: item.querySelector('textarea') ? item.querySelector('textarea').value : '' });
-                    }
-                });
-                if (steps.length > 0) homeData[key] = steps;
-            }
-        });
-        try { homeData._sha = await saveJSON("content/home.json", homeData, homeData._sha); toast("✅ Главная сохранена!", "success"); } catch(e) { toast("❌ "+e.message, "error"); }
+        try { homeData._sha = await saveJSON("content/home.json", homeData, homeData._sha); return true; } catch(e) { toast(e.message, "error"); return false; }
     }
 
     function renderGallery() {
         const el = document.getElementById("gallery-items");
         if (!el) return;
-        if (galleryData.length === 0) { el.innerHTML = '<p style="color:var(--text-dim);text-align:center;padding:40px;">Пусто</p>'; return; }
+        if (galleryData.length === 0) { el.innerHTML = '<div class="col-span-full py-20 text-center text-text-secondary/30">No gallery records found</div>'; return; }
         el.innerHTML = galleryData.map((item, i) => `
-            <div class="gallery-admin-card">
-                ${item.image ? `<img src="${item.image}" class="preview-img">` : '<div class="no-img">[НЕТ]</div>'}
-                <input placeholder="Название" value="${item.title||''}" onchange="galleryData[${i}].title=this.value">
-                <textarea placeholder="Описание" rows="2" onchange="galleryData[${i}].description=this.value">${item.description||''}</textarea>
-                <input placeholder="Ссылка на картинку" value="${item.image||''}" onchange="galleryData[${i}].image=this.value;renderGallery();">
-                <div class="card-actions"><div><button class="btn btn-info" onclick="moveGalleryItem(${i},-1)">▲</button><button class="btn btn-info" onclick="moveGalleryItem(${i},1)">▼</button></div><button class="btn btn-danger" onclick="if(confirm('Удалить?')){galleryData.splice(${i},1);renderGallery();}">✕</button></div>
+            <div class="card bg-surface-container/50 hover:bg-surface-container transition-colors p-4 group">
+                <div class="aspect-video mb-4 rounded-lg overflow-hidden bg-black/40 border border-border relative">
+                    ${item.image ? `<img src="${item.image}" class="w-full h-full object-cover">` : '<div class="flex items-center justify-center h-full text-text-secondary/20"><span class="material-symbols-outlined text-4xl">broken_image</span></div>'}
+                    <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 flex items-center justify-center gap-4 transition-opacity">
+                        <button onclick="moveGalleryItem(${i},-1)" class="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center"><span class="material-symbols-outlined text-sm">arrow_back</span></button>
+                        <button onclick="moveGalleryItem(${i},1)" class="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center"><span class="material-symbols-outlined text-sm">arrow_forward</span></button>
+                        <button onclick="if(confirm('Delete artwork?')){galleryData.splice(${i},1);renderGallery();}" class="w-8 h-8 rounded-full bg-red-500/20 hover:bg-red-500/40 text-red-400 flex items-center justify-center"><span class="material-symbols-outlined text-sm">delete</span></button>
+                    </div>
+                </div>
+                <div class="space-y-2">
+                    <input placeholder="Artwork Title" value="${item.title||''}" onchange="galleryData[${i}].title=this.value" class="input-field w-full text-xs font-bold py-1.5 px-3">
+                    <textarea placeholder="Description" rows="2" onchange="galleryData[${i}].description=this.value" class="input-field w-full text-[10px] py-1.5 px-3">${item.description||''}</textarea>
+                    <input placeholder="Direct Image URL" value="${item.image||''}" onchange="galleryData[${i}].image=this.value;renderGallery();" class="input-field w-full text-[10px] py-1.5 px-3">
+                </div>
             </div>`).join("");
     }
+
     function addGalleryItem() { galleryData.push({ title: "", description: "", image: "" }); renderGallery(); }
     function moveGalleryItem(i, d) { const n = i+d; if(n<0||n>=galleryData.length)return; [galleryData[i], galleryData[n]] = [galleryData[n], galleryData[i]]; renderGallery(); }
     function sortGallery() { galleryData.sort((a,b) => (a.title||"").localeCompare(b.title||"")); renderGallery(); }
-    async function saveGallery() { try { galleryData._sha = await saveJSON("content/gallery.json", galleryData, galleryData._sha); toast("✅ Галерея сохранена!", "success"); } catch(e) { toast("❌ "+e.message, "error"); } }
+    async function saveGallery() { try { galleryData._sha = await saveJSON("content/gallery.json", galleryData, galleryData._sha); return true; } catch(e) { toast(e.message, "error"); return false; } }
 
     function renderGuides() {
         const el = document.getElementById("guides-items");
         if (!el) return;
-        if (guidesData.length === 0) { el.innerHTML = '<p style="color:var(--text-dim);text-align:center;padding:40px;">Пусто</p>'; return; }
+        if (guidesData.length === 0) { el.innerHTML = '<div class="py-20 text-center text-text-secondary/30">Guide database empty</div>'; return; }
         el.innerHTML = guidesData.map((g, i) => `
-            <div class="guide-item-admin">
-                <div style="display:flex;justify-content:space-between;"><strong style="color:var(--accent2);">Гайд #${i+1}</strong><button class="btn btn-danger" onclick="if(confirm('Удалить?')){guidesData.splice(${i},1);renderGuides();}">✕</button></div>
-                <input class="form-input" placeholder="Название" value="${g.title||''}" onchange="guidesData[${i}].title=this.value" style="margin:6px 0;">
-                <textarea class="form-input" placeholder="Описание" rows="2" onchange="guidesData[${i}].description=this.value">${g.description||''}</textarea>
-                <div class="section-header">💻 ПК <button class="btn btn-primary" onclick="addGuideStep(${i},'pc')">+</button></div>
-                <div id="guide-pc-${i}">${renderGuideStepsHTML(g.install_pc||[], i, 'pc')}</div>
-                <div class="section-header">📱 Телефон <button class="btn btn-primary" onclick="addGuideStep(${i},'phone')">+</button></div>
-                <div id="guide-phone-${i}">${renderGuideStepsHTML(g.install_phone||[], i, 'phone')}</div>
-                <input class="form-input" placeholder="Примечание" value="${g.note||''}" onchange="guidesData[${i}].note=this.value" style="margin-top:6px;">
+            <div class="card p-6 border-white/5 bg-white/[0.02]">
+                <div class="flex items-center justify-between mb-6">
+                    <div class="flex-1 mr-4">
+                        <input class="input-field w-full text-lg font-bold bg-transparent border-transparent px-0 focus:border-b-accent focus:ring-0" placeholder="Guide Subject" value="${g.title||''}" onchange="guidesData[${i}].title=this.value">
+                        <textarea class="input-field w-full text-sm text-text-secondary bg-transparent border-transparent px-0 mt-1 focus:border-b-accent focus:ring-0" placeholder="Quick intro..." rows="1" onchange="guidesData[${i}].description=this.value">${g.description||''}</textarea>
+                    </div>
+                    <button class="text-red-400 hover:bg-red-400/10 p-2 rounded-lg" onclick="if(confirm('Remove this guide?')){guidesData.splice(${i},1);renderGuides();}">
+                        <span class="material-symbols-outlined">delete</span>
+                    </button>
+                </div>
+                
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    <div>
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-[10px] font-bold text-accent tracking-widest uppercase flex items-center gap-2"><span class="material-symbols-outlined text-sm">desktop_windows</span> PC Platform</span>
+                            <button onclick="addGuideStep(${i},'pc')" class="text-xs text-accent">+ Step</button>
+                        </div>
+                        <div class="space-y-3">${renderGuideStepsHTML(g.install_pc||[], i, 'pc')}</div>
+                    </div>
+                    <div>
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-[10px] font-bold text-accent tracking-widest uppercase flex items-center gap-2"><span class="material-symbols-outlined text-sm">smartphone</span> Mobile Platform</span>
+                            <button onclick="addGuideStep(${i},'phone')" class="text-xs text-accent">+ Step</button>
+                        </div>
+                        <div class="space-y-3">${renderGuideStepsHTML(g.install_phone||[], i, 'phone')}</div>
+                    </div>
+                </div>
+                <div class="mt-4 pt-4 border-t border-white/5">
+                    <label class="text-[10px] text-text-secondary uppercase mb-1 block">Footer Note</label>
+                    <input class="input-field w-full text-xs py-2 px-3" placeholder="Additional info or disclaimer" value="${g.note||''}" onchange="guidesData[${i}].note=this.value">
+                </div>
             </div>`).join("");
     }
+
     function renderGuideStepsHTML(steps, gi, type) {
-        if (!steps || steps.length === 0) return '<p style="color:var(--text-dim);font-size:14px;padding:8px;">Пусто</p>';
+        if (!steps || steps.length === 0) return '<p class="text-[10px] text-text-secondary/30 italic">No instructions defined</p>';
         return steps.map((s, si) => {
             const sd = typeof s === 'object' ? s : { text: s, image: "", detail: "", section: "" };
-            return `<div class="step-admin-item">
-                <div class="row">
-                    <input value="${(sd.text||'').replace(/"/g,'&quot;')}" onchange="updateGuideField(${gi},'${type}',${si},'text',this.value)" placeholder="Текст" style="flex:2;">
-                    <select onchange="updateGuideField(${gi},'${type}',${si},'section',this.value)" style="flex:1;padding:6px 8px;background:#050a05;border:2px solid var(--border-dim);color:var(--glow);font-family:'VT323',monospace;font-size:16px;">
-                        <option value="">Без раздела</option>
-                        <option value="💻 ПК" ${sd.section=='💻 ПК'?'selected':''}>💻 ПК</option>
-                        <option value="📱 Android (Edge)" ${sd.section=='📱 Android (Edge)'?'selected':''}>📱 Android (Edge)</option>
-                        <option value="📱 iPhone (iOS)" ${sd.section=='📱 iPhone (iOS)'?'selected':''}>📱 iPhone (iOS)</option>
+            return `<div class="p-3 bg-white/5 rounded-lg border border-white/5 relative group">
+                <div class="flex gap-2 mb-2">
+                    <select onchange="updateGuideField(${gi},'${type}',${si},'section',this.value)" class="bg-black/40 border-border text-[9px] text-accent font-bold py-0.5 rounded px-1.5 focus:ring-0 uppercase">
+                        <option value="">Generic</option>
+                        <option value="💻 ПК" ${sd.section=='💻 ПК'?'selected':''}>Desktop</option>
+                        <option value="📱 Android (Edge)" ${sd.section=='📱 Android (Edge)'?'selected':''}>Android</option>
+                        <option value="📱 iPhone (iOS)" ${sd.section=='📱 iPhone (iOS)'?'selected':''}>iOS</option>
                     </select>
+                    <input value="${(sd.text||'').replace(/"/g,'&quot;')}" onchange="updateGuideField(${gi},'${type}',${si},'text',this.value)" class="input-field flex-1 py-0.5 px-2 text-[10px]" placeholder="Instruction">
                 </div>
-                <input value="${sd.image||''}" onchange="updateGuideField(${gi},'${type}',${si},'image',this.value)" placeholder="Фото (ссылка)">
-                <textarea onchange="updateGuideField(${gi},'${type}',${si},'detail',this.value)" placeholder="Подробности" rows="2">${(sd.detail||'').replace(/</g,'&lt;')}</textarea>
-                <button class="btn btn-danger" onclick="guidesData[${gi}].install_${type}.splice(${si},1);renderGuides();">✕</button>
+                <input value="${sd.image||''}" onchange="updateGuideField(${gi},'${type}',${si},'image',this.value)" class="input-field w-full py-0.5 px-2 text-[9px] mb-2" placeholder="Step Screenshot URL">
+                <textarea onchange="updateGuideField(${gi},'${type}',${si},'detail',this.value)" class="input-field w-full py-1 px-2 text-[9px]" placeholder="Technical details..." rows="2">${(sd.detail||'').replace(/</g,'&lt;')}</textarea>
+                <button class="absolute -top-2 -right-2 w-5 h-5 bg-red-500 text-white rounded-full opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity" onclick="guidesData[${gi}].install_${type}.splice(${si},1);renderGuides();">
+                    <span class="material-symbols-outlined text-[10px]">close</span>
+                </button>
             </div>`;
         }).join("");
     }
+
     function updateGuideField(gi, type, si, field, v) {
         const key = `install_${type}`;
         if (!guidesData[gi][key]) guidesData[gi][key] = [];
         if (typeof guidesData[gi][key][si] !== 'object') guidesData[gi][key][si] = { text: guidesData[gi][key][si] || "", image: "", detail: "", section: "" };
         guidesData[gi][key][si][field] = v;
     }
+
     function addGuideItem() { guidesData.push({ title: "", description: "", install_pc: [], install_phone: [], note: "" }); renderGuides(); }
     function addGuideStep(gi, type) { const key = `install_${type}`; if(!guidesData[gi][key])guidesData[gi][key]=[]; guidesData[gi][key].push({text:"",image:"",detail:"",section:""}); renderGuides(); }
-    async function saveGuides() { try { guidesData._sha = await saveJSON("content/guides.json", guidesData, guidesData._sha); toast("✅ Гайды сохранены!", "success"); } catch(e) { toast("❌ "+e.message, "error"); } }
+    async function saveGuides() { try { guidesData._sha = await saveJSON("content/guides.json", guidesData, guidesData._sha); return true; } catch(e) { toast(e.message, "error"); return false; } }
 
     function renderSettings() {
         document.getElementById("settings-siteTitle").value = settingsData.siteTitle || "";
@@ -430,57 +599,75 @@
         document.getElementById("settings-headerSubtitle").value = settingsData.headerSubtitle || "";
         document.getElementById("settings-footer").value = settingsData.footer || "";
     }
+
     async function saveSettings() {
         settingsData.siteTitle = document.getElementById("settings-siteTitle").value;
         settingsData.headerTitle = document.getElementById("settings-headerTitle").value;
         settingsData.headerSubtitle = document.getElementById("settings-headerSubtitle").value;
         settingsData.footer = document.getElementById("settings-footer").value;
-        try { settingsData._sha = settingsData._sha ? await saveJSON("content/settings.json", settingsData, settingsData._sha) : await saveJSON("content/settings.json", settingsData, null); toast("✅ Настройки сохранены!", "success"); } catch(e) { toast("❌ "+e.message, "error"); } }
+        try { settingsData._sha = await saveJSON("content/settings.json", settingsData, settingsData._sha); return true; } catch(e) { toast(e.message, "error"); return false; } 
+    }
 
     async function publishAll() {
-        toast("🚀 Сохранение...", "info");
-        try { await saveHome(); await saveGallery(); await saveGuides(); await saveSettings(); toast("✅ Всё опубликовано!", "success"); }
-        catch(e) { toast("❌ Ошибка", "error"); }
+        toast("Initiating cloud synchronization...", "info");
+        try {
+            const h = await saveHome();
+            const g = await saveGallery();
+            const gu = await saveGuides();
+            const s = await saveSettings();
+            if (h && g && gu && s) toast("Global state persistent", "success");
+        } catch(e) { toast("Sync failure", "error"); }
+    }
+
+    function switchTab(tabId, btn) {
+        document.querySelectorAll(".tab-content").forEach(t => t.classList.add("hidden"));
+        document.querySelectorAll(".sidebar-btn").forEach(b => b.classList.remove("active"));
+        document.getElementById(tabId).classList.remove("hidden");
+        btn.classList.add("active");
+        window.scrollTo(0,0);
+    }
+
+    function quickSearch(query) {
+        if (!query) return;
+        const q = query.toLowerCase();
+        const btns = document.querySelectorAll('.sidebar-nav button');
+        if (q.includes("art") || q.includes("hero")) switchTab("home-tab", btns[0]);
+        else if (q.includes("gal") || q.includes("img")) switchTab("gallery-tab", btns[1]);
+        else if (q.includes("guide") || q.includes("help") || q.includes("kb")) switchTab("guides-tab", btns[2]);
+        else if (q.includes("set") || q.includes("conf")) switchTab("settings-tab", btns[3]);
     }
 
     async function resetAll() {
         homeData = { title: "", image: "", description: "", location: "", help_wplace: [], help_blue: [], help_helper: [] };
         galleryData = []; guidesData = [];
-        settingsData = { siteTitle: "WPlace", headerTitle: "⚔ WPLACE ⚔", headerSubtitle: "Пиксель-арт сообщество", footer: "© 2025" };
-        try {
-            homeData._sha = await saveJSON("content/home.json", homeData, homeData._sha);
-            galleryData._sha = await saveJSON("content/gallery.json", galleryData, galleryData._sha);
-            guidesData._sha = await saveJSON("content/guides.json", guidesData, guidesData._sha);
-            settingsData._sha = settingsData._sha ? await saveJSON("content/settings.json", settingsData, settingsData._sha) : await saveJSON("content/settings.json", settingsData, null);
-            renderHome(); renderGallery(); renderGuides(); renderSettings(); toast("✅ Сброшено", "success");
-        } catch(e) { toast("❌ "+e.message, "error"); }
+        settingsData = { siteTitle: "WPlace", headerTitle: "⚔ WPLACE ⚔", headerSubtitle: "Pixel Art Community", footer: "© 2025" };
+        await publishAll();
+        renderHome(); renderGallery(); renderGuides(); renderSettings();
     }
+
     function exportAll() {
         const data = { home: homeData, gallery: galleryData, guides: guidesData, settings: settingsData, date: new Date().toISOString() };
         delete data.home._sha; delete data.gallery._sha; delete data.guides._sha; delete data.settings._sha;
-        const b = new Blob([JSON.stringify(data,null,2)],{type:"application/json"}); const a = document.createElement("a"); a.href = URL.createObjectURL(b); a.download = `wplace-backup.json`; a.click();
+        const b = new Blob([JSON.stringify(data,null,2)],{type:"application/json"}); const a = document.createElement("a"); a.href = URL.createObjectURL(b); a.download = `moc-export-${Date.now()}.json`; a.click();
     }
+
     function importAll() { document.getElementById("import-file").click(); }
     function handleImport(e) {
         const f = e.target.files[0]; if(!f)return; const r = new FileReader();
-        r.onload = function(ev) { try { const d = JSON.parse(ev.target.result); if(d.home){homeData=d.home;renderHome();} if(d.gallery){galleryData=d.gallery;renderGallery();} if(d.guides){guidesData=d.guides;renderGuides();} if(d.settings){settingsData=d.settings;renderSettings();} toast("📤 Импортировано!", "info"); } catch(er) { toast("❌ Ошибка", "error"); } };
+        r.onload = function(ev) { try { 
+            const d = JSON.parse(ev.target.result); 
+            if(d.home){homeData=d.home;renderHome();} 
+            if(d.gallery){galleryData=d.gallery;renderGallery();} 
+            if(d.guides){guidesData=d.guides;renderGuides();} 
+            if(d.settings){settingsData=d.settings;renderSettings();} 
+            toast("Buffer imported. Save to persist changes.", "info"); 
+        } catch(er) { toast("Data corruption detected", "error"); } };
         r.readAsText(f); e.target.value = "";
-    }
-
-    function switchTab(tabId, btn) {
-        document.querySelectorAll(".tab-content").forEach(t => t.classList.add("hidden"));
-        document.querySelectorAll(".sidebar-nav button").forEach(b => b.classList.remove("active"));
-        const tab = document.getElementById(tabId);
-        if (tab) tab.classList.remove("hidden");
-        if (btn) btn.classList.add("active");
     }
 
     document.addEventListener("keydown", function(e) {
         if ((e.ctrlKey||e.metaKey) && e.key === "s") { e.preventDefault(); publishAll(); }
-        if (e.key === "F5") { e.preventDefault(); loadAll(); }
     });
     document.getElementById("token-input").addEventListener("keydown", e => { if(e.key==="Enter")login(); });
 </script>
-
-</body>
-</html>
+</body></html>
