@@ -3,403 +3,404 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WPlace — Пиксель-Арт Сообщество</title>
+    <title>WPlace Admin Pro</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap');
-
         :root {
-            --bg: #0a0a0a; --surface: #1a1a2e; --border: #00ff88; --text: #e0ffe0;
-            --glow: #00ff88; --accent: #ff6b6b; --accent2: #ffd93d;
+            --bg: #0a0f0a; --surface: #0d1a0d; --surface2: #0f1f0f; --border: #00aa44;
+            --border-dim: #1a3a1a; --text: #c0ffc0; --text-dim: #669966; --glow: #00ff66;
+            --accent2: #88ff88; --danger: #ff4444; --warning: #ffaa00; --info: #44aaff;
         }
-
         * { margin: 0; padding: 0; box-sizing: border-box; }
-
         body {
-            background: var(--bg);
-            background-image:
-                linear-gradient(0deg, rgba(0,255,136,0.03) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(0,255,136,0.03) 1px, transparent 1px);
-            background-size: 8px 8px; color: var(--text);
-            font-family: 'VT323', monospace; font-size: 20px; line-height: 1.5;
-            min-height: 100vh; image-rendering: pixelated; overflow-x: hidden;
+            background: var(--bg); background-image: linear-gradient(0deg, rgba(0,170,68,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(0,170,68,0.03) 1px, transparent 1px);
+            background-size: 8px 8px; color: var(--text); font-family: 'VT323', monospace; font-size: 20px; min-height: 100vh; image-rendering: pixelated;
         }
-
-        .container { max-width: 900px; margin: 0 auto; padding: 20px; position: relative; z-index: 1; }
-
-        header {
-            text-align: center; padding: 30px 20px; margin-bottom: 20px;
-            border: 4px solid var(--border); background: var(--surface);
-            box-shadow: inset 0 0 30px rgba(0,255,136,0.1), 0 0 20px rgba(0,255,136,0.3), 0 0 60px rgba(0,255,136,0.1);
-            position: relative; image-rendering: pixelated;
-        }
-        header::after { content: ""; position: absolute; bottom: -4px; left: -4px; width: calc(100% + 8px); height: 4px; background: var(--border); }
-
-        .site-title { font-family: 'Press Start 2P', monospace; font-size: 28px; color: var(--glow); text-shadow: 0 0 10px var(--glow), 0 0 40px var(--glow), 0 0 80px var(--glow); letter-spacing: 3px; margin-bottom: 10px; }
-        .site-subtitle { font-family: 'VT323', monospace; font-size: 24px; color: #88cc88; text-shadow: 0 0 8px rgba(136,204,136,0.6); }
-
-        nav { display: flex; gap: 4px; margin-bottom: 20px; flex-wrap: wrap; justify-content: center; }
-
-        .tab-btn {
-            font-family: 'Press Start 2P', monospace; font-size: 13px; padding: 14px 20px;
-            background: var(--surface); color: var(--text); border: 4px solid #2a2a4a;
-            cursor: pointer; transition: all 0.1s step-end; text-transform: uppercase;
-            letter-spacing: 1px; box-shadow: 0 4px 0 #0a0a15; image-rendering: pixelated;
-            flex: 1 1 auto; min-width: 100px; max-width: 180px;
-        }
-        .tab-btn:hover { border-color: var(--glow); color: var(--glow); text-shadow: 0 0 10px var(--glow); box-shadow: 0 4px 0 var(--glow); transform: translateY(-2px); }
-        .tab-btn:active { transform: translateY(2px); box-shadow: 0 2px 0 var(--glow); }
-        .tab-btn.active { background: #0d2a1a; border-color: var(--glow); color: var(--glow); text-shadow: 0 0 10px var(--glow); box-shadow: 0 0 15px var(--glow), 0 4px 0 var(--glow); }
-
-        .tab-content { display: none; border: 4px solid #2a2a4a; background: var(--surface); padding: 30px; box-shadow: inset 0 0 40px rgba(0,0,0,0.5); image-rendering: pixelated; animation: fadeIn 0.2s step-end; }
+        .header { position: relative; z-index: 1; border-bottom: 4px solid var(--border); background: var(--surface); padding: 12px 20px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
+        .header-left { display: flex; align-items: center; gap: 15px; flex-wrap: wrap; }
+        .header-title { font-family: 'Press Start 2P', monospace; font-size: 13px; color: var(--glow); text-shadow: 0 0 10px var(--glow); }
+        .header-status { font-size: 15px; color: var(--text-dim); }
+        .header-status .dot { display: inline-block; width: 8px; height: 8px; background: var(--glow); box-shadow: 0 0 6px var(--glow); margin-right: 4px; }
+        .btn { font-family: 'Press Start 2P', monospace; font-size: 9px; padding: 8px 12px; background: var(--surface2); color: var(--text); border: 3px solid var(--border-dim); cursor: pointer; transition: all 0.1s step-end; text-transform: uppercase; box-shadow: 0 3px 0 #0a1a0a; text-decoration: none; white-space: nowrap; }
+        .btn:hover { border-color: var(--glow); color: #fff; text-shadow: 0 0 10px var(--glow); transform: translateY(-2px); }
+        .btn-primary { background: #0a2a0a; border-color: var(--border); color: var(--glow); box-shadow: 0 3px 0 #0a4a0a; }
+        .btn-danger { background: #1a0a0a; border-color: #4a2a2a; color: #ff8888; }
+        .btn-warning { background: #1a1a0a; border-color: #4a4a2a; color: var(--warning); }
+        .btn-info { background: #0a1a2a; border-color: #2a4a5a; color: var(--info); }
+        .btn-small { font-size: 7px; padding: 5px 8px; }
+        .btn-full { width: 100%; font-size: 11px; padding: 14px; }
+        .main-container { position: relative; z-index: 1; max-width: 1300px; margin: 0 auto; padding: 15px; }
+        .tabs { display: flex; gap: 4px; margin-bottom: 15px; flex-wrap: wrap; }
+        .tab-btn { font-family: 'Press Start 2P', monospace; font-size: 9px; padding: 10px 14px; background: var(--surface2); color: var(--text-dim); border: 3px solid var(--border-dim); cursor: pointer; text-transform: uppercase; box-shadow: 0 3px 0 #0a0f0a; transition: all 0.1s step-end; }
+        .tab-btn:hover { border-color: var(--accent2); color: var(--accent2); }
+        .tab-btn.active { background: #0a2a0a; border-color: var(--border); color: var(--glow); text-shadow: 0 0 10px var(--glow); }
+        .tab-content { display: none; }
         .tab-content.active { display: block; }
-
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
-
-        .card { border: 3px solid #3a3a5a; background: #111128; padding: 20px; margin-bottom: 20px; box-shadow: 0 4px 0 #0a0a15; transition: all 0.1s step-end; }
-        .card:hover { border-color: var(--accent2); box-shadow: 0 4px 0 var(--accent2), 0 0 20px rgba(255,217,61,0.2); }
-        .card h3 { font-family: 'Press Start 2P', monospace; font-size: 14px; color: var(--accent2); margin-bottom: 15px; text-shadow: 0 0 8px rgba(255,217,61,0.4); }
-
-        a { color: var(--glow); text-decoration: none; border-bottom: 2px dashed var(--glow); transition: all 0.1s step-end; font-weight: bold; }
-        a:hover { border-bottom-style: solid; text-shadow: 0 0 10px var(--glow); }
-
-        .link-pixel { 
-            display: inline-block; background: #0a1a10; border: 2px solid var(--glow); 
-            padding: 8px 14px; color: var(--glow); font-family: 'Press Start 2P', monospace; 
-            font-size: 10px; letter-spacing: 1px; word-break: break-all; 
-            box-shadow: 0 3px 0 #0a5a2a; transition: all 0.1s step-end; 
-            line-height: 1.4; vertical-align: middle; text-align: center;
-        }
-        .link-pixel:hover { background: #0d2a1a; box-shadow: 0 3px 0 var(--glow); }
-
-        .btn-download {
-            display: inline-block;
-            font-family: 'Press Start 2P', monospace; font-size: 10px;
-            padding: 8px 14px; background: #0a1a2a; color: #44aaff;
-            border: 2px solid #2a4a5a; cursor: pointer;
-            box-shadow: 0 3px 0 #0a1a2a; text-decoration: none;
-            transition: all 0.1s step-end; vertical-align: middle;
-            line-height: 1.4; text-align: center;
-        }
-        .btn-download:hover { border-color: #44aaff; text-shadow: 0 0 10px #44aaff; transform: translateY(-2px); }
-
-        .art-image-container { text-align: center; margin-bottom: 20px; border: 4px solid var(--border); padding: 12px; background: #0a0a15; box-shadow: 0 0 30px rgba(0,255,136,0.2); position: relative; z-index: 10001; isolation: isolate; }
-        .art-image-container img { max-width: 100%; height: auto; image-rendering: pixelated; display: block; margin: 0 auto; }
-        .art-info { text-align: center; font-size: 22px; color: var(--accent2); margin-top: 15px; text-shadow: 0 0 10px rgba(255,217,61,0.4); }
-        .art-info a { font-size: 22px; }
-
-        ol.pixel-list { list-style: none; counter-reset: pixel-counter; padding-left: 0; }
-        ol.pixel-list li { 
-            counter-increment: pixel-counter; padding: 14px 14px 14px 65px; margin-bottom: 8px;
-            background: #0a0a1a; border: 2px solid #2a2a4a; position: relative;
-            transition: all 0.1s step-end; word-break: break-word; min-height: 44px;
-            display: flex; align-items: center; cursor: pointer;
-        }
-        ol.pixel-list li:hover { border-color: var(--glow); background: #0d0d20; }
-        ol.pixel-list li::before { 
-            content: counter(pixel-counter); position: absolute; left: 10px; top: 50%;
-            transform: translateY(-50%); font-family: 'Press Start 2P', monospace; font-size: 11px;
-            color: var(--accent2); background: #1a1a30; border: 2px solid #3a3a5a;
-            padding: 6px 8px; min-width: 28px; text-align: center; flex-shrink: 0;
-        }
-        ol.pixel-list li .step-arrow { margin-left: auto; font-size: 18px; color: var(--accent2); }
-
-        .section-title {
-            font-family: 'Press Start 2P', monospace; font-size: 12px; color: var(--accent2);
-            margin-top: 18px; margin-bottom: 8px; text-shadow: 0 0 6px rgba(255,217,61,0.3);
-            padding: 8px 12px; border: 2px solid #3a3a5a; background: #0a0a1a;
-            display: inline-block;
-        }
-
-        .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 16px; }
-        .gallery-item { 
-            border: 3px solid #2a2a4a; background: #0a0a1a; padding: 10px;
-            transition: all 0.1s step-end; text-align: center; cursor: pointer;
-            display: flex; flex-direction: column; align-items: center; justify-content: center;
-        }
-        .gallery-item:hover { border-color: var(--accent); box-shadow: 0 0 25px rgba(255,107,107,0.4); transform: scale(1.04); }
-        .gallery-item img { width: 100%; aspect-ratio: 1; object-fit: contain; border: 2px solid #3a3a5a; display: block; image-rendering: pixelated; background: #050510; margin: 0 auto; }
-        .gallery-item .label { font-family: 'VT323', monospace; font-size: 20px; margin-top: 10px; color: #eee; text-align: center; width: 100%; }
-
-        .modal-overlay {
-            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.92); z-index: 100000;
-            justify-content: center; align-items: center; padding: 15px;
-        }
-        .modal-overlay.active { display: flex; }
-        .modal {
-            border: 5px solid var(--border); background: var(--surface);
-            padding: 25px; max-width: 750px; width: 100%; text-align: center;
-            box-shadow: 0 0 50px rgba(0,255,136,0.4); animation: fadeIn 0.2s step-end;
-            z-index: 100001; max-height: 90vh; overflow-y: auto;
-            display: flex; flex-direction: column; align-items: center;
-        }
-        .modal .counter { font-size: 16px; color: var(--text-dim); margin-bottom: 10px; }
-        .modal img { max-width: 100%; max-height: 50vh; image-rendering: pixelated; border: 3px solid #3a3a5a; background: #050510; margin: 0 auto 15px auto; display: block; }
-        .modal h3 { font-family: 'Press Start 2P', monospace; font-size: 15px; color: var(--accent2); margin-bottom: 10px; text-shadow: 0 0 10px rgba(255,217,61,0.5); }
-        .modal .desc { font-size: 20px; color: #ddd; line-height: 1.6; word-break: break-word; margin-bottom: 15px; text-align: center; width: 100%; }
-        .modal .desc a { font-size: 20px; }
-        .modal-nav-row { display: flex; justify-content: center; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 15px; }
-        .modal .nav-btn {
-            font-family: 'Press Start 2P', monospace; font-size: 14px;
-            background: #0a2a0a; color: var(--glow); border: 3px solid var(--border);
-            cursor: pointer; padding: 10px 16px; box-shadow: 0 3px 0 #0a4a0a;
-            white-space: nowrap; min-width: 50px;
-        }
-        .modal .nav-btn:hover { background: #0d3a0d; }
-        .modal .close-btn {
-            font-family: 'Press Start 2P', monospace; font-size: 13px; padding: 14px 24px;
-            background: #0a2a0a; color: var(--glow); border: 3px solid var(--border);
-            cursor: pointer; box-shadow: 0 4px 0 #0a4a0a; width: 100%; max-width: 300px; margin: 0 auto;
-        }
-        .modal .close-btn:hover { background: #0d3a0d; transform: translateY(-2px); }
-
-        .note { border: 3px dashed #3a3a5a; background: #0a0a15; padding: 15px; margin-top: 10px; color: #ccc; text-align: left; width: 100%; font-size: 18px; line-height: 1.6; word-break: break-word; }
-        .note a { color: var(--glow); }
-        .note strong { color: var(--accent2); }
-
-        footer { text-align: center; padding: 20px; margin-top: 30px; font-size: 16px; color: #3a3a5a; border-top: 2px solid #1a1a2e; }
-
-        @media (max-width: 768px) {
-            .gallery-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
-            .gallery-item { padding: 6px; }
-            .gallery-item .label { font-size: 16px; }
-            .modal { padding: 18px 12px; }
-            .modal .nav-btn { font-size: 11px; padding: 8px 10px; }
-            .modal h3 { font-size: 13px; }
-            .modal .desc { font-size: 17px; }
-            .modal .close-btn { font-size: 11px; padding: 12px; }
-        }
-        @media (max-width: 480px) {
-            .site-title { font-size: 16px; }
-            .tab-btn { font-size: 9px; padding: 8px 6px; }
-            .tab-content { padding: 12px; }
-            .gallery-grid { grid-template-columns: repeat(2, 1fr); gap: 6px; }
-            ol.pixel-list li { padding: 10px 8px 10px 45px; font-size: 15px; }
-            ol.pixel-list li::before { font-size: 8px; min-width: 20px; padding: 3px 4px; left: 5px; }
-            .modal { padding: 15px 10px; max-height: 95vh; }
-            .modal .nav-btn { font-size: 10px; padding: 6px 8px; min-width: 40px; }
-            .modal .close-btn { font-size: 10px; padding: 10px; max-width: 100%; }
-            .modal img { max-height: 35vh; }
-        }
+        .card { border: 3px solid var(--border-dim); background: var(--surface); padding: 18px; margin-bottom: 15px; }
+        .card-header { font-family: 'Press Start 2P', monospace; font-size: 11px; color: var(--accent2); margin-bottom: 12px; padding-bottom: 8px; border-bottom: 2px solid var(--border-dim); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 6px; }
+        .card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 14px; }
+        .form-group { margin-bottom: 12px; }
+        .form-label { display: block; font-size: 17px; color: var(--accent2); margin-bottom: 4px; }
+        .form-input { width: 100%; padding: 9px 10px; background: #050a05; border: 2px solid var(--border-dim); color: var(--glow); font-family: 'VT323', monospace; font-size: 19px; outline: none; }
+        .form-input:focus { border-color: var(--glow); box-shadow: 0 0 10px rgba(0,255,102,0.1); }
+        textarea.form-input { resize: vertical; min-height: 70px; line-height: 1.5; }
+        .help-text { font-size: 13px; color: var(--text-dim); margin-top: 3px; }
+        .gallery-admin-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 16px; }
+        .gallery-admin-card { border: 2px solid var(--border-dim); background: #0a0f0a; padding: 14px; }
+        .gallery-admin-card .preview-img { width: 100%; aspect-ratio: 1; object-fit: contain; image-rendering: pixelated; border: 2px solid #1a3a1a; background: #050510; margin-bottom: 12px; display: block; }
+        .gallery-admin-card .no-img { width: 100%; aspect-ratio: 1; background: repeating-linear-gradient(45deg,#1a1a30 0px,#1a1a30 8px,#111128 8px,#111128 16px); border: 2px solid #1a3a1a; display: flex; align-items: center; justify-content: center; color: #4a4a6a; font-size: 16px; margin-bottom: 12px; }
+        .gallery-admin-card input, .gallery-admin-card textarea { width: 100%; padding: 8px 10px; background: #050a05; border: 2px solid var(--border-dim); color: var(--glow); font-family: 'VT323', monospace; font-size: 18px; margin-bottom: 7px; }
+        .gallery-admin-card textarea { min-height: 55px; resize: vertical; }
+        .gallery-admin-card .card-actions { display: flex; gap: 6px; flex-wrap: wrap; justify-content: space-between; align-items: center; margin-top: 6px; }
+        .step-admin-item { border: 2px solid var(--border-dim); background: #0a0f0a; padding: 12px; margin-bottom: 8px; }
+        .step-admin-item input, .step-admin-item textarea, .step-admin-item select { width: 100%; padding: 7px 8px; background: #050a05; border: 2px solid var(--border-dim); color: var(--glow); font-family: 'VT323', monospace; font-size: 17px; margin-bottom: 5px; }
+        .step-admin-item textarea { min-height: 50px; resize: vertical; }
+        .step-admin-item .row { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+        .step-admin-item .row input, .step-admin-item .row select { flex: 1; min-width: 100px; }
+        .guide-item-admin { border: 2px solid var(--border-dim); background: #0a0f0a; padding: 14px; margin-bottom: 10px; }
+        .section-header { font-family: 'Press Start 2P', monospace; font-size: 10px; color: var(--accent2); margin: 10px 0 6px; padding: 6px 10px; background: #0a1a0a; border: 2px solid var(--border-dim); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 6px; }
+        .preview-box { border: 2px dashed var(--border); background: #050a05; padding: 12px; margin-top: 12px; text-align: center; max-height: 250px; overflow-y: auto; }
+        .preview-box img { max-width: 100%; max-height: 200px; image-rendering: pixelated; border: 2px solid #1a3a1a; }
+        .toast { position: fixed; top: 15px; right: 15px; z-index: 10000; padding: 12px 18px; border: 3px solid; font-family: 'Press Start 2P', monospace; font-size: 9px; animation: slideIn 0.2s step-end; max-width: 400px; }
+        .toast-success { background: #0a2a0a; border-color: var(--glow); color: var(--glow); }
+        .toast-error { background: #2a0a0a; border-color: var(--danger); color: var(--danger); }
+        .toast-info { background: #0a1a2a; border-color: var(--info); color: var(--info); }
+        @keyframes slideIn { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+        .login-container { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 15px; }
+        .login-card { position: relative; z-index: 1; width: 100%; max-width: 440px; border: 5px solid var(--border); background: var(--surface); padding: 30px; text-align: center; box-shadow: 0 0 30px rgba(0,170,68,0.2); }
+        .login-title { font-family: 'Press Start 2P', monospace; font-size: 16px; color: var(--glow); text-shadow: 0 0 15px var(--glow); margin-bottom: 4px; }
+        .login-subtitle { font-size: 19px; color: var(--text-dim); margin-bottom: 22px; }
+        .login-help { font-size: 13px; color: var(--text-dim); margin-top: 15px; line-height: 1.5; }
+        .login-help a { color: var(--glow); }
+        .hidden { display: none !important; }
+        .stats-bar { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 15px; }
+        .stat-item { flex: 1; min-width: 100px; border: 2px solid var(--border-dim); background: var(--surface); padding: 10px 14px; text-align: center; }
+        .stat-value { font-family: 'Press Start 2P', monospace; font-size: 18px; color: var(--glow); }
+        .stat-label { font-size: 13px; color: var(--text-dim); margin-top: 3px; }
+        @media (max-width: 768px) { .gallery-admin-grid { grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); } .tabs { flex-direction: column; } .tab-btn { text-align: center; font-size: 8px; padding: 8px; } }
+        @media (max-width: 400px) { .gallery-admin-grid { grid-template-columns: 1fr; } }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <header>
-        <h1 class="site-title">⚔ WPLACE ⚔</h1>
-        <p class="site-subtitle">Пиксель-арт сообщество</p>
-    </header>
-
-    <nav>
-        <button class="tab-btn active" onclick="openTab('home')">🏠 Главная</button>
-        <button class="tab-btn" onclick="openTab('gallery')">🖼 Галерея</button>
-        <button class="tab-btn" onclick="openTab('guides')">📚 Гайды</button>
-    </nav>
-
-    <div id="home" class="tab-content active">
-        <div id="current-art-section"></div>
-        <div id="help-section"></div>
+<div id="login-page" class="login-container">
+    <div class="login-card">
+        <div class="login-title">⚔ WPLACE ⚔</div>
+        <div class="login-subtitle">ADMIN PANEL</div>
+        <div class="form-group"><label class="form-label">🔑 GitHub Token</label><input type="password" id="token-input" class="form-input" placeholder="ghp_..." autofocus></div>
+        <button class="btn btn-primary btn-full" onclick="login()">▶ ВОЙТИ</button>
+        <div class="login-help">Токен с правами <strong>repo</strong><br><a href="https://github.com/settings/tokens/new" target="_blank">Создать токен →</a></div>
     </div>
-
-    <div id="gallery" class="tab-content">
-        <h3 style="font-family: 'Press Start 2P', monospace; font-size: 16px; color: var(--accent); margin-bottom: 20px;">📜 История наших артов</h3>
-        <div class="gallery-grid" id="gallery-grid"></div>
-    </div>
-
-    <div id="guides" class="tab-content">
-        <h3 style="font-family: 'Press Start 2P', monospace; font-size: 16px; color: var(--accent2); margin-bottom: 20px;">🔧 Установка расширений</h3>
-        <div id="guides-content"></div>
-    </div>
-
-    <footer id="site-footer">
-        <p>WPlace Pixel Art Community © 2025 | Сделано с ❤️ на пикселях</p>
-    </footer>
 </div>
 
-<div class="modal-overlay" id="modal-overlay" onclick="closeModal(event)">
-    <div class="modal" id="modal-box">
-        <div class="counter" id="modal-counter"></div>
-        <img id="modal-img" src="" alt="">
-        <h3 id="modal-title"></h3>
-        <div class="desc" id="modal-desc"></div>
-        <button class="btn-download" id="modal-download" onclick="downloadModalImage()" style="display:none;margin-bottom:13px;">💾 СКАЧАТЬ АРТ</button>
-        <div class="modal-nav-row" id="modal-nav-row">
-            <button class="nav-btn" id="modal-prev" onclick="navModal(-1)">◀ НАЗАД</button>
-            <span style="font-family:'Press Start 2P',monospace;font-size:12px;color:var(--text-dim);" id="modal-nav-counter"></span>
-            <button class="nav-btn" id="modal-next" onclick="navModal(1)">ВПЕРЁД ▶</button>
+<div id="admin-page" class="hidden">
+    <div class="header">
+        <div class="header-left"><div class="header-title">⚔ Masters_of_Cum_ADMIN</div><div class="header-status"><span class="dot"></span>ONLINE</div></div>
+        <div style="display:flex;gap:6px;flex-wrap:wrap;">
+            <a href="/" class="btn btn-small btn-info" target="_blank">🌐 САЙТ</a>
+            <button class="btn btn-small btn-warning" onclick="loadAll()">🔄</button>
+            <button class="btn btn-small btn-danger" onclick="logout()">🚪</button>
         </div>
-        <button class="close-btn" onclick="closeModal()">✕ ЗАКРЫТЬ</button>
+    </div>
+    <div class="main-container">
+        <div class="stats-bar">
+            <div class="stat-item"><div class="stat-value" id="stat-art">-</div><div class="stat-label">Акт. арт</div></div>
+            <div class="stat-item"><div class="stat-value" id="stat-gallery">-</div><div class="stat-label">Галерея</div></div>
+            <div class="stat-item"><div class="stat-value" id="stat-guides">-</div><div class="stat-label">Гайды</div></div>
+            <div class="stat-item"><div class="stat-value" id="stat-steps">-</div><div class="stat-label">Шаги</div></div>
+        </div>
+        <div class="tabs">
+            <button class="tab-btn active" onclick="switchTab('home-tab')">🏠 Главная</button>
+            <button class="tab-btn" onclick="switchTab('gallery-tab')">🖼 Галерея</button>
+            <button class="tab-btn" onclick="switchTab('guides-tab')">📚 Гайды</button>
+            <button class="tab-btn" onclick="switchTab('settings-tab')">⚙ Настройки</button>
+        </div>
+
+        <!-- ГЛАВНАЯ -->
+        <div id="home-tab" class="tab-content active">
+            <div class="card-grid">
+                <div class="card">
+                    <div class="card-header">🎯 АКТУАЛЬНЫЙ АРТ</div>
+                    <div class="form-group"><label class="form-label">Заголовок</label><input type="text" id="home-title" class="form-input"></div>
+                    <div class="form-group"><label class="form-label">Ссылка на картинку</label><input type="text" id="home-image" class="form-input" oninput="previewHomeImage()"></div>
+                    <div class="form-group"><label class="form-label">Описание</label><textarea id="home-desc" class="form-input" rows="3"></textarea></div>
+                    <div class="form-group"><label class="form-label">Ссылка WPlace</label><input type="text" id="home-location" class="form-input"></div>
+                    <div id="home-image-preview" class="preview-box hidden"><img id="home-preview-img" src="" alt=""></div>
+                </div>
+                <div class="card"><div class="card-header">🖌 WPlace <button class="btn btn-small btn-primary" onclick="addStep('wplace')">+</button></div><div id="steps-wplace"></div></div>
+            </div>
+            <div class="card-grid">
+                <div class="card"><div class="card-header">🔷 Blue Marble <button class="btn btn-small btn-primary" onclick="addStep('blue')">+</button></div><div id="steps-blue"></div></div>
+                <div class="card"><div class="card-header">🧩 WPlace Helper <button class="btn btn-small btn-primary" onclick="addStep('helper')">+</button></div><div id="steps-helper"></div></div>
+            </div>
+            <button class="btn btn-primary btn-full" onclick="saveHome()">💾 СОХРАНИТЬ ГЛАВНУЮ</button>
+        </div>
+
+        <!-- ГАЛЕРЕЯ -->
+        <div id="gallery-tab" class="tab-content">
+            <div class="card"><div class="card-header">🖼 ГАЛЕРЕЯ <button class="btn btn-small btn-primary" onclick="addGalleryItem()">+</button><button class="btn btn-small btn-warning" onclick="sortGallery()">🔤</button></div><div class="gallery-admin-grid" id="gallery-items"></div></div>
+            <button class="btn btn-primary btn-full" onclick="saveGallery()">💾 СОХРАНИТЬ ГАЛЕРЕЮ</button>
+        </div>
+
+        <!-- ГАЙДЫ -->
+        <div id="guides-tab" class="tab-content">
+            <div class="card"><div class="card-header">📚 ГАЙДЫ <button class="btn btn-small btn-primary" onclick="addGuideItem()">+</button></div><div id="guides-items"></div></div>
+            <button class="btn btn-primary btn-full" onclick="saveGuides()">💾 СОХРАНИТЬ ГАЙДЫ</button>
+        </div>
+
+        <!-- НАСТРОЙКИ -->
+        <div id="settings-tab" class="tab-content">
+            <div class="card-grid">
+                <div class="card">
+                    <div class="card-header">⚙ ОБЩИЕ</div>
+                    <div class="form-group"><label class="form-label">Название сайта</label><input type="text" id="settings-siteTitle" class="form-input"></div>
+                    <div class="form-group"><label class="form-label">Заголовок</label><input type="text" id="settings-headerTitle" class="form-input"></div>
+                    <div class="form-group"><label class="form-label">Подзаголовок</label><input type="text" id="settings-headerSubtitle" class="form-input"></div>
+                    <div class="form-group"><label class="form-label">Футер</label><textarea id="settings-footer" class="form-input" rows="2"></textarea></div>
+                </div>
+                <div class="card">
+                    <div class="card-header">🔧 ДЕЙСТВИЯ</div>
+                    <button class="btn btn-warning" onclick="if(confirm('Сбросить?')) resetAll()" style="width:100%;margin-bottom:8px;">⚠ СБРОСИТЬ</button>
+                    <button class="btn btn-info" onclick="exportAll()" style="width:100%;margin-bottom:8px;">📥 ЭКСПОРТ</button>
+                    <button class="btn btn-info" onclick="importAll()" style="width:100%;">📤 ИМПОРТ</button>
+                    <input type="file" id="import-file" accept=".json" class="hidden" onchange="handleImport(event)">
+                </div>
+                <div class="card"><div class="card-header">📊 СТАТИСТИКА</div>
+                    <p>Артов: <strong id="stats-gallery-count">0</strong></p>
+                    <p>Гайдов: <strong id="stats-guides-count">0</strong></p>
+                    <p>Шагов: <strong id="stats-steps-count">0</strong></p>
+                    <p>Сохранение: <strong id="stats-last-save">-</strong></p>
+                </div>
+            </div>
+            <button class="btn btn-primary btn-full" onclick="saveSettings()">💾 СОХРАНИТЬ НАСТРОЙКИ</button>
+        </div>
     </div>
 </div>
+<div id="toast" class="toast hidden"></div>
 
 <script>
-    let currentGalleryIndex = 0;
-    let currentStepIndex = 0;
-    let currentStepType = '';
-    let modalMode = 'gallery';
+    const REPO_OWNER = "Arnimaz", REPO_NAME = "Arnimaz.github.io", BRANCH = "main";
+    let token = sessionStorage.getItem("wplace_admin_token");
+    let homeData = {}, galleryData = [], guidesData = [], settingsData = {};
+    if (token) { showAdmin(); loadAll(); }
 
-    function makeLinksClickable(text) {
-        if (!text) return "";
-        return text.replace(/(https?:\/\/[^\s<>]+)/g, '<a href="$1" target="_blank" style="color:#00ff88;border-bottom:2px dashed #00ff88;">$1</a>');
+    async function login() {
+        token = document.getElementById("token-input").value.trim();
+        if (!token) return toast("Введите токен", "error");
+        const res = await fetch(`https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}`, { headers: { Authorization: `token ${token}` } });
+        if (res.ok) { sessionStorage.setItem("wplace_admin_token", token); showAdmin(); await loadAll(); toast("✅ Доступ", "success"); }
+        else toast("❌ Неверный токен", "error");
+    }
+    function logout() { sessionStorage.removeItem("wplace_admin_token"); location.reload(); }
+    function showAdmin() { document.getElementById("login-page").classList.add("hidden"); document.getElementById("admin-page").classList.remove("hidden"); }
+
+    async function loadJSON(path) {
+        const res = await fetch(`https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${path}?ref=${BRANCH}`, { headers: { Authorization: `token ${token}`, Accept: "application/vnd.github.v3+json" } });
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        const data = await res.json();
+        return { content: JSON.parse(decodeURIComponent(escape(atob(data.content.replace(/\n/g, ""))))), sha: data.sha };
+    }
+    async function saveJSON(path, content, sha) {
+        const body = { message: `📝 Update ${path}`, content: btoa(unescape(encodeURIComponent(JSON.stringify(content, null, 2)))), sha: sha, branch: BRANCH };
+        const res = await fetch(`https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${path}`, { method: "PUT", headers: { Authorization: `token ${token}`, "Content-Type": "application/json" }, body: JSON.stringify(body) });
+        if (!res.ok) { const err = await res.json().catch(() => ({})); throw new Error(err.message || `HTTP ${res.status}`); }
+        return (await res.json()).content.sha;
     }
 
-    function downloadImage(url, filename) {
-        if (!url) return;
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = filename || 'art.png';
-        a.target = '_blank';
-        a.rel = 'noopener';
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
+    async function loadAll() {
+        let errs = 0;
+        try { const h = await loadJSON("content/home.json"); homeData = h.content; homeData._sha = h.sha; renderHome(); } catch(e) { toast("❌ Главная", "error"); errs++; }
+        try { const g = await loadJSON("content/gallery.json"); galleryData = g.content; galleryData._sha = g.sha; renderGallery(); } catch(e) { toast("❌ Галерея", "error"); errs++; }
+        try { const gu = await loadJSON("content/guides.json"); guidesData = gu.content; guidesData._sha = gu.sha; renderGuides(); } catch(e) { toast("❌ Гайды", "error"); errs++; }
+        try { const s = await loadJSON("content/settings.json"); settingsData = s.content; settingsData._sha = s.sha; renderSettings(); } catch(e) { settingsData = { siteTitle: "WPlace", headerTitle: "⚔ WPLACE ⚔", headerSubtitle: "Пиксель-арт сообщество", footer: "© 2025" }; renderSettings(); }
+        updateStats(); if (errs === 0) toast("✅ Загружено", "success");
+    }
+    function updateStats() {
+        const total = (homeData.help_wplace || []).length + (homeData.help_blue || []).length + (homeData.help_helper || []).length;
+        document.getElementById("stat-art").textContent = homeData.title ? "✓" : "✗";
+        document.getElementById("stat-gallery").textContent = galleryData.length;
+        document.getElementById("stat-guides").textContent = guidesData.length;
+        document.getElementById("stat-steps").textContent = total;
+        document.getElementById("stats-gallery-count").textContent = galleryData.length;
+        document.getElementById("stats-guides-count").textContent = guidesData.length;
+        document.getElementById("stats-steps-count").textContent = total;
     }
 
-    function downloadModalImage() {
-        const img = document.getElementById('modal-img');
-        if (img && img.src) downloadImage(img.src, 'wplace-art.png');
+    // HOME
+    function renderHome() {
+        document.getElementById("home-title").value = homeData.title || "";
+        document.getElementById("home-image").value = homeData.image || "";
+        document.getElementById("home-desc").value = homeData.description || "";
+        document.getElementById("home-location").value = homeData.location || "";
+        renderStepsAdmin("wplace", homeData.help_wplace || []);
+        renderStepsAdmin("blue", homeData.help_blue || []);
+        renderStepsAdmin("helper", homeData.help_helper || []);
+        previewHomeImage(); updateStats();
     }
-
-    async function loadJSON(path, fallback) {
-        try { const res = await fetch(path); if (!res.ok) throw new Error('not found'); return await res.json(); }
-        catch { return fallback; }
-    }
-
-    async function initContent() {
-        const settingsData = await loadJSON('/content/settings.json', {
-            siteTitle: "WPlace — Пиксель-Арт Сообщество", headerTitle: "⚔ WPLACE ⚔",
-            headerSubtitle: "Пиксель-арт сообщество", footer: "WPlace Pixel Art Community © 2025 | Сделано с ❤️ на пикселях"
-        });
-        document.title = settingsData.siteTitle;
-        document.querySelector(".site-title").textContent = settingsData.headerTitle;
-        document.querySelector(".site-subtitle").textContent = settingsData.headerSubtitle;
-        document.getElementById("site-footer").innerHTML = `<p>${settingsData.footer}</p>`;
-
-        const homeData = await loadJSON('/content/home.json', {
-            title: "", image: "", description: "", location: "", help_wplace: [], help_blue: [], help_helper: []
-        });
-        window._homeData = homeData;
-        document.getElementById('current-art-section').innerHTML = `
-            <div class="card"><h3>${homeData.title}</h3>
-            ${homeData.image ? `<div class="art-image-container"><img src="${homeData.image}" alt="Актуальный арт"></div>` : ''}
-            <div class="art-info">${makeLinksClickable(homeData.description)}</div>
-            ${homeData.location ? `<p style="margin-top:15px;">📍 <strong>Местоположение:</strong></p><div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-top:5px;"><a href="${homeData.location}" class="link-pixel" target="_blank">🔗 ОТКРЫТЬ НА WPLACE</a>${homeData.image ? `<button class="btn-download" onclick="downloadImage('${homeData.image}','wplace-art.png')">💾 СКАЧАТЬ</button>` : ''}</div>` : (homeData.image ? `<div style="display:flex;justify-content:flex-end;margin-top:15px;"><button class="btn-download" onclick="downloadImage('${homeData.image}','wplace-art.png')">💾 СКАЧАТЬ АРТ</button></div>` : '')}</div>`;
-        document.getElementById('help-section').innerHTML = `
-            <div class="card" style="margin-top:8px;"><h3>🖌 Как помочь с этим артом</h3>
-            <p style="color:var(--accent2);margin-bottom:10px;">⚡ <strong>WPlace (сайт):</strong></p><ol class="pixel-list">${renderStepsList(homeData.help_wplace, 'wplace')}</ol>
-            <p style="color:var(--accent2);margin:15px 0 10px;">🔷 <strong>Blue Marble:</strong></p><ol class="pixel-list">${renderStepsList(homeData.help_blue, 'blue')}</ol>
-            <p style="color:var(--accent2);margin:15px 0 10px;">🧩 <strong>WPlace Helper:</strong></p><ol class="pixel-list">${renderStepsList(homeData.help_helper, 'helper')}</ol></div>`;
-
-        const galleryData = await loadJSON('/content/gallery.json', []);
-        window._galleryData = galleryData;
-        renderGalleryGrid(galleryData);
-
-        const guidesData = await loadJSON('/content/guides.json', []);
-        window._guidesData = guidesData;
-        document.getElementById('guides-content').innerHTML = guidesData.length > 0
-            ? guidesData.map(g => {
-                let html = '';
-                if (g.install_pc && g.install_pc.length > 0) html += `<div class="section-title">💻 ПК</div><ol class="pixel-list">${renderStepsList(g.install_pc, 'guide_pc_'+g.title)}</ol>`;
-                if (g.install_phone && g.install_phone.length > 0) {
-                    const sections = {};
-                    g.install_phone.forEach(step => {
-                        const sd = typeof step === 'object' ? step : { text: step, section: "" };
-                        const name = sd.section || '📱 Телефон';
-                        if (!sections[name]) sections[name] = [];
-                        sections[name].push(sd);
-                    });
-                    ['📱 Android (Edge)', '📱 iPhone (iOS)', '📱 Телефон'].forEach(name => {
-                        if (sections[name] && sections[name].length > 0) { html += `<div class="section-title">${name}</div><ol class="pixel-list">${renderStepsList(sections[name], 'guide_phone_'+g.title)}</ol>`; delete sections[name]; }
-                    });
-                    for (const [title, steps] of Object.entries(sections)) if (steps.length > 0) html += `<div class="section-title">${title}</div><ol class="pixel-list">${renderStepsList(steps, 'guide_phone_'+g.title)}</ol>`;
-                }
-                return `<div class="card"><h3>${g.title}</h3><p>${makeLinksClickable(g.description)}</p>${html}${g.note && g.note.toString().trim() ? `<div class="note">${makeLinksClickable(g.note)}</div>` : ''}</div>`;
-            }).join('')
-            : '<p style="color:#88aacc;text-align:center;">Гайды не добавлены.</p>';
-    }
-
-    function renderStepsList(steps, type) {
-        if (!steps || steps.length === 0) return '<li style="color:var(--text-dim);">Пусто</li>';
-        return steps.map((s, i) => {
+    function renderStepsAdmin(type, steps) {
+        const el = document.getElementById(`steps-${type}`);
+        el.innerHTML = steps.length === 0 ? '<p style="color:var(--text-dim);padding:8px;">Пусто</p>' : steps.map((s, i) => {
             const stepData = typeof s === 'object' ? s : { text: s, image: "", detail: "" };
-            return `<li onclick="openStepModal('${type}', ${i})">${makeLinksClickable(stepData.text || 'Шаг '+(i+1))} <span class="step-arrow">▶</span></li>`;
-        }).join('');
+            return `<div class="step-admin-item">
+                <div class="row"><span style="font-family:Press Start 2P;font-size:10px;color:var(--accent2);min-width:22px;">${i+1}.</span><input value="${(stepData.text||'').replace(/"/g, '&quot;')}" onchange="updateStepField('${type}',${i},'text',this.value)" placeholder="Текст шага"></div>
+                <input value="${stepData.image||''}" onchange="updateStepField('${type}',${i},'image',this.value)" placeholder="Ссылка на фото">
+                <textarea onchange="updateStepField('${type}',${i},'detail',this.value)" placeholder="Подробности" rows="2">${(stepData.detail||'').replace(/</g, '&lt;')}</textarea>
+                <button class="btn btn-small btn-danger" onclick="removeStep('${type}',${i})" style="margin-top:5px;">✕ Удалить</button>
+            </div>`;
+        }).join("");
+    }
+    function addStep(type) { const key = type==="wplace"?"help_wplace":type==="blue"?"help_blue":"help_helper"; if(!homeData[key])homeData[key]=[]; homeData[key].push({text:"",image:"",detail:""}); renderStepsAdmin(type, homeData[key]); }
+    function updateStepField(type, i, field, v) { const key = type==="wplace"?"help_wplace":type==="blue"?"help_blue":"help_helper"; if(typeof homeData[key][i]!=='object')homeData[key][i]={text:homeData[key][i]||"",image:"",detail:""}; homeData[key][i][field]=v; }
+    function removeStep(type, i) { const key = type==="wplace"?"help_wplace":type==="blue"?"help_blue":"help_helper"; homeData[key].splice(i,1); renderStepsAdmin(type, homeData[key]); }
+    function previewHomeImage() {
+        const url = document.getElementById("home-image").value;
+        const p = document.getElementById("home-image-preview"), img = document.getElementById("home-preview-img");
+        if (url) { p.classList.remove("hidden"); img.src = url; img.onerror = () => { img.style.display = "none"; p.innerHTML += '<p style="color:#ff4444;">Ошибка</p>'; }; img.onload = () => { img.style.display = "block"; }; }
+        else p.classList.add("hidden");
+    }
+    async function saveHome() {
+        homeData.title = document.getElementById("home-title").value;
+        homeData.image = document.getElementById("home-image").value;
+        homeData.description = document.getElementById("home-desc").value;
+        homeData.location = document.getElementById("home-location").value;
+        // Пересобираем шаги из DOM
+        ['wplace', 'blue', 'helper'].forEach(type => {
+            const key = type==="wplace"?"help_wplace":type==="blue"?"help_blue":"help_helper";
+            const container = document.getElementById(`steps-${type}`);
+            if (container) {
+                const items = container.querySelectorAll('.step-admin-item');
+                const steps = [];
+                items.forEach(item => {
+                    const inputs = item.querySelectorAll('input');
+                    if (inputs.length > 0 && inputs[0].value.trim()) {
+                        steps.push({
+                            text: inputs[0].value,
+                            image: inputs.length > 1 ? inputs[1].value : '',
+                            detail: item.querySelector('textarea') ? item.querySelector('textarea').value : ''
+                        });
+                    }
+                });
+                if (steps.length > 0) homeData[key] = steps;
+            }
+        });
+        try { homeData._sha = await saveJSON("content/home.json", homeData, homeData._sha); document.getElementById("stats-last-save").textContent = new Date().toLocaleTimeString(); updateStats(); toast("✅ Сохранено!", "success"); } catch(e) { toast("❌ "+e.message, "error"); }
     }
 
-    function getStepData(type, index) {
-        if (type === 'wplace') return window._homeData?.help_wplace?.[index] || { text: "", image: "", detail: "" };
-        if (type === 'blue') return window._homeData?.help_blue?.[index] || { text: "", image: "", detail: "" };
-        if (type === 'helper') return window._homeData?.help_helper?.[index] || { text: "", image: "", detail: "" };
-        const parts = type.split('_');
-        if (parts[0] === 'guide') {
-            const guideType = parts[1], guideTitle = parts.slice(2).join('_');
-            const guide = window._guidesData?.find(g => g.title === guideTitle);
-            if (guide) { const steps = guideType === 'pc' ? (guide.install_pc || []) : (guide.install_phone || []); return steps[index] || { text: "", image: "", detail: "" }; }
-        }
-        return { text: "", image: "", detail: "" };
+    // GALLERY
+    function renderGallery() {
+        const el = document.getElementById("gallery-items");
+        if (galleryData.length === 0) { el.innerHTML = '<p style="color:var(--text-dim);text-align:center;padding:40px;grid-column:1/-1;">Пусто</p>'; return; }
+        el.innerHTML = galleryData.map((item, i) => `
+            <div class="gallery-admin-card">
+                ${item.image ? `<img src="${item.image}" class="preview-img">` : '<div class="no-img">[НЕТ]</div>'}
+                <input placeholder="Название" value="${item.title||''}" onchange="galleryData[${i}].title=this.value">
+                <textarea placeholder="Описание" rows="2" onchange="galleryData[${i}].description=this.value">${item.description||''}</textarea>
+                <input placeholder="Ссылка на картинку" value="${item.image||''}" onchange="galleryData[${i}].image=this.value;renderGallery();">
+                <div class="card-actions"><div><button class="btn btn-small btn-info" onclick="moveGalleryItem(${i},-1)">▲</button><button class="btn btn-small btn-info" onclick="moveGalleryItem(${i},1)">▼</button></div><button class="btn btn-small btn-danger" onclick="if(confirm('Удалить?')){galleryData.splice(${i},1);renderGallery();}">✕</button></div>
+            </div>`).join("");
+        updateStats();
+    }
+    function addGalleryItem() { galleryData.push({ title: "", description: "", image: "" }); renderGallery(); }
+    function moveGalleryItem(i, d) { const n = i+d; if(n<0||n>=galleryData.length)return; [galleryData[i], galleryData[n]] = [galleryData[n], galleryData[i]]; renderGallery(); }
+    function sortGallery() { galleryData.sort((a,b) => (a.title||"").localeCompare(b.title||"")); renderGallery(); }
+    async function saveGallery() { try { galleryData._sha = await saveJSON("content/gallery.json", galleryData, galleryData._sha); document.getElementById("stats-last-save").textContent = new Date().toLocaleTimeString(); updateStats(); toast("✅ Сохранено!", "success"); } catch(e) { toast("❌ "+e.message, "error"); } }
+
+    // GUIDES
+    function renderGuides() {
+        const el = document.getElementById("guides-items");
+        if (guidesData.length === 0) { el.innerHTML = '<p style="color:var(--text-dim);text-align:center;padding:40px;">Пусто</p>'; return; }
+        el.innerHTML = guidesData.map((g, i) => `
+            <div class="guide-item-admin">
+                <div style="display:flex;justify-content:space-between;"><strong style="color:var(--accent2);">Гайд #${i+1}</strong><button class="btn btn-small btn-danger" onclick="if(confirm('Удалить?')){guidesData.splice(${i},1);renderGuides();}">✕</button></div>
+                <input class="form-input" placeholder="Название" value="${g.title||''}" onchange="guidesData[${i}].title=this.value" style="margin:6px 0;">
+                <textarea class="form-input" placeholder="Описание" rows="2" onchange="guidesData[${i}].description=this.value">${g.description||''}</textarea>
+                <div class="section-header">💻 ПК <button class="btn btn-small btn-primary" onclick="addGuideStep(${i},'pc')">+</button></div>
+                <div id="guide-pc-${i}">${renderGuideStepsHTML(g.install_pc||[], i, 'pc')}</div>
+                <div class="section-header">📱 Телефон <button class="btn btn-small btn-primary" onclick="addGuideStep(${i},'phone')">+</button></div>
+                <div id="guide-phone-${i}">${renderGuideStepsHTML(g.install_phone||[], i, 'phone')}</div>
+                <input class="form-input" placeholder="Примечание" value="${g.note||''}" onchange="guidesData[${i}].note=this.value" style="margin-top:6px;">
+            </div>`).join("");
+        updateStats();
+    }
+    function renderGuideStepsHTML(steps, gi, type) {
+        if (!steps || steps.length === 0) return '<p style="color:var(--text-dim);font-size:14px;padding:8px;">Пусто</p>';
+        return steps.map((s, si) => {
+            const sd = typeof s === 'object' ? s : { text: s, image: "", detail: "", section: "" };
+            return `<div class="step-admin-item">
+                <div class="row">
+                    <input value="${(sd.text||'').replace(/"/g, '&quot;')}" onchange="updateGuideField(${gi},'${type}',${si},'text',this.value)" placeholder="Текст" style="flex:2;">
+                    <select onchange="updateGuideField(${gi},'${type}',${si},'section',this.value)" style="flex:1;padding:7px 8px;background:#050a05;border:2px solid var(--border-dim);color:var(--glow);font-family:'VT323',monospace;font-size:17px;">
+                        <option value="">Без раздела</option>
+                        <option value="💻 ПК" ${sd.section=='💻 ПК'?'selected':''}>💻 ПК</option>
+                        <option value="📱 Android (Edge)" ${sd.section=='📱 Android (Edge)'?'selected':''}>📱 Android (Edge)</option>
+                        <option value="📱 iPhone (iOS)" ${sd.section=='📱 iPhone (iOS)'?'selected':''}>📱 iPhone (iOS)</option>
+                    </select>
+                </div>
+                <input value="${sd.image||''}" onchange="updateGuideField(${gi},'${type}',${si},'image',this.value)" placeholder="Фото (ссылка)">
+                <textarea onchange="updateGuideField(${gi},'${type}',${si},'detail',this.value)" placeholder="Подробности" rows="2">${(sd.detail||'').replace(/</g, '&lt;')}</textarea>
+                <button class="btn btn-small btn-danger" onclick="guidesData[${gi}].install_${type}.splice(${si},1);renderGuides();">✕</button>
+            </div>`;
+        }).join("");
+    }
+    function updateGuideField(gi, type, si, field, v) {
+        const key = `install_${type}`;
+        if (!guidesData[gi][key]) guidesData[gi][key] = [];
+        if (typeof guidesData[gi][key][si] !== 'object') guidesData[gi][key][si] = { text: guidesData[gi][key][si] || "", image: "", detail: "", section: "" };
+        guidesData[gi][key][si][field] = v;
+    }
+    function addGuideItem() { guidesData.push({ title: "", description: "", install_pc: [], install_phone: [], note: "" }); renderGuides(); }
+    function addGuideStep(gi, type) { const key = `install_${type}`; if(!guidesData[gi][key])guidesData[gi][key]=[]; guidesData[gi][key].push({text:"",image:"",detail:"",section:""}); renderGuides(); }
+    async function saveGuides() { try { guidesData._sha = await saveJSON("content/guides.json", guidesData, guidesData._sha); document.getElementById("stats-last-save").textContent = new Date().toLocaleTimeString(); updateStats(); toast("✅ Сохранено!", "success"); } catch(e) { toast("❌ "+e.message, "error"); } }
+
+    // SETTINGS
+    function renderSettings() {
+        document.getElementById("settings-siteTitle").value = settingsData.siteTitle || "";
+        document.getElementById("settings-headerTitle").value = settingsData.headerTitle || "";
+        document.getElementById("settings-headerSubtitle").value = settingsData.headerSubtitle || "";
+        document.getElementById("settings-footer").value = settingsData.footer || "";
+    }
+    async function saveSettings() {
+        settingsData.siteTitle = document.getElementById("settings-siteTitle").value;
+        settingsData.headerTitle = document.getElementById("settings-headerTitle").value;
+        settingsData.headerSubtitle = document.getElementById("settings-headerSubtitle").value;
+        settingsData.footer = document.getElementById("settings-footer").value;
+        try { settingsData._sha = settingsData._sha ? await saveJSON("content/settings.json", settingsData, settingsData._sha) : await saveJSON("content/settings.json", settingsData, null); document.getElementById("stats-last-save").textContent = new Date().toLocaleTimeString(); toast("✅ Настройки сохранены!", "success"); } catch(e) { toast("❌ "+e.message, "error"); }
     }
 
-    function openStepModal(type, index) {
-        currentStepType = type; currentStepIndex = index; modalMode = 'step';
-        showStepInModal();
-        document.getElementById("modal-overlay").classList.add("active");
-        document.getElementById("modal-nav-row").style.display = 'none';
-        document.getElementById("modal-download").style.display = 'none';
+    async function resetAll() {
+        homeData = { title: "", image: "", description: "", location: "", help_wplace: [], help_blue: [], help_helper: [] };
+        galleryData = []; guidesData = [];
+        settingsData = { siteTitle: "WPlace", headerTitle: "⚔ WPLACE ⚔", headerSubtitle: "Пиксель-арт сообщество", footer: "© 2025" };
+        try {
+            homeData._sha = await saveJSON("content/home.json", homeData, homeData._sha);
+            galleryData._sha = await saveJSON("content/gallery.json", galleryData, galleryData._sha);
+            guidesData._sha = await saveJSON("content/guides.json", guidesData, guidesData._sha);
+            settingsData._sha = settingsData._sha ? await saveJSON("content/settings.json", settingsData, settingsData._sha) : await saveJSON("content/settings.json", settingsData, null);
+            renderHome(); renderGallery(); renderGuides(); renderSettings(); toast("✅ Сброшено", "success");
+        } catch(e) { toast("❌ "+e.message, "error"); }
+    }
+    function exportAll() {
+        const data = { home: homeData, gallery: galleryData, guides: guidesData, settings: settingsData, date: new Date().toISOString() };
+        delete data.home._sha; delete data.gallery._sha; delete data.guides._sha; delete data.settings._sha;
+        const b = new Blob([JSON.stringify(data,null,2)],{type:"application/json"}); const a = document.createElement("a"); a.href = URL.createObjectURL(b); a.download = `wplace-backup.json`; a.click();
+    }
+    function importAll() { document.getElementById("import-file").click(); }
+    function handleImport(e) {
+        const f = e.target.files[0]; if(!f)return; const r = new FileReader();
+        r.onload = function(ev) { try { const d = JSON.parse(ev.target.result); if(d.home){homeData=d.home;renderHome();} if(d.gallery){galleryData=d.gallery;renderGallery();} if(d.guides){guidesData=d.guides;renderGuides();} if(d.settings){settingsData=d.settings;renderSettings();} updateStats(); } catch(er) { toast("❌ Ошибка", "error"); } };
+        r.readAsText(f); e.target.value = "";
     }
 
-    function showStepInModal() {
-        const data = getStepData(currentStepType, currentStepIndex);
-        const stepData = typeof data === 'object' ? data : { text: data || "", image: "", detail: "" };
-        document.getElementById("modal-img").src = stepData.image || "";
-        document.getElementById("modal-img").style.display = stepData.image ? 'block' : 'none';
-        document.getElementById("modal-title").textContent = `Шаг ${currentStepIndex + 1}`;
-        document.getElementById("modal-desc").innerHTML = '<p style="margin-bottom:12px;font-size:20px;text-align:center;">' + makeLinksClickable(stepData.text || "Нет описания") + '</p>' + (stepData.detail && stepData.detail.toString().trim() ? '<div class="note"><strong>📋 Подробности:</strong><br>' + makeLinksClickable(stepData.detail) + '</div>' : '');
-        document.getElementById("modal-counter").textContent = "";
+    function switchTab(tabId) {
+        document.querySelectorAll(".tab-content").forEach(t => t.classList.remove("active"));
+        document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
+        document.getElementById(tabId).classList.add("active");
+        event.target.classList.add("active");
     }
-
-    function renderGalleryGrid(data) {
-        document.getElementById('gallery-grid').innerHTML = data.length > 0 ? data.map((item, i) => `<div class="gallery-item" onclick="openGalleryItem(${i})">${item.image ? `<img src="${item.image}" alt="${item.title}">` : '<div style="width:100%;aspect-ratio:1;background:repeating-linear-gradient(45deg,#1a1a30 0px,#1a1a30 8px,#111128 8px,#111128 16px);border:2px solid #3a3a5a;display:flex;align-items:center;justify-content:center;color:#4a4a6a;font-size:14px;">[АРТ]</div>'}<div class="label">${item.title}</div></div>`).join('') : '<p style="color:#88aacc;text-align:center;">Галерея пуста.</p>';
-    }
-
-    function openGalleryItem(index) {
-        currentGalleryIndex = index; modalMode = 'gallery';
-        showGalleryModal();
-        document.getElementById("modal-overlay").classList.add("active");
-        document.getElementById("modal-nav-row").style.display = 'flex';
-        document.getElementById("modal-download").style.display = 'inline-block';
-    }
-
-    function navModal(dir) {
-        if (modalMode === 'gallery') { currentGalleryIndex += dir; if (currentGalleryIndex < 0) currentGalleryIndex = window._galleryData.length - 1; if (currentGalleryIndex >= window._galleryData.length) currentGalleryIndex = 0; showGalleryModal(); }
-    }
-
-    function showGalleryModal() {
-        const data = window._galleryData[currentGalleryIndex]; if (!data) return;
-        document.getElementById("modal-img").style.display = 'block';
-        document.getElementById("modal-img").src = data.image || "";
-        document.getElementById("modal-title").textContent = data.title || "Без названия";
-        document.getElementById("modal-desc").innerHTML = makeLinksClickable(data.description || "");
-        document.getElementById("modal-counter").textContent = `Арт ${currentGalleryIndex + 1} из ${window._galleryData.length}`;
-        document.getElementById("modal-nav-counter").textContent = `${currentGalleryIndex + 1}/${window._galleryData.length}`;
-    }
-
-    function closeModal(event) { if (event && event.target !== document.getElementById("modal-overlay")) return; document.getElementById("modal-overlay").classList.remove("active"); }
-
-    function openTab(tabId) {
-        document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
-        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-        document.getElementById(tabId).classList.add('active');
-        event.target.classList.add('active');
-    }
-
-    document.addEventListener('keydown', function(e) {
-        if (!document.getElementById("modal-overlay").classList.contains("active")) return;
-        if (e.key === "Escape") closeModal();
-        if (modalMode === 'gallery') { if (e.key === "ArrowLeft") navModal(-1); if (e.key === "ArrowRight") navModal(1); }
-    });
-
-    initContent();
+    function toast(msg, type) { const t = document.getElementById("toast"); t.textContent = msg; t.className = `toast toast-${type}`; clearTimeout(t._t); t._t = setTimeout(() => t.classList.add("hidden"), 3500); }
+    document.addEventListener("keydown", function(e) { if((e.ctrlKey||e.metaKey)&&e.key==="s"){ e.preventDefault(); const at = document.querySelector(".tab-content.active"); if(at.id==="home-tab")saveHome(); else if(at.id==="gallery-tab")saveGallery(); else if(at.id==="guides-tab")saveGuides(); else if(at.id==="settings-tab")saveSettings(); } });
+    document.getElementById("token-input").addEventListener("keydown", e => { if(e.key==="Enter")login(); });
 </script>
+
 </body>
 </html>
