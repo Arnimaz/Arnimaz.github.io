@@ -1,160 +1,151 @@
 [
   {
     "title": "🔷 Blue Marble — Руководство по установке",
-    "description": "Blue Marble — продвинутый инструмент для точного размещения пикселей и загрузки шаблонов артов на WPlace. Выберите ваше устройство ниже.",
+    "description": "Blue Marble — продвинутый инструмент для точного размещения пикселей и загрузки шаблонов артов на WPlace. Выберите ваше устройство и следуйте инструкции.",
     "install_pc": [
       {
-        "text": "Шаг 1",
+        "text": "💻 ПК: Шаг 1",
         "image": "",
         "detail": ""
       },
       {
-        "text": "Шаг 2",
+        "text": "💻 ПК: Шаг 2",
         "image": "",
         "detail": ""
       },
       {
-        "text": "Шаг 3",
+        "text": "💻 ПК: Шаг 3",
         "image": "",
         "detail": ""
       },
       {
-        "text": "Шаг 4",
+        "text": "💻 ПК: Шаг 4",
         "image": "",
         "detail": ""
       },
       {
-        "text": "Шаг 5",
+        "text": "💻 ПК: Шаг 5",
+        "image": "",
+        "detail": ""
+      },
+      {
+        "text": "💻 ПК: Шаг 6",
+        "image": "",
+        "detail": ""
+      },
+      {
+        "text": "💻 ПК: Шаг 7",
+        "image": "",
+        "detail": ""
+      },
+      {
+        "text": "💻 ПК: Шаг 8",
         "image": "",
         "detail": ""
       }
     ],
     "install_phone": [
       {
-        "text": "📱 Android (Chrome) — Шаг 1",
+        "text": "📱 Android (Chrome): Шаг 1",
         "image": "",
         "detail": ""
       },
       {
-        "text": "📱 Android (Chrome) — Шаг 2",
+        "text": "📱 Android (Chrome): Шаг 2",
         "image": "",
         "detail": ""
       },
       {
-        "text": "📱 Android (Chrome) — Шаг 3",
+        "text": "📱 Android (Chrome): Шаг 3",
         "image": "",
         "detail": ""
       },
       {
-        "text": "📱 Android (Chrome) — Шаг 4",
+        "text": "📱 Android (Chrome): Шаг 4",
         "image": "",
         "detail": ""
       },
       {
-        "text": "📱 Android (Chrome) — Шаг 5",
+        "text": "📱 Android (Chrome): Шаг 5",
+        "image": "",
+        "detail": ""
+      },
+      {
+        "text": "📱 Android (Edge): Шаг 1",
+        "image": "",
+        "detail": ""
+      },
+      {
+        "text": "📱 Android (Edge): Шаг 2",
+        "image": "",
+        "detail": ""
+      },
+      {
+        "text": "📱 Android (Edge): Шаг 3",
+        "image": "",
+        "detail": ""
+      },
+      {
+        "text": "📱 Android (Edge): Шаг 4",
+        "image": "",
+        "detail": ""
+      },
+      {
+        "text": "📱 Android (Edge): Шаг 5",
+        "image": "",
+        "detail": ""
+      },
+      {
+        "text": "📱 Android (Firefox): Шаг 1",
+        "image": "",
+        "detail": ""
+      },
+      {
+        "text": "📱 Android (Firefox): Шаг 2",
+        "image": "",
+        "detail": ""
+      },
+      {
+        "text": "📱 Android (Firefox): Шаг 3",
+        "image": "",
+        "detail": ""
+      },
+      {
+        "text": "📱 Android (Firefox): Шаг 4",
+        "image": "",
+        "detail": ""
+      },
+      {
+        "text": "📱 Android (Firefox): Шаг 5",
+        "image": "",
+        "detail": ""
+      },
+      {
+        "text": "📱 iPhone (iOS): Шаг 1",
+        "image": "",
+        "detail": ""
+      },
+      {
+        "text": "📱 iPhone (iOS): Шаг 2",
+        "image": "",
+        "detail": ""
+      },
+      {
+        "text": "📱 iPhone (iOS): Шаг 3",
+        "image": "",
+        "detail": ""
+      },
+      {
+        "text": "📱 iPhone (iOS): Шаг 4",
+        "image": "",
+        "detail": ""
+      },
+      {
+        "text": "📱 iPhone (iOS): Шаг 5",
         "image": "",
         "detail": ""
       }
     ],
-    "note": ""
-  },
-  {
-    "title": "🔷 Blue Marble — Android (Edge)",
-    "description": "Установка Blue Marble на Android через браузер Microsoft Edge.",
-    "install_pc": [],
-    "install_phone": [
-      {
-        "text": "📱 Android (Edge) — Шаг 1",
-        "image": "",
-        "detail": ""
-      },
-      {
-        "text": "📱 Android (Edge) — Шаг 2",
-        "image": "",
-        "detail": ""
-      },
-      {
-        "text": "📱 Android (Edge) — Шаг 3",
-        "image": "",
-        "detail": ""
-      },
-      {
-        "text": "📱 Android (Edge) — Шаг 4",
-        "image": "",
-        "detail": ""
-      },
-      {
-        "text": "📱 Android (Edge) — Шаг 5",
-        "image": "",
-        "detail": ""
-      }
-    ],
-    "note": ""
-  },
-  {
-    "title": "🔷 Blue Marble — Android (Firefox)",
-    "description": "Установка Blue Marble на Android через браузер Mozilla Firefox.",
-    "install_pc": [],
-    "install_phone": [
-      {
-        "text": "📱 Android (Firefox) — Шаг 1",
-        "image": "",
-        "detail": ""
-      },
-      {
-        "text": "📱 Android (Firefox) — Шаг 2",
-        "image": "",
-        "detail": ""
-      },
-      {
-        "text": "📱 Android (Firefox) — Шаг 3",
-        "image": "",
-        "detail": ""
-      },
-      {
-        "text": "📱 Android (Firefox) — Шаг 4",
-        "image": "",
-        "detail": ""
-      },
-      {
-        "text": "📱 Android (Firefox) — Шаг 5",
-        "image": "",
-        "detail": ""
-      }
-    ],
-    "note": ""
-  },
-  {
-    "title": "🔷 Blue Marble — iPhone (iOS)",
-    "description": "Установка Blue Marble на iPhone. iOS не поддерживает расширения, но есть альтернативный способ.",
-    "install_pc": [],
-    "install_phone": [
-      {
-        "text": "📱 iPhone (iOS) — Шаг 1",
-        "image": "",
-        "detail": ""
-      },
-      {
-        "text": "📱 iPhone (iOS) — Шаг 2",
-        "image": "",
-        "detail": ""
-      },
-      {
-        "text": "📱 iPhone (iOS) — Шаг 3",
-        "image": "",
-        "detail": ""
-      },
-      {
-        "text": "📱 iPhone (iOS) — Шаг 4",
-        "image": "",
-        "detail": ""
-      },
-      {
-        "text": "📱 iPhone (iOS) — Шаг 5",
-        "image": "",
-        "detail": ""
-      }
-    ],
-    "note": "⚠ iOS не поддерживает браузерные расширения. Рекомендуется использовать встроенный инструмент Overlays на сайте WPlace."
+    "note": "⚠ iOS (iPhone) не поддерживает браузерные расширения. Рекомендуется использовать встроенный инструмент Overlays на сайте WPlace."
   }
 ]
