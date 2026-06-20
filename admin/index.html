@@ -149,7 +149,7 @@
     <div class="login-card">
         <div class="login-title">Masters_of_Cum</div>
         <div class="login-subtitle">ADMIN PANEL</div>
-        <div class="form-group"><label class="form-label">🔑 GitHub Token</label><input type="password" id="token-input" class="form-input" placeholder="ghp_..." autofocus></div>
+        <div class="form-group"><label class="form-label">🔑 Token</label><input type="password" id="token-input" class="form-input" placeholder="ghp_..." autofocus></div>
         <button class="btn btn-primary btn-full" onclick="login()">▶ ВОЙТИ</button>
     </div>
 </div>
@@ -266,18 +266,22 @@
     }
 
     async function login() {
-        token = document.getElementById("token-input").value.trim();
+        const input = document.getElementById("token-input");
+        if (!input) return;
+        token = input.value.trim();
         if (!token) return toast("Введите токен", "error");
-        const res = await fetch(`https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}`, { headers: { Authorization: `token ${token}` } });
-        if (res.ok) { sessionStorage.setItem("wplace_admin_token", token); showAdmin(); await loadAll(); toast("✅ Доступ разрешён", "success"); }
-        else toast("❌ Неверный токен", "error");
+        try {
+            const res = await fetch(`https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}`, { headers: { Authorization: `token ${token}` } });
+            if (res.ok) { sessionStorage.setItem("wplace_admin_token", token); showAdmin(); await loadAll(); toast("✅ Доступ разрешён", "success"); }
+            else toast("❌ Неверный токен", "error");
+        } catch(e) { toast("❌ Ошибка соединения", "error"); }
     }
     function logout() { sessionStorage.removeItem("wplace_admin_token"); location.reload(); }
     function showAdmin() {
-        document.getElementById("login-page").classList.add("hidden");
+        const lp = document.getElementById("login-page");
         const ap = document.getElementById("admin-page");
-        ap.classList.remove("hidden");
-        ap.style.display = "block";
+        if (lp) lp.classList.add("hidden");
+        if (ap) { ap.classList.remove("hidden"); ap.style.display = "block"; }
     }
 
     async function loadJSON(path) {
@@ -313,6 +317,7 @@
     }
     function renderStepsAdmin(type, steps) {
         const el = document.getElementById(`steps-${type}`);
+        if (!el) return;
         el.innerHTML = steps.length === 0 ? '<p style="color:var(--text-dim);padding:8px;">Пусто</p>' : steps.map((s, i) => {
             const sd = typeof s === 'object' ? s : { text: s, image: "", detail: "" };
             return `<div class="step-admin-item">
@@ -357,6 +362,7 @@
 
     function renderGallery() {
         const el = document.getElementById("gallery-items");
+        if (!el) return;
         if (galleryData.length === 0) { el.innerHTML = '<p style="color:var(--text-dim);text-align:center;padding:40px;">Пусто</p>'; return; }
         el.innerHTML = galleryData.map((item, i) => `
             <div class="gallery-admin-card">
@@ -374,6 +380,7 @@
 
     function renderGuides() {
         const el = document.getElementById("guides-items");
+        if (!el) return;
         if (guidesData.length === 0) { el.innerHTML = '<p style="color:var(--text-dim);text-align:center;padding:40px;">Пусто</p>'; return; }
         el.innerHTML = guidesData.map((g, i) => `
             <div class="guide-item-admin">
