@@ -4,7 +4,7 @@
     "description": "Blue Marble — продвинутый инструмент для точного размещения пикселей и загрузки шаблонов артов на WPlace.",
     "install_pc": [
       {
-        "text": "Установите TamperMonkey для Chrome",
+        "text": "Установите TamperMonkey для Chromeee",
         "image": "https://arnimaz.github.io/images/guides/1.png",
         "detail": "Ссылка: https://chromewebstore.google.com/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo",
         "section": "💻 ПК"
