@@ -8,7 +8,8 @@
     "Нажмите на кнопку \"Новый Overlay\"",
     {
       "text": "Вставьте фото на пикселе по прикреплённой ссылке",
-      "image": "https://arnimaz.github.io/images/Frieren.png"
+      "image": "https://arnimaz.github.io/images/Frieren.png",
+      "detail": "Хуй пизда член"
     }
   ],
   "help_blue": [
@@ -20,6 +21,6 @@
     "Нажмите на кнопку \"Галерея\"",
     "Найдите арт и нажимаете на кнопку \"Загрузить\""
   ],
-  "_sha": "693547f379cb24ab7e5883e43e7bbcefc25f7a43",
+  "_sha": "ec455ba4b0543d529f23684efd48fb4e02cd69e7",
   "coords": ""
 }
