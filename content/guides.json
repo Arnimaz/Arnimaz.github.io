@@ -1,7 +1,7 @@
 [
   {
     "title": "🔷 Blue Marble — Руководство по установке",
-    "description": "Blue Marble — продвинутый инструмент для точного размещения пикселей и загрузки шаблонов артов на WPlace. Выберите ваше устройство и следуйте инструкции.",
+    "description": "Blue Marble — продвинутый инструмент для точного размещения пикселей и загрузки шаблонов артов на WPlace.",
     "install_pc": [
       {
         "text": "Установите TamperMonkey для Chrome",
@@ -44,13 +44,13 @@
       {
         "text": "Установите TamperMonkey из магазина расширений Edge",
         "image": "",
-        "detail": "Edge на Android поддерживает расширения. Откройте меню (≡) → Расширения.",
+        "detail": "Edge на Android поддерживает расширения.",
         "section": "📱 Android (Edge)"
       },
       {
         "text": "Скачайте файл BlueMarble.user.js с GitHub Releases",
         "image": "",
-        "detail": "https://github.com/SwingTheVine/Wplace-BlueMarble/releases/download/pre/BlueMarble.user.js",
+        "detail": "",
         "section": "📱 Android (Edge)"
       },
       {
@@ -80,7 +80,7 @@
       {
         "text": "Используйте встроенный инструмент Overlays на сайте WPlace",
         "image": "",
-        "detail": "iOS не поддерживает расширения. Откройте wplace.live, вкладка Overlays → Новый Overlay.",
+        "detail": "iOS не поддерживает расширения.",
         "section": "📱 iPhone (iOS)"
       },
       {
@@ -90,12 +90,12 @@
         "section": "📱 iPhone (iOS)"
       },
       {
-        "text": "Нажмите 'Создать' и следуйте инструкциям на экране",
+        "text": "Нажмите 'Создать' и следуйте инструкциям",
         "image": "",
         "detail": "",
         "section": "📱 iPhone (iOS)"
       }
     ],
-    "note": "⚠ iOS (iPhone) не поддерживает браузерные расширения. Используйте встроенный инструмент Overlays на сайте WPlace."
+    "note": "⚠ iOS не поддерживает расширения. Используйте Overlays на WPlace."
   }
 ]
