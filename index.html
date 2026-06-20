@@ -1,11 +1,12 @@
-<!DOCTYPE html><html lang="ru" style=""><head>
-<meta charset="utf-8">
-<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<html lang="ru" style=""><head></head><body class="antialiased">```html
+
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>Masters_of_Cum — official site</title>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&amp;display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=VT323&amp;family=Source+Code+Pro:wght@400;700&amp;display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=VT323&amp;family=Source+Code+Pro:wght@400;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
 <style>
         :root {
             --surface: #050508;
@@ -128,6 +129,12 @@
             background: rgba(0, 0, 0, 0.85);
         }
 
+        .modal-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+            display: flex;
+        }
+
         /* Scrollbar */
         ::-webkit-scrollbar { width: 6px; }
         ::-webkit-scrollbar-track { background: var(--surface); }
@@ -223,8 +230,6 @@
             color: #000;
         }
     </style>
-</head>
-<body class="antialiased">
 <!-- Main Site Interface -->
 <div class="max-w-6xl mx-auto px-4 py-8" id="main-site-container">
 <!-- Header -->
@@ -247,55 +252,50 @@
 <main>
 <div class="tab-content space-y-12" id="home">
 <div id="current-art-section">
-            <div class="cyber-panel p-8 md:p-12 neon-border-glow rounded-sm">
-                <div class="flex items-center gap-4 mb-8">
-                    <span class="material-symbols-outlined text-[var(--accent)] neon-text text-3xl">radar</span>
-                    <h3 class="text-2xl font-black text-white uppercase tracking-tight">АКТУАЛЬНЫЙ АРТ</h3>
-                </div>
-                <div class="flex flex-col lg:flex-row gap-10">
-                    
-                    <div class="flex-grow flex flex-col justify-center">
-                        <div class="text-xl text-[var(--text-dim)] mb-10 leading-relaxed font-medium">Соединение с сервером...</div>
-                        <div class="flex flex-wrap gap-4 pt-8 border-t border-[var(--border)]">
-                            
-                            
-                        </div>
-                    </div>
-                </div>
-            </div></div>
+<div class="cyber-panel p-8 md:p-12 neon-border-glow rounded-sm">
+<div class="flex items-center gap-4 mb-8">
+<span class="material-symbols-outlined text-[var(--accent)] neon-text text-3xl">radar</span>
+<h3 class="text-2xl font-black text-white uppercase tracking-tight">АКТУАЛЬНЫЙ АРТ</h3>
+</div>
+<div class="flex flex-col lg:flex-row gap-10">
+<div class="flex-grow flex flex-col justify-center">
+<div class="text-xl text-[var(--text-dim)] mb-10 leading-relaxed font-medium">Соединение с сервером...</div>
+<div class="flex flex-wrap gap-4 pt-8 border-t border-[var(--border)]">
+</div>
+</div>
+</div>
+</div></div>
 <div id="help-section">
-            <div class="cyber-panel p-8 md:p-12 neon-border-glow rounded-sm">
-                <div class="flex items-center gap-4 mb-10">
-                    <span class="material-symbols-outlined text-[var(--accent)] neon-text text-3xl">precision_manufacturing</span>
-                    <h3 class="text-2xl font-black text-white uppercase tracking-tight">КАК ПОМОЧЬ</h3>
-                </div>
-                <div class="grid grid-cols-1 lg:grid-cols-3 gap-10">
-                    <div class="space-y-4">
-                        <p class="text-[var(--accent)] font-black text-xs tracking-widest mb-6 flex items-center gap-3 uppercase neon-text"><span class="material-symbols-outlined text-sm">bolt</span> [01] WPlace</p>
-                        <ol class="pixel-list space-y-3 list-none"><li class="p-4 opacity-50 italic font-mono text-xs uppercase">Нет данных</li></ol>
-                    </div>
-                    <div class="space-y-4">
-                        <p class="text-[var(--accent)] font-black text-xs tracking-widest mb-6 flex items-center gap-3 uppercase neon-text"><span class="material-symbols-outlined text-sm">public</span> [02] Blue Marble</p>
-                        <ol class="pixel-list space-y-3 list-none"><li class="p-4 opacity-50 italic font-mono text-xs uppercase">Нет данных</li></ol>
-                    </div>
-                    <div class="space-y-4">
-                        <p class="text-[var(--accent)] font-black text-xs tracking-widest mb-6 flex items-center gap-3 uppercase neon-text"><span class="material-symbols-outlined text-sm">extension</span> [03] WPlace Helper</p>
-                        <ol class="pixel-list space-y-3 list-none"><li class="p-4 opacity-50 italic font-mono text-xs uppercase">Нет данных</li></ol>
-                    </div>
-                </div>
-            </div></div>
+<div class="cyber-panel p-8 md:p-12 neon-border-glow rounded-sm">
+<div class="flex items-center gap-4 mb-10">
+<span class="material-symbols-outlined text-[var(--accent)] neon-text text-3xl">precision_manufacturing</span>
+<h3 class="text-2xl font-black text-white uppercase tracking-tight">КАК ПОМОЧЬ</h3>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-10">
+<div class="space-y-4">
+<p class="text-[var(--accent)] font-black text-xs tracking-widest mb-6 flex items-center gap-3 uppercase neon-text"><span class="material-symbols-outlined text-sm">bolt</span> [01] WPlace</p>
+<ol class="pixel-list space-y-3 list-none"><li class="p-4 opacity-50 italic font-mono text-xs uppercase">Нет данных</li></ol>
+</div>
+<div class="space-y-4">
+<p class="text-[var(--accent)] font-black text-xs tracking-widest mb-6 flex items-center gap-3 uppercase neon-text"><span class="material-symbols-outlined text-sm">public</span> [02] Blue Marble</p>
+<ol class="pixel-list space-y-3 list-none"><li class="p-4 opacity-50 italic font-mono text-xs uppercase">Нет данных</li></ol>
+</div>
+<div class="space-y-4">
+<p class="text-[var(--accent)] font-black text-xs tracking-widest mb-6 flex items-center gap-3 uppercase neon-text"><span class="material-symbols-outlined text-sm">extension</span> [03] WPlace Helper</p>
+<ol class="pixel-list space-y-3 list-none"><li class="p-4 opacity-50 italic font-mono text-xs uppercase">Нет данных</li></ol>
+</div>
+</div>
+</div></div>
 </div>
 <div class="tab-content active" id="gallery">
-
 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6" id="gallery-grid"><p class="col-span-full text-center py-20 text-[var(--text-dim)] font-mono uppercase tracking-widest opacity-50">Архив не содержит данных.</p></div>
 </div>
 <div class="tab-content" id="guides">
-
 <div class="space-y-8" id="guides-content"><p class="text-center py-16 text-[var(--text-dim)] font-mono uppercase tracking-widest">База данных пуста.</p></div>
 </div>
 </main>
 <!-- Footer -->
-<footer class="mt-32 pt-12 border-t border-[var(--border)] text-center text-[var(--text-dim)] font-mono text-[10px] tracking-widest pb-12 uppercase" id="site-footer"><p class="">Telegram контакт - <a href="https://t.me/Arnimaz" target="_blank" class="text-[var(--accent)] hover:underline decoration-dashed">@Arnimaz</a></p></footer>
+<footer class="mt-32 pt-12 border-t border-[var(--border)] text-center text-[var(--text-dim)] font-mono text-[10px] tracking-widest pb-12 uppercase" id="site-footer"><p class="">Telegram контакт - <a class="text-[var(--accent)] hover:underline decoration-dashed" href="https://t.me/Arnimaz" target="_blank">@Arnimaz</a></p></footer>
 </div>
 <!-- Terminal Admin Interface -->
 <div id="admin-panel-container">
@@ -306,7 +306,7 @@
 <div class="md:col-span-1 space-y-6">
 <div class="terminal-box">
 <div class="mb-4 font-bold border-b border-[#00ff41] pb-2">АВТОРИЗАЦИЯ_</div>
-<input class="terminal-input mb-4" placeholder="Введите_токен_GITHUB..." type="password">
+<input class="terminal-input mb-4" placeholder="Введите_токен_GITHUB..." type="password"/>
 <button class="terminal-btn w-full">ПОДКЛЮЧИТЬСЯ</button>
 </div>
 </div>
@@ -314,7 +314,7 @@
 <div class="terminal-box h-full min-h-[400px]">
 <div class="mb-4 font-bold border-b border-[#00ff41] pb-2">КОНСОЛЬ_УПРАВЛЕНИЯ_</div>
 <div class="py-12 text-center opacity-40">
-<span class="material-symbols-outlined text-6xl mb-4">lock</span><br>
+<span class="material-symbols-outlined text-6xl mb-4">lock</span><br/>
                     ТРЕБУЕТСЯ АВТОРИЗАЦИЯ ДЛЯ ДОСТУПА К ФАЙЛОВОЙ СИСТЕМЕ
                 </div>
 </div>
@@ -322,17 +322,17 @@
 </div>
 </div>
 <!-- Modal -->
-<div class="modal-overlay fixed inset-0 z-[100] modal-blur flex items-center justify-center p-4 transition-opacity opacity-0 pointer-events-none" id="modal-overlay" onclick="closeModal(event)">
+<div class="modal-overlay fixed inset-0 z-[100] modal-blur items-center justify-center p-4 transition-opacity opacity-0 pointer-events-none hidden" id="modal-overlay" onclick="closeModal(event)">
 <div class="modal cyber-panel w-full max-w-4xl max-h-[90vh] overflow-y-auto p-8 md:p-12 scale-95 transition-transform rounded-sm shadow-2xl" id="modal-box">
 <div class="flex justify-between items-center mb-8 border-b border-[var(--border)] pb-4">
-
+<div class="text-[var(--accent)] font-mono text-xs font-bold tracking-[0.2em]" id="modal-counter">АРХИВНЫЙ_ОБЪЕКТ</div>
 <button class="text-[var(--text-dim)] hover:text-[var(--accent)] transition-colors" onclick="closeModal()">
 <span class="material-symbols-outlined text-3xl">close</span>
 </button>
 </div>
 <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
 <div class="image-container border-2 border-[var(--border)] p-2">
-<img alt="" class="w-full object-contain max-h-[60vh]" id="modal-img" src="">
+<img alt="" class="w-full object-contain max-h-[60vh]" id="modal-img" src=""/>
 </div>
 <div class="flex flex-col h-full">
 <h3 class="text-3xl font-black text-white mb-6 uppercase tracking-tight neon-text" id="modal-title">ШАГ 00</h3>
@@ -389,7 +389,6 @@
     }
 
     async function initContent() {
-        // Hardcoded values as defaults in fallback
         const settingsData = await loadJSON('/content/settings.json', {
             siteTitle: "Masters_of_Cum — official site", 
             headerTitle: "Masters_of_Cum",
@@ -515,7 +514,8 @@
         currentStepType = type; currentStepIndex = index; modalMode = 'step';
         showStepInModal();
         const overlay = document.getElementById("modal-overlay");
-        overlay.classList.remove("pointer-events-none", "opacity-0");
+        overlay.classList.remove("hidden");
+        overlay.classList.add("active");
         document.getElementById("modal-box").classList.remove("scale-95");
         document.getElementById("modal-nav-row").style.display = 'none';
         document.getElementById("modal-download").style.display = 'none';
@@ -547,14 +547,20 @@
         currentGalleryIndex = index; modalMode = 'gallery';
         showGalleryModal();
         const overlay = document.getElementById("modal-overlay");
-        overlay.classList.remove("pointer-events-none", "opacity-0");
+        overlay.classList.remove("hidden");
+        overlay.classList.add("active");
         document.getElementById("modal-box").classList.remove("scale-95");
         document.getElementById("modal-nav-row").style.display = 'flex';
         document.getElementById("modal-download").style.display = 'flex';
     }
 
     function navModal(dir) {
-        if (modalMode === 'gallery') { currentGalleryIndex += dir; if (currentGalleryIndex < 0) currentGalleryIndex = window._galleryData.length - 1; if (currentGalleryIndex >= window._galleryData.length) currentGalleryIndex = 0; showGalleryModal(); }
+        if (modalMode === 'gallery') { 
+            currentGalleryIndex += dir; 
+            if (currentGalleryIndex < 0) currentGalleryIndex = window._galleryData.length - 1; 
+            if (currentGalleryIndex >= window._galleryData.length) currentGalleryIndex = 0; 
+            showGalleryModal(); 
+        }
     }
 
     function showGalleryModal() {
@@ -571,7 +577,8 @@
     function closeModal(event) { 
         if (event && event.target !== document.getElementById("modal-overlay") && !event.target.closest('.material-symbols-outlined')) return; 
         const overlay = document.getElementById("modal-overlay");
-        overlay.classList.add("pointer-events-none", "opacity-0");
+        overlay.classList.remove("active");
+        overlay.classList.add("hidden");
         document.getElementById("modal-box").classList.add("scale-95");
     }
 
@@ -585,7 +592,7 @@
 
     document.addEventListener('keydown', function(e) {
         const overlay = document.getElementById("modal-overlay");
-        if (overlay.classList.contains("opacity-0")) return;
+        if (overlay.classList.contains("hidden")) return;
         if (e.key === "Escape") closeModal();
         if (modalMode === 'gallery') { if (e.key === "ArrowLeft") navModal(-1); if (e.key === "ArrowRight") navModal(1); }
     });
@@ -606,10 +613,4 @@
 
     initContent();
 </script>
-
-
-
-
-
-
-</body></html>
+```</body></html>
