@@ -5,8 +5,41 @@
     "install_pc": [
       {
         "text": "Установите TamperMonkey для Chrome",
+        "image": "https://arnimaz.github.io/images/guides/1.png",
+        "detail": "Ссылка: https://chromewebstore.google.com/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo"
+      },
+      {
+        "text": "Откройте управление расширениями",
+        "image": "https://arnimaz.github.io/images/guides/2.png",
+        "detail": ""
+      },
+      {
+        "text": "Включите режим разработчика и пользовательские скрипты",
+        "image": "https://arnimaz.github.io/images/guides/3.png",
+        "detail": ""
+      },
+      {
+        "text": "Скачайте файл BlueMarble.user.js (сыллка в подробности)",
         "image": "",
-        "detail": "Ссылка: https://chromewebstore.google.com"
+        "detail": "https://github.com/SwingTheVine/Wplace-BlueMarble/releases/download/pre/BlueMarble.user.js"
+      },
+      {
+        "text": "Нажмите 'Установить'",
+        "image": "https://arnimaz.github.io/images/guides/4.png",
+        "detail": ""
+      },
+      {
+        "text": "Включите скрипт и обновите страницу wplace.live",
+        "image": "https://arnimaz.github.io/images/guides/5.png",
+        "detail": "",
+        "section": ""
+      }
+    ],
+    "install_phone": [
+      {
+        "text": "Установите TamperMonkey для Chrome",
+        "image": "",
+        "detail": "Chrome на Android не поддерживает расширения. Kiwi Browser работает на том же движке."
       },
       {
         "text": "Откройте управление расширениями",
@@ -15,48 +48,6 @@
       },
       {
         "text": "Включите режим разработчика",
-        "image": "",
-        "detail": ""
-      },
-      {
-        "text": "Скачайте файл BlueMarble.user.js с GitHub Releases",
-        "image": "",
-        "detail": ""
-      },
-      {
-        "text": "Откройте панель управления TamperMonkey",
-        "image": "",
-        "detail": ""
-      },
-      {
-        "text": "Перетащите файл BlueMarble.user.js в панель управления",
-        "image": "",
-        "detail": ""
-      },
-      {
-        "text": "Нажмите 'Установить'",
-        "image": "",
-        "detail": ""
-      },
-      {
-        "text": "Включите скрипт и обновите страницу wplace.live",
-        "image": "",
-        "detail": ""
-      }
-    ],
-    "install_phone": [
-      {
-        "text": "Android Chrome: Установите Kiwi Browser из Google Play",
-        "image": "",
-        "detail": "Chrome на Android не поддерживает расширения. Kiwi Browser работает на том же движке."
-      },
-      {
-        "text": "Android Chrome: Откройте Chrome Web Store и установите TamperMonkey",
-        "image": "",
-        "detail": ""
-      },
-      {
-        "text": "Android Chrome: Скачайте BlueMarble.user.js с GitHub Releases",
         "image": "",
         "detail": ""
       },
