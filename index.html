@@ -264,7 +264,7 @@
         window._guidesData = guidesData;
         document.getElementById('guides-content').innerHTML = guidesData.length > 0
             ? guidesData.map(g => {
-                // Группируем по section (из админки)
+                // Группируем по section из админки
                 const allSteps = [...(g.install_pc || []), ...(g.install_phone || [])];
                 const sections = {};
                 allSteps.forEach(step => {
@@ -278,7 +278,7 @@
                     sectionsHtml += `<div class="section-title">${title}</div><ol class="pixel-list">${renderStepsList(steps, 'guide_'+g.title)}</ol>`;
                 }
                 return `
-                <div class="card"><h3>${g.title}</h3><p><strong>Что это:</strong> ${makeLinksClickable(g.description)}</p>
+                <div class="card"><h3>${g.title}</h3><p>${makeLinksClickable(g.description)}</p>
                 ${sectionsHtml}
                 ${g.note?`<div class="note">${makeLinksClickable(g.note)}</div>`:''}</div>`;
             }).join('')
