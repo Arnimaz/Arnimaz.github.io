@@ -1,5 +1,6 @@
-<html lang="ru" style=""><head></head><body class="antialiased">```html
+<!DOCTYPE html>
 
+<html lang="ru"><head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>Masters_of_Cum — official site</title>
@@ -32,6 +33,11 @@
                 linear-gradient(90deg, rgba(0, 255, 136, 0.03) 1px, transparent 1px);
             background-size: 100% 100%, 40px 40px, 40px 40px;
             overflow-x: hidden;
+        }
+
+        a {
+            text-decoration: none !important;
+            border-bottom: none !important;
         }
 
         .cyber-panel {
@@ -230,6 +236,8 @@
             color: #000;
         }
     </style>
+</head>
+<body class="antialiased">
 <!-- Main Site Interface -->
 <div class="max-w-6xl mx-auto px-4 py-8" id="main-site-container">
 <!-- Header -->
@@ -295,7 +303,9 @@
 </div>
 </main>
 <!-- Footer -->
-<footer class="mt-32 pt-12 border-t border-[var(--border)] text-center text-[var(--text-dim)] font-mono text-[10px] tracking-widest pb-12 uppercase" id="site-footer"><p class="">Telegram контакт - <a class="text-[var(--accent)] hover:underline decoration-dashed" href="https://t.me/Arnimaz" target="_blank">@Arnimaz</a> | Канал - <a class="text-[var(--accent)] hover:underline decoration-dashed" href="https://t.me/Masters_of_Cum" target="_blank">@Masters_of_Cum</a></p></footer>
+<footer class="mt-32 pt-12 border-t border-[var(--border)] text-center text-[var(--text-dim)] font-mono text-[10px] tracking-widest pb-12 uppercase" id="site-footer">
+<p>TELEGRAM KOHTAKT - <a class="text-[var(--accent)] hover:underline" href="https://t.me/Arnimaz" target="_blank">@ARNIMAZ</a> | КАНАЛ - <a class="text-[var(--accent)] hover:underline" href="https://t.me/Masters_of_Cum" target="_blank">@MASTERS_OF_CUM</a></p>
+</footer>
 </div>
 <!-- Terminal Admin Interface -->
 <div id="admin-panel-container">
@@ -362,8 +372,9 @@
 
     function makeLinksClickable(text) {
         if (!text) return "";
-        let t = text.toString().replace(/(https?:\/\/[^\s<>]+)/g, '<a href="$1" target="_blank" style="color:#00ff88;border-bottom:2px dashed #00ff88;">$1</a>');
-        t = t.replace(/@([a-zA-Z0-9_]+)/g, '<a href="https://t.me/$1" target="_blank" style="color:#00ff88;border-bottom:2px dashed #00ff88;">@$1</a>');
+        let t = text.toString().replace(/(https?:\/\/[^\s<>]+)/g, '<a href="$1" target="_blank" style="color:#00ff88;">$1</a>');
+        // Improved Telegram handle regex: finds @ followed by alphanumeric/underscore, ensures it's treated as a single entity
+        t = t.replace(/@([a-zA-Z0-9_]+)/g, '<a href="https://t.me/$1" target="_blank" style="color:#00ff88;">@$1</a>');
         return t;
     }
 
@@ -394,12 +405,13 @@
             siteTitle: "Masters_of_Cum — official site", 
             headerTitle: "Masters_of_Cum",
             headerSubtitle: "official site", 
-            footer: "Telegram контакт - @Arnimaz | Канал - @Masters_of_Cum"
+            footer: "TELEGRAM KOHTAKT - @ARNIMAZ | КАНАЛ - @MASTERS_OF_CUM"
         });
         
         document.title = settingsData.siteTitle;
         document.querySelector(".site-title").textContent = settingsData.headerTitle;
         document.querySelector(".site-subtitle").textContent = settingsData.headerSubtitle;
+        // Ensure the footer is processed correctly through the link parser
         document.getElementById("site-footer").innerHTML = `<p>${makeLinksClickable(settingsData.footer)}</p>`;
 
         const homeData = await loadJSON('/content/home.json', {
@@ -614,4 +626,4 @@
 
     initContent();
 </script>
-```</body></html>
+</body></html>
