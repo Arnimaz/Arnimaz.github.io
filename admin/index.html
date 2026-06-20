@@ -155,7 +155,7 @@
 </div>
 
 <!-- ADMIN -->
-<div id="admin-page" class="hidden" style="display:none;">
+<div id="admin-page" class="hidden">
     <div class="admin-layout" style="display:flex;min-height:100vh;">
         <!-- SIDEBAR -->
         <div class="sidebar">
@@ -280,8 +280,8 @@
     function showAdmin() {
         const lp = document.getElementById("login-page");
         const ap = document.getElementById("admin-page");
-        if (lp) lp.classList.add("hidden");
-        if (ap) { ap.classList.remove("hidden"); ap.style.display = "block"; }
+        if (lp) lp.style.display = "none";
+        if (ap) { ap.classList.remove("hidden"); }
     }
 
     async function loadJSON(path) {
@@ -436,7 +436,6 @@
         settingsData.headerSubtitle = document.getElementById("settings-headerSubtitle").value;
         settingsData.footer = document.getElementById("settings-footer").value;
         try { settingsData._sha = settingsData._sha ? await saveJSON("content/settings.json", settingsData, settingsData._sha) : await saveJSON("content/settings.json", settingsData, null); toast("✅ Настройки сохранены!", "success"); } catch(e) { toast("❌ "+e.message, "error"); } }
-    }
 
     async function publishAll() {
         toast("🚀 Сохранение...", "info");
