@@ -373,7 +373,7 @@
 </div>
 </div>
 <!-- SUGGESTIONS TAB -->
-<div class="tab-content hidden space-y-8" id="suggestions-tab"><div class="terminal-border p-6 rounded-xl bg-[#0f0f15] mb-8 shadow-[0_0_10px_rgba(0,228,121,0.05)]"><h3 class="text-sm font-bold mb-4 flex items-center gap-2 text-white uppercase tracking-widest"><span class="material-symbols-outlined text-emerald-primary text-lg">api</span> Конфигурация источников</h3><div class="grid grid-cols-1 md:grid-cols-2 gap-6"><div><label class="block text-[10px] font-bold text-white/30 uppercase mb-2 tracking-wider">FORMSPREE ID / ENDPOINT</label><div class="flex gap-2"><input class="input-field flex-1 p-2.5 text-xs" id="suggestion-endpoint" placeholder="https://formspree.io/f/xxxxxx" type="text"/><button class="px-4 py-2 bg-emerald-primary/10 hover:bg-emerald-primary/20 text-emerald-primary text-[10px] font-bold rounded transition-colors uppercase" onclick="toast('ЭНДПОИНТ СОХРАНЕН (LOCAL)', 'success')">ОК</button></div><p class="text-[9px] text-white/20 mt-2 uppercase">Новые заявки будут приходить на указанный сервис. Используйте импорт для управления.</p></div><div><label class="block text-[10px] font-bold text-white/30 uppercase mb-2 tracking-wider">ЦЕНТРАЛИЗОВАННЫЙ ИМПОРТ</label><div class="flex gap-2"><button class="btn-emerald flex-1 py-2.5 text-[10px] flex items-center justify-center gap-2" onclick="importSuggestionsJSON()"><span class="material-symbols-outlined text-sm">content_paste</span> ВСТАВИТЬ JSON</button><button class="px-4 py-2 border border-white/10 hover:bg-white/5 text-white/40 text-[10px] font-bold rounded transition-colors uppercase" onclick="localStorage.removeItem('wplace_suggestions'); loadSuggestions();">ОЧИСТИТЬ</button></div></div></div></div>
+<div class="tab-content hidden space-y-8" id="suggestions-tab"><div class="terminal-border p-6 rounded-xl bg-[#0f0f15] mb-8 shadow-[0_0_10px_rgba(0,228,121,0.05)]"><h3 class="text-sm font-bold mb-4 flex items-center gap-2 text-white uppercase tracking-widest"><span class="material-symbols-outlined text-emerald-primary text-lg">api</span> Конфигурация источников</h3><div class="grid grid-cols-1 md:grid-cols-2 gap-6"><div><label class="block text-[10px] font-bold text-white/30 uppercase mb-2 tracking-wider">FORMSPREE ID / ENDPOINT</label><div class="flex gap-2"><input class="input-field flex-1 p-2.5 text-xs" id="suggestion-endpoint-input" placeholder="https://formspree.io/f/xxxxxx" type="text"/><button class="px-4 py-2 bg-emerald-primary/10 hover:bg-emerald-primary/20 text-emerald-primary text-[10px] font-bold rounded transition-colors uppercase" onclick="saveSuggestionEndpoint()">ОК</button></div><p class="text-[9px] text-white/20 mt-2 uppercase">Новые заявки будут приходить на указанный сервис. Используйте импорт для управления.</p></div><div><label class="block text-[10px] font-bold text-white/30 uppercase mb-2 tracking-wider">ЦЕНТРАЛИЗОВАННЫЙ ИМПОРТ</label><div class="flex gap-2"><button class="btn-emerald flex-1 py-2.5 text-[10px] flex items-center justify-center gap-2" onclick="importSuggestionsJSON()"><span class="material-symbols-outlined text-sm">content_paste</span> ВСТАВИТЬ JSON</button><button class="px-4 py-2 border border-white/10 hover:bg-white/5 text-white/40 text-[10px] font-bold rounded transition-colors uppercase" onclick="localStorage.removeItem('wplace_suggestions'); loadSuggestions();">ОЧИСТИТЬ</button></div></div></div></div>
 <div class="flex items-center justify-between mb-8 border-b border-white/5 pb-6">
 <h2 class="text-2xl font-black uppercase text-white tracking-tight">ПРЕДЛОЖЕННЫЕ АРТЫ</h2>
 <div class="flex gap-3">
@@ -558,6 +558,7 @@
             renderSettings(); 
         }
         loadSuggestions();
+        loadSuggestionEndpoint(); // Load endpoint on startup
         toast("СИНХРОНИЗАЦИЯ ЗАВЕРШЕНА", "success");
     }
 
@@ -748,6 +749,7 @@
 
     async function publishAll() {
         toast("СИНХРОНИЗАЦИЯ С ОБЛАКОМ...", "info");
+        saveSuggestionEndpoint(true); // Silent save of endpoint on global save
         try {
             const h = await saveHome();
             const g = await saveGallery();
@@ -770,12 +772,14 @@
         homeData = { title: "", image: "", description: "", location: "", help_wplace: [], help_blue: [], help_helper: [] };
         galleryData = []; guidesData = [];
         settingsData = { siteTitle: "Admin panel", headerTitle: "⚔ WPLACE ⚔", headerSubtitle: "Pixel Art Community", footer: "© 2025" };
+        localStorage.removeItem('wplace_suggestion_endpoint');
         await publishAll();
         renderHome(); renderGallery(); renderGuides(); renderSettings();
+        loadSuggestionEndpoint();
     }
 
     function exportAll() {
-        const data = { home: homeData, gallery: galleryData, guides: guidesData, settings: settingsData, date: new Date().toISOString() };
+        const data = { home: homeData, gallery: galleryData, guides: guidesData, settings: settingsData, suggestion_endpoint: localStorage.getItem('wplace_suggestion_endpoint'), date: new Date().toISOString() };
         delete data.home._sha; delete data.gallery._sha; delete data.guides._sha; delete data.settings._sha;
         const b = new Blob([JSON.stringify(data,null,2)],{type:"application/json"}); const a = document.createElement("a"); a.href = URL.createObjectURL(b); a.download = `moc-terminal-export-${Date.now()}.json`; a.click();
     }
@@ -789,6 +793,10 @@
             if(d.gallery){galleryData=d.gallery;renderGallery();} 
             if(d.guides){guidesData=d.guides;renderGuides();} 
             if(d.settings){settingsData=d.settings;renderSettings();} 
+            if(d.suggestion_endpoint) {
+                localStorage.setItem('wplace_suggestion_endpoint', d.suggestion_endpoint);
+                loadSuggestionEndpoint();
+            }
             toast("ДАННЫЕ ЗАГРУЖЕНЫ В БУФЕР. СОХРАНИТЕ ДЛЯ ЗАПИСИ.", "info"); 
         } catch(er) { toast("ОШИБКА ПРОВЕРКИ ЦЕЛОСТНОСТИ", "error"); } };
         r.readAsText(f); e.target.value = "";
@@ -799,6 +807,21 @@
         const raw = localStorage.getItem('wplace_suggestions');
         suggestionsLocal = raw ? JSON.parse(raw) : [];
         renderSuggestionsTable();
+    }
+
+    function saveSuggestionEndpoint(silent = false) {
+        const input = document.getElementById('suggestion-endpoint-input');
+        const value = input.value.trim();
+        localStorage.setItem('wplace_suggestion_endpoint', value);
+        if (!silent) toast('ЭНДПОИНТ СОХРАНЕН (LOCAL)', 'success');
+    }
+
+    function loadSuggestionEndpoint() {
+        const endpoint = localStorage.getItem('wplace_suggestion_endpoint');
+        const input = document.getElementById('suggestion-endpoint-input');
+        if (endpoint && input) {
+            input.value = endpoint;
+        }
     }
 
     function renderSuggestionsTable() {
