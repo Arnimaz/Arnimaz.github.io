@@ -83,7 +83,6 @@
         textarea.form-input { resize: vertical; min-height: 75px; line-height: 1.5; }
         .help-text { font-size: 13px; color: var(--text-dim); margin-top: 3px; }
 
-        /* ГАЛЕРЕЯ В АДМИНКЕ — БОЛЬШИЕ КАРТОЧКИ */
         .gallery-admin-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 16px; }
         .gallery-admin-card {
             border: 2px solid var(--border-dim); background: #0a0f0a; padding: 14px; transition: all 0.1s step-end;
@@ -228,7 +227,11 @@
             <div class="card-grid">
                 <div class="card">
                     <div class="card-header">⚙ ОБЩИЕ НАСТРОЙКИ</div>
-                    <div class="form-group"><label class="form-label">Текст в футере</label><textarea id="settings-footer" class="form-input" rows="2"></textarea><div class="help-text">Меняет надпись внизу сайта</div></div>
+                    <div class="form-group">
+                        <label class="form-label">Текст в футере</label>
+                        <textarea id="settings-footer" class="form-input" rows="2"></textarea>
+                        <div class="help-text">Меняет надпись внизу сайта</div>
+                    </div>
                 </div>
                 <div class="card">
                     <div class="card-header">🔧 БЫСТРЫЕ ДЕЙСТВИЯ</div>
@@ -239,10 +242,10 @@
                 </div>
                 <div class="card">
                     <div class="card-header">📊 СТАТИСТИКА</div>
-                    <p>Артов: <strong id="stats-gallery-count">0</strong></p>
+                    <p>Артов в галерее: <strong id="stats-gallery-count">0</strong></p>
                     <p>Гайдов: <strong id="stats-guides-count">0</strong></p>
-                    <p>Шагов: <strong id="stats-steps-count">0</strong></p>
-                    <p>Сохранение: <strong id="stats-last-save">-</strong></p>
+                    <p>Шагов в инструкциях: <strong id="stats-steps-count">0</strong></p>
+                    <p>Последнее сохранение: <strong id="stats-last-save">-</strong></p>
                 </div>
             </div>
             <button class="btn btn-primary btn-full" onclick="saveSettings()">💾 СОХРАНИТЬ НАСТРОЙКИ</button>
