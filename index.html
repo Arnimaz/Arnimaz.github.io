@@ -529,7 +529,7 @@
         const img = document.getElementById("modal-img");
         img.src = stepData.image || "";
         img.closest('.image-container').style.display = stepData.image ? 'block' : 'none';
-        document.getElementById("modal-title").textContent = `ПРОТОКОЛ ${(currentStepIndex + 1).toString().padStart(2, '0')}`;
+        document.getElementById("modal-title").textContent = `Шаг ${(currentStepIndex + 1).toString().padStart(2, '0')}`;
         document.getElementById("modal-desc").innerHTML = `<div class="text-2xl font-bold mb-8 uppercase tracking-tight text-white">${makeLinksClickable(stepData.text || "Описание отсутствует")}</div>` + (stepData.detail && stepData.detail.toString().trim() ? '<div class="text-left p-6 rounded-sm bg-[var(--surface-bright)] text-sm border border-[var(--border)] font-mono leading-relaxed"><div class="text-[var(--accent)] font-black mb-3 uppercase tracking-widest text-[10px]">Расшифрованные детали:</div>' + makeLinksClickable(stepData.detail) + '</div>' : '');
         document.getElementById("modal-counter").textContent = "ИНСТРУКТАЖ_СИСТЕМЫ";
     }
