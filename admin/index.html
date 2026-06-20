@@ -1,99 +1,99 @@
 <!DOCTYPE html>
 
-<html lang="ru" style=""><head>
+<html lang="ru"><head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title class="">Admin panel</title>
+<title>Admin panel</title>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 <link href="https://fonts.googleapis.com/css2?family=VT323&amp;family=Inter:wght@400;600;700&amp;family=Geist:wght@700;800&amp;family=JetBrains+Mono:wght@700&amp;family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&amp;display=swap" rel="stylesheet"/>
 <script id="tailwind-config">
-  tailwind.config = {
-    darkMode: "class",
-    theme: {
-      extend: {
-        "colors": {
-                "emerald-primary": "#00e479",
-                "on-secondary-fixed": "#410006",
-                "on-secondary": "#68000f",
-                "tertiary-fixed-dim": "#e8c426",
-                "outline": "#2c2c4e",
-                "on-surface": "#e4e1ea",
-                "tertiary": "#fffaf6",
-                "on-error-container": "#ffdad6",
-                "surface-tint": "#00e479",
-                "secondary-container": "#901822",
-                "primary-fixed": "#60ff99",
-                "on-error": "#690005",
-                "outline-variant": "#3b4b3d",
-                "on-primary-fixed-variant": "#005228",
-                "error-container": "#93000a",
-                "on-tertiary-container": "#746000",
-                "secondary": "#ffb3b0",
-                "on-tertiary-fixed": "#221b00",
-                "inverse-on-surface": "#303037",
-                "error": "#ffb4ab",
-                "inverse-surface": "#e4e1ea",
-                "background": "#0e0e14",
-                "tertiary-fixed": "#ffe173",
-                "secondary-fixed": "#ffdad8",
-                "surface-bright": "#393840",
-                "surface-container-highest": "#35343b",
-                "on-primary-fixed": "#00210c",
-                "primary": "#f1ffef",
-                "surface-dim": "#131319",
-                "on-background": "#e4e1ea",
-                "primary-container": "#00ff88",
-                "on-surface-variant": "#8ca697",
-                "surface-container": "#1f1f26",
-                "surface-variant": "#35343b",
-                "surface": "#0f0f1c",
-                "surface-container-high": "#2a2930",
-                "inverse-primary": "#006d37",
-                "on-secondary-fixed-variant": "#8c1520",
-                "on-tertiary": "#3b2f00",
-                "secondary-fixed-dim": "#ffb3b0",
-                "on-primary": "#003919",
-                "on-primary-container": "#007139",
-                "info": "#00f0ff",
-                "tertiary-container": "#ffdc55",
-                "surface-container-lowest": "#0e0e14",
-                "on-secondary-container": "#ff9e9b",
-                "primary-fixed-dim": "#00e479",
-                "surface-container-low": "#1b1b22",
-                "on-tertiary-fixed-variant": "#554500"
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "emerald-primary": "#00e479",
+                    "on-secondary-fixed": "#410006",
+                    "on-secondary": "#68000f",
+                    "tertiary-fixed-dim": "#e8c426",
+                    "outline": "#2c2c4e",
+                    "on-surface": "#e4e1ea",
+                    "tertiary": "#fffaf6",
+                    "on-error-container": "#ffdad6",
+                    "surface-tint": "#00e479",
+                    "secondary-container": "#901822",
+                    "primary-fixed": "#60ff99",
+                    "on-error": "#690005",
+                    "outline-variant": "#3b4b3d",
+                    "on-primary-fixed-variant": "#005228",
+                    "error-container": "#93000a",
+                    "on-tertiary-container": "#746000",
+                    "secondary": "#ffb3b0",
+                    "on-tertiary-fixed": "#221b00",
+                    "inverse-on-surface": "#303037",
+                    "error": "#ffb4ab",
+                    "inverse-surface": "#e4e1ea",
+                    "background": "#0e0e14",
+                    "tertiary-fixed": "#ffe173",
+                    "secondary-fixed": "#ffdad8",
+                    "surface-bright": "#393840",
+                    "surface-container-highest": "#35343b",
+                    "on-primary-fixed": "#00210c",
+                    "primary": "#f1ffef",
+                    "surface-dim": "#131319",
+                    "on-background": "#e4e1ea",
+                    "primary-container": "#00ff88",
+                    "on-surface-variant": "#8ca697",
+                    "surface-container": "#1f1f26",
+                    "surface-variant": "#35343b",
+                    "surface": "#0f0f1c",
+                    "surface-container-high": "#2a2930",
+                    "inverse-primary": "#006d37",
+                    "on-secondary-fixed-variant": "#8c1520",
+                    "on-tertiary": "#3b2f00",
+                    "secondary-fixed-dim": "#ffb3b0",
+                    "on-primary": "#003919",
+                    "on-primary-container": "#007139",
+                    "info": "#00f0ff",
+                    "tertiary-container": "#ffdc55",
+                    "surface-container-lowest": "#0e0e14",
+                    "on-secondary-container": "#ff9e9b",
+                    "primary-fixed-dim": "#00e479",
+                    "surface-container-low": "#1b1b22",
+                    "on-tertiary-fixed-variant": "#554500"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "xs": "4px",
+                    "xl": "32px",
+                    "md": "16px",
+                    "gutter": "16px",
+                    "margin-mobile": "16px",
+                    "margin-desktop": "32px",
+                    "lg": "24px",
+                    "unit": "4px",
+                    "sm": "8px",
+                    "container-max": "1200px"
+            },
+            "fontFamily": {
+                    "stat-lg": ["JetBrains Mono"],
+                    "display-lg": ["Geist"],
+                    "body-bold": ["Inter"],
+                    "body-base": ["Inter"],
+                    "display-lg-mobile": ["Geist"],
+                    "label-caps": ["JetBrains Mono"],
+                    "headline-md": ["Geist"],
+                    "terminal": ["VT323", "monospace"]
+            }
+          },
         },
-        "borderRadius": {
-                "DEFAULT": "0.25rem",
-                "lg": "0.5rem",
-                "xl": "0.75rem",
-                "full": "9999px"
-        },
-        "spacing": {
-                "xs": "4px",
-                "xl": "32px",
-                "md": "16px",
-                "gutter": "16px",
-                "margin-mobile": "16px",
-                "margin-desktop": "32px",
-                "lg": "24px",
-                "unit": "4px",
-                "sm": "8px",
-                "container-max": "1200px"
-        },
-        "fontFamily": {
-                "stat-lg": ["JetBrains Mono"],
-                "display-lg": ["Geist"],
-                "body-bold": ["Inter"],
-                "body-base": ["Inter"],
-                "display-lg-mobile": ["Geist"],
-                "label-caps": ["JetBrains Mono"],
-                "headline-md": ["Geist"],
-                "terminal": ["VT323", "monospace"]
-        }
-      },
-    },
-  }
-</script>
+      }
+    </script>
 <style>
         :root {
             --neon-green: #00e479;
@@ -187,7 +187,8 @@
 <label class="block text-[11px] font-bold text-white/50 uppercase tracking-widest mb-3 font-label-caps">АВТОРИЗАЦИЯ В СИСТЕМЕ</label>
 <div class="relative">
 <input autofocus="" class="input-field w-full py-4 px-5 text-sm" id="token-input" placeholder="ghp_************************************" type="password"/>
-</div><div class="flex items-center gap-2 mt-4 mb-2">
+</div>
+<div class="flex items-center gap-2 mt-4 mb-2">
 <input class="w-4 h-4 rounded border-white/10 bg-white/5 text-emerald-primary focus:ring-emerald-primary/20" id="remember-me" type="checkbox"/>
 <label class="text-[10px] font-bold text-white/40 uppercase tracking-wider cursor-pointer" for="remember-me">ЗАПОМНИТЬ МЕНЯ</label>
 </div>
@@ -196,8 +197,6 @@
 <span class="material-symbols-outlined text-xl">login</span>
                 ВЫПОЛНИТЬ ВХОД
             </button>
-<div class="pt-4 text-center">
-</div>
 </div>
 </div>
 </div>
@@ -228,7 +227,8 @@
 <button class="sidebar-btn w-full flex items-center gap-3 px-4 py-3 text-sm font-medium transition-all whitespace-nowrap rounded-lg text-white/60 hover:text-white hover:bg-white/5" onclick="switchTab('guides-tab', this)">
 <span class="material-symbols-outlined text-xl">auto_stories</span>
                 РУКОВОДСТВА
-            </button><button class="sidebar-btn w-full flex items-center gap-3 px-4 py-3 text-sm font-medium transition-all whitespace-nowrap rounded-lg text-white/60 hover:text-white hover:bg-white/5" onclick="switchTab('suggestions-tab', this)">
+            </button>
+<button class="sidebar-btn w-full flex items-center gap-3 px-4 py-3 text-sm font-medium transition-all whitespace-nowrap rounded-lg text-white/60 hover:text-white hover:bg-white/5" onclick="switchTab('suggestions-tab', this)">
 <span class="material-symbols-outlined text-xl">inbox</span>
                 ПРЕДЛОЖКА
             </button>
@@ -291,11 +291,10 @@
 </div>
 <div class="terminal-border p-6 rounded-xl bg-[#0f0f15] flex flex-col min-h-[300px] shadow-[0_0_10px_rgba(0,228,121,0.05)] space-y-6">
 <h3 class="text-lg font-bold mb-6 flex items-center gap-2 border-b border-white/5 pb-4 text-white bg-white/5 p-3 rounded-lg">
-<span class="material-symbols-outlined text-emerald-primary">image_search</span>
-                            ПРЕДПРОСМОТР
+<span class="material-symbols-outlined text-emerald-primary">image_search</span> ПРЕДПРОСМОТР
                         </h3>
 <div class="flex-1 rounded-lg border border-dashed border-white/10 flex items-center justify-center overflow-hidden min-h-[250px] bg-black/20" id="home-image-preview">
-<img alt="" class="max-w-full max-h-[400px] object-contain" id="home-preview-img" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MDAiIGhlaWdodD0iMzAwIj48cmVjdCB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgcng9IjgiIGZpbGw9IiNlOGVhZWQiLz48cGF0aCBkPSJNMTcwIDEzMCBsMzAgNDAgbDIwLTE1IGw0MCA1NSBIMTQweiIgZmlsbD0iI2JkYzFjNiIvPjxjaXJjbGUgY3g9IjI1MCIgY3k9IjEyMCIgcj0iMTgiIGZpbGw9IiNiZGMxYzYiLz48L3N2Zz4="/>
+<img alt="" class="max-w-full max-h-[400px] object-contain hidden" id="home-preview-img" src=""/>
 <div class="text-center opacity-20" id="no-preview">
 <span class="material-symbols-outlined text-5xl block mb-2">image_not_supported</span>
 <p class="text-xs uppercase font-bold tracking-widest">НЕТ ИЗОБРАЖЕНИЯ</p>
@@ -332,33 +331,54 @@
 <div class="space-y-3" id="steps-helper"></div>
 </div>
 </div>
-<div class="flex justify-end pt-8 border-t border-white/5"><button class="btn-emerald px-8 py-3.5 text-sm font-bold flex items-center gap-3 w-full md:w-auto px-12 shadow-[0_0_20px_#00e479]" onclick="publishAll()"><span class="material-symbols-outlined">save</span> СОХРАНИТЬ ИЗМЕНЕНИЯ</button></div></div>
+<div class="flex justify-end pt-8 border-t border-white/5">
+<button class="btn-emerald px-8 py-3.5 text-sm font-bold flex items-center gap-3 w-full md:w-auto px-12 shadow-[0_0_20px_#00e479]" onclick="publishAll()">
+<span class="material-symbols-outlined">save</span> СОХРАНИТЬ ИЗМЕНЕНИЯ
+                    </button>
+</div>
+</div>
 <!-- GALLERY TAB -->
 <div class="tab-content hidden" id="gallery-tab">
 <div class="flex items-center justify-between mb-8 border-b border-white/5 pb-6">
 <h2 class="text-2xl font-black uppercase text-white tracking-tight">АРХИВ ИЗОБРАЖЕНИЙ</h2>
 <div class="flex gap-3">
 <button class="px-4 py-2 text-xs font-bold text-white/60 hover:text-white border border-white/10 rounded-lg flex items-center gap-2 transition-all" onclick="sortGallery()">
-<span class="material-symbols-outlined text-lg">sort_by_alpha</span>
-                            СОРТИРОВАТЬ
+<span class="material-symbols-outlined text-lg">sort_by_alpha</span> СОРТИРОВАТЬ
                         </button>
 <button class="btn-emerald px-6 py-2 text-xs font-bold flex items-center gap-2" onclick="addGalleryItem()">
-<span class="material-symbols-outlined text-lg">add</span>
-                            НОВЫЙ ОБЪЕКТ
+<span class="material-symbols-outlined text-lg">add</span> НОВЫЙ ОБЪЕКТ
                         </button>
 </div>
 </div>
 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-6" id="gallery-items"></div>
-<div class="flex justify-end pt-8 mt-10 border-t border-white/5"><button class="btn-emerald px-8 py-3.5 text-sm font-bold flex items-center gap-3" onclick="publishAll()"><span class="material-symbols-outlined">save</span> СОХРАНИТЬ ГАЛЕРЕЮ</button></div></div>
+<div class="flex justify-end pt-8 mt-10 border-t border-white/5">
+<button class="btn-emerald px-8 py-3.5 text-sm font-bold flex items-center gap-3" onclick="publishAll()">
+<span class="material-symbols-outlined">save</span> СОХРАНИТЬ ГАЛЕРЕЮ
+                    </button>
+</div>
+</div>
 <!-- GUIDES TAB -->
-<div class="tab-content hidden space-y-8" id="guides-tab"><div class="flex items-center justify-between mb-6 border-b border-white/5 pb-6"><h2 class="text-2xl font-black uppercase text-white tracking-tight">БАЗА ЗНАНИЙ</h2><button class="btn-emerald px-6 py-2 text-xs font-bold flex items-center gap-2" onclick="addGuideItem()"><span class="material-symbols-outlined text-lg">library_add</span> НОВАЯ ИНСТРУКЦИЯ</button></div><div class="space-y-12" id="guides-items"></div><div class="flex justify-end pt-8 border-t border-white/5"><button class="btn-emerald px-8 py-3.5 text-sm font-bold flex items-center gap-3" onclick="publishAll()"><span class="material-symbols-outlined">save</span> СОХРАНИТЬ ИНСТРУКЦИИ</button></div></div>
-<!-- SETTINGS TAB -->
+<div class="tab-content hidden space-y-8" id="guides-tab">
+<div class="flex items-center justify-between mb-6 border-b border-white/5 pb-6">
+<h2 class="text-2xl font-black uppercase text-white tracking-tight">БАЗА ЗНАНИЙ</h2>
+<button class="btn-emerald px-6 py-2 text-xs font-bold flex items-center gap-2" onclick="addGuideItem()">
+<span class="material-symbols-outlined text-lg">library_add</span> НОВАЯ ИНСТРУКЦИЯ
+                    </button>
+</div>
+<div class="space-y-12" id="guides-items"></div>
+<div class="flex justify-end pt-8 border-t border-white/5">
+<button class="btn-emerald px-8 py-3.5 text-sm font-bold flex items-center gap-3" onclick="publishAll()">
+<span class="material-symbols-outlined">save</span> СОХРАНИТЬ ИНСТРУКЦИИ
+                    </button>
+</div>
+</div>
+<!-- SUGGESTIONS TAB -->
 <div class="tab-content hidden space-y-8" id="suggestions-tab">
 <div class="flex items-center justify-between mb-8 border-b border-white/5 pb-6">
 <h2 class="text-2xl font-black uppercase text-white tracking-tight">ПРЕДЛОЖЕННЫЕ АРТЫ</h2>
 <div class="flex gap-3">
 <div class="flex items-center gap-2 px-3 py-1.5 bg-emerald-primary/5 rounded-full border border-emerald-primary/10 text-[10px]">
-<span class="font-bold uppercase text-emerald-primary/80">3 НОВЫХ ЗАЯВКИ</span>
+<span class="font-bold uppercase text-emerald-primary/80" id="suggestion-count">0 ЗАЯВОК</span>
 </div>
 </div>
 </div>
@@ -366,18 +386,27 @@
 <div class="overflow-x-auto">
 <table class="w-full text-left border-collapse">
 <thead>
-<tr class="border-b border-white/5 bg-white/5"><th class="p-4 text-[10px] font-bold text-white/30 uppercase tracking-wider">ПРЕВЬЮ</th><th class="p-4 text-[10px] font-bold text-white/30 uppercase tracking-wider">ИНФОРМАЦИЯ</th><th class="p-4 text-[10px] font-bold text-white/30 uppercase tracking-wider">КОНТАКТ</th><th class="p-4 text-[10px] font-bold text-white/30 uppercase tracking-wider">КОММЕНТАРИЙ</th><th class="p-4 text-[10px] font-bold text-white/30 uppercase tracking-wider">СТАТУС</th><th class="p-4 text-[10px] font-bold text-white/30 uppercase tracking-wider text-right">ДЕЙСТВИЯ</th></tr>
+<tr class="border-b border-white/5 bg-white/5">
+<th class="p-4 text-[10px] font-bold text-white/30 uppercase tracking-wider">ПРЕВЬЮ</th>
+<th class="p-4 text-[10px] font-bold text-white/30 uppercase tracking-wider">ИНФОРМАЦИЯ</th>
+<th class="p-4 text-[10px] font-bold text-white/30 uppercase tracking-wider">КОНТАКТ</th>
+<th class="p-4 text-[10px] font-bold text-white/30 uppercase tracking-wider">СТАТУС</th>
+<th class="p-4 text-[10px] font-bold text-white/30 uppercase tracking-wider text-right">ДЕЙСТВИЯ</th>
+</tr>
 </thead>
-<tbody class="divide-y divide-white/5"><tr class="" id="suggestions-loading"><td class="p-10 text-center opacity-20 text-sm uppercase tracking-widest font-bold animate-pulse" colspan="6">ЗАГРУЗКА ЗАЯВОК...</td></tr></tbody>
+<tbody class="divide-y divide-white/5" id="suggestions-body">
+<tr><td class="p-10 text-center opacity-20 text-sm uppercase tracking-widest font-bold animate-pulse" colspan="5">ОЖИДАНИЕ...</td></tr>
+</tbody>
 </table>
 </div>
 </div>
-</div><div class="tab-content hidden" id="settings-tab">
+</div>
+<!-- SETTINGS TAB -->
+<div class="tab-content hidden" id="settings-tab">
 <div class="max-w-4xl mx-auto space-y-8">
 <div class="terminal-border p-8 rounded-xl bg-[#0f0f15]">
 <h3 class="text-lg font-bold mb-8 flex items-center gap-3 border-b border-white/5 pb-4 text-white">
-<span class="material-symbols-outlined text-emerald-primary">settings_suggest</span>
-                            ГЛОБАЛЬНАЯ КОНФИГУРАЦИЯ
+<span class="material-symbols-outlined text-emerald-primary">settings_suggest</span> ГЛОБАЛЬНАЯ КОНФИГУРАЦИЯ
                         </h3>
 <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
 <div class="space-y-6">
@@ -404,32 +433,49 @@
 </div>
 <div class="terminal-border p-8 rounded-xl bg-[#0f0f15] border-red-500/20">
 <h3 class="text-lg font-bold mb-8 text-red-500 flex items-center gap-3 border-b border-red-500/10 pb-4">
-<span class="material-symbols-outlined">warning</span>
-                            СИСТЕМНОЕ ОБСЛУЖИВАНИЕ
+<span class="material-symbols-outlined">warning</span> СИСТЕМНОЕ ОБСЛУЖИВАНИЕ
                         </h3>
 <div class="flex flex-wrap gap-4">
 <button class="px-6 py-3.5 text-xs font-bold text-blue-400 hover:bg-blue-400/10 border border-blue-400/20 rounded-lg flex items-center gap-2 transition-all" onclick="exportAll()">
-<span class="material-symbols-outlined text-lg">download</span>
-                                ЭКСПОРТ ДАННЫХ (.JSON)
+<span class="material-symbols-outlined text-lg">download</span> ЭКСПОРТ ДАННЫХ (.JSON)
                             </button>
 <button class="px-6 py-3.5 text-xs font-bold text-emerald-primary hover:bg-emerald-primary/10 border border-emerald-primary/20 rounded-lg flex items-center gap-2 transition-all" onclick="importAll()">
-<span class="material-symbols-outlined text-lg">upload</span>
-                                ИМПОРТ / ПЕРЕЗАПИСЬ
+<span class="material-symbols-outlined text-lg">upload</span> ИМПОРТ / ПЕРЕЗАПИСЬ
                             </button>
 <button class="px-6 py-3.5 text-xs font-bold text-red-500 hover:bg-red-500/10 border border-red-500/20 rounded-lg flex items-center gap-2 transition-all" onclick="if(confirm('ПОЛНАЯ ОЧИСТКА? ЭТО ДЕЙСТВИЕ НЕОБРАТИМО.')) resetAll()">
-<span class="material-symbols-outlined text-lg">delete_forever</span>
-                                СБРОС ДО ЗАВОДСКИХ
+<span class="material-symbols-outlined text-lg">delete_forever</span> СБРОС ДО ЗАВОДСКИХ
                             </button>
 <input accept=".json" class="hidden" id="import-file" onchange="handleImport(event)" type="file"/>
 </div>
 </div>
 </div>
-<div class="max-w-4xl mx-auto flex justify-end pt-8 mt-10 border-t border-white/5"><button class="btn-emerald px-8 py-3.5 text-sm font-bold flex items-center gap-3" onclick="publishAll()"><span class="material-symbols-outlined">save</span> СОХРАНИТЬ КОНФИГУРАЦИЮ</button></div></div>
+<div class="max-w-4xl mx-auto flex justify-end pt-8 mt-10 border-t border-white/5">
+<button class="btn-emerald px-8 py-3.5 text-sm font-bold flex items-center gap-3" onclick="publishAll()">
+<span class="material-symbols-outlined">save</span> СОХРАНИТЬ КОНФИГУРАЦИЮ
+                    </button>
+</div>
+</div>
 </div>
 </main>
 </div>
+<!-- SUGGESTION MODAL -->
+<div class="fixed inset-0 z-[100] flex items-center justify-center bg-black/80 backdrop-blur-sm hidden" id="suggestion-modal">
+<div class="w-full max-w-lg obsidian-card rounded-2xl p-8 border border-emerald-primary/30 shadow-[0_0_30px_rgba(0,228,121,0.1)]">
+<div class="flex justify-between items-start mb-6">
+<h3 class="text-xl font-black text-white uppercase tracking-tight font-display-lg" id="modal-title-header">ДЕТАЛИ ЗАЯВКИ</h3>
+<button class="text-white/40 hover:text-white transition-colors" onclick="closeSuggestionModal()">
+<span class="material-symbols-outlined">close</span>
+</button>
+</div>
+<div class="space-y-6" id="modal-content"></div>
+<div class="mt-8 pt-6 border-t border-white/5 flex justify-end gap-4">
+<button class="px-6 py-2 text-xs font-bold text-white/40 hover:text-white border border-white/10 rounded-lg transition-colors" onclick="closeSuggestionModal()">ЗАКРЫТЬ</button>
+<button class="btn-emerald px-6 py-2 text-xs" id="modal-accept-btn">ПРИНЯТЬ</button>
+</div>
+</div>
+</div>
 <!-- TOAST NOTIFICATION -->
-<div class="fixed inset-0 z-[100] flex items-center justify-center bg-black/80 backdrop-blur-sm hidden" id="suggestion-modal"><div class="w-full max-w-lg obsidian-card rounded-2xl p-8 border border-emerald-primary/30 shadow-[0_0_30px_rgba(0,228,121,0.1)]"><div class="flex justify-between items-start mb-6"><h3 class="text-xl font-black text-white uppercase tracking-tight font-display-lg">ДЕТАЛИ ЗАЯВКИ</h3><button class="text-white/40 hover:text-white transition-colors" onclick="closeSuggestionModal()"><span class="material-symbols-outlined">close</span></button></div><div class="space-y-6" id="modal-content"></div><div class="mt-8 pt-6 border-t border-white/5 flex justify-end"><button class="btn-emerald px-6 py-2 text-xs" onclick="closeSuggestionModal()">ЗАКРЫТЬ</button></div></div></div><div class="fixed bottom-10 right-10 z-[100] hidden" id="toast">
+<div class="fixed bottom-10 right-10 z-[100] hidden" id="toast">
 <div class="obsidian-card rounded-xl flex items-center gap-4 p-4 min-w-[300px]" id="toast-body">
 <span class="material-symbols-outlined text-2xl" id="toast-icon"></span>
 <div>
@@ -441,6 +487,7 @@
     const REPO_OWNER = "Arnimaz", REPO_NAME = "Arnimaz.github.io", BRANCH = "main";
     let token = sessionStorage.getItem("wplace_admin_token");
     let homeData = {}, galleryData = [], guidesData = [], settingsData = {};
+    let suggestionsLocal = [];
     
     if (token) { showAdmin(); loadAll(); }
 
@@ -507,9 +554,10 @@
         try { const g = await loadJSON("content/gallery.json"); galleryData = g.content; galleryData._sha = g.sha; renderGallery(); } catch(e) { console.error(e); }
         try { const gu = await loadJSON("content/guides.json"); guidesData = gu.content; guidesData._sha = gu.sha; renderGuides(); } catch(e) { console.error(e); }
         try { const s = await loadJSON("content/settings.json"); settingsData = s.content; settingsData._sha = s.sha; renderSettings(); } catch(e) { 
-            settingsData = { siteTitle: "WPlace", headerTitle: "⚔ WPLACE ⚔", headerSubtitle: "Pixel Art Community", footer: "© 2025" }; 
+            settingsData = { siteTitle: "Admin panel", headerTitle: "⚔ WPLACE ⚔", headerSubtitle: "Pixel Art Community", footer: "© 2025" }; 
             renderSettings(); 
         }
+        loadSuggestions();
         toast("СИНХРОНИЗАЦИЯ ЗАВЕРШЕНА", "success");
     }
 
@@ -714,23 +762,14 @@
         document.querySelectorAll(".sidebar-btn").forEach(b => b.classList.remove("active"));
         document.getElementById(tabId).classList.remove("hidden");
         btn.classList.add("active");
+        if (tabId === 'suggestions-tab') loadSuggestions();
         window.scrollTo(0,0);
-    }
-
-    function quickSearch(query) {
-        if (!query) return;
-        const q = query.toLowerCase();
-        const btns = document.querySelectorAll('nav button');
-        if (q.includes("глав") || q.includes("hero")) switchTab("home-tab", btns[0]);
-        else if (q.includes("гал") || q.includes("арт")) switchTab("gallery-tab", btns[1]);
-        else if (q.includes("инст") || q.includes("help") || q.includes("гид")) switchTab("guides-tab", btns[2]);
-        else if (q.includes("наст") || q.includes("сет")) switchTab("settings-tab", btns[3]);
     }
 
     async function resetAll() {
         homeData = { title: "", image: "", description: "", location: "", help_wplace: [], help_blue: [], help_helper: [] };
         galleryData = []; guidesData = [];
-        settingsData = { siteTitle: "WPlace", headerTitle: "⚔ WPLACE ⚔", headerSubtitle: "Pixel Art Community", footer: "© 2025" };
+        settingsData = { siteTitle: "Admin panel", headerTitle: "⚔ WPLACE ⚔", headerSubtitle: "Pixel Art Community", footer: "© 2025" };
         await publishAll();
         renderHome(); renderGallery(); renderGuides(); renderSettings();
     }
@@ -755,111 +794,120 @@
         r.readAsText(f); e.target.value = "";
     }
 
-    document.addEventListener("keydown", function(e) {
-        if ((e.ctrlKey||e.metaKey) && e.key === "s") { e.preventDefault(); publishAll(); }
-    });
-    document.getElementById("token-input").addEventListener("keydown", e => { if(e.key==="Enter")login(); });
-</script>
-<script class="">
-    let suggestionsData = [];
-
-    async function loadSuggestions() {
-        const tbody = document.querySelector('#suggestions-tab tbody');
-        try {
-            const res = await fetch(`https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/Suggestions?ref=${BRANCH}`, {
-                headers: { Authorization: `token ${token}`, Accept: "application/vnd.github.v3+json" }
-            });
-            if (!res.ok) {
-                if (res.status === 404) {
-                    tbody.innerHTML = '<tr><td colspan="5" class="p-10 text-center opacity-20 text-sm uppercase tracking-widest font-bold">ПАПКА SUGGESTIONS ПУСТА</td></tr>';
-                    return;
-                }
-                throw new Error();
-            }
-            const files = await res.json();
-            suggestionsData = [];
-            
-            for (const file of files) {
-                if (file.name.endsWith('.json')) {
-                    const contentData = await loadJSON(`Suggestions/${file.name}`);
-                    suggestionsData.push({ ...contentData.content, _sha: contentData.sha, _filename: file.name });
-                }
-            }
-            renderSuggestions();
-        } catch (e) {
-            tbody.innerHTML = '<tr><td colspan="5" class="p-10 text-center text-red-500/50 text-sm uppercase font-bold">ОШИБКА ЗАГРУЗКИ ПРЕДЛОЖКИ</td></tr>';
-        }
+    // SUGGESTIONS MANAGEMENT
+    function loadSuggestions() {
+        const raw = localStorage.getItem('wplace_suggestions');
+        suggestionsLocal = raw ? JSON.parse(raw) : [];
+        renderSuggestionsTable();
     }
 
-    function renderSuggestions() {
-        const tbody = document.querySelector('#suggestions-tab tbody');
-        if (suggestionsData.length === 0) {
-            tbody.innerHTML = '<tr><td colspan="5" class="p-10 text-center opacity-20 text-sm uppercase tracking-widest font-bold">НЕТ НОВЫХ ЗАЯВОК</td></tr>';
+    function renderSuggestionsTable() {
+        const tbody = document.getElementById('suggestions-body');
+        const countEl = document.getElementById('suggestion-count');
+        
+        countEl.textContent = `${suggestionsLocal.length} ЗАЯВОК`;
+        
+        if (suggestionsLocal.length === 0) {
+            tbody.innerHTML = '<tr><td colspan="5" class="p-10 text-center opacity-20 text-sm uppercase tracking-widest font-bold">НЕТ НОВЫХ ЗАЯВОК В LOCALSTORAGE</td></tr>';
             return;
         }
-        tbody.innerHTML = suggestionsData.map((s, i) => `
-            <tr class="hover:bg-white/[0.02] transition-colors">
+
+        tbody.innerHTML = suggestionsLocal.map((s, i) => `
+            <tr class="hover:bg-white/[0.02] transition-colors border-b border-white/5 last:border-0">
                 <td class="p-4">
-                    <div class="w-16 h-16 rounded border border-white/10 bg-black/40 overflow-hidden">
-                        <img class="w-full h-full object-cover" src="${s.image || ''}" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22100%22 height=%22100%22><rect width=%22100%22 height=%22100%22 fill=%22%23222%22/><text x=%2250%%22 y=%2250%%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 fill=%22%23444%22 font-size=%2210%22>NO IMG</text></svg>'">
+                    <div class="w-12 h-12 rounded border border-white/10 bg-black/40 overflow-hidden">
+                        <img class="w-full h-full object-cover" src="${s.image || ''}" onerror="this.style.display='none'">
                     </div>
                 </td>
                 <td class="p-4">
-                    <div class="text-sm font-bold text-white">${s.title || 'Без названия'}</div>
-                    <div class="text-[10px] text-white/40">@${s.author || 'anonymous'}</div>
+                    <div class="text-xs font-bold text-white uppercase tracking-wider">${s.title || 'БЕЗ НАЗВАНИЯ'}</div>
+                    <div class="text-[10px] text-white/30 uppercase mt-1">ОТ: ${s.author || 'ANON'}</div>
                 </td>
                 <td class="p-4">
-                    <div class="text-xs text-white/60 max-w-xs">${s.comment || s.description || '—'}</div>
+                    <div class="text-[10px] text-emerald-primary/80 font-mono">${s.contact || '—'}</div>
                 </td>
                 <td class="p-4">
-                    <span class="px-2 py-1 rounded text-[9px] font-bold bg-blue-400/10 text-blue-400 uppercase">НОВАЯ</span>
+                    <span class="px-2 py-0.5 rounded text-[9px] font-bold bg-blue-400/10 text-blue-400 uppercase tracking-tighter">LOCAL</span>
                 </td>
                 <td class="p-4 text-right">
                     <div class="flex justify-end gap-2">
-                        <button onclick="handleSuggestion(${i}, 'accept')" class="w-8 h-8 rounded bg-emerald-primary/10 text-emerald-primary hover:bg-emerald-primary hover:text-black transition-all flex items-center justify-center" title="Принять в галерею"><span class="material-symbols-outlined text-lg">check</span></button>
-                        <button onclick="handleSuggestion(${i}, 'delete')" class="w-8 h-8 rounded bg-red-500/10 text-red-500 hover:bg-red-500 hover:text-white transition-all flex items-center justify-center" title="Удалить"><span class="material-symbols-outlined text-lg">delete</span></button>
+                        <button onclick="viewSuggestion(${i})" class="w-8 h-8 rounded bg-white/5 text-white/60 hover:bg-white/10 hover:text-white transition-all flex items-center justify-center"><span class="material-symbols-outlined text-lg">visibility</span></button>
+                        <button onclick="downloadSuggestionImage(${i})" class="w-8 h-8 rounded bg-emerald-primary/10 text-emerald-primary hover:bg-emerald-primary hover:text-black transition-all flex items-center justify-center"><span class="material-symbols-outlined text-lg">download</span></button>
+                        <button onclick="deleteSuggestion(${i})" class="w-8 h-8 rounded bg-red-500/10 text-red-500 hover:bg-red-500 hover:text-white transition-all flex items-center justify-center"><span class="material-symbols-outlined text-lg">delete</span></button>
                     </div>
                 </td>
-            </tr>`).join('');
+            </tr>
+        `).join('');
     }
 
-    async function handleSuggestion(index, action) {
-        const item = suggestionsData[index];
-        toast("ОБРАБОТКА ЗАПРОСА...", "info");
+    function viewSuggestion(index) {
+        const item = suggestionsLocal[index];
+        const modal = document.getElementById('suggestion-modal');
+        const content = document.getElementById('modal-content');
+        const acceptBtn = document.getElementById('modal-accept-btn');
         
-        try {
-            if (action === 'accept') {
-                galleryData.push({ title: item.title, description: item.comment || item.description, image: item.image });
-                await saveGallery();
-            }
-            
-            const res = await fetch(`https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/Suggestions/${item._filename}`, {
-                method: "DELETE",
-                headers: { Authorization: `token ${token}`, "Content-Type": "application/json" },
-                body: JSON.stringify({ message: `suggestion_processed: ${item._filename}`, sha: item._sha, branch: BRANCH })
-            });
-            
-            if (!res.ok) throw new Error();
-            
-            suggestionsData.splice(index, 1);
-            renderSuggestions();
-            toast(action === 'accept' ? "АРТ ДОБАВЛЕН В ГАЛЕРЕЮ" : "ЗАЯВКА УДАЛЕНА", "success");
-        } catch (e) {
-            toast("ОШИБКА ПРИ ОБРАБОТКЕ", "error");
+        content.innerHTML = `
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="aspect-square rounded-xl bg-black/40 border border-white/5 overflow-hidden flex items-center justify-center">
+                    <img src="${item.image}" class="max-w-full max-h-full object-contain">
+                </div>
+                <div class="space-y-4">
+                    <div>
+                        <label class="block text-[10px] font-bold text-white/30 uppercase tracking-widest mb-1">НАЗВАНИЕ</label>
+                        <p class="text-sm font-bold text-white">${item.title || 'БЕЗ НАЗВАНИЯ'}</p>
+                    </div>
+                    <div>
+                        <label class="block text-[10px] font-bold text-white/30 uppercase tracking-widest mb-1">КОНТАКТ (TG/DS)</label>
+                        <p class="text-sm font-bold text-emerald-primary">${item.contact || '—'}</p>
+                    </div>
+                    <div>
+                        <label class="block text-[10px] font-bold text-white/30 uppercase tracking-widest mb-1">ДАТА ОТПРАВКИ</label>
+                        <p class="text-sm text-white/60 font-mono">${item.date || 'НЕИЗВЕСТНО'}</p>
+                    </div>
+                    <div>
+                        <label class="block text-[10px] font-bold text-white/30 uppercase tracking-widest mb-1">КОММЕНТАРИЙ</label>
+                        <p class="text-xs text-white/60 leading-relaxed italic border-l-2 border-emerald-primary/30 pl-3">${item.comment || 'ОПИСАНИЕ ОТСУТСТВУЕТ'}</p>
+                    </div>
+                </div>
+            </div>
+        `;
+
+        acceptBtn.onclick = () => {
+            galleryData.push({ title: item.title, description: item.comment, image: item.image });
+            renderGallery();
+            deleteSuggestion(index);
+            closeSuggestionModal();
+            toast("ДОБАВЛЕНО В ОЧЕРЕДЬ ГАЛЕРЕИ", "success");
+        };
+
+        modal.classList.remove('hidden');
+    }
+
+    function closeSuggestionModal() {
+        document.getElementById('suggestion-modal').classList.add('hidden');
+    }
+
+    function deleteSuggestion(index) {
+        if (!confirm('УДАЛИТЬ ДАННУЮ ЗАЯВКУ ИЗ СПИСКА?')) return;
+        suggestionsLocal.splice(index, 1);
+        localStorage.setItem('wplace_suggestions', JSON.stringify(suggestionsLocal));
+        renderSuggestionsTable();
+        toast("ЗАЯВКА УДАЛЕНА", "info");
+    }
+
+    function downloadSuggestionImage(index) {
+        const item = suggestionsLocal[index];
+        if (item.image) {
+            window.open(item.image, '_blank');
+        } else {
+            toast("URL ИЗОБРАЖЕНИЯ ОТСУТСТВУЕТ", "error");
         }
     }
 
-    // Hook into existing loadAll
-    const originalLoadAll = loadAll;
-    loadAll = async function() {
-        await originalLoadAll();
-        await loadSuggestions();
-    };
-
-    // Hook into existing switchTab to refresh suggestions when tab is opened
-    const originalSwitchTab = switchTab;
-    switchTab = function(tabId, btn) {
-        originalSwitchTab(tabId, btn);
-        if (tabId === 'suggestions-tab') loadSuggestions();
-    };
-</script></body></html>
+    document.addEventListener("keydown", function(e) {
+        if ((e.ctrlKey||e.metaKey) && e.key === "s") { e.preventDefault(); publishAll(); }
+        if (e.key === "Escape") closeSuggestionModal();
+    });
+    document.getElementById("token-input").addEventListener("keydown", e => { if(e.key==="Enter")login(); });
+</script>
+</body></html>
