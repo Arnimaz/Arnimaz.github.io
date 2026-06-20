@@ -53,11 +53,12 @@
         .gallery-admin-card textarea { min-height: 55px; resize: vertical; }
         .gallery-admin-card .card-actions { display: flex; gap: 6px; flex-wrap: wrap; justify-content: space-between; align-items: center; margin-top: 6px; }
         .step-admin-item { border: 2px solid var(--border-dim); background: #0a0f0a; padding: 12px; margin-bottom: 8px; }
-        .step-admin-item input, .step-admin-item textarea { width: 100%; padding: 7px 8px; background: #050a05; border: 2px solid var(--border-dim); color: var(--glow); font-family: 'VT323', monospace; font-size: 17px; margin-bottom: 5px; }
+        .step-admin-item input, .step-admin-item textarea, .step-admin-item select { width: 100%; padding: 7px 8px; background: #050a05; border: 2px solid var(--border-dim); color: var(--glow); font-family: 'VT323', monospace; font-size: 17px; margin-bottom: 5px; }
         .step-admin-item textarea { min-height: 50px; resize: vertical; }
-        .step-admin-item .row { display: flex; gap: 8px; align-items: center; }
-        .step-admin-item .row input { flex: 1; }
+        .step-admin-item .row { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+        .step-admin-item .row input, .step-admin-item .row select { flex: 1; min-width: 100px; }
         .guide-item-admin { border: 2px solid var(--border-dim); background: #0a0f0a; padding: 14px; margin-bottom: 10px; }
+        .section-header { font-family: 'Press Start 2P', monospace; font-size: 10px; color: var(--accent2); margin: 10px 0 6px; padding: 6px 10px; background: #0a1a0a; border: 2px solid var(--border-dim); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 6px; }
         .preview-box { border: 2px dashed var(--border); background: #050a05; padding: 12px; margin-top: 12px; text-align: center; max-height: 250px; overflow-y: auto; }
         .preview-box img { max-width: 100%; max-height: 200px; image-rendering: pixelated; border: 2px solid #1a3a1a; }
         .toast { position: fixed; top: 15px; right: 15px; z-index: 10000; padding: 12px 18px; border: 3px solid; font-family: 'Press Start 2P', monospace; font-size: 9px; animation: slideIn 0.2s step-end; max-width: 400px; }
@@ -85,7 +86,7 @@
 <div id="login-page" class="login-container">
     <div class="login-card">
         <div class="login-title">⚔ WPLACE ⚔</div>
-        <div class="login-subtitle">ADMIN PRO v8.0</div>
+        <div class="login-subtitle">ADMIN PRO v9.0</div>
         <div class="form-group"><label class="form-label">🔑 GitHub Token</label><input type="password" id="token-input" class="form-input" placeholder="ghp_..." autofocus></div>
         <button class="btn btn-primary btn-full" onclick="login()">▶ ВОЙТИ</button>
         <div class="login-help">Токен с правами <strong>repo</strong><br><a href="https://github.com/settings/tokens/new" target="_blank">Создать токен →</a></div>
@@ -94,7 +95,7 @@
 
 <div id="admin-page" class="hidden">
     <div class="header">
-        <div class="header-left"><div class="header-title">⚔ WPLACE ADMIN v8.0</div><div class="header-status"><span class="dot"></span>ONLINE</div></div>
+        <div class="header-left"><div class="header-title">⚔ WPLACE ADMIN v9.0</div><div class="header-status"><span class="dot"></span>ONLINE</div></div>
         <div style="display:flex;gap:6px;flex-wrap:wrap;">
             <a href="/" class="btn btn-small btn-info" target="_blank">🌐 САЙТ</a>
             <button class="btn btn-small btn-warning" onclick="loadAll()">🔄</button>
@@ -211,7 +212,7 @@
         try { const h = await loadJSON("content/home.json"); homeData = h.content; homeData._sha = h.sha; renderHome(); } catch(e) { toast("❌ Главная", "error"); errs++; }
         try { const g = await loadJSON("content/gallery.json"); galleryData = g.content; galleryData._sha = g.sha; renderGallery(); } catch(e) { toast("❌ Галерея", "error"); errs++; }
         try { const gu = await loadJSON("content/guides.json"); guidesData = gu.content; guidesData._sha = gu.sha; renderGuides(); } catch(e) { toast("❌ Гайды", "error"); errs++; }
-        try { const s = await loadJSON("content/settings.json"); settingsData = s.content; settingsData._sha = s.sha; renderSettings(); } catch(e) { settingsData = { siteTitle: "WPlace — Пиксель-Арт Сообщество", headerTitle: "⚔ WPLACE ⚔", headerSubtitle: "Пиксель-арт сообщество", footer: "WPlace Pixel Art Community © 2025 | Сделано с ❤️ на пикселях" }; renderSettings(); }
+        try { const s = await loadJSON("content/settings.json"); settingsData = s.content; settingsData._sha = s.sha; renderSettings(); } catch(e) { settingsData = { siteTitle: "WPlace", headerTitle: "⚔ WPLACE ⚔", headerSubtitle: "Пиксель-арт сообщество", footer: "© 2025" }; renderSettings(); }
         updateStats(); if (errs === 0) toast("✅ Загружено", "success");
     }
     function updateStats() {
@@ -242,28 +243,15 @@
             const stepData = typeof s === 'object' ? s : { text: s, image: "", detail: "" };
             return `<div class="step-admin-item">
                 <div class="row"><span style="font-family:Press Start 2P;font-size:10px;color:var(--accent2);min-width:22px;">${i+1}.</span><input value="${(stepData.text||'').replace(/"/g, '&quot;')}" onchange="updateStepField('${type}',${i},'text',this.value)" placeholder="Текст шага"></div>
-                <input value="${stepData.image||''}" onchange="updateStepField('${type}',${i},'image',this.value)" placeholder="Ссылка на фото (необязательно)">
-                <textarea onchange="updateStepField('${type}',${i},'detail',this.value)" placeholder="Подробности (показываются при нажатии)" rows="2">${(stepData.detail||'').replace(/</g, '&lt;')}</textarea>
+                <input value="${stepData.image||''}" onchange="updateStepField('${type}',${i},'image',this.value)" placeholder="Ссылка на фото">
+                <textarea onchange="updateStepField('${type}',${i},'detail',this.value)" placeholder="Подробности" rows="2">${(stepData.detail||'').replace(/</g, '&lt;')}</textarea>
                 <button class="btn btn-small btn-danger" onclick="removeStep('${type}',${i})" style="margin-top:5px;">✕ Удалить</button>
             </div>`;
         }).join("");
     }
-    function addStep(type) {
-        const key = type==="wplace"?"help_wplace":type==="blue"?"help_blue":"help_helper";
-        if(!homeData[key])homeData[key]=[];
-        homeData[key].push({ text: "", image: "", detail: "" });
-        renderStepsAdmin(type, homeData[key]);
-    }
-    function updateStepField(type, i, field, v) {
-        const key = type==="wplace"?"help_wplace":type==="blue"?"help_blue":"help_helper";
-        if (typeof homeData[key][i] !== 'object') homeData[key][i] = { text: homeData[key][i] || "", image: "", detail: "" };
-        homeData[key][i][field] = v;
-    }
-    function removeStep(type, i) {
-        const key = type==="wplace"?"help_wplace":type==="blue"?"help_blue":"help_helper";
-        homeData[key].splice(i,1);
-        renderStepsAdmin(type, homeData[key]);
-    }
+    function addStep(type) { const key = type==="wplace"?"help_wplace":type==="blue"?"help_blue":"help_helper"; if(!homeData[key])homeData[key]=[]; homeData[key].push({text:"",image:"",detail:""}); renderStepsAdmin(type, homeData[key]); }
+    function updateStepField(type, i, field, v) { const key = type==="wplace"?"help_wplace":type==="blue"?"help_blue":"help_helper"; if(typeof homeData[key][i]!=='object')homeData[key][i]={text:homeData[key][i]||"",image:"",detail:""}; homeData[key][i][field]=v; }
+    function removeStep(type, i) { const key = type==="wplace"?"help_wplace":type==="blue"?"help_blue":"help_helper"; homeData[key].splice(i,1); renderStepsAdmin(type, homeData[key]); }
     function previewHomeImage() {
         const url = document.getElementById("home-image").value;
         const p = document.getElementById("home-image-preview"), img = document.getElementById("home-preview-img");
@@ -297,7 +285,7 @@
     function sortGallery() { galleryData.sort((a,b) => (a.title||"").localeCompare(b.title||"")); renderGallery(); }
     async function saveGallery() { try { galleryData._sha = await saveJSON("content/gallery.json", galleryData, galleryData._sha); document.getElementById("stats-last-save").textContent = new Date().toLocaleTimeString(); updateStats(); toast("✅ Сохранено!", "success"); } catch(e) { toast("❌ "+e.message, "error"); } }
 
-    // GUIDES
+    // GUIDES (с разделами)
     function renderGuides() {
         const el = document.getElementById("guides-items");
         if (guidesData.length === 0) { el.innerHTML = '<p style="color:var(--text-dim);text-align:center;padding:40px;">Пусто</p>'; return; }
@@ -306,27 +294,44 @@
                 <div style="display:flex;justify-content:space-between;"><strong style="color:var(--accent2);">Гайд #${i+1}</strong><button class="btn btn-small btn-danger" onclick="if(confirm('Удалить?')){guidesData.splice(${i},1);renderGuides();}">✕</button></div>
                 <input class="form-input" placeholder="Название" value="${g.title||''}" onchange="guidesData[${i}].title=this.value" style="margin:6px 0;">
                 <textarea class="form-input" placeholder="Описание" rows="2" onchange="guidesData[${i}].description=this.value">${g.description||''}</textarea>
-                <div class="help-text">📥 ПК:</div><div id="guide-pc-${i}"></div><button class="btn btn-small btn-primary" onclick="addGuideStep(${i},'pc')">+ ПК</button>
-                <div class="help-text">📱 Тел:</div><div id="guide-phone-${i}"></div><button class="btn btn-small btn-primary" onclick="addGuideStep(${i},'phone')">+ Тел</button>
+                <div class="section-header">💻 ПК <button class="btn btn-small btn-primary" onclick="addGuideStep(${i},'pc')">+</button></div>
+                <div id="guide-pc-${i}">${renderGuideStepsHTML(g.install_pc||[], i, 'pc')}</div>
+                <div class="section-header">📱 Телефон <button class="btn btn-small btn-primary" onclick="addGuideStep(${i},'phone')">+</button></div>
+                <div id="guide-phone-${i}">${renderGuideStepsHTML(g.install_phone||[], i, 'phone')}</div>
                 <input class="form-input" placeholder="Примечание" value="${g.note||''}" onchange="guidesData[${i}].note=this.value" style="margin-top:6px;">
             </div>`).join("");
-        guidesData.forEach((g, i) => { renderGuideStepsAdmin(i, "pc", g.install_pc || []); renderGuideStepsAdmin(i, "phone", g.install_phone || []); });
         updateStats();
     }
-    function renderGuideStepsAdmin(gi, type, steps) {
-        const el = document.getElementById(`guide-${type}-${gi}`); if(!el)return;
-        el.innerHTML = steps.length === 0 ? '<p style="color:var(--text-dim);font-size:14px;">Пусто</p>' : steps.map((s, si) => {
-            const sd = typeof s === 'object' ? s : { text: s, image: "", detail: "" };
+    function renderGuideStepsHTML(steps, gi, type) {
+        if (!steps || steps.length === 0) return '<p style="color:var(--text-dim);font-size:14px;padding:8px;">Пусто</p>';
+        return steps.map((s, si) => {
+            const sd = typeof s === 'object' ? s : { text: s, image: "", detail: "", section: "" };
             return `<div class="step-admin-item">
-                <input value="${(sd.text||'').replace(/"/g, '&quot;')}" onchange="if(typeof guidesData[${gi}].install_${type}[${si}]!=='object')guidesData[${gi}].install_${type}[${si}]={text:guidesData[${gi}].install_${type}[${si}]||'',image:'',detail:''};guidesData[${gi}].install_${type}[${si}].text=this.value" placeholder="Текст">
-                <input value="${sd.image||''}" onchange="if(typeof guidesData[${gi}].install_${type}[${si}]!=='object')guidesData[${gi}].install_${type}[${si}]={text:'',image:'',detail:''};guidesData[${gi}].install_${type}[${si}].image=this.value" placeholder="Фото (ссылка)">
-                <textarea onchange="if(typeof guidesData[${gi}].install_${type}[${si}]!=='object')guidesData[${gi}].install_${type}[${si}]={text:'',image:'',detail:''};guidesData[${gi}].install_${type}[${si}].detail=this.value" placeholder="Подробности" rows="2">${(sd.detail||'').replace(/</g, '&lt;')}</textarea>
+                <div class="row">
+                    <input value="${(sd.text||'').replace(/"/g, '&quot;')}" onchange="updateGuideField(${gi},'${type}',${si},'text',this.value)" placeholder="Текст" style="flex:2;">
+                    <select onchange="updateGuideField(${gi},'${type}',${si},'section',this.value)" style="flex:1;padding:7px 8px;background:#050a05;border:2px solid var(--border-dim);color:var(--glow);font-family:'VT323',monospace;font-size:17px;">
+                        <option value="">Без раздела</option>
+                        <option value="💻 ПК" ${sd.section==='💻 ПК'?'selected':''}>💻 ПК</option>
+                        <option value="📱 Android (Chrome)" ${sd.section==='📱 Android (Chrome)'?'selected':''}>📱 Android Chrome</option>
+                        <option value="📱 Android (Edge)" ${sd.section==='📱 Android (Edge)'?'selected':''}>📱 Android Edge</option>
+                        <option value="📱 Android (Firefox)" ${sd.section==='📱 Android (Firefox)'?'selected':''}>📱 Android Firefox</option>
+                        <option value="📱 iPhone (iOS)" ${sd.section==='📱 iPhone (iOS)'?'selected':''}>📱 iPhone iOS</option>
+                    </select>
+                </div>
+                <input value="${sd.image||''}" onchange="updateGuideField(${gi},'${type}',${si},'image',this.value)" placeholder="Фото (ссылка)">
+                <textarea onchange="updateGuideField(${gi},'${type}',${si},'detail',this.value)" placeholder="Подробности" rows="2">${(sd.detail||'').replace(/</g, '&lt;')}</textarea>
                 <button class="btn btn-small btn-danger" onclick="guidesData[${gi}].install_${type}.splice(${si},1);renderGuides();">✕</button>
             </div>`;
         }).join("");
     }
+    function updateGuideField(gi, type, si, field, v) {
+        const key = `install_${type}`;
+        if (!guidesData[gi][key]) guidesData[gi][key] = [];
+        if (typeof guidesData[gi][key][si] !== 'object') guidesData[gi][key][si] = { text: guidesData[gi][key][si] || "", image: "", detail: "", section: "" };
+        guidesData[gi][key][si][field] = v;
+    }
     function addGuideItem() { guidesData.push({ title: "", description: "", install_pc: [], install_phone: [], note: "" }); renderGuides(); }
-    function addGuideStep(gi, type) { const key = `install_${type}`; if(!guidesData[gi][key])guidesData[gi][key]=[]; guidesData[gi][key].push({ text: "", image: "", detail: "" }); renderGuides(); }
+    function addGuideStep(gi, type) { const key = `install_${type}`; if(!guidesData[gi][key])guidesData[gi][key]=[]; guidesData[gi][key].push({text:"",image:"",detail:"",section:""}); renderGuides(); }
     async function saveGuides() { try { guidesData._sha = await saveJSON("content/guides.json", guidesData, guidesData._sha); document.getElementById("stats-last-save").textContent = new Date().toLocaleTimeString(); updateStats(); toast("✅ Сохранено!", "success"); } catch(e) { toast("❌ "+e.message, "error"); } }
 
     // SETTINGS
@@ -346,8 +351,7 @@
 
     async function resetAll() {
         homeData = { title: "", image: "", description: "", location: "", help_wplace: [], help_blue: [], help_helper: [] };
-        galleryData = [];
-        guidesData = [];
+        galleryData = []; guidesData = [];
         settingsData = { siteTitle: "WPlace", headerTitle: "⚔ WPLACE ⚔", headerSubtitle: "Пиксель-арт сообщество", footer: "© 2025" };
         try {
             homeData._sha = await saveJSON("content/home.json", homeData, homeData._sha);
@@ -360,13 +364,11 @@
     function exportAll() {
         const data = { home: homeData, gallery: galleryData, guides: guidesData, settings: settingsData, date: new Date().toISOString() };
         delete data.home._sha; delete data.gallery._sha; delete data.guides._sha; delete data.settings._sha;
-        const b = new Blob([JSON.stringify(data,null,2)],{type:"application/json"});
-        const a = document.createElement("a"); a.href = URL.createObjectURL(b); a.download = `wplace-backup.json`; a.click();
+        const b = new Blob([JSON.stringify(data,null,2)],{type:"application/json"}); const a = document.createElement("a"); a.href = URL.createObjectURL(b); a.download = `wplace-backup.json`; a.click();
     }
     function importAll() { document.getElementById("import-file").click(); }
     function handleImport(e) {
-        const f = e.target.files[0]; if(!f)return;
-        const r = new FileReader();
+        const f = e.target.files[0]; if(!f)return; const r = new FileReader();
         r.onload = function(ev) { try { const d = JSON.parse(ev.target.result); if(d.home){homeData=d.home;renderHome();} if(d.gallery){galleryData=d.gallery;renderGallery();} if(d.guides){guidesData=d.guides;renderGuides();} if(d.settings){settingsData=d.settings;renderSettings();} updateStats(); } catch(er) { toast("❌ Ошибка", "error"); } };
         r.readAsText(f); e.target.value = "";
     }
@@ -381,6 +383,5 @@
     document.addEventListener("keydown", function(e) { if((e.ctrlKey||e.metaKey)&&e.key==="s"){ e.preventDefault(); const at = document.querySelector(".tab-content.active"); if(at.id==="home-tab")saveHome(); else if(at.id==="gallery-tab")saveGallery(); else if(at.id==="guides-tab")saveGuides(); else if(at.id==="settings-tab")saveSettings(); } });
     document.getElementById("token-input").addEventListener("keydown", e => { if(e.key==="Enter")login(); });
 </script>
-
 </body>
 </html>
