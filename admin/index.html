@@ -163,7 +163,6 @@
             <button class="tab-btn" onclick="switchTab('settings-tab')">⚙ Настройки</button>
         </div>
 
-        <!-- ГЛАВНАЯ -->
         <div id="home-tab" class="tab-content active">
             <div class="card-grid">
                 <div class="card">
@@ -183,7 +182,6 @@
             <button class="btn btn-primary btn-full" onclick="saveHome()">💾 СОХРАНИТЬ ГЛАВНУЮ</button>
         </div>
 
-        <!-- ГАЛЕРЕЯ -->
         <div id="gallery-tab" class="tab-content">
             <div class="card">
                 <div class="card-header">🖼 ГАЛЕРЕЯ АРТОВ <div style="display:flex;gap:6px;"><button class="btn btn-small btn-primary" onclick="addGalleryItem()">+ ДОБАВИТЬ</button><button class="btn btn-small btn-warning" onclick="sortGallery()">🔤</button></div></div>
@@ -192,13 +190,11 @@
             <button class="btn btn-primary btn-full" onclick="saveGallery()">💾 СОХРАНИТЬ ГАЛЕРЕЮ</button>
         </div>
 
-        <!-- ГАЙДЫ -->
         <div id="guides-tab" class="tab-content">
             <div class="card"><div class="card-header">📚 ГАЙДЫ <button class="btn btn-small btn-primary" onclick="addGuideItem()">+ ДОБАВИТЬ</button></div><div id="guides-items"></div></div>
             <button class="btn btn-primary btn-full" onclick="saveGuides()">💾 СОХРАНИТЬ ГАЙДЫ</button>
         </div>
 
-        <!-- НАСТРОЙКИ -->
         <div id="settings-tab" class="tab-content">
             <div class="card-grid">
                 <div class="card">
@@ -324,7 +320,7 @@
             <div class="gallery-admin-card">
                 ${item.image ? `<img src="${item.image}" class="preview-img" onerror="this.style.display='none';this.insertAdjacentHTML('afterend','<div class=no-img>[ОШИБКА]</div>')">` : '<div class="no-img">[НЕТ КАРТИНКИ]</div>'}
                 <input placeholder="Название" value="${item.title || ''}" onchange="galleryData[${i}].title=this.value">
-                <textarea placeholder="Описание" rows="2" onchange="galleryData[${i}].description=this.value">${item.description || ''}</textarea>
+                <textarea placeholder="Описание (ссылки https://... кликабельны)" rows="2" onchange="galleryData[${i}].description=this.value">${item.description || ''}</textarea>
                 <input placeholder="Ссылка на картинку" value="${item.image || ''}" onchange="galleryData[${i}].image=this.value;renderGallery();">
                 <div class="card-actions">
                     <div><button class="btn btn-small btn-info" onclick="moveGalleryItem(${i},-1)" ${i===0?"disabled":""}>▲</button><button class="btn btn-small btn-info" onclick="moveGalleryItem(${i},1)" ${i===galleryData.length-1?"disabled":""}>▼</button></div>
