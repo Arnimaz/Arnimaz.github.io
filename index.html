@@ -231,7 +231,8 @@
             color: #000;
         }
     </style>
-</head><body class="antialiased">
+</head>
+<body class="antialiased">
 <!-- Main Site Interface -->
 <div class="max-w-6xl mx-auto px-4 py-8" id="main-site-container">
 <!-- Header -->
@@ -340,7 +341,7 @@
 <div class="text-[var(--text-dim)] leading-relaxed mb-10 flex-grow" id="modal-desc" style="overflow-wrap: break-word; word-break: break-all;"></div>
 <div class="flex flex-col gap-4 mt-auto">
 <button class="btn-action w-full py-4 rounded-sm flex items-center justify-center gap-3" id="modal-download" onclick="downloadModalImage()" style="display: none;">
-<span class="material-symbols-outlined">download</span> Загрузить данные
+<span class="material-symbols-outlined">download</span> СКАЧАТЬ АРТ
                     </button>
 <span class="hidden" id="modal-counter"></span><div class="flex items-center justify-between bg-[var(--surface-bright)] p-1 rounded-sm border border-[var(--border)]" id="modal-nav-row">
 <button class="p-3 hover:bg-[var(--surface-container)] hover:text-[var(--accent)] transition-colors" id="modal-prev" onclick="event.stopPropagation(); navModal(-1)">
@@ -423,7 +424,7 @@
                                     <span class="material-symbols-outlined">my_location</span> К ТЕРРИТОРИИ WPLACE
                                 </a>
                             ` : ''}
-                            ${homeData.image ? `<button class="bg-[var(--surface-bright)] text-white hover:text-[var(--accent)] border border-[var(--border)] hover:border-[var(--accent)] px-10 py-4 rounded-sm flex items-center gap-3 text-xs font-bold uppercase transition-all" onclick="downloadImage('${homeData.image}','wplace-art.png')"><span class="material-symbols-outlined">download</span> СОХРАНИТЬ АРХИВ</button>` : ''}
+                            ${homeData.image ? `<button class="bg-[var(--surface-bright)] text-white hover:text-[var(--accent)] border border-[var(--border)] hover:border-[var(--accent)] px-10 py-4 rounded-sm flex items-center gap-3 text-xs font-bold uppercase transition-all" onclick="downloadImage('${homeData.image}','wplace-art.png')"><span class="material-symbols-outlined">download</span> СКАЧАТЬ АРТ</button>` : ''}
                         </div>
                     </div>
                 </div>
