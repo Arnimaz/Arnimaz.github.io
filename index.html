@@ -92,41 +92,54 @@
         .gallery-item img { width: 100%; aspect-ratio: 1; object-fit: contain; border: 2px solid #3a3a5a; display: block; image-rendering: pixelated; background: #050510; }
         .gallery-item .label { font-family: 'VT323', monospace; font-size: 20px; margin-top: 10px; color: #eee; }
 
+        /* Модалка */
         .modal-overlay {
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(0,0,0,0.92); z-index: 100000;
-            justify-content: center; align-items: center; padding: 20px;
+            justify-content: center; align-items: center; padding: 15px;
         }
         .modal-overlay.active { display: flex; }
         .modal {
             border: 5px solid var(--border); background: var(--surface);
-            padding: 30px; max-width: 750px; width: 100%; text-align: center;
+            padding: 25px 20px; max-width: 750px; width: 100%; text-align: center;
             box-shadow: 0 0 50px rgba(0,255,136,0.4); animation: fadeIn 0.2s step-end;
             z-index: 100001; position: relative; max-height: 90vh; overflow-y: auto;
+            display: flex; flex-direction: column; align-items: center; gap: 12px;
         }
-        .modal img { max-width: 100%; max-height: 55vh; image-rendering: pixelated; border: 3px solid #3a3a5a; margin-bottom: 20px; background: #050510; }
-        .modal h3 { font-family: 'Press Start 2P', monospace; font-size: 16px; color: var(--accent2); margin-bottom: 12px; text-shadow: 0 0 10px rgba(255,217,61,0.5); }
-        .modal .desc { font-size: 22px; color: #ddd; margin-bottom: 20px; line-height: 1.6; }
-        .modal .desc a { font-size: 22px; }
-        .modal .close-btn { font-family: 'Press Start 2P', monospace; font-size: 13px; padding: 12px 24px; background: #0a2a0a; color: var(--glow); border: 3px solid var(--border); cursor: pointer; box-shadow: 0 4px 0 #0a4a0a; margin-top: 10px; }
-        .modal .close-btn:hover { background: #0d3a0d; transform: translateY(-2px); }
-        .modal .nav-btn { position: absolute; top: 50%; transform: translateY(-50%); font-family: 'Press Start 2P', monospace; font-size: 20px; background: #0a2a0a; color: var(--glow); border: 3px solid var(--border); cursor: pointer; padding: 12px 16px; box-shadow: 0 3px 0 #0a4a0a; z-index: 10; }
+        .modal .counter { font-size: 16px; color: var(--text-dim); }
+        .modal .nav-buttons { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; }
+        .modal .nav-btn {
+            font-family: 'Press Start 2P', monospace; font-size: 14px;
+            background: #0a2a0a; color: var(--glow); border: 3px solid var(--border);
+            cursor: pointer; padding: 10px 14px; box-shadow: 0 3px 0 #0a4a0a;
+            white-space: nowrap;
+        }
         .modal .nav-btn:hover { background: #0d3a0d; }
-        .modal .nav-prev { left: -45px; }
-        .modal .nav-next { right: -45px; }
-        .modal .counter { font-size: 16px; color: var(--text-dim); margin-bottom: 10px; }
+        .modal img { max-width: 100%; max-height: 50vh; image-rendering: pixelated; border: 3px solid #3a3a5a; background: #050510; }
+        .modal h3 { font-family: 'Press Start 2P', monospace; font-size: 15px; color: var(--accent2); text-shadow: 0 0 10px rgba(255,217,61,0.5); }
+        .modal .desc { font-size: 20px; color: #ddd; line-height: 1.6; word-break: break-word; }
+        .modal .desc a { font-size: 20px; }
+        .modal .close-btn {
+            font-family: 'Press Start 2P', monospace; font-size: 13px; padding: 14px 24px;
+            background: #0a2a0a; color: var(--glow); border: 3px solid var(--border);
+            cursor: pointer; box-shadow: 0 4px 0 #0a4a0a; width: 100%; max-width: 300px;
+        }
+        .modal .close-btn:hover { background: #0d3a0d; transform: translateY(-2px); }
 
-        .note { border: 3px dashed #3a3a5a; background: #0a0a15; padding: 15px; margin-top: 15px; font-style: italic; color: #88aacc; }
+        .note { border: 3px dashed #3a3a5a; background: #0a0a15; padding: 15px; margin-top: 10px; font-style: italic; color: #88aacc; text-align: left; }
         .note a { color: var(--glow); }
 
         footer { text-align: center; padding: 20px; margin-top: 30px; font-size: 16px; color: #3a3a5a; border-top: 2px solid #1a1a2e; }
 
         @media (max-width: 768px) {
-            .modal .nav-btn { position: static; margin: 8px; display: inline-block; }
-            .modal { padding: 20px; max-height: 95vh; }
             .gallery-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
             .gallery-item { padding: 6px; }
             .gallery-item .label { font-size: 16px; }
+            .modal { padding: 20px 12px; gap: 10px; }
+            .modal .nav-btn { font-size: 11px; padding: 8px 10px; }
+            .modal h3 { font-size: 13px; }
+            .modal .desc { font-size: 18px; }
+            .modal .close-btn { font-size: 11px; padding: 12px; }
         }
         @media (max-width: 480px) {
             .site-title { font-size: 16px; }
@@ -135,7 +148,6 @@
             .gallery-grid { grid-template-columns: repeat(2, 1fr); gap: 6px; }
             ol.pixel-list li { padding: 10px 8px 10px 45px; font-size: 15px; }
             ol.pixel-list li::before { font-size: 8px; min-width: 20px; padding: 3px 4px; left: 5px; }
-            .modal .nav-btn { font-size: 14px; padding: 8px 10px; }
         }
     </style>
 </head>
@@ -176,12 +188,13 @@
 <div class="modal-overlay" id="modal-overlay" onclick="closeModal(event)">
     <div class="modal" id="modal-box">
         <div class="counter" id="modal-counter"></div>
-        <button class="nav-btn nav-prev" id="modal-prev" onclick="navModal(-1)">◀</button>
+        <div class="nav-buttons" id="modal-nav-buttons">
+            <button class="nav-btn" id="modal-prev" onclick="navModal(-1)">◀ НАЗАД</button>
+            <button class="nav-btn" id="modal-next" onclick="navModal(1)">ВПЕРЁД ▶</button>
+        </div>
         <img id="modal-img" src="" alt="">
         <h3 id="modal-title"></h3>
         <div class="desc" id="modal-desc"></div>
-        <button class="nav-btn nav-next" id="modal-next" onclick="navModal(1)">▶</button>
-        <br>
         <button class="close-btn" onclick="closeModal()">✕ ЗАКРЫТЬ</button>
     </div>
 </div>
@@ -255,10 +268,9 @@
         if (type === 'wplace') return window._homeData?.help_wplace?.[index] || { text: "", image: "", detail: "" };
         if (type === 'blue') return window._homeData?.help_blue?.[index] || { text: "", image: "", detail: "" };
         if (type === 'helper') return window._homeData?.help_helper?.[index] || { text: "", image: "", detail: "" };
-        // Гайды
         const parts = type.split('_');
         if (parts[0] === 'guide') {
-            const guideType = parts[1]; // pc или phone
+            const guideType = parts[1];
             const guideTitle = parts.slice(2).join('_');
             const guide = window._guidesData?.find(g => g.title === guideTitle);
             if (guide) {
@@ -275,8 +287,7 @@
         modalMode = 'step';
         showStepInModal();
         document.getElementById("modal-overlay").classList.add("active");
-        document.getElementById("modal-prev").style.display = 'none';
-        document.getElementById("modal-next").style.display = 'none';
+        document.getElementById("modal-nav-buttons").style.display = 'none';
     }
 
     function showStepInModal() {
@@ -286,8 +297,8 @@
         document.getElementById("modal-img").style.display = stepData.image ? 'block' : 'none';
         document.getElementById("modal-title").textContent = `Шаг ${currentStepIndex + 1}`;
         document.getElementById("modal-desc").innerHTML = 
-            '<p style="margin-bottom:12px;font-size:22px;">' + makeLinksClickable(stepData.text || "Нет описания") + '</p>' +
-            (stepData.detail ? '<div class="note" style="text-align:left;font-size:18px;">📋 <strong>Подробности:</strong><br>' + makeLinksClickable(stepData.detail) + '</div>' : '');
+            '<p style="margin-bottom:12px;font-size:20px;">' + makeLinksClickable(stepData.text || "Нет описания") + '</p>' +
+            (stepData.detail ? '<div class="note">📋 <strong>Подробности:</strong><br>' + makeLinksClickable(stepData.detail) + '</div>' : '');
         document.getElementById("modal-counter").textContent = "";
     }
 
@@ -306,8 +317,7 @@
         modalMode = 'gallery';
         showGalleryModal();
         document.getElementById("modal-overlay").classList.add("active");
-        document.getElementById("modal-prev").style.display = 'block';
-        document.getElementById("modal-next").style.display = 'block';
+        document.getElementById("modal-nav-buttons").style.display = 'flex';
     }
 
     function navModal(dir) {
