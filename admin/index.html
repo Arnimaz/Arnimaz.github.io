@@ -177,11 +177,11 @@
 </div>
 </div>
 <div class="flex items-center gap-6">
-<div class="flex items-center gap-2 px-3 py-1 border border-[var(--neon-green)] text-xs">
+<div class="flex items-center gap-2 px-4 py-2 border border-[var(--neon-green)] text-sm h-10">
 <div class="w-2 h-2 bg-[var(--neon-green)] animate-pulse"></div>
 <span class="font-bold uppercase">СВЯЗЬ С API УСТАНОВЛЕНА</span>
 </div>
-<button class="btn-terminal px-6 py-2 font-bold flex items-center gap-2" onclick="publishAll()">
+<button class="btn-terminal px-4 py-2 text-sm font-bold flex items-center gap-2 h-10" onclick="publishAll()">
 <span class="material-symbols-outlined">cloud_upload</span>
                     ЗАПИСАТЬ В БД
                 </button>
@@ -676,6 +676,8 @@
     });
     document.getElementById("token-input").addEventListener("keydown", e => { if(e.key==="Enter")login(); });
 </script>
+
+
 
 
 </body></html>
