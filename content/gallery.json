@@ -1,7 +1,8 @@
 [
-  {
-    "title": "Арт #1",
-    "date": "",
-    "image": "images/Frieren.png"
-  }
+  { "title": "Арт #1", "description": "Описание арта #1", "image": "" },
+  { "title": "Арт #2", "description": "Описание арта #2", "image": "" },
+  { "title": "Арт #3", "description": "Описание арта #3", "image": "" },
+  { "title": "Арт #4", "description": "Описание арта #4", "image": "" },
+  { "title": "Арт #5", "description": "Описание арта #5", "image": "" },
+  { "title": "Арт #6", "description": "Описание арта #6", "image": "" }
 ]
