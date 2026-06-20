@@ -18,7 +18,6 @@
             font-family: 'VT323', monospace; font-size: 18px; min-height: 100vh;
         }
 
-        /* === SIDEBAR === */
         .sidebar {
             width: 240px; min-width: 240px; background: var(--sidebar);
             border-right: 3px solid var(--border); padding: 20px 0;
@@ -51,7 +50,6 @@
         }
         .sidebar-footer { padding: 15px; border-top: 2px solid var(--border-dim); display: flex; flex-direction: column; gap: 6px; }
 
-        /* === MAIN === */
         .main-area { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
         .topbar {
             background: var(--surface); border-bottom: 3px solid var(--border);
@@ -67,18 +65,6 @@
         .quick-search:focus { border-color: var(--glow); outline: none; }
         .content-area { flex: 1; overflow-y: auto; padding: 20px; }
 
-        /* === STATS ROW === */
-        .stats-row { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 20px; }
-        .stat-card {
-            flex: 1; min-width: 100px; border: 2px solid var(--border-dim);
-            background: var(--surface); padding: 12px 14px; text-align: center;
-            cursor: pointer; transition: all 0.1s step-end;
-        }
-        .stat-card:hover { border-color: var(--glow); box-shadow: 0 0 15px rgba(0,255,102,0.1); }
-        .stat-card .val { font-family: 'Press Start 2P', monospace; font-size: 20px; color: var(--glow); }
-        .stat-card .lbl { font-size: 12px; color: var(--text-dim); margin-top: 2px; }
-
-        /* === BUTTONS === */
         .btn {
             font-family: 'Press Start 2P', monospace; font-size: 8px; padding: 8px 12px;
             background: var(--surface2); color: var(--text); border: 2px solid var(--border-dim);
@@ -91,10 +77,8 @@
         .btn-danger { background: #1a0a0a; border-color: #4a2a2a; color: #ff8888; }
         .btn-warning { background: #1a1a0a; border-color: #4a4a2a; color: var(--warning); }
         .btn-info { background: #0a1a2a; border-color: #2a4a5a; color: var(--info); }
-        .btn-ghost { background: transparent; box-shadow: none; }
         .btn-full { width: 100%; font-size: 10px; padding: 14px; }
 
-        /* === CARDS === */
         .card { border: 2px solid var(--border-dim); background: var(--surface); padding: 16px; margin-bottom: 14px; }
         .card-header {
             font-family: 'Press Start 2P', monospace; font-size: 10px; color: var(--accent2);
@@ -103,7 +87,6 @@
         }
         .card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 12px; }
 
-        /* === FORMS === */
         .form-group { margin-bottom: 10px; }
         .form-label { display: block; font-size: 16px; color: var(--accent2); margin-bottom: 3px; }
         .form-input {
@@ -113,7 +96,6 @@
         .form-input:focus { border-color: var(--glow); box-shadow: 0 0 10px rgba(0,255,102,0.1); }
         textarea.form-input { resize: vertical; min-height: 60px; line-height: 1.4; }
 
-        /* === GALLERY === */
         .gallery-admin-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 14px; }
         .gallery-admin-card { border: 2px solid var(--border-dim); background: #0a0f0a; padding: 12px; }
         .gallery-admin-card .preview-img { width: 100%; aspect-ratio: 1; object-fit: contain; image-rendering: pixelated; border: 2px solid #1a3a1a; background: #050510; margin-bottom: 10px; display: block; }
@@ -121,17 +103,14 @@
         .gallery-admin-card input, .gallery-admin-card textarea { width: 100%; padding: 7px 8px; background: #050a05; border: 2px solid var(--border-dim); color: var(--glow); font-family: 'VT323', monospace; font-size: 16px; margin-bottom: 6px; }
         .gallery-admin-card .card-actions { display: flex; gap: 4px; flex-wrap: wrap; justify-content: space-between; align-items: center; margin-top: 4px; }
 
-        /* === STEPS === */
         .step-admin-item { border: 2px solid var(--border-dim); background: #0a0f0a; padding: 10px; margin-bottom: 6px; }
         .step-admin-item input, .step-admin-item textarea, .step-admin-item select { width: 100%; padding: 6px 8px; background: #050a05; border: 2px solid var(--border-dim); color: var(--glow); font-family: 'VT323', monospace; font-size: 16px; margin-bottom: 4px; }
         .step-admin-item .row { display: flex; gap: 6px; align-items: center; flex-wrap: wrap; }
         .step-admin-item .row input, .step-admin-item .row select { flex: 1; min-width: 80px; }
 
-        /* === GUIDE === */
         .guide-item-admin { border: 2px solid var(--border-dim); background: #0a0f0a; padding: 12px; margin-bottom: 10px; }
         .section-header { font-family: 'Press Start 2P', monospace; font-size: 9px; color: var(--accent2); margin: 8px 0 5px; padding: 5px 8px; background: #0a1a0a; border: 2px solid var(--border-dim); display: flex; justify-content: space-between; align-items: center; }
 
-        /* === TOAST === */
         .toast {
             position: fixed; bottom: 20px; right: 20px; z-index: 10000;
             padding: 12px 18px; border: 3px solid; font-family: 'Press Start 2P', monospace;
@@ -142,16 +121,6 @@
         .toast-info { background: #0a1a2a; border-color: var(--info); color: var(--info); }
         @keyframes slideUp { from { transform: translateY(100px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
 
-        /* === HISTORY === */
-        .history-log {
-            max-height: 200px; overflow-y: auto; font-size: 14px;
-            border: 2px solid var(--border-dim); background: #050a05; padding: 10px;
-        }
-        .history-log .entry { padding: 3px 0; border-bottom: 1px solid #1a2a1a; color: var(--text-dim); }
-        .history-log .entry.success { color: var(--glow); }
-        .history-log .entry.error { color: var(--danger); }
-
-        /* === LOGIN === */
         .login-container { min-height: 100vh; display: flex; align-items: center; justify-content: center; }
         .login-card {
             width: 100%; max-width: 420px; border: 5px solid var(--border);
@@ -161,9 +130,7 @@
         .login-title { font-family: 'Press Start 2P', monospace; font-size: 16px; color: var(--glow); text-shadow: 0 0 15px var(--glow); margin-bottom: 4px; }
         .login-subtitle { font-size: 18px; color: var(--text-dim); margin-bottom: 22px; }
         .hidden { display: none !important; }
-        .flex { display: flex !important; }
 
-        /* === RESPONSIVE === */
         @media (max-width: 768px) {
             .admin-layout { flex-direction: column; }
             .sidebar { width: 100%; min-width: 100%; flex-direction: row; flex-wrap: wrap; padding: 8px; gap: 4px; border-right: none; border-bottom: 3px solid var(--border); }
@@ -201,7 +168,6 @@
                 <button onclick="switchTab('gallery-tab', this)">🖼 Галерея</button>
                 <button onclick="switchTab('guides-tab', this)">📚 Гайды</button>
                 <button onclick="switchTab('settings-tab', this)">⚙ Настройки</button>
-                <button onclick="switchTab('history-tab', this)">📜 История</button>
             </div>
             <div class="sidebar-footer">
                 <a href="/" class="btn btn-info btn-full" target="_blank">🌐 ОТКРЫТЬ САЙТ</a>
@@ -216,17 +182,10 @@
                 <div class="topbar-title">Masters_of_Cum_ADMIN</div>
                 <div class="topbar-actions">
                     <input type="text" class="quick-search" placeholder="Поиск..." oninput="quickSearch(this.value)">
-                    <button class="btn btn-primary btn-ghost" onclick="publishAll()">💾 СОХРАНИТЬ ВСЁ</button>
+                    <button class="btn btn-primary" onclick="publishAll()">💾 СОХРАНИТЬ ВСЁ</button>
                 </div>
             </div>
             <div class="content-area">
-                <div class="stats-row">
-                    <div class="stat-card" onclick="switchTab('home-tab', document.querySelector('.sidebar-nav button'))"><div class="val" id="stat-art">-</div><div class="lbl">Акт. арт</div></div>
-                    <div class="stat-card" onclick="switchTab('gallery-tab', document.querySelectorAll('.sidebar-nav button')[1])"><div class="val" id="stat-gallery">-</div><div class="lbl">Галерея</div></div>
-                    <div class="stat-card" onclick="switchTab('guides-tab', document.querySelectorAll('.sidebar-nav button')[2])"><div class="val" id="stat-guides">-</div><div class="lbl">Гайды</div></div>
-                    <div class="stat-card"><div class="val" id="stat-steps">-</div><div class="lbl">Шаги</div></div>
-                </div>
-
                 <!-- HOME TAB -->
                 <div id="home-tab" class="tab-content">
                     <div class="card-grid">
@@ -275,21 +234,9 @@
                             <button class="btn btn-info" onclick="exportAll()" style="width:100%;margin-bottom:6px;">📥 ЭКСПОРТ ДАННЫХ</button>
                             <button class="btn btn-info" onclick="importAll()" style="width:100%;margin-bottom:6px;">📤 ИМПОРТ ДАННЫХ</button>
                             <input type="file" id="import-file" accept=".json" class="hidden" onchange="handleImport(event)">
-                            <hr style="border-color:var(--border-dim);margin:8px 0;">
-                            <button class="btn btn-info" onclick="toggleAutoSave()" style="width:100%;">⏱ АВТОСОХРАНЕНИЕ: <span id="autosave-status">ВЫКЛ</span></button>
                         </div>
                     </div>
                     <button class="btn btn-primary btn-full" onclick="saveSettings()">💾 СОХРАНИТЬ НАСТРОЙКИ</button>
-                </div>
-
-                <!-- HISTORY TAB -->
-                <div id="history-tab" class="tab-content hidden">
-                    <div class="card">
-                        <div class="card-header">📜 ИСТОРИЯ ДЕЙСТВИЙ <button class="btn btn-warning" onclick="clearHistory()">ОЧИСТИТЬ</button></div>
-                        <div class="history-log" id="history-log">
-                            <div class="entry">Консоль запущена.</div>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
@@ -301,45 +248,12 @@
     const REPO_OWNER = "Arnimaz", REPO_NAME = "Arnimaz.github.io", BRANCH = "main";
     let token = sessionStorage.getItem("wplace_admin_token");
     let homeData = {}, galleryData = [], guidesData = [], settingsData = {};
-    let autoSaveInterval = null;
-    let historyLog = [];
     if (token) { showAdmin(); loadAll(); }
 
-    function addHistory(msg, type) {
-        historyLog.unshift({ msg, type, time: new Date().toLocaleTimeString() });
-        if (historyLog.length > 50) historyLog.pop();
-        renderHistory();
-    }
-    function renderHistory() {
-        const el = document.getElementById("history-log");
-        if (el) el.innerHTML = historyLog.map(h => `<div class="entry ${h.type}">[${h.time}] ${h.msg}</div>`).join('') || '<div class="entry">Пусто</div>';
-    }
-    function clearHistory() { historyLog = []; renderHistory(); toast("История очищена", "info"); }
-
     function toast(msg, type) {
-        addHistory(msg, type);
         const t = document.getElementById("toast");
         t.textContent = msg; t.className = `toast toast-${type}`;
         clearTimeout(t._t); t._t = setTimeout(() => t.classList.add("hidden"), 3500);
-    }
-
-    function toggleAutoSave() {
-        const status = document.getElementById("autosave-status");
-        if (autoSaveInterval) {
-            clearInterval(autoSaveInterval); autoSaveInterval = null;
-            status.textContent = "ВЫКЛ"; toast("Автосохранение выключено", "info");
-        } else {
-            autoSaveInterval = setInterval(() => {
-                const activeTab = document.querySelector(".tab-content:not(.hidden)");
-                if (activeTab) {
-                    if (activeTab.id === "home-tab") saveHome();
-                    else if (activeTab.id === "gallery-tab") saveGallery();
-                    else if (activeTab.id === "guides-tab") saveGuides();
-                    else if (activeTab.id === "settings-tab") saveSettings();
-                }
-            }, 60000);
-            status.textContent = "ВКЛ (60с)"; toast("Автосохранение включено", "success");
-        }
     }
 
     function quickSearch(query) {
@@ -380,18 +294,11 @@
     }
     async function loadAll() {
         let errs = 0;
-        try { const h = await loadJSON("content/home.json"); homeData = h.content; homeData._sha = h.sha; renderHome(); } catch(e) { toast("❌ Главная: "+e.message, "error"); errs++; }
-        try { const g = await loadJSON("content/gallery.json"); galleryData = g.content; galleryData._sha = g.sha; renderGallery(); } catch(e) { toast("❌ Галерея: "+e.message, "error"); errs++; }
-        try { const gu = await loadJSON("content/guides.json"); guidesData = gu.content; guidesData._sha = gu.sha; renderGuides(); } catch(e) { toast("❌ Гайды: "+e.message, "error"); errs++; }
+        try { const h = await loadJSON("content/home.json"); homeData = h.content; homeData._sha = h.sha; renderHome(); } catch(e) { toast("❌ Главная", "error"); errs++; }
+        try { const g = await loadJSON("content/gallery.json"); galleryData = g.content; galleryData._sha = g.sha; renderGallery(); } catch(e) { toast("❌ Галерея", "error"); errs++; }
+        try { const gu = await loadJSON("content/guides.json"); guidesData = gu.content; guidesData._sha = gu.sha; renderGuides(); } catch(e) { toast("❌ Гайды", "error"); errs++; }
         try { const s = await loadJSON("content/settings.json"); settingsData = s.content; settingsData._sha = s.sha; renderSettings(); } catch(e) { settingsData = { siteTitle: "WPlace", headerTitle: "⚔ WPLACE ⚔", headerSubtitle: "Пиксель-арт сообщество", footer: "© 2025" }; renderSettings(); }
-        updateStats(); if (errs === 0) toast("✅ Данные загружены", "success");
-    }
-    function updateStats() {
-        const total = (homeData.help_wplace || []).length + (homeData.help_blue || []).length + (homeData.help_helper || []).length;
-        document.getElementById("stat-art").textContent = homeData.title ? "✓" : "✗";
-        document.getElementById("stat-gallery").textContent = galleryData.length;
-        document.getElementById("stat-guides").textContent = guidesData.length;
-        document.getElementById("stat-steps").textContent = total;
+        if (errs === 0) toast("✅ Данные загружены", "success");
     }
 
     function renderHome() {
@@ -402,7 +309,7 @@
         renderStepsAdmin("wplace", homeData.help_wplace || []);
         renderStepsAdmin("blue", homeData.help_blue || []);
         renderStepsAdmin("helper", homeData.help_helper || []);
-        previewHomeImage(); updateStats();
+        previewHomeImage();
     }
     function renderStepsAdmin(type, steps) {
         const el = document.getElementById(`steps-${type}`);
@@ -445,7 +352,7 @@
                 if (steps.length > 0) homeData[key] = steps;
             }
         });
-        try { homeData._sha = await saveJSON("content/home.json", homeData, homeData._sha); updateStats(); toast("✅ Главная сохранена!", "success"); } catch(e) { toast("❌ "+e.message, "error"); }
+        try { homeData._sha = await saveJSON("content/home.json", homeData, homeData._sha); toast("✅ Главная сохранена!", "success"); } catch(e) { toast("❌ "+e.message, "error"); }
     }
 
     function renderGallery() {
@@ -459,12 +366,11 @@
                 <input placeholder="Ссылка на картинку" value="${item.image||''}" onchange="galleryData[${i}].image=this.value;renderGallery();">
                 <div class="card-actions"><div><button class="btn btn-info" onclick="moveGalleryItem(${i},-1)">▲</button><button class="btn btn-info" onclick="moveGalleryItem(${i},1)">▼</button></div><button class="btn btn-danger" onclick="if(confirm('Удалить?')){galleryData.splice(${i},1);renderGallery();}">✕</button></div>
             </div>`).join("");
-        updateStats();
     }
     function addGalleryItem() { galleryData.push({ title: "", description: "", image: "" }); renderGallery(); }
     function moveGalleryItem(i, d) { const n = i+d; if(n<0||n>=galleryData.length)return; [galleryData[i], galleryData[n]] = [galleryData[n], galleryData[i]]; renderGallery(); }
     function sortGallery() { galleryData.sort((a,b) => (a.title||"").localeCompare(b.title||"")); renderGallery(); }
-    async function saveGallery() { try { galleryData._sha = await saveJSON("content/gallery.json", galleryData, galleryData._sha); updateStats(); toast("✅ Галерея сохранена!", "success"); } catch(e) { toast("❌ "+e.message, "error"); } }
+    async function saveGallery() { try { galleryData._sha = await saveJSON("content/gallery.json", galleryData, galleryData._sha); toast("✅ Галерея сохранена!", "success"); } catch(e) { toast("❌ "+e.message, "error"); } }
 
     function renderGuides() {
         const el = document.getElementById("guides-items");
@@ -480,7 +386,6 @@
                 <div id="guide-phone-${i}">${renderGuideStepsHTML(g.install_phone||[], i, 'phone')}</div>
                 <input class="form-input" placeholder="Примечание" value="${g.note||''}" onchange="guidesData[${i}].note=this.value" style="margin-top:6px;">
             </div>`).join("");
-        updateStats();
     }
     function renderGuideStepsHTML(steps, gi, type) {
         if (!steps || steps.length === 0) return '<p style="color:var(--text-dim);font-size:14px;padding:8px;">Пусто</p>';
@@ -510,7 +415,7 @@
     }
     function addGuideItem() { guidesData.push({ title: "", description: "", install_pc: [], install_phone: [], note: "" }); renderGuides(); }
     function addGuideStep(gi, type) { const key = `install_${type}`; if(!guidesData[gi][key])guidesData[gi][key]=[]; guidesData[gi][key].push({text:"",image:"",detail:"",section:""}); renderGuides(); }
-    async function saveGuides() { try { guidesData._sha = await saveJSON("content/guides.json", guidesData, guidesData._sha); updateStats(); toast("✅ Гайды сохранены!", "success"); } catch(e) { toast("❌ "+e.message, "error"); } }
+    async function saveGuides() { try { guidesData._sha = await saveJSON("content/guides.json", guidesData, guidesData._sha); toast("✅ Гайды сохранены!", "success"); } catch(e) { toast("❌ "+e.message, "error"); } }
 
     function renderSettings() {
         document.getElementById("settings-siteTitle").value = settingsData.siteTitle || "";
@@ -523,7 +428,7 @@
         settingsData.headerTitle = document.getElementById("settings-headerTitle").value;
         settingsData.headerSubtitle = document.getElementById("settings-headerSubtitle").value;
         settingsData.footer = document.getElementById("settings-footer").value;
-        try { settingsData._sha = settingsData._sha ? await saveJSON("content/settings.json", settingsData, settingsData._sha) : await saveJSON("content/settings.json", settingsData, null); toast("✅ Настройки сохранены!", "success"); } catch(e) { toast("❌ "+e.message, "error"); }
+        try { settingsData._sha = settingsData._sha ? await saveJSON("content/settings.json", settingsData, settingsData._sha) : await saveJSON("content/settings.json", settingsData, null); toast("✅ Настройки сохранены!", "success"); } catch(e) { toast("❌ "+e.message, "error"); } }
     }
 
     async function publishAll() {
@@ -552,7 +457,7 @@
     function importAll() { document.getElementById("import-file").click(); }
     function handleImport(e) {
         const f = e.target.files[0]; if(!f)return; const r = new FileReader();
-        r.onload = function(ev) { try { const d = JSON.parse(ev.target.result); if(d.home){homeData=d.home;renderHome();} if(d.gallery){galleryData=d.gallery;renderGallery();} if(d.guides){guidesData=d.guides;renderGuides();} if(d.settings){settingsData=d.settings;renderSettings();} updateStats(); toast("📤 Импортировано!", "info"); } catch(er) { toast("❌ Ошибка", "error"); } };
+        r.onload = function(ev) { try { const d = JSON.parse(ev.target.result); if(d.home){homeData=d.home;renderHome();} if(d.gallery){galleryData=d.gallery;renderGallery();} if(d.guides){guidesData=d.guides;renderGuides();} if(d.settings){settingsData=d.settings;renderSettings();} toast("📤 Импортировано!", "info"); } catch(er) { toast("❌ Ошибка", "error"); } };
         r.readAsText(f); e.target.value = "";
     }
 
