@@ -27,6 +27,8 @@
         .btn-danger { background: #1a0a0a; border-color: #4a2a2a; color: #ff8888; }
         .btn-warning { background: #1a1a0a; border-color: #4a4a2a; color: var(--warning); }
         .btn-info { background: #0a1a2a; border-color: #2a4a5a; color: var(--info); }
+        .btn-publish { background: #0a2a0a; border-color: var(--glow); color: #fff; text-shadow: 0 0 10px var(--glow); box-shadow: 0 3px 0 #0a4a0a, 0 0 15px rgba(0,255,102,0.3); animation: pulse 2s step-end infinite; }
+        @keyframes pulse { 0%, 100% { box-shadow: 0 3px 0 #0a4a0a, 0 0 15px rgba(0,255,102,0.3); } 50% { box-shadow: 0 3px 0 #0a4a0a, 0 0 30px rgba(0,255,102,0.6); } }
         .btn-small { font-size: 7px; padding: 5px 8px; }
         .btn-full { width: 100%; font-size: 11px; padding: 14px; }
         .main-container { position: relative; z-index: 1; max-width: 1300px; margin: 0 auto; padding: 15px; }
@@ -86,7 +88,7 @@
 <div id="login-page" class="login-container">
     <div class="login-card">
         <div class="login-title">⚔ WPLACE ⚔</div>
-        <div class="login-subtitle">ADMIN PRO v9.0</div>
+        <div class="login-subtitle">ADMIN PRO v10.0</div>
         <div class="form-group"><label class="form-label">🔑 GitHub Token</label><input type="password" id="token-input" class="form-input" placeholder="ghp_..." autofocus></div>
         <button class="btn btn-primary btn-full" onclick="login()">▶ ВОЙТИ</button>
         <div class="login-help">Токен с правами <strong>repo</strong><br><a href="https://github.com/settings/tokens/new" target="_blank">Создать токен →</a></div>
@@ -95,9 +97,10 @@
 
 <div id="admin-page" class="hidden">
     <div class="header">
-        <div class="header-left"><div class="header-title">⚔ WPLACE ADMIN v9.0</div><div class="header-status"><span class="dot"></span>ONLINE</div></div>
+        <div class="header-left"><div class="header-title">⚔ WPLACE ADMIN v10.0</div><div class="header-status"><span class="dot"></span>ONLINE</div></div>
         <div style="display:flex;gap:6px;flex-wrap:wrap;">
             <a href="/" class="btn btn-small btn-info" target="_blank">🌐 САЙТ</a>
+            <button class="btn btn-small btn-publish" onclick="publishAll()" title="Сохранить всё и обновить сайт">🚀 ОПУБЛИКОВАТЬ</button>
             <button class="btn btn-small btn-warning" onclick="loadAll()">🔄</button>
             <button class="btn btn-small btn-danger" onclick="logout()">🚪</button>
         </div>
@@ -285,7 +288,7 @@
     function sortGallery() { galleryData.sort((a,b) => (a.title||"").localeCompare(b.title||"")); renderGallery(); }
     async function saveGallery() { try { galleryData._sha = await saveJSON("content/gallery.json", galleryData, galleryData._sha); document.getElementById("stats-last-save").textContent = new Date().toLocaleTimeString(); updateStats(); toast("✅ Сохранено!", "success"); } catch(e) { toast("❌ "+e.message, "error"); } }
 
-    // GUIDES (с разделами)
+    // GUIDES
     function renderGuides() {
         const el = document.getElementById("guides-items");
         if (guidesData.length === 0) { el.innerHTML = '<p style="color:var(--text-dim);text-align:center;padding:40px;">Пусто</p>'; return; }
@@ -311,11 +314,11 @@
                     <input value="${(sd.text||'').replace(/"/g, '&quot;')}" onchange="updateGuideField(${gi},'${type}',${si},'text',this.value)" placeholder="Текст" style="flex:2;">
                     <select onchange="updateGuideField(${gi},'${type}',${si},'section',this.value)" style="flex:1;padding:7px 8px;background:#050a05;border:2px solid var(--border-dim);color:var(--glow);font-family:'VT323',monospace;font-size:17px;">
                         <option value="">Без раздела</option>
-                        <option value="💻 ПК" ${sd.section==='💻 ПК'?'selected':''}>💻 ПК</option>
-                        <option value="📱 Android (Chrome)" ${sd.section==='📱 Android (Chrome)'?'selected':''}>📱 Android Chrome</option>
-                        <option value="📱 Android (Edge)" ${sd.section==='📱 Android (Edge)'?'selected':''}>📱 Android Edge</option>
-                        <option value="📱 Android (Firefox)" ${sd.section==='📱 Android (Firefox)'?'selected':''}>📱 Android Firefox</option>
-                        <option value="📱 iPhone (iOS)" ${sd.section==='📱 iPhone (iOS)'?'selected':''}>📱 iPhone iOS</option>
+                        <option value="💻 ПК" ${sd.section=='💻 ПК'?'selected':''}>💻 ПК</option>
+                        <option value="📱 Android (Chrome)" ${sd.section=='📱 Android (Chrome)'?'selected':''}>📱 Android Chrome</option>
+                        <option value="📱 Android (Edge)" ${sd.section=='📱 Android (Edge)'?'selected':''}>📱 Android Edge</option>
+                        <option value="📱 Android (Firefox)" ${sd.section=='📱 Android (Firefox)'?'selected':''}>📱 Android Firefox</option>
+                        <option value="📱 iPhone (iOS)" ${sd.section=='📱 iPhone (iOS)'?'selected':''}>📱 iPhone iOS</option>
                     </select>
                 </div>
                 <input value="${sd.image||''}" onchange="updateGuideField(${gi},'${type}',${si},'image',this.value)" placeholder="Фото (ссылка)">
@@ -347,6 +350,36 @@
         settingsData.headerSubtitle = document.getElementById("settings-headerSubtitle").value;
         settingsData.footer = document.getElementById("settings-footer").value;
         try { settingsData._sha = settingsData._sha ? await saveJSON("content/settings.json", settingsData, settingsData._sha) : await saveJSON("content/settings.json", settingsData, null); document.getElementById("stats-last-save").textContent = new Date().toLocaleTimeString(); toast("✅ Настройки сохранены!", "success"); } catch(e) { toast("❌ "+e.message, "error"); }
+    }
+
+    // PUBLISH ALL
+    async function publishAll() {
+        toast("🚀 Публикация всех изменений...", "info");
+        let errors = 0;
+        try {
+            homeData.title = document.getElementById("home-title").value;
+            homeData.image = document.getElementById("home-image").value;
+            homeData.description = document.getElementById("home-desc").value;
+            homeData.location = document.getElementById("home-location").value;
+            homeData._sha = await saveJSON("content/home.json", homeData, homeData._sha);
+        } catch(e) { toast("❌ Главная: "+e.message, "error"); errors++; }
+        try { galleryData._sha = await saveJSON("content/gallery.json", galleryData, galleryData._sha); } catch(e) { toast("❌ Галерея: "+e.message, "error"); errors++; }
+        try { guidesData._sha = await saveJSON("content/guides.json", guidesData, guidesData._sha); } catch(e) { toast("❌ Гайды: "+e.message, "error"); errors++; }
+        try {
+            settingsData.siteTitle = document.getElementById("settings-siteTitle").value;
+            settingsData.headerTitle = document.getElementById("settings-headerTitle").value;
+            settingsData.headerSubtitle = document.getElementById("settings-headerSubtitle").value;
+            settingsData.footer = document.getElementById("settings-footer").value;
+            settingsData._sha = settingsData._sha ? await saveJSON("content/settings.json", settingsData, settingsData._sha) : await saveJSON("content/settings.json", settingsData, null);
+        } catch(e) { toast("❌ Настройки: "+e.message, "error"); errors++; }
+        if (errors === 0) {
+            document.getElementById("stats-last-save").textContent = new Date().toLocaleTimeString();
+            updateStats();
+            toast("✅ Всё опубликовано! Сайт обновится через минуту.", "success");
+            setTimeout(() => { window.open(window.location.origin + '/?v=' + Date.now(), '_blank'); }, 1500);
+        } else {
+            toast("⚠ Опубликовано с ошибками (" + errors + ")", "error");
+        }
     }
 
     async function resetAll() {
@@ -383,5 +416,6 @@
     document.addEventListener("keydown", function(e) { if((e.ctrlKey||e.metaKey)&&e.key==="s"){ e.preventDefault(); const at = document.querySelector(".tab-content.active"); if(at.id==="home-tab")saveHome(); else if(at.id==="gallery-tab")saveGallery(); else if(at.id==="guides-tab")saveGuides(); else if(at.id==="settings-tab")saveSettings(); } });
     document.getElementById("token-input").addEventListener("keydown", e => { if(e.key==="Enter")login(); });
 </script>
+
 </body>
 </html>
