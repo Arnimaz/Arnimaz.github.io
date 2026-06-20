@@ -79,32 +79,5 @@
       }
     ],
     "note": " "
-  },
-  {
-    "title": "123",
-    "description": "321",
-    "install_pc": [
-      {
-        "text": "12",
-        "image": "3",
-        "detail": "213123",
-        "section": "💻 ПК"
-      }
-    ],
-    "install_phone": [
-      {
-        "text": "213213",
-        "image": "",
-        "detail": "3213214",
-        "section": "📱 Android (Edge)"
-      },
-      {
-        "text": "23213",
-        "image": "",
-        "detail": "4324",
-        "section": "📱 iPhone (iOS)"
-      }
-    ],
-    "note": ""
   }
 ]
