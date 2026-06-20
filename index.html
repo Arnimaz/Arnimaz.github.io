@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="ru"><head>
+<!DOCTYPE html><html lang="ru" style=""><head>
 <meta charset="utf-8">
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
 <title>WPlace — Пиксель-Арт Сообщество</title>
@@ -246,7 +246,6 @@
 <div class="max-w-6xl mx-auto px-4 py-8" id="main-site-container">
 <!-- Header -->
 <header class="text-center mb-16 relative">
-
 <h1 class="text-6xl md:text-8xl font-black tracking-tighter text-white mb-4 site-title neon-text">Masters_of_Cum</h1>
 <p class="text-[var(--text-dim)] font-mono text-sm uppercase tracking-widest site-subtitle opacity-80">official site</p>
 <!-- Cyber Accents -->
@@ -259,12 +258,8 @@
 <button class="tab-btn active flex items-center gap-2 px-8 py-4 font-bold text-xs uppercase tracking-widest" onclick="openTab('home')">
 <span class="material-symbols-outlined text-lg">terminal</span> Главная
             </button>
-<button class="tab-btn flex items-center gap-2 px-8 py-4 font-bold text-xs uppercase tracking-widest" onclick="openTab('gallery')">
-<span class="material-symbols-outlined text-lg">gallery_thumbnail</span> Архив
-            </button>
-<button class="tab-btn flex items-center gap-2 px-8 py-4 font-bold text-xs uppercase tracking-widest" onclick="openTab('guides')">
-<span class="material-symbols-outlined text-lg">memory</span> База Данных
-            </button>
+<button class="tab-btn flex items-center gap-2 px-8 py-4 font-bold text-xs uppercase tracking-widest" onclick="openTab('gallery')"><span class="material-symbols-outlined text-lg">gallery_thumbnail</span> ГАЛЕРЕЯ</button>
+<button class="tab-btn flex items-center gap-2 px-8 py-4 font-bold text-xs uppercase tracking-widest" onclick="openTab('guides')"><span class="material-symbols-outlined text-lg">memory</span> ГАЙДЫ</button>
 </div>
 </nav>
 <!-- Main Content -->
@@ -274,7 +269,7 @@
             <div class="cyber-panel p-8 md:p-12 neon-border-glow rounded-sm">
                 <div class="flex items-center gap-4 mb-8">
                     <span class="material-symbols-outlined text-[var(--accent)] neon-text text-3xl">radar</span>
-                    <h3 class="text-2xl font-black text-white uppercase tracking-tight">ТЕКУЩАЯ ОПЕРАЦИЯ</h3>
+                    <h3 class="text-2xl font-black text-white uppercase tracking-tight">АКТУАЛЬНЫЙ АРТ</h3>
                 </div>
                 <div class="flex flex-col lg:flex-row gap-10">
                     
@@ -291,7 +286,7 @@
             <div class="cyber-panel p-8 md:p-12 neon-border-glow rounded-sm">
                 <div class="flex items-center gap-4 mb-10">
                     <span class="material-symbols-outlined text-[var(--accent)] neon-text text-3xl">precision_manufacturing</span>
-                    <h3 class="text-2xl font-black text-white uppercase tracking-tight">Протоколы Содействия</h3>
+                    <h3 class="text-2xl font-black text-white uppercase tracking-tight">Как помочь</h3>
                 </div>
                 <div class="grid grid-cols-1 lg:grid-cols-3 gap-10">
                     <div class="space-y-4">
@@ -323,8 +318,8 @@
 <div class="flex items-center gap-4 mb-10 pb-4 border-b border-[var(--border)]">
 <span class="material-symbols-outlined text-[var(--accent)] text-4xl neon-text">integration_instructions</span>
 <div>
-<h2 class="text-3xl font-black text-white uppercase tracking-tight">Технические Протоколы</h2>
-<p class="text-[var(--text-dim)] text-xs font-mono">Инструкции по интеграции расширений</p>
+<h2 class="text-3xl font-black text-white uppercase tracking-tight"></h2>
+<p class="text-[var(--text-dim)] text-xs font-mono"></p>
 </div>
 </div>
 <div class="space-y-8" id="guides-content"><p class="text-center py-16 text-[var(--text-dim)] font-mono uppercase tracking-widest">База данных пуста.</p></div>
@@ -376,7 +371,7 @@
 </div>
 <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
 <div class="image-container border-2 border-[var(--border)] p-2">
-<img alt="" class="w-full object-contain max-h-[60vh]" id="modal-img" src="">
+<img alt="" class="w-full object-contain max-h-[60vh]" id="modal-img" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MDAiIGhlaWdodD0iMzAwIj48cmVjdCB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgcng9IjgiIGZpbGw9IiNlOGVhZWQiLz48cGF0aCBkPSJNMTcwIDEzMCBsMzAgNDAgbDIwLTE1IGw0MCA1NSBIMTQweiIgZmlsbD0iI2JkYzFjNiIvPjxjaXJjbGUgY3g9IjI1MCIgY3k9IjEyMCIgcj0iMTgiIGZpbGw9IiNiZGMxYzYiLz48L3N2Zz4=">
 </div>
 <div class="flex flex-col h-full">
 <h3 class="text-3xl font-black text-white mb-6 uppercase tracking-tight neon-text" id="modal-title"></h3>
@@ -499,7 +494,7 @@
         document.getElementById('guides-content').innerHTML = guidesData.length > 0
             ? guidesData.map(g => {
                 let html = '';
-                if (g.install_pc && g.install_pc.length > 0) html += `<div class="bg-[rgba(0,255,136,0.1)] border border-[var(--border)] px-4 py-2 text-[10px] font-bold text-[var(--accent)] uppercase mb-4 mt-8 inline-block tracking-widest"> терминал: настольный ПК </div><ol class="pixel-list space-y-3 list-none">${renderStepsList(g.install_pc, 'guide_pc_'+g.title)}</ol>`;
+                if (g.install_pc && g.install_pc.length > 0) html += `<div class="bg-[rgba(0,255,136,0.1)] border border-[var(--border)] px-4 py-2 text-[10px] font-bold text-[var(--accent)] uppercase mb-4 mt-8 inline-block tracking-widest"> 🖥 ПК </div><ol class="pixel-list space-y-3 list-none">${renderStepsList(g.install_pc, 'guide_pc_'+g.title)}</ol>`;
                 if (g.install_phone && g.install_phone.length > 0) {
                     const sections = {};
                     g.install_phone.forEach(step => {
@@ -646,8 +641,6 @@
 
     initContent();
 </script>
-
-
 
 
 </body></html>
