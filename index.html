@@ -264,34 +264,35 @@
         window._guidesData = guidesData;
         document.getElementById('guides-content').innerHTML = guidesData.length > 0
             ? guidesData.map(g => {
-                // Собираем все шаги и группируем по section
-                const allSteps = [...(g.install_pc || []), ...(g.install_phone || [])];
-                const sections = {};
-                allSteps.forEach(step => {
-                    const sd = typeof step === 'object' ? step : { text: step, section: "" };
-                    const sectionName = sd.section || 'Без раздела';
-                    if (!sections[sectionName]) sections[sectionName] = [];
-                    sections[sectionName].push(sd);
-                });
-                // Порядок разделов
-                const order = ['💻 ПК', '📱 Android (Edge)', '📱 iPhone (iOS)', 'Без раздела'];
-                let sectionsHtml = '';
-                order.forEach(name => {
-                    if (sections[name] && sections[name].length > 0) {
-                        sectionsHtml += `<div class="section-title">${name}</div><ol class="pixel-list">${renderStepsList(sections[name], 'guide_'+g.title)}</ol>`;
-                        delete sections[name];
-                    }
-                });
-                // Оставшиеся разделы
-                for (const [title, steps] of Object.entries(sections)) {
-                    if (steps.length > 0) {
-                        sectionsHtml += `<div class="section-title">${title}</div><ol class="pixel-list">${renderStepsList(steps, 'guide_'+g.title)}</ol>`;
+                let html = '';
+                
+                // ПК шаги
+                if (g.install_pc && g.install_pc.length > 0) {
+                    html += `<div class="section-title">💻 ПК</div><ol class="pixel-list">${renderStepsList(g.install_pc, 'guide_pc_'+g.title)}</ol>`;
+                }
+                
+                // Телефонные шаги группируем по section
+                if (g.install_phone && g.install_phone.length > 0) {
+                    const sections = {};
+                    g.install_phone.forEach(step => {
+                        const sd = typeof step === 'object' ? step : { text: step, section: "" };
+                        const name = sd.section || '📱 Телефон';
+                        if (!sections[name]) sections[name] = [];
+                        sections[name].push(sd);
+                    });
+                    const order = ['📱 Android (Edge)', '📱 iPhone (iOS)', '📱 Телефон'];
+                    order.forEach(name => {
+                        if (sections[name] && sections[name].length > 0) {
+                            html += `<div class="section-title">${name}</div><ol class="pixel-list">${renderStepsList(sections[name], 'guide_phone_'+g.title)}</ol>`;
+                            delete sections[name];
+                        }
+                    });
+                    for (const [title, steps] of Object.entries(sections)) {
+                        if (steps.length > 0) html += `<div class="section-title">${title}</div><ol class="pixel-list">${renderStepsList(steps, 'guide_phone_'+g.title)}</ol>`;
                     }
                 }
-                return `
-                <div class="card"><h3>${g.title}</h3><p>${makeLinksClickable(g.description)}</p>
-                ${sectionsHtml}
-                ${g.note?`<div class="note">${makeLinksClickable(g.note)}</div>`:''}</div>`;
+                
+                return `<div class="card"><h3>${g.title}</h3><p>${makeLinksClickable(g.description)}</p>${html}${g.note && g.note.trim() ? `<div class="note">${makeLinksClickable(g.note)}</div>` : ''}</div>`;
             }).join('')
             : '<p style="color:#88aacc;text-align:center;">Гайды не добавлены.</p>';
     }
@@ -310,11 +311,12 @@
         if (type === 'helper') return window._homeData?.help_helper?.[index] || { text: "", image: "", detail: "" };
         const parts = type.split('_');
         if (parts[0] === 'guide') {
-            const guideTitle = parts.slice(1).join('_');
+            const guideType = parts[1]; // pc или phone
+            const guideTitle = parts.slice(2).join('_');
             const guide = window._guidesData?.find(g => g.title === guideTitle);
             if (guide) {
-                const allSteps = [...(guide.install_pc || []), ...(guide.install_phone || [])];
-                return allSteps[index] || { text: "", image: "", detail: "" };
+                const steps = guideType === 'pc' ? (guide.install_pc || []) : (guide.install_phone || []);
+                return steps[index] || { text: "", image: "", detail: "" };
             }
         }
         return { text: "", image: "", detail: "" };
