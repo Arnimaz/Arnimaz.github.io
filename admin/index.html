@@ -97,13 +97,13 @@
 <div class="fixed inset-0 z-50 flex items-center justify-center" id="login-page">
 <div class="w-full max-w-md p-8 terminal-border bg-black">
 <div class="text-center mb-10">
-<div class="text-6xl mb-4">[ <span class="material-symbols-outlined text-4xl align-middle">terminal</span> ]</div>
+<div class="text-6xl mb-4">[<span class="material-symbols-outlined text-4xl align-middle">terminal</span>]</div>
 <h1 class="text-4xl font-bold uppercase tracking-tighter cursor-blink">MASTERS OF CUM</h1>
-<p class="text-lg opacity-80 mt-2">КОНСОЛЬ УПРАВЛЕНИЯ АДМИНИСТРАТОРА</p>
+<p class="text-lg opacity-80 mt-2">ADMIN CONSOLE</p>
 </div>
 <div class="space-y-6">
 <div>
-<label class="block text-sm uppercase mb-2">ТОКЕН АУТЕНТИФИКАЦИИ (GITHUB)</label>
+<label class="block text-sm uppercase mb-2">ТОКЕН АУТЕНТИФИКАЦИИ<br></label>
 <div class="relative">
 <input autofocus="" class="input-field w-full py-3 px-4" id="token-input" placeholder="ghp_************************************" type="password" style="background-color: rgb(5, 10, 5); color: var(--neon-green); border-color: var(--neon-green);">
 </div>
@@ -112,7 +112,7 @@
                 ВЫПОЛНИТЬ ВХОД
             </button>
 </div>
-<p class="text-center text-xs mt-8 opacity-50 tracking-widest uppercase">ИНТЕРФЕЙС OBSIDIAN TECH V2.4.0_STABLE</p>
+
 </div>
 </div>
 <!-- ADMIN DASHBOARD -->
@@ -673,6 +673,8 @@
     });
     document.getElementById("token-input").addEventListener("keydown", e => { if(e.key==="Enter")login(); });
 </script>
+
+
 
 
 
