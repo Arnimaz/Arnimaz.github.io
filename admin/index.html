@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="ru"><head>
+<!DOCTYPE html><html lang="ru" style=""><head>
 <meta charset="utf-8">
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
 <title>MOC_ADMIN // OBSIDIAN_TECH_TERMINAL</title>
@@ -92,7 +92,7 @@
         }
     </style>
 </head>
-<body>
+<body style="background-color: var(--bg-black); color: var(--neon-green); font-family: var(--terminal-font); position: relative;" class="bg-black">
 <!-- LOGIN PAGE -->
 <div class="fixed inset-0 z-50 flex items-center justify-center" id="login-page">
 <div class="w-full max-w-md p-8 terminal-border bg-black">
@@ -170,7 +170,7 @@
 <div class="flex items-center gap-4">
 <div class="relative">
 <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-[var(--neon-green)] text-sm">search</span>
-<input class="input-field py-1.5 pl-9 pr-4 text-sm w-64" oninput="quickSearch(this.value)" placeholder="ПОИСК ПО МОДУЛЯМ..." type="text">
+<input class="input-field py-1.5 pl-9 pr-4 text-sm w-64" oninput="quickSearch(this.value)" placeholder="ПОИСК ПО МОДУЛЯМ..." type="text" style="background-color: rgb(5, 10, 5); color: var(--neon-green); border-color: var(--neon-green);">
 </div>
 </div>
 <div class="flex items-center gap-6">
@@ -196,19 +196,19 @@
 <div class="space-y-4">
 <div>
 <label class="block text-xs uppercase mb-1">ЗАГОЛОВОК АРТА</label>
-<input class="input-field w-full p-2.5" id="home-title" type="text">
+<input class="input-field w-full p-2.5" id="home-title" type="text" style="background-color: rgb(5, 10, 5); color: var(--neon-green); border-color: var(--neon-green);">
 </div>
 <div>
 <label class="block text-xs uppercase mb-1">URL ИЗОБРАЖЕНИЯ</label>
-<input class="input-field w-full p-2.5" id="home-image" oninput="previewHomeImage()" type="text">
+<input class="input-field w-full p-2.5" id="home-image" oninput="previewHomeImage()" type="text" style="background-color: rgb(5, 10, 5); color: var(--neon-green); border-color: var(--neon-green);">
 </div>
 <div>
 <label class="block text-xs uppercase mb-1">КООРДИНАТЫ WPLACE / ССЫЛКА</label>
-<input class="input-field w-full p-2.5" id="home-location" type="text">
+<input class="input-field w-full p-2.5" id="home-location" type="text" style="background-color: rgb(5, 10, 5); color: var(--neon-green); border-color: var(--neon-green);">
 </div>
 <div>
 <label class="block text-xs uppercase mb-1">ОПИСАНИЕ</label>
-<textarea class="input-field w-full p-2.5" id="home-desc" rows="4"></textarea>
+<textarea class="input-field w-full p-2.5" id="home-desc" rows="4" style="background-color: rgb(5, 10, 5); color: var(--neon-green); border-color: var(--neon-green);"></textarea>
 </div>
 </div>
 </div>
@@ -296,21 +296,21 @@
 <div class="space-y-6">
 <div>
 <label class="block text-sm uppercase mb-2">НАЗВАНИЕ ВКЛАДКИ</label>
-<input class="input-field w-full p-3" id="settings-siteTitle" type="text">
+<input class="input-field w-full p-3" id="settings-siteTitle" type="text" style="background-color: rgb(5, 10, 5); color: var(--neon-green); border-color: var(--neon-green);">
 </div>
 <div>
 <label class="block text-sm uppercase mb-2">ГЛАВНЫЙ ЗАГОЛОВОК</label>
-<input class="input-field w-full p-3" id="settings-headerTitle" type="text">
+<input class="input-field w-full p-3" id="settings-headerTitle" type="text" style="background-color: rgb(5, 10, 5); color: var(--neon-green); border-color: var(--neon-green);">
 </div>
 </div>
 <div class="space-y-6">
 <div>
 <label class="block text-sm uppercase mb-2">ПОДЗАГОЛОВОК ШАПКИ</label>
-<input class="input-field w-full p-3" id="settings-headerSubtitle" type="text">
+<input class="input-field w-full p-3" id="settings-headerSubtitle" type="text" style="background-color: rgb(5, 10, 5); color: var(--neon-green); border-color: var(--neon-green);">
 </div>
 <div>
 <label class="block text-sm uppercase mb-2">КОПИРАЙТ ФУТЕРА</label>
-<input class="input-field w-full p-3" id="settings-footer" type="text">
+<input class="input-field w-full p-3" id="settings-footer" type="text" style="background-color: rgb(5, 10, 5); color: var(--neon-green); border-color: var(--neon-green);">
 </div>
 </div>
 </div>
@@ -673,6 +673,10 @@
     });
     document.getElementById("token-input").addEventListener("keydown", e => { if(e.key==="Enter")login(); });
 </script>
+
+
+
+
 
 
 
