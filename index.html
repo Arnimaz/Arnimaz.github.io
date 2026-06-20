@@ -111,12 +111,62 @@
         ol.pixel-list li::before { content: counter(pixel-counter); position: absolute; left: 10px; top: 10px; font-family: 'Press Start 2P', monospace; font-size: 12px; color: var(--accent2); background: #1a1a30; border: 2px solid #3a3a5a; padding: 4px 8px; min-width: 30px; text-align: center; }
         ol.pixel-list li:hover { border-color: var(--glow); background: #0d0d20; }
 
+        /* Галерея */
         .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 16px; }
-        .gallery-item { border: 3px solid #2a2a4a; background: #0a0a1a; padding: 8px; transition: all 0.1s step-end; text-align: center; }
+        .gallery-item { border: 3px solid #2a2a4a; background: #0a0a1a; padding: 8px; transition: all 0.1s step-end; text-align: center; cursor: pointer; }
         .gallery-item:hover { border-color: var(--accent); box-shadow: 0 0 20px rgba(255,107,107,0.3); transform: scale(1.03); }
         .gallery-item img { width: 100%; aspect-ratio: 1; object-fit: cover; border: 2px solid #3a3a5a; display: block; image-rendering: pixelated; }
         .gallery-item .label { font-family: 'VT323', monospace; font-size: 18px; margin-top: 8px; color: #ccc; }
-        .gallery-item .date { font-size: 14px; color: #88aacc; }
+
+        /* Модальное окно */
+        .modal-overlay {
+            display: none;
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.85);
+            z-index: 10000;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .modal-overlay.active { display: flex; }
+        .modal {
+            border: 4px solid var(--border);
+            background: var(--surface);
+            padding: 30px;
+            max-width: 600px;
+            width: 100%;
+            text-align: center;
+            box-shadow: 0 0 40px rgba(0,255,136,0.3);
+            animation: fadeIn 0.2s step-end;
+        }
+        .modal img {
+            max-width: 100%;
+            max-height: 50vh;
+            image-rendering: pixelated;
+            border: 2px solid #3a3a5a;
+            margin-bottom: 15px;
+        }
+        .modal h3 {
+            font-family: 'Press Start 2P', monospace;
+            font-size: 14px;
+            color: var(--accent2);
+            margin-bottom: 10px;
+        }
+        .modal .desc {
+            font-size: 20px;
+            color: #ccc;
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+        .modal .close-btn {
+            font-family: 'Press Start 2P', monospace;
+            font-size: 12px;
+            padding: 10px 20px;
+            background: #0a2a0a;
+            color: var(--glow);
+            border: 3px solid var(--border);
+            cursor: pointer;
+        }
 
         .note { border: 3px dashed #3a3a5a; background: #0a0a15; padding: 15px; margin-top: 15px; font-style: italic; color: #88aacc; }
 
@@ -168,8 +218,17 @@
 
     <footer>
         <p>WPlace Pixel Art Community © 2025 | Сделано с ❤️ на пикселях</p>
-        <p style="font-size: 12px;">github pages | пиксель-арт это навсегда</p>
     </footer>
+</div>
+
+<!-- Модальное окно для галереи -->
+<div class="modal-overlay" id="modal-overlay" onclick="closeModal(event)">
+    <div class="modal" id="modal-box">
+        <img id="modal-img" src="" alt="">
+        <h3 id="modal-title"></h3>
+        <div class="desc" id="modal-desc"></div>
+        <button class="close-btn" onclick="closeModal()">✕ ЗАКРЫТЬ</button>
+    </div>
 </div>
 
 <script>
@@ -190,21 +249,9 @@
             image: "",
             description: "Сейчас мы рисуем новый пиксель-арт на WPlace. Присоединяйся!",
             location: "https://wplace.live/?lat=53.38222746808291&lng=27.91098632812499&zoom=22",
-            coords: "1182, 663, 782, 510",
-            help_wplace: [
-                "Открываете вкладку Overlays",
-                "Нажимаете на кнопку \"Новый Overlay\"",
-                "Вставляете фото на пикселе по ссылке ниже"
-            ],
-            help_blue: [
-                "Ставите точку на пикселе по ссылке ниже / вводите координаты: 1182 663 782 510",
-                "Нажимаете на кнопку \"Upload Template\" и выбираете файл с артом",
-                "Нажимаете на кнопку \"Create\""
-            ],
-            help_helper: [
-                "Нажимаете на кнопку \"Галерея\"",
-                "Находите арт и нажимаете на кнопку \"Загрузить\""
-            ]
+            help_wplace: ["Открываете вкладку Overlays", "Нажимаете на кнопку \"Новый Overlay\"", "Вставляете фото на пикселе по ссылке ниже"],
+            help_blue: ["Ставите точку на пикселе по ссылке ниже", "Нажимаете на кнопку \"Upload Template\" и выбираете файл с артом", "Нажимаете на кнопку \"Create\""],
+            help_helper: ["Нажимаете на кнопку \"Галерея\"", "Находите арт и нажимаете на кнопку \"Загрузить\""]
         });
 
         document.getElementById('current-art-section').innerHTML = `
@@ -217,7 +264,6 @@
                 <div class="art-info">${homeData.description}</div>
                 <p style="margin-top: 15px;">📍 <strong>Местоположение:</strong><br>
                 <a href="${homeData.location}" class="link-pixel" target="_blank">🔗 ОТКРЫТЬ НА WPLACE</a></p>
-                <p style="margin-top: 5px; font-size: 14px; color: #88aacc;">Координаты: ${homeData.coords}</p>
             </div>`;
 
         document.getElementById('help-section').innerHTML = `
@@ -229,19 +275,20 @@
                 <ol class="pixel-list">${homeData.help_blue.map(s => `<li>${s}</li>`).join('')}</ol>
                 <p style="color: var(--accent2); margin: 15px 0 10px;">🧩 <strong>С помощью WPlace Helper:</strong></p>
                 <ol class="pixel-list">${homeData.help_helper.map(s => `<li>${s}</li>`).join('')}</ol>
-                <div class="note">💡 <strong>Ссылка на арт:</strong><br><a href="${homeData.location}" target="_blank">${homeData.location}</a></div>
             </div>`;
 
         // === ГАЛЕРЕЯ ===
         const galleryData = await loadJSON('/content/gallery.json', []);
         document.getElementById('gallery-grid').innerHTML = galleryData.length > 0
-            ? galleryData.map(item => `
-                <div class="gallery-item">
+            ? galleryData.map((item, i) => `
+                <div class="gallery-item" onclick="openGalleryItem(${i})">
                     ${item.image ? `<img src="${item.image}" alt="${item.title}">` : '<div style="width:100%;aspect-ratio:1;background:repeating-linear-gradient(45deg,#1a1a30 0px,#1a1a30 8px,#111128 8px,#111128 16px);border:2px solid #3a3a5a;display:flex;align-items:center;justify-content:center;font-size:12px;color:#4a4a6a;">[АРТ]</div>'}
                     <div class="label">${item.title}</div>
-                    <div class="date">${item.date || ''}</div>
                 </div>`).join('')
             : '<p style="color:#88aacc;text-align:center;">Галерея пуста. Добавьте арты через админку.</p>';
+
+        // Сохраняем данные галереи в глобальную переменную для модалки
+        window._galleryData = galleryData;
 
         // === ГАЙДЫ ===
         const guidesData = await loadJSON('/content/guides.json', []);
@@ -261,7 +308,20 @@
             : '<p style="color:#88aacc;text-align:center;">Гайды не добавлены.</p>';
     }
 
-    initContent();
+    // ===== МОДАЛКА ГАЛЕРЕИ =====
+    function openGalleryItem(index) {
+        const data = window._galleryData[index];
+        if (!data) return;
+        document.getElementById("modal-img").src = data.image || "";
+        document.getElementById("modal-title").textContent = data.title || "Без названия";
+        document.getElementById("modal-desc").textContent = data.description || "Описание отсутствует";
+        document.getElementById("modal-overlay").classList.add("active");
+    }
+
+    function closeModal(event) {
+        if (event && event.target !== document.getElementById("modal-overlay")) return;
+        document.getElementById("modal-overlay").classList.remove("active");
+    }
 
     function openTab(tabId) {
         document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
@@ -269,6 +329,8 @@
         document.getElementById(tabId).classList.add('active');
         event.target.classList.add('active');
     }
+
+    initContent();
 </script>
 
 </body>
