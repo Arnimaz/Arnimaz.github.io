@@ -55,7 +55,7 @@
 
         @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
 
-        .card { border: 3px solid #3a3a5a; background: #111128; padding: 20px; margin-bottom: 20px; margin-top: 4px; box-shadow: 0 4px 0 #0a0a15; transition: all 0.1s step-end; }
+        .card { border: 3px solid #3a3a5a; background: #111128; padding: 20px; margin-bottom: 20px; box-shadow: 0 4px 0 #0a0a15; transition: all 0.1s step-end; }
         .card:hover { border-color: var(--accent2); box-shadow: 0 4px 0 var(--accent2), 0 0 20px rgba(255,217,61,0.2); }
         .card h3 { font-family: 'Press Start 2P', monospace; font-size: 14px; color: var(--accent2); margin-bottom: 15px; text-shadow: 0 0 8px rgba(255,217,61,0.4); }
 
@@ -284,8 +284,9 @@
             <div class="card"><h3>${homeData.title}</h3>
             ${homeData.image ? `<div class="art-image-container"><img src="${homeData.image}" alt="Актуальный арт"></div>` : ''}
             <div class="art-info">${makeLinksClickable(homeData.description)}</div>
-                                   ${homeData.location ? `<p style="margin-top:15px;">📍 <strong>Местоположение:</strong></p><div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-top:5px;"><a href="${homeData.location}" class="link-pixel" target="_blank">🔗 ОТКРЫТЬ НА WPLACE</a>${homeData.image ? `<button class="btn-download" onclick="downloadImage('${homeData.image}','wplace-art.png')">💾 СКАЧАТЬ</button>` : ''}</div>` : (homeData.image ? `<div style="display:flex;justify-content:flex-end;margin-top:15px;"><button class="btn-download" onclick="downloadImage('${homeData.image}','wplace-art.png')">💾 СКАЧАТЬ АРТ</button></div>` : '')}
-            <div class="card"><h3>🖌 Как помочь с этим артом</h3>
+            ${homeData.location ? `<p style="margin-top:15px;">📍 <strong>Местоположение:</strong></p><div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-top:5px;"><a href="${homeData.location}" class="link-pixel" target="_blank">🔗 ОТКРЫТЬ НА WPLACE</a>${homeData.image ? `<button class="btn-download" onclick="downloadImage('${homeData.image}','wplace-art.png')">💾 СКАЧАТЬ</button>` : ''}</div>` : (homeData.image ? `<div style="display:flex;justify-content:flex-end;margin-top:15px;"><button class="btn-download" onclick="downloadImage('${homeData.image}','wplace-art.png')">💾 СКАЧАТЬ АРТ</button></div>` : '')}</div>`;
+        document.getElementById('help-section').innerHTML = `
+            <div class="card" style="margin-top:8px;"><h3>🖌 Как помочь с этим артом</h3>
             <p style="color:var(--accent2);margin-bottom:10px;">⚡ <strong>WPlace (сайт):</strong></p><ol class="pixel-list">${renderStepsList(homeData.help_wplace, 'wplace')}</ol>
             <p style="color:var(--accent2);margin:15px 0 10px;">🔷 <strong>Blue Marble:</strong></p><ol class="pixel-list">${renderStepsList(homeData.help_blue, 'blue')}</ol>
             <p style="color:var(--accent2);margin:15px 0 10px;">🧩 <strong>WPlace Helper:</strong></p><ol class="pixel-list">${renderStepsList(homeData.help_helper, 'helper')}</ol></div>`;
