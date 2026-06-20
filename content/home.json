@@ -1,7 +1,7 @@
 {
   "title": "🎯 Актуальный арт",
   "image": "https://arnimaz.github.io/images/Frieren.png",
-  "description": "Сейчас мы рисуем новый пиксель-арт на WPlace. Присоединяйся!",
+  "description": "В процессе",
   "location": "https://wplace.live/?lat=53.38222746808291&lng=27.91098632812499&zoom=22",
   "help_wplace": [
     "Открываете вкладку Overlays",
@@ -17,6 +17,6 @@
     "Нажимаете на кнопку \"Галерея\"",
     "Находите арт и нажимаете на кнопку \"Загрузить\""
   ],
-  "_sha": "bc70d577bf17380ff9496aaac7015a105a0ca79b",
+  "_sha": "0736477597e76f57f049dcf8c41cb5afead73d38",
   "coords": ""
 }
