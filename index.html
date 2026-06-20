@@ -264,7 +264,7 @@
         window._guidesData = guidesData;
         document.getElementById('guides-content').innerHTML = guidesData.length > 0
             ? guidesData.map(g => {
-                // Группируем по section из админки
+                // Собираем все шаги и группируем по section
                 const allSteps = [...(g.install_pc || []), ...(g.install_phone || [])];
                 const sections = {};
                 allSteps.forEach(step => {
@@ -273,9 +273,20 @@
                     if (!sections[sectionName]) sections[sectionName] = [];
                     sections[sectionName].push(sd);
                 });
+                // Порядок разделов
+                const order = ['💻 ПК', '📱 Android (Edge)', '📱 iPhone (iOS)', 'Без раздела'];
                 let sectionsHtml = '';
+                order.forEach(name => {
+                    if (sections[name] && sections[name].length > 0) {
+                        sectionsHtml += `<div class="section-title">${name}</div><ol class="pixel-list">${renderStepsList(sections[name], 'guide_'+g.title)}</ol>`;
+                        delete sections[name];
+                    }
+                });
+                // Оставшиеся разделы
                 for (const [title, steps] of Object.entries(sections)) {
-                    sectionsHtml += `<div class="section-title">${title}</div><ol class="pixel-list">${renderStepsList(steps, 'guide_'+g.title)}</ol>`;
+                    if (steps.length > 0) {
+                        sectionsHtml += `<div class="section-title">${title}</div><ol class="pixel-list">${renderStepsList(steps, 'guide_'+g.title)}</ol>`;
+                    }
                 }
                 return `
                 <div class="card"><h3>${g.title}</h3><p>${makeLinksClickable(g.description)}</p>
