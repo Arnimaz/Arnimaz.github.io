@@ -315,10 +315,8 @@
                     <select onchange="updateGuideField(${gi},'${type}',${si},'section',this.value)" style="flex:1;padding:7px 8px;background:#050a05;border:2px solid var(--border-dim);color:var(--glow);font-family:'VT323',monospace;font-size:17px;">
                         <option value="">Без раздела</option>
                         <option value="💻 ПК" ${sd.section=='💻 ПК'?'selected':''}>💻 ПК</option>
-                        <option value="📱 Android (Chrome)" ${sd.section=='📱 Android (Chrome)'?'selected':''}>📱 Android Chrome</option>
-                        <option value="📱 Android (Edge)" ${sd.section=='📱 Android (Edge)'?'selected':''}>📱 Android Edge</option>
-                        <option value="📱 Android (Firefox)" ${sd.section=='📱 Android (Firefox)'?'selected':''}>📱 Android Firefox</option>
-                        <option value="📱 iPhone (iOS)" ${sd.section=='📱 iPhone (iOS)'?'selected':''}>📱 iPhone iOS</option>
+                        <option value="📱 Android (Edge)" ${sd.section=='📱 Android (Edge)'?'selected':''}>📱 Android (Edge)</option>
+                        <option value="📱 iPhone (iOS)" ${sd.section=='📱 iPhone (iOS)'?'selected':''}>📱 iPhone (iOS)</option>
                     </select>
                 </div>
                 <input value="${sd.image||''}" onchange="updateGuideField(${gi},'${type}',${si},'image',this.value)" placeholder="Фото (ссылка)">
