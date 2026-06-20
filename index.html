@@ -329,7 +329,7 @@
 <div class="modal cyber-panel w-full max-w-4xl max-h-[90vh] overflow-y-auto p-8 md:p-12 scale-95 transition-transform rounded-sm shadow-2xl" id="modal-box">
 <div class="flex justify-between items-center mb-8 border-b border-[var(--border)] pb-4">
 
-<button class="text-[var(--text-dim)] hover:text-[var(--accent)] transition-colors" onclick="closeModal()">
+<button class="text-[var(--text-dim)] hover:text-[var(--accent)] transition-colors flex items-center justify-center" onclick="closeModal()">
 <span class="material-symbols-outlined text-3xl">close</span>
 </button>
 </div>
@@ -344,7 +344,7 @@
 <button class="btn-action w-full py-4 rounded-sm flex items-center justify-center gap-3" id="modal-download" onclick="downloadModalImage()" style="display: none;">
 <span class="material-symbols-outlined">download</span> Загрузить данные
                     </button>
-<div class="flex items-center justify-between bg-[var(--surface-bright)] p-1 rounded-sm border border-[var(--border)]" id="modal-nav-row">
+<span id="modal-counter" class="hidden"></span><div class="flex items-center justify-between bg-[var(--surface-bright)] p-1 rounded-sm border border-[var(--border)]" id="modal-nav-row">
 <button class="p-3 hover:bg-[var(--surface-container)] hover:text-[var(--accent)] transition-colors" id="modal-prev" onclick="navModal(-1)">
 <span class="material-symbols-outlined">arrow_back</span>
 </button>
