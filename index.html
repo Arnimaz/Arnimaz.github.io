@@ -87,10 +87,19 @@
         ol.pixel-list li .step-arrow { margin-left: auto; font-size: 18px; color: var(--accent2); }
 
         .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 16px; }
-        .gallery-item { border: 3px solid #2a2a4a; background: #0a0a1a; padding: 10px; transition: all 0.1s step-end; text-align: center; cursor: pointer; }
+        .gallery-item { 
+            border: 3px solid #2a2a4a; background: #0a0a1a; padding: 10px;
+            transition: all 0.1s step-end; text-align: center; cursor: pointer;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+        }
         .gallery-item:hover { border-color: var(--accent); box-shadow: 0 0 25px rgba(255,107,107,0.4); transform: scale(1.04); }
-        .gallery-item img { width: 100%; aspect-ratio: 1; object-fit: contain; border: 2px solid #3a3a5a; display: block; image-rendering: pixelated; background: #050510; }
-        .gallery-item .label { font-family: 'VT323', monospace; font-size: 20px; margin-top: 10px; color: #eee; }
+        .gallery-item img { 
+            width: 100%; aspect-ratio: 1; object-fit: contain;
+            border: 2px solid #3a3a5a; display: block;
+            image-rendering: pixelated; background: #050510;
+            margin: 0 auto;
+        }
+        .gallery-item .label { font-family: 'VT323', monospace; font-size: 20px; margin-top: 10px; color: #eee; text-align: center; width: 100%; }
 
         /* МОДАЛКА */
         .modal-overlay {
@@ -104,14 +113,21 @@
             padding: 25px; max-width: 750px; width: 100%; text-align: center;
             box-shadow: 0 0 50px rgba(0,255,136,0.4); animation: fadeIn 0.2s step-end;
             z-index: 100001; max-height: 90vh; overflow-y: auto;
+            display: flex; flex-direction: column; align-items: center;
         }
         .modal .counter { font-size: 16px; color: var(--text-dim); margin-bottom: 10px; }
-        .modal img { max-width: 100%; max-height: 50vh; image-rendering: pixelated; border: 3px solid #3a3a5a; background: #050510; margin-bottom: 15px; }
+        .modal img { 
+            max-width: 100%; max-height: 50vh; image-rendering: pixelated;
+            border: 3px solid #3a3a5a; background: #050510; margin: 0 auto 15px auto;
+            display: block;
+        }
         .modal h3 { font-family: 'Press Start 2P', monospace; font-size: 15px; color: var(--accent2); margin-bottom: 10px; text-shadow: 0 0 10px rgba(255,217,61,0.5); }
-        .modal .desc { font-size: 20px; color: #ddd; line-height: 1.6; word-break: break-word; margin-bottom: 15px; }
+        .modal .desc { 
+            font-size: 20px; color: #ddd; line-height: 1.6; word-break: break-word;
+            margin-bottom: 15px; text-align: left; width: 100%;
+        }
         .modal .desc a { font-size: 20px; }
 
-        /* Кнопки навигации */
         .modal-nav-row {
             display: flex; justify-content: center; align-items: center; gap: 12px; flex-wrap: wrap;
             margin-bottom: 15px;
@@ -131,8 +147,13 @@
         }
         .modal .close-btn:hover { background: #0d3a0d; transform: translateY(-2px); }
 
-        .note { border: 3px dashed #3a3a5a; background: #0a0a15; padding: 15px; margin-top: 10px; font-style: italic; color: #88aacc; text-align: left; }
+        .note { 
+            border: 3px dashed #3a3a5a; background: #0a0a15; padding: 15px;
+            margin-top: 10px; color: #ccc; text-align: left; width: 100%;
+            font-size: 18px; line-height: 1.6; word-break: break-word;
+        }
         .note a { color: var(--glow); }
+        .note strong { color: var(--accent2); }
 
         footer { text-align: center; padding: 20px; margin-top: 30px; font-size: 16px; color: #3a3a5a; border-top: 2px solid #1a1a2e; }
 
@@ -301,8 +322,8 @@
         document.getElementById("modal-img").style.display = stepData.image ? 'block' : 'none';
         document.getElementById("modal-title").textContent = `Шаг ${currentStepIndex + 1}`;
         document.getElementById("modal-desc").innerHTML = 
-            '<p style="margin-bottom:12px;font-size:20px;">' + makeLinksClickable(stepData.text || "Нет описания") + '</p>' +
-            (stepData.detail ? '<div class="note">📋 <strong>Подробности:</strong><br>' + makeLinksClickable(stepData.detail) + '</div>' : '');
+            '<p style="margin-bottom:12px;font-size:20px;text-align:left;">' + makeLinksClickable(stepData.text || "Нет описания") + '</p>' +
+            (stepData.detail ? '<div class="note"><strong>📋 Подробности:</strong><br>' + makeLinksClickable(stepData.detail) + '</div>' : '');
         document.getElementById("modal-counter").textContent = "";
     }
 
@@ -340,8 +361,6 @@
         document.getElementById("modal-desc").innerHTML = makeLinksClickable(data.description || "");
         document.getElementById("modal-counter").textContent = `Арт ${currentGalleryIndex + 1} из ${window._galleryData.length}`;
         document.getElementById("modal-nav-counter").textContent = `${currentGalleryIndex + 1}/${window._galleryData.length}`;
-        document.getElementById("modal-prev").disabled = window._galleryData.length <= 1;
-        document.getElementById("modal-next").disabled = window._galleryData.length <= 1;
     }
 
     function closeModal(event) {
