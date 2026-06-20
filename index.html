@@ -1,362 +1,280 @@
-<!DOCTYPE html>
-
-<html lang="ru"><head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<!DOCTYPE html><html class="dark" lang="ru"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
 <title>Masters_of_Cum — official site</title>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=VT323&amp;family=Source+Code+Pro:wght@400;700&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&amp;family=JetBrains+Mono:wght@400;700&amp;family=Inter:wght@400;600;700;800&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#f1ffef",
+                        "primary-container": "#00ff88",
+                        "secondary": "#ffb3b0",
+                        "background": "#131319",
+                        "surface": "#0f0f1c",
+                        "surface-variant": "#35343b",
+                        "surface-container": "#1f1f26",
+                        "surface-container-high": "#2a2930",
+                        "outline": "#2c2c4e",
+                        "accent": "#00e479",
+                        "on-surface": "#e4e1ea",
+                        "on-surface-variant": "#8ca697",
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                    },
+                    fontFamily: {
+                        "display": ["Geist", "sans-serif"],
+                        "mono": ["JetBrains Mono", "monospace"],
+                        "body": ["Inter", "sans-serif"],
+                    }
+                },
+            },
+        }
+    </script>
 <style>
         :root {
-            --surface: #050508;
-            --surface-dim: #0a0a0f;
-            --surface-bright: #0d0d1a;
-            --surface-container: #12121d;
-            --accent: #00ff88;
-            --accent-glow: rgba(0, 255, 136, 0.5);
-            --text: #e0ffe0;
-            --text-dim: #709080;
-            --border: rgba(0, 255, 136, 0.15);
-            --neon-border: rgba(0, 255, 136, 0.4);
+            --accent: #00e479;
+            --accent-glow: rgba(0, 228, 121, 0.3);
         }
 
         body {
-            background-color: var(--surface);
-            color: var(--text);
-            font-family: 'Geist', sans-serif;
-            min-height: 100vh;
+            background-color: #0c0c12;
+            color: #e4e1ea;
+            font-family: 'Inter', sans-serif;
             background-image: 
-                radial-gradient(circle at 50% 0%, rgba(0, 255, 136, 0.08) 0%, transparent 60%),
-                linear-gradient(rgba(0, 255, 136, 0.03) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(0, 255, 136, 0.03) 1px, transparent 1px);
-            background-size: 100% 100%, 40px 40px, 40px 40px;
-            overflow-x: hidden;
+                radial-gradient(circle at 50% -20%, rgba(0, 228, 121, 0.12) 0%, transparent 50%),
+                linear-gradient(rgba(0, 228, 121, 0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 228, 121, 0.02) 1px, transparent 1px);
+            background-size: 100% 100%, 32px 32px, 32px 32px;
+            min-height: 100vh;
         }
 
-        a {
-            text-decoration: none !important;
-            border-bottom: none !important;
+        .obsidian-glass {
+            background: rgba(31, 31, 38, 0.6);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(228, 225, 234, 0.1);
+            box-shadow: 0 4px 24px -1px rgba(0, 0, 0, 0.4);
         }
 
-        .cyber-panel {
-            background: rgba(10, 10, 15, 0.7);
-            backdrop-filter: blur(16px);
-            border: 1px solid var(--border);
-            border-top: 2px solid var(--neon-border);
-            position: relative;
-            overflow: hidden;
+        .obsidian-card {
+            background: rgba(15, 15, 28, 0.8);
+            border: 1px solid rgba(228, 225, 234, 0.05);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        .neon-text {
-            text-shadow: 0 0 10px var(--accent-glow);
+        .obsidian-card:hover {
+            border-color: rgba(0, 228, 121, 0.3);
+            box-shadow: 0 0 20px rgba(0, 228, 121, 0.05);
         }
 
-        .neon-border-glow {
-            box-shadow: 0 0 20px rgba(0, 255, 136, 0.1), inset 0 0 10px rgba(0, 255, 136, 0.05);
+        .accent-border-t {
+            border-top: 1px solid var(--accent);
+            box-shadow: inset 0 1px 0 rgba(0, 228, 121, 0.2);
         }
 
         .tab-btn {
-            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-            position: relative;
+            transition: all 0.2s ease;
+            color: #8ca697;
         }
 
         .tab-btn.active {
-            color: var(--accent);
-            background: rgba(0, 255, 136, 0.08);
-            box-shadow: inset 0 -2px 0 var(--accent);
+            color: #00e479;
+            background: rgba(0, 228, 121, 0.05);
+            border-bottom: 2px solid #00e479;
         }
 
-        .tab-btn:hover:not(.active) {
-            background: rgba(255, 255, 255, 0.03);
+        .neon-glow {
+            text-shadow: 0 0 12px var(--accent-glow);
         }
 
-        .card-hover {
-            transition: all 0.3s ease;
-            border: 1px solid transparent;
-        }
-
-        .card-hover:hover {
-            transform: translateY(-5px);
-            border-color: var(--accent);
-            box-shadow: 0 10px 30px -10px rgba(0, 255, 136, 0.2);
-        }
-
-        .pixel-list li {
-            background: var(--surface-dim);
-            border: 1px solid var(--border);
-            border-radius: 4px;
+        .btn-obsidian {
+            background: #00e479;
+            color: #00210c;
+            font-weight: 700;
             transition: all 0.2s ease;
         }
 
-        .pixel-list li:hover {
-            background: var(--surface-bright);
-            border-color: var(--accent);
-            transform: translateX(5px);
-            box-shadow: -5px 0 10px rgba(0, 255, 136, 0.1);
+        .btn-obsidian:hover {
+            filter: brightness(1.1);
+            box-shadow: 0 0 15px var(--accent-glow);
         }
 
-        .btn-action {
-            background: var(--accent);
-            color: #000;
-            font-weight: 800;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            transition: all 0.3s ease;
-            border: none;
-            position: relative;
-            overflow: hidden;
-        }
+        ::-webkit-scrollbar { width: 4px; }
+        ::-webkit-scrollbar-track { background: #0c0c12; }
+        ::-webkit-scrollbar-thumb { background: #1f1f26; border-radius: 2px; }
+        ::-webkit-scrollbar-thumb:hover { background: #00e479; }
 
-        .btn-action:hover {
-            box-shadow: 0 0 25px var(--accent-glow);
-            transform: scale(1.02);
-        }
-
-        .btn-action::after {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.3), transparent);
-            transform: rotate(45deg);
-            transition: 0.5s;
-        }
-
-        .btn-action:hover::after {
-            left: 100%;
-        }
-
-        .modal-blur {
-            backdrop-filter: blur(12px);
-            background: rgba(0, 0, 0, 0.85);
-        }
-
-        .modal-overlay.active {
-            opacity: 1;
-            pointer-events: auto;
-            display: flex;
-        }
-
-        /* Scrollbar */
-        ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-track { background: var(--surface); }
-        ::-webkit-scrollbar-thumb { background: var(--surface-container); border-radius: 0; border: 1px solid var(--border); }
-        ::-webkit-scrollbar-thumb:hover { background: var(--accent); }
-
-        @keyframes fadeIn {
-            from { opacity: 0; filter: blur(10px); }
-            to { opacity: 1; filter: blur(0); }
-        }
-
-        .tab-content { display: none; animation: fadeIn 0.5s ease-out; }
+        .tab-content { display: none; animation: fadeIn 0.4s ease-out; }
         .tab-content.active { display: block; }
 
-        .image-container {
-            position: relative;
-            background: #000;
-            border: 1px solid var(--border);
-        }
-        
-        img { 
-            image-rendering: pixelated !important; 
-            image-rendering: -moz-crisp-edges !important; 
-            image-rendering: crisp-edges !important; 
-            filter: none !important; 
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(4px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
-        /* Terminal Admin Styles */
         #admin-panel-container {
             display: none;
             background: #000;
             color: #00ff41;
-            font-family: 'Source Code Pro', monospace;
+            font-family: 'JetBrains Mono', monospace;
             min-height: 100vh;
             padding: 2rem;
             position: relative;
         }
-
-        #admin-panel-container::before {
-            content: " ";
-            display: block;
-            position: absolute;
-            top: 0; left: 0; bottom: 0; right: 0;
-            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
-            z-index: 10;
-            background-size: 100% 2px, 3px 100%;
-            pointer-events: none;
-        }
-
-        .terminal-header {
-            border: 1px solid #00ff41;
-            padding: 1rem;
-            margin-bottom: 2rem;
-            text-transform: uppercase;
-            font-family: 'VT323', monospace;
-            font-size: 1.5rem;
-        }
-
-        .terminal-box {
-            border: 1px solid #00ff41;
-            padding: 1.5rem;
-            background: rgba(0, 255, 65, 0.02);
-            position: relative;
-        }
-
-        .terminal-input {
-            background: transparent;
-            border: none;
-            border-bottom: 1px solid #00ff41;
-            color: #00ff41;
-            font-family: inherit;
-            width: 100%;
-            padding: 0.5rem 0;
-            outline: none;
-        }
-
-        .terminal-input:focus {
-            box-shadow: 0 4px 0 -2px rgba(0, 255, 65, 0.2);
-        }
-
-        .terminal-btn {
-            background: transparent;
-            border: 1px solid #00ff41;
-            color: #00ff41;
-            padding: 0.5rem 1.5rem;
-            text-transform: uppercase;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-
-        .terminal-btn:hover {
-            background: #00ff41;
-            color: #000;
-        }
     </style>
 </head>
 <body class="antialiased">
-<!-- Main Site Interface -->
-<div class="max-w-6xl mx-auto px-4 py-8" id="main-site-container">
+<div class="max-w-6xl mx-auto px-6 py-12" id="main-site-container">
 <!-- Header -->
 <header class="text-center mb-16 relative">
-<h1 class="text-6xl md:text-8xl font-black tracking-tighter text-white mb-4 site-title neon-text">Masters_of_Cum</h1>
-<p class="text-[var(--text-dim)] font-mono text-sm uppercase tracking-widest site-subtitle opacity-80">official site</p>
-<!-- Cyber Accents -->
-<div class="absolute top-0 left-0 w-8 h-8 border-t-2 border-l-2 border-[var(--accent)] opacity-40"></div>
-<div class="absolute top-0 right-0 w-8 h-8 border-t-2 border-r-2 border-[var(--accent)] opacity-40"></div>
+<div class="inline-block relative">
+<h1 class="text-6xl md:text-8xl font-black tracking-tight text-white mb-2 site-title font-display">Masters_of_Cum</h1>
+<div class="absolute -top-4 -left-4 w-4 h-4 border-t-2 border-l-2 border-accent opacity-50"></div>
+<div class="absolute -bottom-4 -right-4 w-4 h-4 border-b-2 border-r-2 border-accent opacity-50"></div>
+</div>
+<p class="text-on-surface-variant font-mono text-xs uppercase tracking-[0.4em] site-subtitle mt-4">OFFICIAL SITE</p>
 </header>
 <!-- Navigation -->
-<nav class="cyber-panel flex justify-center p-1 mb-12 sticky top-4 z-50 neon-border-glow rounded-sm">
-<div class="flex w-full md:w-auto gap-4">
-<button class="tab-btn flex items-center gap-2 px-8 py-4 font-bold text-xs uppercase tracking-widest active" onclick="openTab('home')"><span class="material-symbols-outlined text-lg">home</span> ГЛАВНАЯ</button>
-<button class="tab-btn flex items-center gap-2 px-8 py-4 font-bold text-xs uppercase tracking-widest" onclick="openTab('gallery')"><span class="material-symbols-outlined text-lg">image</span> ГАЛЕРЕЯ</button>
-<button class="tab-btn flex items-center gap-2 px-8 py-4 font-bold text-xs uppercase tracking-widest" onclick="openTab('guides')"><span class="material-symbols-outlined text-lg">library_books</span> ГАЙДЫ</button>
-</div>
+<nav class="obsidian-glass mb-16 sticky top-6 z-50 rounded-lg overflow-hidden border border-white/10">
+<div class="flex flex-col md:flex-row items-center justify-center">
+<button class="tab-btn w-full md:w-auto px-10 py-5 flex items-center justify-center gap-3 text-xs font-bold uppercase tracking-widest" onclick="openTab('home')">
+<span class="material-symbols-outlined text-lg">home</span> ГЛАВНАЯ
+            </button>
+<button class="tab-btn w-full md:w-auto px-10 py-5 flex items-center justify-center gap-3 text-xs font-bold uppercase tracking-widest" onclick="openTab('gallery')">
+<span class="material-symbols-outlined text-lg">image</span> ГАЛЕРЕЯ
+            </button>
+<button class="tab-btn w-full md:w-auto px-10 py-5 flex items-center justify-center gap-3 text-xs font-bold uppercase tracking-widest" onclick="openTab('guides')">
+<span class="material-symbols-outlined text-lg">library_books</span> ГАЙДЫ
+            </button>
+<button class="tab-btn w-full md:w-auto px-10 py-5 flex items-center justify-center gap-3 text-xs font-bold uppercase tracking-widest active" onclick="openTab('suggestions')"><span class="material-symbols-outlined text-lg">move_to_inbox</span> ПРЕДЛОЖКА</button></div>
 </nav>
 <!-- Main Content -->
 <main>
-<div class="tab-content space-y-12 active" id="home">
-<div id="current-art-section">
-<div class="cyber-panel p-8 md:p-12 neon-border-glow rounded-sm">
-<div class="flex items-center gap-4 mb-8">
-<span class="material-symbols-outlined text-[var(--accent)] neon-text text-3xl">radar</span>
-<h3 class="text-2xl font-black text-white uppercase tracking-tight">АКТУАЛЬНЫЙ АРТ</h3>
+<div class="tab-content space-y-12" id="home">
+<!-- Current Art Section -->
+<section id="current-art-section">
+            <div class="obsidian-card rounded-xl p-8 md:p-12 border-t-2 border-t-accent/40">
+                <div class="flex items-center gap-4 mb-10">
+                    <div class="w-10 h-10 rounded bg-accent/10 flex items-center justify-center">
+                        <span class="material-symbols-outlined text-accent neon-glow">radar</span>
+                    </div>
+                    <h3 class="text-2xl font-black text-white uppercase tracking-tight font-display">АКТУАЛЬНЫЙ АРТ</h3>
+                </div>
+                <div class="flex flex-col lg:flex-row gap-12">
+                    
+                    <div class="flex-grow flex flex-col justify-center">
+                        <div class="text-xl text-on-surface-variant mb-12 leading-relaxed font-medium">Соединение с сервером...</div>
+                        <div class="flex flex-wrap gap-4 pt-10 border-t border-white/5">
+                            
+                            
+                        </div>
+                    </div>
+                </div>
+            </div></section>
+<!-- Help Section -->
+<section id="help-section">
+<div class="obsidian-card rounded-xl p-8 md:p-12 border-t-2 border-t-accent/40">
+<div class="flex items-center gap-4 mb-12">
+<div class="w-10 h-10 rounded bg-accent/10 flex items-center justify-center">
+<span class="material-symbols-outlined text-accent neon-glow">precision_manufacturing</span>
 </div>
-<div class="flex flex-col lg:flex-row gap-10">
-<div class="flex-grow flex flex-col justify-center">
-<div class="text-xl text-[var(--text-dim)] mb-10 leading-relaxed font-medium">Соединение с сервером...</div>
-<div class="flex flex-wrap gap-4 pt-8 border-t border-[var(--border)]">
-</div>
-</div>
-</div>
-</div></div>
-<div id="help-section">
-<div class="cyber-panel p-8 md:p-12 neon-border-glow rounded-sm">
-<div class="flex items-center gap-4 mb-10">
-<span class="material-symbols-outlined text-[var(--accent)] neon-text text-3xl">precision_manufacturing</span>
-<h3 class="text-2xl font-black text-white uppercase tracking-tight">КАК ПОМОЧЬ</h3>
+<h3 class="text-2xl font-black text-white uppercase tracking-tight font-display">КАК ПОМОЧЬ</h3>
 </div>
 <div class="grid grid-cols-1 lg:grid-cols-3 gap-10">
-<div class="space-y-4">
-<p class="text-[var(--accent)] font-black text-xs tracking-widest mb-6 flex items-center gap-3 uppercase neon-text"><span class="material-symbols-outlined text-sm">bolt</span> [01] WPlace</p>
-<ol class="pixel-list space-y-3 list-none"><li class="p-4 opacity-50 italic font-mono text-xs uppercase">Нет данных</li></ol>
-</div>
-<div class="space-y-4">
-<p class="text-[var(--accent)] font-black text-xs tracking-widest mb-6 flex items-center gap-3 uppercase neon-text"><span class="material-symbols-outlined text-sm">public</span> [02] Blue Marble</p>
-<ol class="pixel-list space-y-3 list-none"><li class="p-4 opacity-50 italic font-mono text-xs uppercase">Нет данных</li></ol>
-</div>
-<div class="space-y-4">
-<p class="text-[var(--accent)] font-black text-xs tracking-widest mb-6 flex items-center gap-3 uppercase neon-text"><span class="material-symbols-outlined text-sm">extension</span> [03] WPlace Helper</p>
-<ol class="pixel-list space-y-3 list-none"><li class="p-4 opacity-50 italic font-mono text-xs uppercase">Нет данных</li></ol>
+<div class="space-y-6">
+<p class="text-accent font-black text-[10px] tracking-widest flex items-center gap-2 uppercase">
+<span class="material-symbols-outlined text-sm">bolt</span> [01] WPlace
+                            </p>
+<div class="bg-black/20 rounded-lg border border-white/5 p-1" id="wplace-steps">
+<ol class="space-y-1 list-none"><li class="p-4 opacity-40 italic font-mono text-[10px] uppercase text-center">DATA_MISSING</li></ol>
 </div>
 </div>
-</div></div>
+<div class="space-y-6">
+<p class="text-accent font-black text-[10px] tracking-widest flex items-center gap-2 uppercase">
+<span class="material-symbols-outlined text-sm">public</span> [02] Blue Marble
+                            </p>
+<div class="bg-black/20 rounded-lg border border-white/5 p-1" id="blue-steps">
+<ol class="space-y-1 list-none"><li class="p-4 opacity-40 italic font-mono text-[10px] uppercase text-center">DATA_MISSING</li></ol>
+</div>
+</div>
+<div class="space-y-6">
+<p class="text-accent font-black text-[10px] tracking-widest flex items-center gap-2 uppercase">
+<span class="material-symbols-outlined text-sm">extension</span> [03] WPlace Helper
+                            </p>
+<div class="bg-black/20 rounded-lg border border-white/5 p-1" id="helper-steps">
+<ol class="space-y-1 list-none"><li class="p-4 opacity-40 italic font-mono text-[10px] uppercase text-center">DATA_MISSING</li></ol>
+</div>
+</div>
+</div>
+</div>
+</section>
 </div>
 <div class="tab-content" id="gallery">
-<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6" id="gallery-grid"><p class="col-span-full text-center py-20 text-[var(--text-dim)] font-mono uppercase tracking-widest opacity-50">Архив не содержит данных.</p></div>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8" id="gallery-grid"><p class="col-span-full text-center py-20 text-on-surface-variant font-mono uppercase tracking-widest opacity-40">ARCHIVE_EMPTY</p></div>
 </div>
 <div class="tab-content" id="guides">
-<div class="space-y-8" id="guides-content"><p class="text-center py-16 text-[var(--text-dim)] font-mono uppercase tracking-widest">База данных пуста.</p></div>
+<div class="space-y-8" id="guides-content">
+<p class="text-center py-16 text-on-surface-variant font-mono uppercase tracking-widest">База данных пуста.</p>
 </div>
-</main>
+</div>
+<div class="tab-content space-y-12 active" id="suggestions"><section><div class="obsidian-card rounded-xl p-8 md:p-12 border-t-2 border-t-accent/40"><div class="flex items-center gap-4 mb-10"><div class="w-10 h-10 rounded bg-accent/10 flex items-center justify-center"><span class="material-symbols-outlined text-accent neon-glow">edit_note</span></div><h3 class="text-2xl font-black text-white uppercase tracking-tight font-display">ПРЕДЛОЖИТЬ АРТ</h3></div><form class="space-y-8 max-w-2xl" onsubmit="event.preventDefault(); alert('Система обработки файлов и заявок временно недоступна. Попробуйте позже.');"><div class="space-y-2"><label class="text-[10px] font-mono uppercase tracking-widest text-accent font-bold">[01] НАЗВАНИЕ АРТА</label><input class="w-full bg-black/40 border border-white/10 rounded p-4 text-white font-mono focus:border-accent outline-none transition-colors" placeholder="Введите название..." type="text"></div><div class="space-y-2"><label class="text-[10px] font-mono uppercase tracking-widest text-accent font-bold">[02] ССЫЛКА НА ИЗОБРАЖЕНИЕ</label><input class="w-full bg-black/40 border border-white/10 rounded p-4 text-white font-mono focus:border-accent outline-none transition-colors" placeholder="https://..." type="url"><div class="mt-4 flex flex-col gap-2"><label class="text-[10px] font-mono uppercase tracking-widest text-accent/60 font-bold">ИЛИ ЗАГРУЗИТЬ ФАЙЛ</label><div class="relative group"><input type="file" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10" accept="image/*" onchange="this.nextElementSibling.querySelector('span').textContent = this.files[0] ? this.files[0].name : 'ВЫБРАТЬ ФАЙЛ'"><div class="w-full bg-black/20 border border-dashed border-white/10 rounded p-4 text-white font-mono flex items-center justify-between group-hover:border-accent/40 transition-colors"><span class="text-xs opacity-50 uppercase tracking-widest">ВЫБРАТЬ ФАЙЛ</span><span class="material-symbols-outlined text-accent">upload_file</span></div></div></div></div><div class="space-y-2"><label class="text-[10px] font-mono uppercase tracking-widest text-accent font-bold">[03] КОММЕНТАРИЙ</label><textarea class="w-full bg-black/40 border border-white/10 rounded p-4 text-white font-mono focus:border-accent outline-none transition-colors resize-none" placeholder="Дополнительная информация..." rows="4"></textarea></div><button class="btn-obsidian w-full md:w-auto px-12 py-5 rounded flex items-center justify-center gap-3 text-xs tracking-widest uppercase" type="submit"><span class="material-symbols-outlined">send</span> ОТПРАВИТЬ ПРЕДЛОЖЕНИЕ</button></form></div></section></div></main>
 <!-- Footer -->
-<footer class="mt-32 pt-12 border-t border-[var(--border)] text-center text-[var(--text-dim)] font-mono text-[10px] tracking-widest pb-12 uppercase" id="site-footer">
-<p>TELEGRAM KOHTAKT - <a class="text-[var(--accent)] hover:underline" href="https://t.me/Arnimaz" target="_blank">@ARNIMAZ</a> | КАНАЛ - <a class="text-[var(--accent)] hover:underline" href="https://t.me/Masters_of_Cum" target="_blank">@MASTERS_OF_CUM</a></p>
-</footer>
+<footer class="mt-40 pt-16 border-t border-white/5 text-center pb-20" id="site-footer"><div class="text-[10px] font-mono tracking-[0.3em] uppercase text-on-surface-variant/60 flex flex-wrap justify-center gap-x-8 gap-y-4"><span class="">TELEGRAM KOHTAKT - <a href="https://t.me/ARNIMAZ" target="_blank" style="color:#00e479; text-decoration: none;" class="">@ARNIMAZ</a></span><span class="w-1 h-1 bg-white/20 rounded-full my-auto hidden md:block"></span><span class="">КАНАЛ - <a href="https://t.me/MASTERS_OF_CUM" target="_blank" style="color:#00e479; text-decoration: none;" class="">@MASTERS_OF_CUM</a></span></div></footer>
 </div>
-<!-- Terminal Admin Interface -->
+<!-- Admin Interface -->
 <div id="admin-panel-container">
-<div class="terminal-header">
-        &gt; WPLACE_ADMIN_TERMINAL_V.2.0.5 <span class="float-right">[ОНЛАЙН]</span>
+<div class="terminal-header border-b border-[#00ff41] pb-4 mb-8 flex justify-between font-mono">
+<span class="">&gt; obsidian_tech_admin_v4.1.0</span>
+<span class="text-white/40">[SECURE_SESSION]</span>
 </div>
 <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-<div class="md:col-span-1 space-y-6">
-<div class="terminal-box">
-<div class="mb-4 font-bold border-b border-[#00ff41] pb-2">АВТОРИЗАЦИЯ_</div>
-<input class="terminal-input mb-4" placeholder="Введите_токен_GITHUB..." type="password"/>
-<button class="terminal-btn w-full">ПОДКЛЮЧИТЬСЯ</button>
+<div class="terminal-box border border-[#00ff41] p-6 bg-[#00ff41]/5 rounded">
+<div class="mb-6 font-bold uppercase">AUTH_LEVEL: ROOT</div>
+<input class="bg-black border border-[#00ff41] text-[#00ff41] w-full p-3 mb-4 font-mono outline-none" placeholder="GITHUB_TOKEN" type="password">
+<button class="bg-[#00ff41] text-black w-full py-3 font-bold uppercase hover:bg-white transition-colors">ESTABLISH CONNECTION</button>
 </div>
-</div>
-<div class="md:col-span-2">
-<div class="terminal-box h-full min-h-[400px]">
-<div class="mb-4 font-bold border-b border-[#00ff41] pb-2">КОНСОЛЬ_УПРАВЛЕНИЯ_</div>
-<div class="py-12 text-center opacity-40">
-<span class="material-symbols-outlined text-6xl mb-4">lock</span><br/>
-                    ТРЕБУЕТСЯ АВТОРИЗАЦИЯ ДЛЯ ДОСТУПА К ФАЙЛОВОЙ СИСТЕМЕ
-                </div>
+<div class="md:col-span-2 border border-[#00ff41] p-6 bg-[#00ff41]/5 rounded h-[400px] flex items-center justify-center opacity-40">
+<div class="text-center">
+<span class="material-symbols-outlined text-5xl mb-4">terminal</span>
+<p class="font-mono text-sm">WAITING FOR AUTHORIZATION...</p>
 </div>
 </div>
 </div>
 </div>
 <!-- Modal -->
-<div class="modal-overlay fixed inset-0 z-[100] modal-blur items-center justify-center p-4 transition-opacity opacity-0 pointer-events-none hidden" id="modal-overlay" onclick="closeModal(event)">
-<div class="modal cyber-panel w-full max-w-4xl max-h-[90vh] overflow-y-auto p-8 md:p-12 scale-95 transition-transform rounded-sm shadow-2xl" id="modal-box" onclick="event.stopPropagation()">
-<div class="flex justify-between items-center mb-8 border-b border-[var(--border)] pb-4">
-<button class="text-[var(--text-dim)] hover:text-[var(--accent)] transition-colors flex items-center justify-center" onclick="closeModal()">
-<span class="material-symbols-outlined text-3xl">close</span>
+<div class="modal-overlay fixed inset-0 z-[100] backdrop-blur-xl bg-black/90 items-center justify-center p-6 transition-opacity opacity-0 pointer-events-none hidden" id="modal-overlay" onclick="closeModal(event)">
+<div class="modal obsidian-glass w-full max-w-5xl max-h-[90vh] overflow-y-auto p-12 scale-95 transition-transform rounded-xl border border-white/10" id="modal-box" onclick="event.stopPropagation()">
+<div class="flex justify-between items-center mb-10 pb-6 border-b border-white/5">
+<h2 class="text-accent font-mono text-xs font-bold tracking-[0.4em] uppercase" id="modal-counter">SYSTEM_INTEL</h2>
+<button class="text-on-surface-variant hover:text-white transition-colors" onclick="closeModal()">
+<span class="material-symbols-outlined text-2xl">close</span>
 </button>
 </div>
-<div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
-<div class="image-container border-2 border-[var(--border)] p-2">
-<img alt="" class="w-full object-contain max-h-[60vh]" id="modal-img" src=""/>
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+<div class="image-container rounded-lg overflow-hidden border border-white/10 bg-black/40">
+<img alt="" class="w-full object-contain max-h-[50vh]" id="modal-img" src="">
 </div>
 <div class="flex flex-col h-full">
-<h3 class="text-3xl font-black text-white mb-6 uppercase tracking-tight neon-text" id="modal-title">ШАГ 00</h3>
-<div class="text-[var(--text-dim)] leading-relaxed mb-10 flex-grow" id="modal-desc" style="overflow-wrap: break-word; word-break: break-all;"></div>
+<h3 class="text-4xl font-black text-white mb-8 tracking-tight font-display uppercase" id="modal-title">TITLE_PLACEHOLDER</h3>
+<div class="text-on-surface-variant leading-relaxed mb-12 text-lg" id="modal-desc"></div>
 <div class="flex flex-col gap-4 mt-auto">
-<button class="btn-action w-full py-4 rounded-sm flex items-center justify-center gap-3" id="modal-download" onclick="downloadModalImage()" style="display: none;">
-<span class="material-symbols-outlined">download</span> СКАЧАТЬ АРТ
+<button class="btn-obsidian w-full py-5 rounded flex items-center justify-center gap-3 text-xs tracking-widest uppercase" id="modal-download" onclick="downloadModalImage()" style="display: none;">
+<span class="material-symbols-outlined">download</span> DOWNLOAD ASSET
                     </button>
-<span class="hidden" id="modal-counter"></span><div class="flex items-center justify-between bg-[var(--surface-bright)] p-1 rounded-sm border border-[var(--border)]" id="modal-nav-row">
-<button class="p-3 hover:bg-[var(--surface-container)] hover:text-[var(--accent)] transition-colors" id="modal-prev" onclick="event.stopPropagation(); navModal(-1)">
-<span class="material-symbols-outlined">arrow_back</span>
+<div class="flex items-center justify-between bg-white/5 p-1 rounded border border-white/10" id="modal-nav-row">
+<button class="p-4 hover:bg-white/5 hover:text-accent transition-colors" id="modal-prev" onclick="event.stopPropagation(); navModal(-1)">
+<span class="material-symbols-outlined">chevron_left</span>
 </button>
-<span class="font-mono text-xs text-[var(--accent)] font-bold tracking-widest px-4" id="modal-nav-counter">00 / 00</span>
-<button class="p-3 hover:bg-[var(--surface-container)] hover:text-[var(--accent)] transition-colors" id="modal-next" onclick="event.stopPropagation(); navModal(1)">
-<span class="material-symbols-outlined">arrow_forward</span>
+<span class="font-mono text-xs text-accent font-bold tracking-widest px-6" id="modal-nav-counter">00 / 00</span>
+<button class="p-4 hover:bg-white/5 hover:text-accent transition-colors" id="modal-next" onclick="event.stopPropagation(); navModal(1)">
+<span class="material-symbols-outlined">chevron_right</span>
 </button>
 </div>
 </div>
@@ -372,9 +290,8 @@
 
     function makeLinksClickable(text) {
         if (!text) return "";
-        let t = text.toString().replace(/(https?:\/\/[^\s<>]+)/g, '<a href="$1" target="_blank" style="color:#00ff88;">$1</a>');
-        // Improved Telegram handle regex: finds @ followed by alphanumeric/underscore, ensures it's treated as a single entity
-        t = t.replace(/@([a-zA-Z0-9_]+)/g, '<a href="https://t.me/$1" target="_blank" style="color:#00ff88;">@$1</a>');
+        let t = text.toString().replace(/(https?:\/\/[^\s<>]+)/g, '<a href="$1" target="_blank" style="color:#00e479; text-decoration: none;">$1</a>');
+        t = t.replace(/@([a-zA-Z0-9_]+)/g, '<a href="https://t.me/$1" target="_blank" style="color:#00e479; text-decoration: none;">@$1</a>');
         return t;
     }
 
@@ -382,7 +299,7 @@
         if (!url) return;
         const a = document.createElement('a');
         a.href = url;
-        a.download = filename || 'art.png';
+        a.download = filename || 'asset.png';
         a.target = '_blank';
         a.rel = 'noopener';
         document.body.appendChild(a);
@@ -392,7 +309,7 @@
 
     function downloadModalImage() {
         const img = document.getElementById('modal-img');
-        if (img && img.src) downloadImage(img.src, 'wplace-art.png');
+        if (img && img.src) downloadImage(img.src, 'obsidian-asset.png');
     }
 
     async function loadJSON(path, fallback) {
@@ -410,9 +327,17 @@
         
         document.title = settingsData.siteTitle;
         document.querySelector(".site-title").textContent = settingsData.headerTitle;
-        document.querySelector(".site-subtitle").textContent = settingsData.headerSubtitle;
-        // Ensure the footer is processed correctly through the link parser
-        document.getElementById("site-footer").innerHTML = `<p>${makeLinksClickable(settingsData.footer)}</p>`;
+        document.querySelector(".site-subtitle").textContent = settingsData.headerSubtitle.toUpperCase();
+        
+        // Clean footer logic
+        const footerLinks = settingsData.footer.split('|');
+        let footerHtml = '<div class="text-[10px] font-mono tracking-[0.3em] uppercase text-on-surface-variant/60 flex flex-wrap justify-center gap-x-8 gap-y-4">';
+        footerLinks.forEach((link, idx) => {
+            footerHtml += `<span>${makeLinksClickable(link.trim())}</span>`;
+            if (idx < footerLinks.length - 1) footerHtml += `<span class="w-1 h-1 bg-white/20 rounded-full my-auto hidden md:block"></span>`;
+        });
+        footerHtml += '</div>';
+        document.getElementById("site-footer").innerHTML = footerHtml;
 
         const homeData = await loadJSON('/content/home.json', {
             title: "АКТУАЛЬНЫЙ АРТ", image: "", description: "Соединение с сервером...", location: "", help_wplace: [], help_blue: [], help_helper: []
@@ -420,48 +345,33 @@
         window._homeData = homeData;
         
         document.getElementById('current-art-section').innerHTML = `
-            <div class="cyber-panel p-8 md:p-12 neon-border-glow rounded-sm">
-                <div class="flex items-center gap-4 mb-8">
-                    <span class="material-symbols-outlined text-[var(--accent)] neon-text text-3xl">radar</span>
-                    <h3 class="text-2xl font-black text-white uppercase tracking-tight">${homeData.title || 'АКТУАЛЬНЫЙ АРТ'}</h3>
+            <div class="obsidian-card rounded-xl p-8 md:p-12 border-t-2 border-t-accent/40">
+                <div class="flex items-center gap-4 mb-10">
+                    <div class="w-10 h-10 rounded bg-accent/10 flex items-center justify-center">
+                        <span class="material-symbols-outlined text-accent neon-glow">radar</span>
+                    </div>
+                    <h3 class="text-2xl font-black text-white uppercase tracking-tight font-display">${homeData.title || 'АКТУАЛЬНЫЙ АРТ'}</h3>
                 </div>
-                <div class="flex flex-col lg:flex-row gap-10">
-                    ${homeData.image ? `<div class="image-container flex-shrink-0 lg:w-1/3 border-2 border-[var(--border)] p-2"><img src="${homeData.image}" alt="Актуальный арт" class="w-full h-auto"></div>` : ''}
+                <div class="flex flex-col lg:flex-row gap-12">
+                    ${homeData.image ? `<div class="image-container flex-shrink-0 lg:w-1/3 rounded-lg overflow-hidden border border-white/10 bg-black/40 p-2"><img src="${homeData.image}" alt="Current Art" class="w-full h-auto"></div>` : ''}
                     <div class="flex-grow flex flex-col justify-center">
-                        <div class="text-xl text-[var(--text-dim)] mb-10 leading-relaxed font-medium">${makeLinksClickable(homeData.description)}</div>
-                        <div class="flex flex-wrap gap-4 pt-8 border-t border-[var(--border)]">
+                        <div class="text-xl text-on-surface-variant mb-12 leading-relaxed font-medium">${makeLinksClickable(homeData.description)}</div>
+                        <div class="flex flex-wrap gap-4 pt-10 border-t border-white/5">
                             ${homeData.location ? `
-                                <a href="${homeData.location}" class="btn-action px-10 py-4 rounded-sm flex items-center gap-3 text-xs" target="_blank">
-                                    <span class="material-symbols-outlined">my_location</span> К ТЕРРИТОРИИ WPLACE
+                                <a href="${homeData.location}" class="btn-obsidian px-10 py-5 rounded flex items-center gap-3 text-xs tracking-widest uppercase" target="_blank">
+                                    <span class="material-symbols-outlined">explore</span> GOTO_SECTOR_WPLACE
                                 </a>
                             ` : ''}
-                            ${homeData.image ? `<button class="bg-[var(--surface-bright)] text-white hover:text-[var(--accent)] border border-[var(--border)] hover:border-[var(--accent)] px-10 py-4 rounded-sm flex items-center gap-3 text-xs font-bold uppercase transition-all" onclick="downloadImage('${homeData.image}','wplace-art.png')"><span class="material-symbols-outlined">download</span> СКАЧАТЬ АРТ</button>` : ''}
+                            ${homeData.image ? `<button class="bg-white/5 text-white hover:text-accent border border-white/10 hover:border-accent/40 px-10 py-5 rounded flex items-center gap-3 text-xs font-bold uppercase transition-all tracking-widest" onclick="downloadImage('${homeData.image}','art-capture.png')"><span class="material-symbols-outlined">download</span> GET_ASSET</button>` : ''}
                         </div>
                     </div>
                 </div>
             </div>`;
 
-        document.getElementById('help-section').innerHTML = `
-            <div class="cyber-panel p-8 md:p-12 neon-border-glow rounded-sm">
-                <div class="flex items-center gap-4 mb-10">
-                    <span class="material-symbols-outlined text-[var(--accent)] neon-text text-3xl">precision_manufacturing</span>
-                    <h3 class="text-2xl font-black text-white uppercase tracking-tight">КАК ПОМОЧЬ</h3>
-                </div>
-                <div class="grid grid-cols-1 lg:grid-cols-3 gap-10">
-                    <div class="space-y-4">
-                        <p class="text-[var(--accent)] font-black text-xs tracking-widest mb-6 flex items-center gap-3 uppercase neon-text"><span class="material-symbols-outlined text-sm">bolt</span> [01] WPlace</p>
-                        <ol class="pixel-list space-y-3 list-none">${renderStepsList(homeData.help_wplace, 'wplace')}</ol>
-                    </div>
-                    <div class="space-y-4">
-                        <p class="text-[var(--accent)] font-black text-xs tracking-widest mb-6 flex items-center gap-3 uppercase neon-text"><span class="material-symbols-outlined text-sm">public</span> [02] Blue Marble</p>
-                        <ol class="pixel-list space-y-3 list-none">${renderStepsList(homeData.help_blue, 'blue')}</ol>
-                    </div>
-                    <div class="space-y-4">
-                        <p class="text-[var(--accent)] font-black text-xs tracking-widest mb-6 flex items-center gap-3 uppercase neon-text"><span class="material-symbols-outlined text-sm">extension</span> [03] WPlace Helper</p>
-                        <ol class="pixel-list space-y-3 list-none">${renderStepsList(homeData.help_helper, 'helper')}</ol>
-                    </div>
-                </div>
-            </div>`;
+        // Update help steps lists
+        if (homeData.help_wplace) document.querySelector('#wplace-steps ol').innerHTML = renderStepsList(homeData.help_wplace, 'wplace');
+        if (homeData.help_blue) document.querySelector('#blue-steps ol').innerHTML = renderStepsList(homeData.help_blue, 'blue');
+        if (homeData.help_helper) document.querySelector('#helper-steps ol').innerHTML = renderStepsList(homeData.help_helper, 'helper');
 
         const galleryData = await loadJSON('/content/gallery.json', []);
         window._galleryData = galleryData;
@@ -472,40 +382,37 @@
         if (guidesData.length > 0) {
             document.getElementById('guides-content').innerHTML = guidesData.map(g => {
                 let html = '';
-                if (g.install_pc && g.install_pc.length > 0) html += `<div class="bg-[rgba(0,255,136,0.1)] border border-[var(--border)] px-4 py-2 text-[10px] font-bold text-[var(--accent)] uppercase mb-4 mt-8 inline-block tracking-widest"> 🖥 ПК </div><ol class="pixel-list space-y-3 list-none">${renderStepsList(g.install_pc, 'guide_pc_'+g.title)}</ol>`;
+                if (g.install_pc && g.install_pc.length > 0) html += `<div class="bg-accent/5 border border-accent/20 px-4 py-2 text-[10px] font-bold text-accent uppercase mb-4 mt-8 inline-block tracking-[0.2em] rounded">🖥 DESKTOP</div><div class="bg-black/20 rounded-lg border border-white/5 p-1"><ol class="space-y-1 list-none">${renderStepsList(g.install_pc, 'guide_pc_'+g.title)}</ol></div>`;
                 if (g.install_phone && g.install_phone.length > 0) {
                     const sections = {};
                     g.install_phone.forEach(step => {
                         const sd = typeof step === 'object' ? step : { text: step, section: "" };
-                        const name = sd.section || 'терминал: мобильный';
+                        const name = sd.section || 'MOBILE_TERMINAL';
                         if (!sections[name]) sections[name] = [];
                         sections[name].push(sd);
                     });
-                    ['📱 Android (Edge)', '📱 iPhone (iOS)', '📱 Телефон'].forEach(name => {
-                        if (sections[name] && sections[name].length > 0) { html += `<div class="bg-[rgba(0,255,136,0.1)] border border-[var(--border)] px-4 py-2 text-[10px] font-bold text-[var(--accent)] uppercase mb-4 mt-8 inline-block tracking-widest">${name.toLowerCase()}</div><ol class="pixel-list space-y-3 list-none">${renderStepsList(sections[name], 'guide_phone_'+g.title)}</ol>`; delete sections[name]; }
-                    });
-                    for (const [title, steps] of Object.entries(sections)) if (steps.length > 0) html += `<div class="bg-[rgba(0,255,136,0.1)] border border-[var(--border)] px-4 py-2 text-[10px] font-bold text-[var(--accent)] uppercase mb-4 mt-8 inline-block tracking-widest">${title.toLowerCase()}</div><ol class="pixel-list space-y-3 list-none">${renderStepsList(steps, 'guide_phone_'+g.title)}</ol>`;
+                    for (const [title, steps] of Object.entries(sections)) if (steps.length > 0) html += `<div class="bg-accent/5 border border-accent/20 px-4 py-2 text-[10px] font-bold text-accent uppercase mb-4 mt-8 inline-block tracking-[0.2em] rounded">${title}</div><div class="bg-black/20 rounded-lg border border-white/5 p-1"><ol class="space-y-1 list-none">${renderStepsList(steps, 'guide_phone_'+g.title)}</ol></div>`;
                 }
-                return `<div class="cyber-panel p-8 md:p-12 mb-8 rounded-sm">
-                    <h3 class="text-3xl font-black text-white mb-6 uppercase tracking-tight neon-text">${g.title}</h3>
-                    <p class="text-[var(--text-dim)] mb-6 text-lg">${makeLinksClickable(g.description)}</p>
+                return `<div class="obsidian-card p-10 md:p-14 mb-12 rounded-xl border-t-2 border-t-accent/40">
+                    <h3 class="text-3xl font-black text-white mb-8 uppercase tracking-tight font-display neon-glow">${g.title}</h3>
+                    <p class="text-on-surface-variant mb-10 text-lg leading-relaxed">${makeLinksClickable(g.description)}</p>
                     ${html}
-                    ${g.note && g.note.toString().trim() ? `<div class="mt-10 p-6 rounded-sm bg-[rgba(0,255,136,0.03)] border-l-4 border-[var(--accent)] text-sm italic text-[var(--text-dim)] font-mono leading-relaxed"><span class="text-[var(--accent)] not-italic font-bold block mb-2 uppercase tracking-tighter">[!] ПРИМЕЧАНИЕ СИСТЕМЫ:</span>${makeLinksClickable(g.note)}</div>` : ''}
+                    ${g.note && g.note.toString().trim() ? `<div class="mt-12 p-8 rounded bg-accent/5 border-l-4 border-accent text-sm italic text-on-surface-variant font-mono leading-relaxed"><span class="text-accent not-italic font-bold block mb-4 uppercase tracking-[0.2em] text-[10px]">[!] SYSTEM_LOG_ENTRY:</span>${makeLinksClickable(g.note)}</div>` : ''}
                 </div>`;
             }).join('');
         }
     }
 
     function renderStepsList(steps, type) {
-        if (!steps || steps.length === 0) return '<li class="p-4 opacity-50 italic font-mono text-xs uppercase">Нет данных</li>';
+        if (!steps || steps.length === 0) return '<li class="p-4 opacity-40 italic font-mono text-[10px] uppercase text-center">DATA_MISSING</li>';
         return steps.map((s, i) => {
             const stepData = typeof s === 'object' ? s : { text: s, image: "", detail: "" };
-            return `<li class="p-5 flex items-center justify-between group cursor-pointer" onclick="openStepModal('${type}', ${i})">
+            return `<li class="p-5 flex items-center justify-between group cursor-pointer hover:bg-white/5 rounded transition-all" onclick="openStepModal('${type}', ${i})">
                 <span class="flex items-center gap-6">
-                    <span class="w-8 h-8 flex items-center justify-center rounded-sm bg-[var(--surface-bright)] text-[var(--accent)] text-xs font-bold border border-[var(--border)] group-hover:bg-[var(--accent)] group-hover:text-black transition-all font-mono">${(i + 1).toString().padStart(2, '0')}</span>
-                    <span class="text-sm font-bold uppercase tracking-wide group-hover:text-white transition-colors">${makeLinksClickable(stepData.text || 'Протокол '+(i+1))}</span>
+                    <span class="w-8 h-8 flex items-center justify-center rounded bg-accent/10 text-accent text-[10px] font-bold border border-accent/20 group-hover:bg-accent group-hover:text-black transition-all font-mono">${(i + 1).toString().padStart(2, '0')}</span>
+                    <span class="text-sm font-bold uppercase tracking-widest text-on-surface-variant group-hover:text-white transition-colors">${makeLinksClickable(stepData.text || 'LOG_FILE '+(i+1))}</span>
                 </span>
-                <span class="material-symbols-outlined opacity-20 group-hover:opacity-100 transition-opacity text-[var(--accent)]">arrow_forward_ios</span>
+                <span class="material-symbols-outlined opacity-10 group-hover:opacity-100 transition-opacity text-accent text-lg">chevron_right</span>
             </li>`;
         }).join('');
     }
@@ -529,6 +436,8 @@
         const overlay = document.getElementById("modal-overlay");
         overlay.classList.remove("hidden");
         overlay.classList.add("active");
+        overlay.style.opacity = '1';
+        overlay.style.pointerEvents = 'auto';
         document.getElementById("modal-box").classList.remove("scale-95");
         document.getElementById("modal-nav-row").style.display = 'none';
         document.getElementById("modal-download").style.display = 'none';
@@ -540,20 +449,21 @@
         const img = document.getElementById("modal-img");
         img.src = stepData.image || "";
         img.closest('.image-container').style.display = stepData.image ? 'block' : 'none';
-        document.getElementById("modal-title").textContent = `Шаг ${(currentStepIndex + 1).toString().padStart(2, '0')}`;
-        document.getElementById("modal-desc").innerHTML = `<div class="text-2xl font-bold mb-8 uppercase tracking-tight text-white">${makeLinksClickable(stepData.text || "Описание отсутствует")}</div>` + (stepData.detail && stepData.detail.toString().trim() ? '<div class="text-left p-6 rounded-sm bg-[var(--surface-bright)] text-sm border border-[var(--border)] font-mono leading-relaxed"><div class="text-[var(--accent)] font-black mb-3 uppercase tracking-widest text-[10px]">Расшифрованные детали:</div>' + makeLinksClickable(stepData.detail) + '</div>' : '');
-        document.getElementById("modal-counter").textContent = "ИНСТРУКТАЖ_СИСТЕМЫ";
+        document.getElementById("modal-title").textContent = `STEP ${(currentStepIndex + 1).toString().padStart(2, '0')}`;
+        document.getElementById("modal-desc").innerHTML = `<div class="text-2xl font-bold mb-10 uppercase tracking-tight text-white font-display">${makeLinksClickable(stepData.text || "NO_DESCRIPTION")}</div>` + (stepData.detail && stepData.detail.toString().trim() ? '<div class="text-left p-8 rounded bg-black/40 text-sm border border-white/5 font-mono leading-relaxed"><div class="text-accent font-black mb-4 uppercase tracking-[0.3em] text-[10px]">DECODED_DATA:</div>' + makeLinksClickable(stepData.detail) + '</div>' : '');
+        document.getElementById("modal-counter").textContent = "OPERATIONAL_INTEL";
     }
 
     function renderGalleryGrid(data) {
         document.getElementById('gallery-grid').innerHTML = data.length > 0 ? data.map((item, i) => `
-            <div class="cyber-panel p-4 card-hover cursor-pointer rounded-sm" onclick="openGalleryItem(${i})">
-                <div class="image-container aspect-square mb-6 border border-[var(--border)] overflow-hidden">
-                    ${item.image ? `<img src="${item.image}" alt="${item.title}" class="w-full h-full object-cover">` : '<div class="w-full h-full flex items-center justify-center bg-[var(--surface-container)]"><span class="material-symbols-outlined text-5xl opacity-10">broken_image</span></div>'}
+            <div class="obsidian-card p-6 cursor-pointer rounded-xl group" onclick="openGalleryItem(${i})">
+                <div class="rounded-lg overflow-hidden border border-white/5 bg-black mb-6 aspect-square relative">
+                    ${item.image ? `<img src="${item.image}" alt="${item.title}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">` : '<div class="w-full h-full flex items-center justify-center bg-white/5"><span class="material-symbols-outlined text-4xl opacity-10">image_not_supported</span></div>'}
+                    <div class="absolute inset-0 bg-accent/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
                 </div>
-                <h4 class="text-center font-black text-white text-xs uppercase tracking-widest px-2 truncate">${item.title}</h4>
+                <h4 class="text-center font-bold text-white text-[10px] uppercase tracking-[0.3em] px-2 truncate font-mono">${item.title}</h4>
             </div>
-        `).join('') : '<p class="col-span-full text-center py-20 text-[var(--text-dim)] font-mono uppercase tracking-widest opacity-50">Архив не содержит данных.</p>';
+        `).join('') : '<p class="col-span-full text-center py-20 text-on-surface-variant font-mono uppercase tracking-widest opacity-40">ARCHIVE_EMPTY</p>';
     }
 
     function openGalleryItem(index) {
@@ -562,6 +472,8 @@
         const overlay = document.getElementById("modal-overlay");
         overlay.classList.remove("hidden");
         overlay.classList.add("active");
+        overlay.style.opacity = '1';
+        overlay.style.pointerEvents = 'auto';
         document.getElementById("modal-box").classList.remove("scale-95");
         document.getElementById("modal-nav-row").style.display = 'flex';
         document.getElementById("modal-download").style.display = 'flex';
@@ -581,17 +493,21 @@
         const img = document.getElementById("modal-img");
         img.closest('.image-container').style.display = 'block';
         img.src = data.image || "";
-        document.getElementById("modal-title").textContent = data.title || "БЕЗ НАЗВАНИЯ";
-        document.getElementById("modal-desc").innerHTML = `<div class="text-lg leading-relaxed text-[var(--text-dim)]">${makeLinksClickable(data.description || "Дополнительная информация не найдена.")}</div>`;
-        document.getElementById("modal-counter").textContent = `АРХИВНЫЙ_ОБЪЕКТ • ${currentGalleryIndex + 1} / ${window._galleryData.length}`;
+        document.getElementById("modal-title").textContent = (data.title || "UNTITLED_RECORD").toUpperCase();
+        document.getElementById("modal-desc").innerHTML = `<div class="text-lg leading-relaxed text-on-surface-variant font-medium">${makeLinksClickable(data.description || "NO_ADDITIONAL_DATA_FOUND_IN_RECORD")}</div>`;
+        document.getElementById("modal-counter").textContent = `ARCHIVE_FILE • ${currentGalleryIndex + 1} / ${window._galleryData.length}`;
         document.getElementById("modal-nav-counter").textContent = `${(currentGalleryIndex + 1).toString().padStart(2, '0')} / ${window._galleryData.length.toString().padStart(2, '0')}`;
     }
 
     function closeModal(event) { 
         if (event && event.target !== document.getElementById("modal-overlay")) return; 
         const overlay = document.getElementById("modal-overlay");
-        overlay.classList.remove("active");
-        overlay.classList.add("hidden");
+        overlay.style.opacity = '0';
+        overlay.style.pointerEvents = 'none';
+        setTimeout(() => {
+            overlay.classList.add("hidden");
+            overlay.classList.remove("active");
+        }, 300);
         document.getElementById("modal-box").classList.add("scale-95");
     }
 
@@ -605,7 +521,7 @@
 
     document.addEventListener('keydown', function(e) {
         const overlay = document.getElementById("modal-overlay");
-        if (overlay.classList.contains("hidden")) return;
+        if (!overlay.classList.contains("active")) return;
         if (e.key === "Escape") closeModal();
         if (modalMode === 'gallery') { if (e.key === "ArrowLeft") navModal(-1); if (e.key === "ArrowRight") navModal(1); }
     });
@@ -624,6 +540,11 @@
         }
     });
 
+    // Handle initial hash
+    if(window.location.hash === '#admin') window.dispatchEvent(new Event('hashchange'));
+
     initContent();
 </script>
+
+
 </body></html>
