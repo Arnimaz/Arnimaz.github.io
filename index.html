@@ -82,7 +82,6 @@
         .link-pixel { display: inline-block; background: #0a1a10; border: 2px solid var(--glow); padding: 8px 16px; color: var(--glow); font-family: 'VT323', monospace; font-size: 18px; letter-spacing: 1px; word-break: break-all; margin: 5px 0; box-shadow: 0 3px 0 #0a5a2a; transition: all 0.1s step-end; }
         .link-pixel:hover { background: #0d2a1a; box-shadow: 0 3px 0 var(--glow); }
 
-        /* Главная - картинка арта */
         .art-image-container {
             text-align: center;
             margin-bottom: 20px;
@@ -107,18 +106,43 @@
         }
 
         ol.pixel-list { list-style: none; counter-reset: pixel-counter; padding-left: 0; }
-        ol.pixel-list li { counter-increment: pixel-counter; padding: 12px 12px 12px 50px; margin-bottom: 8px; background: #0a0a1a; border: 2px solid #2a2a4a; position: relative; transition: all 0.1s step-end; }
-        ol.pixel-list li::before { content: counter(pixel-counter); position: absolute; left: 10px; top: 10px; font-family: 'Press Start 2P', monospace; font-size: 12px; color: var(--accent2); background: #1a1a30; border: 2px solid #3a3a5a; padding: 4px 8px; min-width: 30px; text-align: center; }
+        ol.pixel-list li { 
+            counter-increment: pixel-counter; 
+            padding: 14px 14px 14px 65px; 
+            margin-bottom: 8px; 
+            background: #0a0a1a; 
+            border: 2px solid #2a2a4a; 
+            position: relative; 
+            transition: all 0.1s step-end; 
+            word-break: break-word;
+            min-height: 44px;
+            display: flex;
+            align-items: center;
+        }
+        ol.pixel-list li::before { 
+            content: counter(pixel-counter); 
+            position: absolute; 
+            left: 10px; 
+            top: 50%;
+            transform: translateY(-50%);
+            font-family: 'Press Start 2P', monospace; 
+            font-size: 11px; 
+            color: var(--accent2); 
+            background: #1a1a30; 
+            border: 2px solid #3a3a5a; 
+            padding: 6px 8px; 
+            min-width: 28px; 
+            text-align: center;
+            flex-shrink: 0;
+        }
         ol.pixel-list li:hover { border-color: var(--glow); background: #0d0d20; }
 
-        /* Галерея */
         .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 16px; }
         .gallery-item { border: 3px solid #2a2a4a; background: #0a0a1a; padding: 8px; transition: all 0.1s step-end; text-align: center; cursor: pointer; }
         .gallery-item:hover { border-color: var(--accent); box-shadow: 0 0 20px rgba(255,107,107,0.3); transform: scale(1.03); }
         .gallery-item img { width: 100%; aspect-ratio: 1; object-fit: cover; border: 2px solid #3a3a5a; display: block; image-rendering: pixelated; }
         .gallery-item .label { font-family: 'VT323', monospace; font-size: 18px; margin-top: 8px; color: #ccc; }
 
-        /* Модальное окно */
         .modal-overlay {
             display: none;
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
@@ -177,6 +201,8 @@
             .tab-btn { font-size: 10px; padding: 10px 8px; }
             .tab-content { padding: 15px; }
             .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+            ol.pixel-list li { padding: 12px 10px 12px 55px; font-size: 16px; }
+            ol.pixel-list li::before { font-size: 9px; min-width: 22px; padding: 4px 5px; left: 6px; }
         }
     </style>
 </head>
@@ -194,13 +220,11 @@
         <button class="tab-btn" onclick="openTab('guides')">📚 Гайды</button>
     </nav>
 
-    <!-- Главная -->
     <div id="home" class="tab-content active">
         <div id="current-art-section"></div>
         <div id="help-section"></div>
     </div>
 
-    <!-- Галерея -->
     <div id="gallery" class="tab-content">
         <h3 style="font-family: 'Press Start 2P', monospace; font-size: 16px; color: var(--accent); margin-bottom: 20px;">
             📜 История наших артов
@@ -208,7 +232,6 @@
         <div class="gallery-grid" id="gallery-grid"></div>
     </div>
 
-    <!-- Гайды -->
     <div id="guides" class="tab-content">
         <h3 style="font-family: 'Press Start 2P', monospace; font-size: 16px; color: var(--accent2); margin-bottom: 20px;">
             🔧 Установка расширений
@@ -221,7 +244,6 @@
     </footer>
 </div>
 
-<!-- Модальное окно для галереи -->
 <div class="modal-overlay" id="modal-overlay" onclick="closeModal(event)">
     <div class="modal" id="modal-box">
         <img id="modal-img" src="" alt="">
@@ -243,7 +265,6 @@
     }
 
     async function initContent() {
-        // === ГЛАВНАЯ ===
         const homeData = await loadJSON('/content/home.json', {
             title: "🎯 Актуальный арт",
             image: "",
@@ -277,7 +298,6 @@
                 <ol class="pixel-list">${homeData.help_helper.map(s => `<li>${s}</li>`).join('')}</ol>
             </div>`;
 
-        // === ГАЛЕРЕЯ ===
         const galleryData = await loadJSON('/content/gallery.json', []);
         document.getElementById('gallery-grid').innerHTML = galleryData.length > 0
             ? galleryData.map((item, i) => `
@@ -286,11 +306,8 @@
                     <div class="label">${item.title}</div>
                 </div>`).join('')
             : '<p style="color:#88aacc;text-align:center;">Галерея пуста. Добавьте арты через админку.</p>';
-
-        // Сохраняем данные галереи в глобальную переменную для модалки
         window._galleryData = galleryData;
 
-        // === ГАЙДЫ ===
         const guidesData = await loadJSON('/content/guides.json', []);
         document.getElementById('guides-content').innerHTML = guidesData.length > 0
             ? guidesData.map(g => `
@@ -308,7 +325,6 @@
             : '<p style="color:#88aacc;text-align:center;">Гайды не добавлены.</p>';
     }
 
-    // ===== МОДАЛКА ГАЛЕРЕИ =====
     function openGalleryItem(index) {
         const data = window._galleryData[index];
         if (!data) return;
@@ -332,6 +348,5 @@
 
     initContent();
 </script>
-
 </body>
 </html>
