@@ -6,17 +6,20 @@
 <title>WPlace — Obsidian Tech</title>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 <link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=VT323&amp;family=Source+Code+Pro:wght@400;700&amp;display=swap" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
 <style>
         :root {
-            --surface: #0f0f1c;
-            --surface-dim: #131319;
-            --surface-bright: #16162e;
-            --surface-container: #1b1b22;
+            --surface: #050508;
+            --surface-dim: #0a0a0f;
+            --surface-bright: #0d0d1a;
+            --surface-container: #12121d;
             --accent: #00ff88;
+            --accent-glow: rgba(0, 255, 136, 0.5);
             --text: #e0ffe0;
-            --text-dim: #a0b0a0;
-            --border: rgba(0, 255, 136, 0.2);
+            --text-dim: #709080;
+            --border: rgba(0, 255, 136, 0.15);
+            --neon-border: rgba(0, 255, 136, 0.4);
         }
 
         body {
@@ -25,180 +28,342 @@
             font-family: 'Geist', sans-serif;
             min-height: 100vh;
             background-image: 
-                radial-gradient(circle at 50% 0%, rgba(0, 255, 136, 0.05) 0%, transparent 50%),
-                linear-gradient(rgba(0, 255, 136, 0.02) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(0, 255, 136, 0.02) 1px, transparent 1px);
-            background-size: 100% 100%, 30px 30px, 30px 30px;
+                radial-gradient(circle at 50% 0%, rgba(0, 255, 136, 0.08) 0%, transparent 60%),
+                linear-gradient(rgba(0, 255, 136, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 255, 136, 0.03) 1px, transparent 1px);
+            background-size: 100% 100%, 40px 40px, 40px 40px;
+            overflow-x: hidden;
         }
 
-        .glass-panel {
-            background: rgba(19, 19, 25, 0.8);
-            backdrop-filter: blur(12px);
+        .cyber-panel {
+            background: rgba(10, 10, 15, 0.7);
+            backdrop-filter: blur(16px);
             border: 1px solid var(--border);
-            border-radius: 12px;
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+            border-top: 2px solid var(--neon-border);
+            position: relative;
+            overflow: hidden;
         }
 
-        .accent-glow {
-            box-shadow: 0 0 15px rgba(0, 255, 136, 0.2);
+        .cyber-panel::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--accent), transparent);
+            animation: scan-line 4s linear infinite;
+        }
+
+        @keyframes scan-line {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        .neon-text {
+            text-shadow: 0 0 10px var(--accent-glow);
+        }
+
+        .neon-border-glow {
+            box-shadow: 0 0 20px rgba(0, 255, 136, 0.1), inset 0 0 10px rgba(0, 255, 136, 0.05);
         }
 
         .tab-btn {
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            border-bottom: 2px solid transparent;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
         }
 
         .tab-btn.active {
             color: var(--accent);
-            border-bottom-color: var(--accent);
-            background: rgba(0, 255, 136, 0.05);
+            background: rgba(0, 255, 136, 0.08);
+            box-shadow: inset 0 -2px 0 var(--accent);
+        }
+
+        .tab-btn:hover:not(.active) {
+            background: rgba(255, 255, 255, 0.03);
         }
 
         .card-hover {
-            transition: transform 0.2s ease, border-color 0.2s ease;
+            transition: all 0.3s ease;
+            border: 1px solid transparent;
         }
 
         .card-hover:hover {
-            transform: translateY(-4px);
+            transform: translateY(-5px);
             border-color: var(--accent);
+            box-shadow: 0 10px 30px -10px rgba(0, 255, 136, 0.2);
         }
 
         .pixel-list li {
             background: var(--surface-dim);
             border: 1px solid var(--border);
-            border-radius: 8px;
+            border-radius: 4px;
             transition: all 0.2s ease;
         }
 
         .pixel-list li:hover {
             background: var(--surface-bright);
             border-color: var(--accent);
-            padding-left: 1.25rem;
+            transform: translateX(5px);
+            box-shadow: -5px 0 10px rgba(0, 255, 136, 0.1);
         }
 
         .btn-action {
             background: var(--accent);
             color: #000;
-            font-weight: 600;
-            transition: all 0.2s ease;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            transition: all 0.3s ease;
+            border: none;
+            position: relative;
+            overflow: hidden;
         }
 
         .btn-action:hover {
-            box-shadow: 0 0 20px rgba(0, 255, 136, 0.4);
-            filter: brightness(1.1);
+            box-shadow: 0 0 25px var(--accent-glow);
+            transform: scale(1.02);
+        }
+
+        .btn-action::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.3), transparent);
+            transform: rotate(45deg);
+            transition: 0.5s;
+        }
+
+        .btn-action:hover::after {
+            left: 100%;
         }
 
         .modal-blur {
-            backdrop-filter: blur(8px);
-            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(12px);
+            background: rgba(0, 0, 0, 0.85);
         }
 
-        ::-webkit-scrollbar { width: 8px; }
+        /* Scrollbar */
+        ::-webkit-scrollbar { width: 6px; }
         ::-webkit-scrollbar-track { background: var(--surface); }
-        ::-webkit-scrollbar-thumb { background: var(--surface-container); border-radius: 10px; }
+        ::-webkit-scrollbar-thumb { background: var(--surface-container); border-radius: 0; border: 1px solid var(--border); }
         ::-webkit-scrollbar-thumb:hover { background: var(--accent); }
 
-        @keyframes slideIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
+        @keyframes fadeIn {
+            from { opacity: 0; filter: blur(10px); }
+            to { opacity: 1; filter: blur(0); }
         }
 
-        .tab-content { display: none; animation: slideIn 0.3s ease-out; }
+        .tab-content { display: none; animation: fadeIn 0.5s ease-out; }
         .tab-content.active { display: block; }
 
         .image-container {
             position: relative;
-            overflow: hidden;
-            border-radius: 8px;
             background: #000;
+            border: 1px solid var(--border);
         }
         
         .image-container img {
-            transition: transform 0.5s ease;
+            transition: filter 0.3s ease;
         }
         
         .image-container:hover img {
-            transform: scale(1.05);
+            filter: brightness(1.1);
+        }
+
+        /* Terminal Admin Styles */
+        #admin-panel-container {
+            display: none;
+            background: #000;
+            color: #00ff41;
+            font-family: 'Source Code Pro', monospace;
+            min-height: 100vh;
+            padding: 2rem;
+            position: relative;
+        }
+
+        #admin-panel-container::before {
+            content: " ";
+            display: block;
+            position: absolute;
+            top: 0; left: 0; bottom: 0; right: 0;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+            z-index: 10;
+            background-size: 100% 2px, 3px 100%;
+            pointer-events: none;
+        }
+
+        .terminal-header {
+            border: 1px solid #00ff41;
+            padding: 1rem;
+            margin-bottom: 2rem;
+            text-transform: uppercase;
+            font-family: 'VT323', monospace;
+            font-size: 1.5rem;
+        }
+
+        .terminal-box {
+            border: 1px solid #00ff41;
+            padding: 1.5rem;
+            background: rgba(0, 255, 65, 0.02);
+            position: relative;
+        }
+
+        .terminal-input {
+            background: transparent;
+            border: none;
+            border-bottom: 1px solid #00ff41;
+            color: #00ff41;
+            font-family: inherit;
+            width: 100%;
+            padding: 0.5rem 0;
+            outline: none;
+        }
+
+        .terminal-input:focus {
+            box-shadow: 0 4px 0 -2px rgba(0, 255, 65, 0.2);
+        }
+
+        .terminal-btn {
+            background: transparent;
+            border: 1px solid #00ff41;
+            color: #00ff41;
+            padding: 0.5rem 1.5rem;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .terminal-btn:hover {
+            background: #00ff41;
+            color: #000;
         }
     </style>
 </head>
 <body class="antialiased">
-<div class="max-w-5xl mx-auto px-4 py-8">
+<!-- Main Site Interface -->
+<div class="max-w-6xl mx-auto px-4 py-8" id="main-site-container">
 <!-- Header -->
-<header class="text-center mb-12">
-<div class="inline-block px-6 py-2 rounded-full border border-[var(--accent)] bg-[rgba(0,255,136,0.05)] mb-4 text-xs font-bold tracking-[0.2em] text-[var(--accent)] uppercase">
-            System Online
+<header class="text-center mb-16 relative">
+<div class="inline-block px-4 py-1 rounded-sm border border-[var(--accent)] bg-[rgba(0,255,136,0.05)] mb-6 text-[10px] font-bold tracking-[0.4em] text-[var(--accent)] uppercase neon-text neon-border-glow">
+            &lt; System Online &gt;
         </div>
-<h1 class="text-5xl md:text-7xl font-black tracking-tighter text-white mb-2 site-title">⚔ WPLACE ⚔</h1>
-<p class="text-[var(--text-dim)] font-medium text-lg site-subtitle">Пиксель-арт сообщество</p>
+<h1 class="text-6xl md:text-8xl font-black tracking-tighter text-white mb-4 site-title neon-text">⚔ WPLACE ⚔</h1>
+<p class="text-[var(--text-dim)] font-mono text-sm uppercase tracking-widest site-subtitle opacity-80">Протокол инициализирован: Сообщество Пиксель-Арта</p>
+<!-- Cyber Accents -->
+<div class="absolute top-0 left-0 w-8 h-8 border-t-2 border-l-2 border-[var(--accent)] opacity-40"></div>
+<div class="absolute top-0 right-0 w-8 h-8 border-t-2 border-r-2 border-[var(--accent)] opacity-40"></div>
 </header>
 <!-- Navigation -->
-<nav class="glass-panel flex justify-center p-1 mb-10 sticky top-4 z-50">
-<div class="flex w-full md:w-auto gap-2">
-<button class="tab-btn active flex items-center gap-2 px-6 py-3 rounded-lg font-bold text-sm" onclick="openTab('home')">
-<span class="material-symbols-outlined text-xl">home</span> Главная
+<nav class="cyber-panel flex justify-center p-1 mb-12 sticky top-4 z-50 neon-border-glow rounded-sm">
+<div class="flex w-full md:w-auto gap-4">
+<button class="tab-btn active flex items-center gap-2 px-8 py-4 font-bold text-xs uppercase tracking-widest" onclick="openTab('home')">
+<span class="material-symbols-outlined text-lg">terminal</span> Главная
             </button>
-<button class="tab-btn flex items-center gap-2 px-6 py-3 rounded-lg font-bold text-sm" onclick="openTab('gallery')">
-<span class="material-symbols-outlined text-xl">grid_view</span> Галерея
+<button class="tab-btn flex items-center gap-2 px-8 py-4 font-bold text-xs uppercase tracking-widest" onclick="openTab('gallery')">
+<span class="material-symbols-outlined text-lg">gallery_thumbnail</span> Архив
             </button>
-<button class="tab-btn flex items-center gap-2 px-6 py-3 rounded-lg font-bold text-sm" onclick="openTab('guides')">
-<span class="material-symbols-outlined text-xl">menu_book</span> Гайды
+<button class="tab-btn flex items-center gap-2 px-8 py-4 font-bold text-xs uppercase tracking-widest" onclick="openTab('guides')">
+<span class="material-symbols-outlined text-lg">memory</span> База Данных
             </button>
 </div>
 </nav>
 <!-- Main Content -->
 <main>
-<div class="tab-content active space-y-8" id="home">
+<div class="tab-content active space-y-12" id="home">
 <div id="current-art-section"></div>
 <div id="help-section"></div>
 </div>
 <div class="tab-content" id="gallery">
-<div class="flex items-center gap-4 mb-8">
-<span class="material-symbols-outlined text-[var(--accent)] text-3xl">history_edu</span>
-<h2 class="text-3xl font-bold text-white">История артов</h2>
+<div class="flex items-center gap-4 mb-10 pb-4 border-b border-[var(--border)]">
+<span class="material-symbols-outlined text-[var(--accent)] text-4xl neon-text">database</span>
+<div>
+<h2 class="text-3xl font-black text-white uppercase tracking-tight">Архив Операций</h2>
+<p class="text-[var(--text-dim)] text-xs font-mono">История завершенных пиксель-арт проектов</p>
 </div>
-<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6" id="gallery-grid"></div>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6" id="gallery-grid"></div>
 </div>
 <div class="tab-content" id="guides">
-<div class="flex items-center gap-4 mb-8">
-<span class="material-symbols-outlined text-[var(--accent)] text-3xl">settings_suggest</span>
-<h2 class="text-3xl font-bold text-white">Установка расширений</h2>
+<div class="flex items-center gap-4 mb-10 pb-4 border-b border-[var(--border)]">
+<span class="material-symbols-outlined text-[var(--accent)] text-4xl neon-text">integration_instructions</span>
+<div>
+<h2 class="text-3xl font-black text-white uppercase tracking-tight">Технические Протоколы</h2>
+<p class="text-[var(--text-dim)] text-xs font-mono">Инструкции по интеграции расширений</p>
 </div>
-<div class="space-y-6" id="guides-content"></div>
+</div>
+<div class="space-y-8" id="guides-content"></div>
 </div>
 </main>
 <!-- Footer -->
-<footer class="mt-24 pt-8 border-t border-[var(--border)] text-center text-[var(--text-dim)] text-sm pb-12" id="site-footer">
-<p>WPlace Pixel Art Community © 2025 | Obsidian Tech UI</p>
+<footer class="mt-32 pt-12 border-t border-[var(--border)] text-center text-[var(--text-dim)] font-mono text-[10px] tracking-widest pb-12 uppercase" id="site-footer">
+<p>WPlace Pixel Art Community © 2025 | Obsidian Tech — Все права защищены</p>
 </footer>
+</div>
+<!-- Terminal Admin Interface (Placeholder logic, toggleable via script/URL) -->
+<div id="admin-panel-container">
+<div class="terminal-header">
+        &gt; WPLACE_ADMIN_TERMINAL_V.2.0.5 <span class="float-right">[ОНЛАЙН]</span>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+<div class="md:col-span-1 space-y-6">
+<div class="terminal-box">
+<div class="mb-4 font-bold border-b border-[#00ff41] pb-2">АВТОРИЗАЦИЯ_</div>
+<input class="terminal-input mb-4" placeholder="Введите_токен_GITHUB..." type="password"/>
+<button class="terminal-btn w-full">ПОДКЛЮЧИТЬСЯ</button>
+</div>
+<div class="terminal-box text-xs">
+<div class="mb-2 font-bold opacity-70">СИСТЕМНЫЙ_ЛОГ:</div>
+<div class="opacity-50">... Ожидание ввода</div>
+<div class="opacity-50">... Соединение зашифровано</div>
+</div>
+</div>
+<div class="md:col-span-2">
+<div class="terminal-box h-full min-h-[400px]">
+<div class="mb-4 font-bold border-b border-[#00ff41] pb-2">КОНСОЛЬ_УПРАВЛЕНИЯ_</div>
+<div class="py-12 text-center opacity-40">
+<span class="material-symbols-outlined text-6xl mb-4">lock</span><br/>
+                    ТРЕБУЕТСЯ АВТОРИЗАЦИЯ ДЛЯ ДОСТУПА К ФАЙЛОВОЙ СИСТЕМЕ
+                </div>
+</div>
+</div>
+</div>
+<div class="mt-12 opacity-50 text-[10px] text-center">
+        COMMAND LINE INTERFACE • OBSIDIAN TECH • 1994-2025
+    </div>
 </div>
 <!-- Modal -->
 <div class="modal-overlay fixed inset-0 z-[100] modal-blur flex items-center justify-center p-4 transition-opacity opacity-0 pointer-events-none" id="modal-overlay" onclick="closeModal(event)">
-<div class="modal glass-panel w-full max-w-3xl max-h-[90vh] overflow-y-auto p-6 md:p-10 scale-95 transition-transform" id="modal-box">
-<div class="flex justify-between items-center mb-6">
-<span class="text-[var(--accent)] font-mono text-xs" id="modal-counter"></span>
-<button class="text-[var(--text-dim)] hover:text-white transition-colors" onclick="closeModal()">
-<span class="material-symbols-outlined">close</span>
+<div class="modal cyber-panel w-full max-w-4xl max-h-[90vh] overflow-y-auto p-8 md:p-12 scale-95 transition-transform rounded-sm shadow-2xl" id="modal-box">
+<div class="flex justify-between items-center mb-8 border-b border-[var(--border)] pb-4">
+<span class="text-[var(--accent)] font-mono text-xs tracking-widest neon-text" id="modal-counter">DATA_LINK_ESTABLISHED</span>
+<button class="text-[var(--text-dim)] hover:text-[var(--accent)] transition-colors" onclick="closeModal()">
+<span class="material-symbols-outlined text-3xl">close</span>
 </button>
 </div>
-<div class="image-container mb-8 max-w-xl mx-auto border border-[var(--border)]">
-<img alt="" class="w-full object-contain max-h-[50vh]" id="modal-img" src=""/>
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+<div class="image-container border-2 border-[var(--border)] p-2">
+<img alt="" class="w-full object-contain max-h-[60vh]" id="modal-img" src=""/>
 </div>
-<div class="text-center">
-<h3 class="text-2xl font-bold text-white mb-4" id="modal-title"></h3>
-<div class="text-[var(--text-dim)] leading-relaxed mb-8" id="modal-desc"></div>
-<div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
-<button class="btn-action px-8 py-3 rounded-full flex items-center gap-2" id="modal-download" onclick="downloadModalImage()" style="display:none;">
-<span class="material-symbols-outlined">download</span> Скачать арт
-                </button>
-<div class="flex items-center gap-4 bg-[var(--surface-container)] p-2 rounded-full" id="modal-nav-row">
-<button class="w-10 h-10 rounded-full flex items-center justify-center hover:bg-[rgba(255,255,255,0.1)] transition-colors" id="modal-prev" onclick="navModal(-1)">
-<span class="material-symbols-outlined">chevron_left</span>
+<div class="flex flex-col h-full">
+<h3 class="text-3xl font-black text-white mb-6 uppercase tracking-tight neon-text" id="modal-title"></h3>
+<div class="text-[var(--text-dim)] leading-relaxed mb-10 flex-grow" id="modal-desc"></div>
+<div class="flex flex-col gap-4 mt-auto">
+<button class="btn-action w-full py-4 rounded-sm flex items-center justify-center gap-3" id="modal-download" onclick="downloadModalImage()" style="display:none;">
+<span class="material-symbols-outlined">download</span> Загрузить данные
+                    </button>
+<div class="flex items-center justify-between bg-[var(--surface-bright)] p-1 rounded-sm border border-[var(--border)]" id="modal-nav-row">
+<button class="p-3 hover:bg-[var(--surface-container)] hover:text-[var(--accent)] transition-colors" id="modal-prev" onclick="navModal(-1)">
+<span class="material-symbols-outlined">arrow_back</span>
 </button>
-<span class="font-mono text-sm text-white px-2" id="modal-nav-counter"></span>
-<button class="w-10 h-10 rounded-full flex items-center justify-center hover:bg-[rgba(255,255,255,0.1)] transition-colors" id="modal-next" onclick="navModal(1)">
-<span class="material-symbols-outlined">chevron_right</span>
+<span class="font-mono text-xs text-[var(--accent)] font-bold tracking-widest px-4" id="modal-nav-counter">00 / 00</span>
+<button class="p-3 hover:bg-[var(--surface-container)] hover:text-[var(--accent)] transition-colors" id="modal-next" onclick="navModal(1)">
+<span class="material-symbols-outlined">arrow_forward</span>
 </button>
+</div>
 </div>
 </div>
 </div>
@@ -240,7 +405,7 @@
     async function initContent() {
         const settingsData = await loadJSON('/content/settings.json', {
             siteTitle: "WPlace — Пиксель-Арт Сообщество", headerTitle: "⚔ WPLACE ⚔",
-            headerSubtitle: "Пиксель-арт сообщество", footer: "WPlace Pixel Art Community © 2025 | Obsidian Tech UI"
+            headerSubtitle: "Сообщество Пиксель-Арта", footer: "WPlace Pixel Art Community © 2025 | Obsidian Tech UI"
         });
         document.title = settingsData.siteTitle;
         document.querySelector(".site-title").textContent = settingsData.headerTitle;
@@ -248,45 +413,49 @@
         document.getElementById("site-footer").innerHTML = `<p>${settingsData.footer}</p>`;
 
         const homeData = await loadJSON('/content/home.json', {
-            title: "", image: "", description: "", location: "", help_wplace: [], help_blue: [], help_helper: []
+            title: "ТЕКУЩАЯ ОПЕРАЦИЯ", image: "", description: "", location: "", help_wplace: [], help_blue: [], help_helper: []
         });
         window._homeData = homeData;
         document.getElementById('current-art-section').innerHTML = `
-            <div class="glass-panel p-6 md:p-8">
-                <div class="flex items-center gap-3 mb-6">
-                    <span class="material-symbols-outlined text-[var(--accent)]">target</span>
-                    <h3 class="text-xl font-bold text-white">${homeData.title}</h3>
+            <div class="cyber-panel p-8 md:p-12 neon-border-glow rounded-sm">
+                <div class="flex items-center gap-4 mb-8">
+                    <span class="material-symbols-outlined text-[var(--accent)] neon-text text-3xl">radar</span>
+                    <h3 class="text-2xl font-black text-white uppercase tracking-tight">${homeData.title || 'ТЕКУЩАЯ ЦЕЛЬ'}</h3>
                 </div>
-                ${homeData.image ? `<div class="image-container max-w-2xl mx-auto border border-[var(--border)] mb-6"><img src="${homeData.image}" alt="Актуальный арт" class="w-full"></div>` : ''}
-                <div class="text-lg text-[var(--text-dim)] text-center mb-8">${makeLinksClickable(homeData.description)}</div>
-                ${homeData.location ? `
-                    <div class="flex flex-col sm:flex-row gap-4 justify-center items-center pt-6 border-t border-[var(--border)]">
-                        <a href="${homeData.location}" class="btn-action px-8 py-3 rounded-full flex items-center gap-2 text-sm uppercase tracking-wider" target="_blank">
-                            <span class="material-symbols-outlined">map</span> Открыть на WPlace
-                        </a>
-                        ${homeData.image ? `<button class="bg-[var(--surface-container)] text-white hover:bg-[var(--surface-bright)] px-8 py-3 rounded-full flex items-center gap-2 text-sm uppercase transition-colors" onclick="downloadImage('${homeData.image}','wplace-art.png')"><span class="material-symbols-outlined">download</span> Скачать</button>` : ''}
+                <div class="flex flex-col lg:flex-row gap-10">
+                    ${homeData.image ? `<div class="image-container flex-shrink-0 lg:w-1/3 border-2 border-[var(--border)] p-2"><img src="${homeData.image}" alt="Актуальный арт" class="w-full h-auto"></div>` : ''}
+                    <div class="flex-grow flex flex-col justify-center">
+                        <div class="text-xl text-[var(--text-dim)] mb-10 leading-relaxed font-medium">${makeLinksClickable(homeData.description)}</div>
+                        <div class="flex flex-wrap gap-4 pt-8 border-t border-[var(--border)]">
+                            ${homeData.location ? `
+                                <a href="${homeData.location}" class="btn-action px-10 py-4 rounded-sm flex items-center gap-3 text-xs" target="_blank">
+                                    <span class="material-symbols-outlined">my_location</span> К ТЕРРИТОРИИ WPLACE
+                                </a>
+                            ` : ''}
+                            ${homeData.image ? `<button class="bg-[var(--surface-bright)] text-white hover:text-[var(--accent)] border border-[var(--border)] hover:border-[var(--accent)] px-10 py-4 rounded-sm flex items-center gap-3 text-xs font-bold uppercase transition-all" onclick="downloadImage('${homeData.image}','wplace-art.png')"><span class="material-symbols-outlined">download</span> СОХРАНИТЬ АРХИВ</button>` : ''}
+                        </div>
                     </div>
-                ` : (homeData.image ? `<div class="flex justify-center"><button class="btn-action px-8 py-3 rounded-full" onclick="downloadImage('${homeData.image}','wplace-art.png')">СКАЧАТЬ АРТ</button></div>` : '')}
+                </div>
             </div>`;
 
         document.getElementById('help-section').innerHTML = `
-            <div class="glass-panel p-6 md:p-8">
-                <div class="flex items-center gap-3 mb-6">
-                    <span class="material-symbols-outlined text-[var(--accent)]">brush</span>
-                    <h3 class="text-xl font-bold text-white">Как помочь с артом</h3>
+            <div class="cyber-panel p-8 md:p-12 neon-border-glow rounded-sm">
+                <div class="flex items-center gap-4 mb-10">
+                    <span class="material-symbols-outlined text-[var(--accent)] neon-text text-3xl">precision_manufacturing</span>
+                    <h3 class="text-2xl font-black text-white uppercase tracking-tight">Протоколы Содействия</h3>
                 </div>
-                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                    <div>
-                        <p class="text-[var(--accent)] font-bold mb-4 flex items-center gap-2"><span class="material-symbols-outlined text-sm">flash_on</span> WPlace</p>
-                        <ol class="pixel-list space-y-2 list-none">${renderStepsList(homeData.help_wplace, 'wplace')}</ol>
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-10">
+                    <div class="space-y-4">
+                        <p class="text-[var(--accent)] font-black text-xs tracking-widest mb-6 flex items-center gap-3 uppercase neon-text"><span class="material-symbols-outlined text-sm">bolt</span> [01] WPlace</p>
+                        <ol class="pixel-list space-y-3 list-none">${renderStepsList(homeData.help_wplace, 'wplace')}</ol>
                     </div>
-                    <div>
-                        <p class="text-[var(--accent)] font-bold mb-4 flex items-center gap-2"><span class="material-symbols-outlined text-sm">language</span> Blue Marble</p>
-                        <ol class="pixel-list space-y-2 list-none">${renderStepsList(homeData.help_blue, 'blue')}</ol>
+                    <div class="space-y-4">
+                        <p class="text-[var(--accent)] font-black text-xs tracking-widest mb-6 flex items-center gap-3 uppercase neon-text"><span class="material-symbols-outlined text-sm">public</span> [02] Blue Marble</p>
+                        <ol class="pixel-list space-y-3 list-none">${renderStepsList(homeData.help_blue, 'blue')}</ol>
                     </div>
-                    <div>
-                        <p class="text-[var(--accent)] font-bold mb-4 flex items-center gap-2"><span class="material-symbols-outlined text-sm">extension</span> WPlace Helper</p>
-                        <ol class="pixel-list space-y-2 list-none">${renderStepsList(homeData.help_helper, 'helper')}</ol>
+                    <div class="space-y-4">
+                        <p class="text-[var(--accent)] font-black text-xs tracking-widest mb-6 flex items-center gap-3 uppercase neon-text"><span class="material-symbols-outlined text-sm">extension</span> [03] WPlace Helper</p>
+                        <ol class="pixel-list space-y-3 list-none">${renderStepsList(homeData.help_helper, 'helper')}</ol>
                     </div>
                 </div>
             </div>`;
@@ -300,40 +469,40 @@
         document.getElementById('guides-content').innerHTML = guidesData.length > 0
             ? guidesData.map(g => {
                 let html = '';
-                if (g.install_pc && g.install_pc.length > 0) html += `<div class="bg-[var(--surface-container)] rounded-lg px-4 py-2 text-xs font-bold text-[var(--accent)] uppercase mb-3 mt-6 inline-block">💻 ПК</div><ol class="pixel-list space-y-2 list-none">${renderStepsList(g.install_pc, 'guide_pc_'+g.title)}</ol>`;
+                if (g.install_pc && g.install_pc.length > 0) html += `<div class="bg-[rgba(0,255,136,0.1)] border border-[var(--border)] px-4 py-2 text-[10px] font-bold text-[var(--accent)] uppercase mb-4 mt-8 inline-block tracking-widest"> терминал: настольный ПК </div><ol class="pixel-list space-y-3 list-none">${renderStepsList(g.install_pc, 'guide_pc_'+g.title)}</ol>`;
                 if (g.install_phone && g.install_phone.length > 0) {
                     const sections = {};
                     g.install_phone.forEach(step => {
                         const sd = typeof step === 'object' ? step : { text: step, section: "" };
-                        const name = sd.section || '📱 Телефон';
+                        const name = sd.section || 'терминал: мобильный';
                         if (!sections[name]) sections[name] = [];
                         sections[name].push(sd);
                     });
                     ['📱 Android (Edge)', '📱 iPhone (iOS)', '📱 Телефон'].forEach(name => {
-                        if (sections[name] && sections[name].length > 0) { html += `<div class="bg-[var(--surface-container)] rounded-lg px-4 py-2 text-xs font-bold text-[var(--accent)] uppercase mb-3 mt-6 inline-block">${name}</div><ol class="pixel-list space-y-2 list-none">${renderStepsList(sections[name], 'guide_phone_'+g.title)}</ol>`; delete sections[name]; }
+                        if (sections[name] && sections[name].length > 0) { html += `<div class="bg-[rgba(0,255,136,0.1)] border border-[var(--border)] px-4 py-2 text-[10px] font-bold text-[var(--accent)] uppercase mb-4 mt-8 inline-block tracking-widest">${name.toLowerCase()}</div><ol class="pixel-list space-y-3 list-none">${renderStepsList(sections[name], 'guide_phone_'+g.title)}</ol>`; delete sections[name]; }
                     });
-                    for (const [title, steps] of Object.entries(sections)) if (steps.length > 0) html += `<div class="bg-[var(--surface-container)] rounded-lg px-4 py-2 text-xs font-bold text-[var(--accent)] uppercase mb-3 mt-6 inline-block">${title}</div><ol class="pixel-list space-y-2 list-none">${renderStepsList(steps, 'guide_phone_'+g.title)}</ol>`;
+                    for (const [title, steps] of Object.entries(sections)) if (steps.length > 0) html += `<div class="bg-[rgba(0,255,136,0.1)] border border-[var(--border)] px-4 py-2 text-[10px] font-bold text-[var(--accent)] uppercase mb-4 mt-8 inline-block tracking-widest">${title.toLowerCase()}</div><ol class="pixel-list space-y-3 list-none">${renderStepsList(steps, 'guide_phone_'+g.title)}</ol>`;
                 }
-                return `<div class="glass-panel p-6 md:p-8 mb-8">
-                    <h3 class="text-2xl font-bold text-white mb-4">${g.title}</h3>
-                    <p class="text-[var(--text-dim)] mb-4">${makeLinksClickable(g.description)}</p>
+                return `<div class="cyber-panel p-8 md:p-12 mb-8 rounded-sm">
+                    <h3 class="text-3xl font-black text-white mb-6 uppercase tracking-tight neon-text">${g.title}</h3>
+                    <p class="text-[var(--text-dim)] mb-6 text-lg">${makeLinksClickable(g.description)}</p>
                     ${html}
-                    ${g.note && g.note.toString().trim() ? `<div class="mt-8 p-4 rounded-lg bg-[rgba(0,255,136,0.03)] border-l-4 border-[var(--accent)] text-sm italic text-[var(--text-dim)]">${makeLinksClickable(g.note)}</div>` : ''}
+                    ${g.note && g.note.toString().trim() ? `<div class="mt-10 p-6 rounded-sm bg-[rgba(0,255,136,0.03)] border-l-4 border-[var(--accent)] text-sm italic text-[var(--text-dim)] font-mono leading-relaxed"><span class="text-[var(--accent)] not-italic font-bold block mb-2 uppercase tracking-tighter">[!] ПРИМЕЧАНИЕ СИСТЕМЫ:</span>${makeLinksClickable(g.note)}</div>` : ''}
                 </div>`;
             }).join('')
-            : '<p class="text-center py-12 text-[var(--text-dim)]">Гайды не добавлены.</p>';
+            : '<p class="text-center py-16 text-[var(--text-dim)] font-mono uppercase tracking-widest">База данных пуста.</p>';
     }
 
     function renderStepsList(steps, type) {
-        if (!steps || steps.length === 0) return '<li class="p-3 opacity-50 italic">Пусто</li>';
+        if (!steps || steps.length === 0) return '<li class="p-4 opacity-50 italic font-mono text-xs uppercase">Нет данных</li>';
         return steps.map((s, i) => {
             const stepData = typeof s === 'object' ? s : { text: s, image: "", detail: "" };
-            return `<li class="p-4 flex items-center justify-between group cursor-pointer" onclick="openStepModal('${type}', ${i})">
-                <span class="flex items-center gap-4">
-                    <span class="w-6 h-6 flex items-center justify-center rounded-full bg-[var(--surface-bright)] text-[var(--accent)] text-xs font-bold border border-[var(--border)] group-hover:bg-[var(--accent)] group-hover:text-black transition-colors">${i + 1}</span>
-                    <span class="text-sm font-medium">${makeLinksClickable(stepData.text || 'Шаг '+(i+1))}</span>
+            return `<li class="p-5 flex items-center justify-between group cursor-pointer" onclick="openStepModal('${type}', ${i})">
+                <span class="flex items-center gap-6">
+                    <span class="w-8 h-8 flex items-center justify-center rounded-sm bg-[var(--surface-bright)] text-[var(--accent)] text-xs font-bold border border-[var(--border)] group-hover:bg-[var(--accent)] group-hover:text-black transition-all font-mono">${(i + 1).toString().padStart(2, '0')}</span>
+                    <span class="text-sm font-bold uppercase tracking-wide group-hover:text-white transition-colors">${makeLinksClickable(stepData.text || 'Протокол '+(i+1))}</span>
                 </span>
-                <span class="material-symbols-outlined opacity-0 group-hover:opacity-100 transition-opacity text-[var(--accent)]">arrow_forward</span>
+                <span class="material-symbols-outlined opacity-20 group-hover:opacity-100 transition-opacity text-[var(--accent)]">arrow_forward_ios</span>
             </li>`;
         }).join('');
     }
@@ -367,20 +536,20 @@
         const img = document.getElementById("modal-img");
         img.src = stepData.image || "";
         img.closest('.image-container').style.display = stepData.image ? 'block' : 'none';
-        document.getElementById("modal-title").textContent = `Шаг ${currentStepIndex + 1}`;
-        document.getElementById("modal-desc").innerHTML = `<div class="text-xl mb-6">${makeLinksClickable(stepData.text || "Нет описания")}</div>` + (stepData.detail && stepData.detail.toString().trim() ? '<div class="text-left p-4 rounded-lg bg-[var(--surface-container)] text-sm border border-[var(--border)]"><div class="text-[var(--accent)] font-bold mb-2 uppercase tracking-tighter text-[10px]">Подробности</div>' + makeLinksClickable(stepData.detail) + '</div>' : '');
-        document.getElementById("modal-counter").textContent = "ИНСТРУКЦИЯ";
+        document.getElementById("modal-title").textContent = `ПРОТОКОЛ ${(currentStepIndex + 1).toString().padStart(2, '0')}`;
+        document.getElementById("modal-desc").innerHTML = `<div class="text-2xl font-bold mb-8 uppercase tracking-tight text-white">${makeLinksClickable(stepData.text || "Описание отсутствует")}</div>` + (stepData.detail && stepData.detail.toString().trim() ? '<div class="text-left p-6 rounded-sm bg-[var(--surface-bright)] text-sm border border-[var(--border)] font-mono leading-relaxed"><div class="text-[var(--accent)] font-black mb-3 uppercase tracking-widest text-[10px]">Расшифрованные детали:</div>' + makeLinksClickable(stepData.detail) + '</div>' : '');
+        document.getElementById("modal-counter").textContent = "ИНСТРУКТАЖ_СИСТЕМЫ";
     }
 
     function renderGalleryGrid(data) {
         document.getElementById('gallery-grid').innerHTML = data.length > 0 ? data.map((item, i) => `
-            <div class="glass-panel p-3 card-hover cursor-pointer" onclick="openGalleryItem(${i})">
-                <div class="image-container aspect-square mb-4 border border-[var(--border)]">
-                    ${item.image ? `<img src="${item.image}" alt="${item.title}" class="w-full h-full object-cover">` : '<div class="w-full h-full flex items-center justify-center bg-[var(--surface-container)]"><span class="material-symbols-outlined text-4xl opacity-20">image</span></div>'}
+            <div class="cyber-panel p-4 card-hover cursor-pointer rounded-sm" onclick="openGalleryItem(${i})">
+                <div class="image-container aspect-square mb-6 border border-[var(--border)] overflow-hidden">
+                    ${item.image ? `<img src="${item.image}" alt="${item.title}" class="w-full h-full object-cover">` : '<div class="w-full h-full flex items-center justify-center bg-[var(--surface-container)]"><span class="material-symbols-outlined text-5xl opacity-10">broken_image</span></div>'}
                 </div>
-                <h4 class="text-center font-bold text-white px-2 truncate">${item.title}</h4>
+                <h4 class="text-center font-black text-white text-xs uppercase tracking-widest px-2 truncate">${item.title}</h4>
             </div>
-        `).join('') : '<p class="col-span-full text-center py-12 text-[var(--text-dim)]">Галерея пуста.</p>';
+        `).join('') : '<p class="col-span-full text-center py-20 text-[var(--text-dim)] font-mono uppercase tracking-widest opacity-50">Архив не содержит данных.</p>';
     }
 
     function openGalleryItem(index) {
@@ -402,10 +571,10 @@
         const img = document.getElementById("modal-img");
         img.closest('.image-container').style.display = 'block';
         img.src = data.image || "";
-        document.getElementById("modal-title").textContent = data.title || "Без названия";
-        document.getElementById("modal-desc").innerHTML = makeLinksClickable(data.description || "");
-        document.getElementById("modal-counter").textContent = `АРХИВ • ${currentGalleryIndex + 1} / ${window._galleryData.length}`;
-        document.getElementById("modal-nav-counter").textContent = `${currentGalleryIndex + 1} / ${window._galleryData.length}`;
+        document.getElementById("modal-title").textContent = data.title || "БЕЗ НАЗВАНИЯ";
+        document.getElementById("modal-desc").innerHTML = `<div class="text-lg leading-relaxed text-[var(--text-dim)]">${makeLinksClickable(data.description || "Дополнительная информация не найдена.")}</div>`;
+        document.getElementById("modal-counter").textContent = `АРХИВНЫЙ_ОБЪЕКТ • ${currentGalleryIndex + 1} / ${window._galleryData.length}`;
+        document.getElementById("modal-nav-counter").textContent = `${(currentGalleryIndex + 1).toString().padStart(2, '0')} / ${window._galleryData.length.toString().padStart(2, '0')}`;
     }
 
     function closeModal(event) { 
@@ -428,6 +597,21 @@
         if (overlay.classList.contains("opacity-0")) return;
         if (e.key === "Escape") closeModal();
         if (modalMode === 'gallery') { if (e.key === "ArrowLeft") navModal(-1); if (e.key === "ArrowRight") navModal(1); }
+    });
+
+    // Check for admin toggle (e.g., via hash or hidden command)
+    window.addEventListener('hashchange', () => {
+        if(window.location.hash === '#admin') {
+            document.getElementById('main-site-container').style.display = 'none';
+            document.getElementById('admin-panel-container').style.display = 'block';
+            document.body.style.background = '#000';
+            document.body.style.backgroundImage = 'none';
+        } else {
+            document.getElementById('main-site-container').style.display = 'block';
+            document.getElementById('admin-panel-container').style.display = 'none';
+            document.body.style.background = '';
+            document.body.style.backgroundImage = '';
+        }
     });
 
     initContent();
