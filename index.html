@@ -86,6 +86,13 @@
         }
         ol.pixel-list li .step-arrow { margin-left: auto; font-size: 18px; color: var(--accent2); }
 
+        .section-title {
+            font-family: 'Press Start 2P', monospace; font-size: 12px; color: var(--accent2);
+            margin-top: 18px; margin-bottom: 8px; text-shadow: 0 0 6px rgba(255,217,61,0.3);
+            padding: 8px 12px; border: 2px solid #3a3a5a; background: #0a0a1a;
+            display: inline-block;
+        }
+
         .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 16px; }
         .gallery-item { 
             border: 3px solid #2a2a4a; background: #0a0a1a; padding: 10px;
@@ -93,15 +100,9 @@
             display: flex; flex-direction: column; align-items: center; justify-content: center;
         }
         .gallery-item:hover { border-color: var(--accent); box-shadow: 0 0 25px rgba(255,107,107,0.4); transform: scale(1.04); }
-        .gallery-item img { 
-            width: 100%; aspect-ratio: 1; object-fit: contain;
-            border: 2px solid #3a3a5a; display: block;
-            image-rendering: pixelated; background: #050510;
-            margin: 0 auto;
-        }
+        .gallery-item img { width: 100%; aspect-ratio: 1; object-fit: contain; border: 2px solid #3a3a5a; display: block; image-rendering: pixelated; background: #050510; margin: 0 auto; }
         .gallery-item .label { font-family: 'VT323', monospace; font-size: 20px; margin-top: 10px; color: #eee; text-align: center; width: 100%; }
 
-        /* МОДАЛКА */
         .modal-overlay {
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(0,0,0,0.92); z-index: 100000;
@@ -116,22 +117,11 @@
             display: flex; flex-direction: column; align-items: center;
         }
         .modal .counter { font-size: 16px; color: var(--text-dim); margin-bottom: 10px; }
-        .modal img { 
-            max-width: 100%; max-height: 50vh; image-rendering: pixelated;
-            border: 3px solid #3a3a5a; background: #050510; margin: 0 auto 15px auto;
-            display: block;
-        }
+        .modal img { max-width: 100%; max-height: 50vh; image-rendering: pixelated; border: 3px solid #3a3a5a; background: #050510; margin: 0 auto 15px auto; display: block; }
         .modal h3 { font-family: 'Press Start 2P', monospace; font-size: 15px; color: var(--accent2); margin-bottom: 10px; text-shadow: 0 0 10px rgba(255,217,61,0.5); }
-        .modal .desc { 
-            font-size: 20px; color: #ddd; line-height: 1.6; word-break: break-word;
-            margin-bottom: 15px; text-align: center; width: 100%;
-        }
+        .modal .desc { font-size: 20px; color: #ddd; line-height: 1.6; word-break: break-word; margin-bottom: 15px; text-align: center; width: 100%; }
         .modal .desc a { font-size: 20px; }
-
-        .modal-nav-row {
-            display: flex; justify-content: center; align-items: center; gap: 12px; flex-wrap: wrap;
-            margin-bottom: 15px;
-        }
+        .modal-nav-row { display: flex; justify-content: center; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 15px; }
         .modal .nav-btn {
             font-family: 'Press Start 2P', monospace; font-size: 14px;
             background: #0a2a0a; color: var(--glow); border: 3px solid var(--border);
@@ -139,7 +129,6 @@
             white-space: nowrap; min-width: 50px;
         }
         .modal .nav-btn:hover { background: #0d3a0d; }
-        .modal .nav-btn:disabled { opacity: 0.3; cursor: default; }
         .modal .close-btn {
             font-family: 'Press Start 2P', monospace; font-size: 13px; padding: 14px 24px;
             background: #0a2a0a; color: var(--glow); border: 3px solid var(--border);
@@ -147,11 +136,7 @@
         }
         .modal .close-btn:hover { background: #0d3a0d; transform: translateY(-2px); }
 
-        .note { 
-            border: 3px dashed #3a3a5a; background: #0a0a15; padding: 15px;
-            margin-top: 10px; color: #ccc; text-align: left; width: 100%;
-            font-size: 18px; line-height: 1.6; word-break: break-word;
-        }
+        .note { border: 3px dashed #3a3a5a; background: #0a0a15; padding: 15px; margin-top: 10px; color: #ccc; text-align: left; width: 100%; font-size: 18px; line-height: 1.6; word-break: break-word; }
         .note a { color: var(--glow); }
         .note strong { color: var(--accent2); }
 
@@ -215,7 +200,6 @@
     </footer>
 </div>
 
-<!-- МОДАЛКА -->
 <div class="modal-overlay" id="modal-overlay" onclick="closeModal(event)">
     <div class="modal" id="modal-box">
         <div class="counter" id="modal-counter"></div>
@@ -278,30 +262,30 @@
 
         const guidesData = await loadJSON('/content/guides.json', []);
         window._guidesData = guidesData;
-                document.getElementById('guides-content').innerHTML = guidesData.length > 0
+        document.getElementById('guides-content').innerHTML = guidesData.length > 0
             ? guidesData.map(g => {
                 // Группируем шаги телефона по категориям
-                let phoneStepsHtml = '';
+                let phoneSections = '';
                 if (g.install_phone && g.install_phone.length > 0) {
                     const sections = {};
-                    let currentSection = 'Общее';
+                    let currentSection = '📱 На телефон';
                     g.install_phone.forEach(step => {
-                        const text = typeof step === 'object' ? step.text : step;
-                        if (text.includes('Android Chrome:')) currentSection = '📱 Android (Chrome)';
-                        else if (text.includes('Android Edge:')) currentSection = '📱 Android (Edge)';
-                        else if (text.includes('Android Firefox:')) currentSection = '📱 Android (Firefox)';
-                        else if (text.includes('iPhone iOS:')) currentSection = '📱 iPhone (iOS)';
+                        const text = typeof step === 'object' ? (step.text || '') : (step || '');
+                        if (text.includes('Android Chrome:') || text.includes('Android (Chrome)')) currentSection = '📱 Android (Chrome)';
+                        else if (text.includes('Android Edge:') || text.includes('Android (Edge)')) currentSection = '📱 Android (Edge)';
+                        else if (text.includes('Android Firefox:') || text.includes('Android (Firefox)')) currentSection = '📱 Android (Firefox)';
+                        else if (text.includes('iPhone iOS:') || text.includes('iPhone (iOS)') || text.includes('iPhone')) currentSection = '📱 iPhone (iOS)';
                         if (!sections[currentSection]) sections[currentSection] = [];
                         sections[currentSection].push(step);
                     });
                     for (const [title, steps] of Object.entries(sections)) {
-                        phoneStepsHtml += `<p style="margin-top:10px;color:var(--accent2);"><strong>${title}:</strong></p><ol class="pixel-list">${renderStepsList(steps, 'guide_phone_'+g.title)}</ol>`;
+                        phoneSections += `<div class="section-title">${title}</div><ol class="pixel-list">${renderStepsList(steps, 'guide_phone_'+g.title)}</ol>`;
                     }
                 }
                 return `
                 <div class="card"><h3>${g.title}</h3><p><strong>Что это:</strong> ${makeLinksClickable(g.description)}</p>
-                ${g.install_pc&&g.install_pc.length>0?`<p style="margin-top:10px;color:var(--accent2);"><strong>💻 Установка на ПК:</strong></p><ol class="pixel-list">${renderStepsList(g.install_pc, 'guide_pc_'+g.title)}</ol>`:''}
-                ${phoneStepsHtml}
+                ${g.install_pc&&g.install_pc.length>0?`<div class="section-title">💻 Установка на ПК</div><ol class="pixel-list">${renderStepsList(g.install_pc, 'guide_pc_'+g.title)}</ol>`:''}
+                ${phoneSections}
                 ${g.note?`<div class="note">${makeLinksClickable(g.note)}</div>`:''}</div>`;
             }).join('')
             : '<p style="color:#88aacc;text-align:center;">Гайды не добавлены.</p>';
