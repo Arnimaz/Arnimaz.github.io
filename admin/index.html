@@ -3,345 +3,426 @@
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
 <title>MOC_ADMIN // OBSIDIAN_TECH_TERMINAL</title>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=VT323&amp;family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=VT323&amp;family=Inter:wght@400;600;700&amp;family=Geist:wght@700;800&amp;family=JetBrains+Mono:wght@700&amp;family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        "colors": {
+                "emerald-primary": "#00e479",
+                "on-secondary-fixed": "#410006",
+                "on-secondary": "#68000f",
+                "tertiary-fixed-dim": "#e8c426",
+                "outline": "#2c2c4e",
+                "on-surface": "#e4e1ea",
+                "tertiary": "#fffaf6",
+                "on-error-container": "#ffdad6",
+                "surface-tint": "#00e479",
+                "secondary-container": "#901822",
+                "primary-fixed": "#60ff99",
+                "on-error": "#690005",
+                "outline-variant": "#3b4b3d",
+                "on-primary-fixed-variant": "#005228",
+                "error-container": "#93000a",
+                "on-tertiary-container": "#746000",
+                "secondary": "#ffb3b0",
+                "on-tertiary-fixed": "#221b00",
+                "inverse-on-surface": "#303037",
+                "error": "#ffb4ab",
+                "inverse-surface": "#e4e1ea",
+                "background": "#0e0e14",
+                "tertiary-fixed": "#ffe173",
+                "secondary-fixed": "#ffdad8",
+                "surface-bright": "#393840",
+                "surface-container-highest": "#35343b",
+                "on-primary-fixed": "#00210c",
+                "primary": "#f1ffef",
+                "surface-dim": "#131319",
+                "on-background": "#e4e1ea",
+                "primary-container": "#00ff88",
+                "on-surface-variant": "#8ca697",
+                "surface-container": "#1f1f26",
+                "surface-variant": "#35343b",
+                "surface": "#0f0f1c",
+                "surface-container-high": "#2a2930",
+                "inverse-primary": "#006d37",
+                "on-secondary-fixed-variant": "#8c1520",
+                "on-tertiary": "#3b2f00",
+                "secondary-fixed-dim": "#ffb3b0",
+                "on-primary": "#003919",
+                "on-primary-container": "#007139",
+                "info": "#00f0ff",
+                "tertiary-container": "#ffdc55",
+                "surface-container-lowest": "#0e0e14",
+                "on-secondary-container": "#ff9e9b",
+                "primary-fixed-dim": "#00e479",
+                "surface-container-low": "#1b1b22",
+                "on-tertiary-fixed-variant": "#554500"
+        },
+        "borderRadius": {
+                "DEFAULT": "0.25rem",
+                "lg": "0.5rem",
+                "xl": "0.75rem",
+                "full": "9999px"
+        },
+        "spacing": {
+                "xs": "4px",
+                "xl": "32px",
+                "md": "16px",
+                "gutter": "16px",
+                "margin-mobile": "16px",
+                "margin-desktop": "32px",
+                "lg": "24px",
+                "unit": "4px",
+                "sm": "8px",
+                "container-max": "1200px"
+        },
+        "fontFamily": {
+                "stat-lg": ["JetBrains Mono"],
+                "display-lg": ["Geist"],
+                "body-bold": ["Inter"],
+                "body-base": ["Inter"],
+                "display-lg-mobile": ["Geist"],
+                "label-caps": ["JetBrains Mono"],
+                "headline-md": ["Geist"],
+                "terminal": ["VT323", "monospace"]
+        }
+      },
+    },
+  }
+</script>
 <style>
         :root {
-            --neon-green: #00ff41;
+            --neon-green: #00e479;
             --dark-green: #003b00;
-            --bg-black: #050505;
-            --input-bg: #050a05;
-            --terminal-font: 'VT323', monospace;
+            --bg-black: #0e0e14;
+            --input-bg: #1b1b22;
         }
         body {
             background-color: var(--bg-black);
-            color: var(--neon-green);
-            font-family: var(--terminal-font);
-            font-size: 1.25rem;
-            line-height: 1.2;
-            overflow-x: hidden;
-            text-shadow: 0 0 5px rgba(0, 255, 65, 0.5);
+            color: #e4e1ea;
+            font-family: 'Inter', sans-serif;
         }
         
-        /* CRT Scanlines, Grids, and Overlays Removed */
-        body::before, .scanline-overlay, .grid-overlay {
-            display: none !important;
+        .obsidian-card {
+            background: #131319;
+            border: 1px solid rgba(0, 228, 121, 0.3);
+            box-shadow: 0 0 20px rgba(0, 228, 121, 0.1);
+            position: relative;
+        }
+        .obsidian-card::after {
+            content: '';
+            position: absolute;
+            inset: -1px;
+            background: linear-gradient(45deg, transparent, var(--neon-green), transparent);
+            opacity: 0.5;
+            pointer-events: none;
+            border-radius: inherit;
+            z-index: -1;
         }
 
-        .terminal-border {
-            border: 2px solid var(--neon-green);
-        }
-        
         .input-field {
             background: var(--input-bg) !important;
-            border: 1px solid var(--neon-green);
-            border-radius: 0;
-            color: var(--neon-green);
-            font-family: var(--terminal-font);
-            font-size: 1.25rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 0.5rem;
+            color: white;
+            transition: all 0.2s ease;
         }
         .input-field:focus {
             outline: none;
-            box-shadow: 0 0 10px var(--neon-green);
             border-color: var(--neon-green);
+            box-shadow: 0 0 0 2px rgba(0, 228, 121, 0.2);
         }
 
-        /* Ensure all form elements have the dark background and green text */
-        select.input-field option {
-            background: var(--input-bg);
-            color: var(--neon-green);
-        }
-
-        .btn-terminal {
-            background: transparent;
-            border: 1px solid var(--neon-green);
-            color: var(--neon-green);
-            transition: all 0.1s ease;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-        .btn-terminal:hover {
+        .btn-emerald {
             background: var(--neon-green);
-            color: var(--bg-black);
+            color: #00210c;
+            border-radius: 0.5rem;
+            font-weight: 700;
+            transition: all 0.2s ease;
+            text-transform: uppercase;
         }
-        .btn-terminal:active {
-            background: var(--dark-green);
-            color: var(--neon-green);
+        .btn-emerald:hover {
+            filter: brightness(1.1);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(0, 228, 121, 0.3);
+        }
+        .btn-emerald:active {
+            transform: translateY(0);
         }
 
         .sidebar-btn.active {
-            background: var(--neon-green);
-            color: var(--bg-black);
+            background: rgba(0, 228, 121, 0.1);
+            border-left: 3px solid var(--neon-green);
+            color: var(--neon-green);
         }
 
-        /* Clean Images: Full Color & High Fidelity */
-        img {
-            filter: none !important; /* Remove any grayscale/desaturation */
-            object-fit: contain !important; /* Prevent cropping */
+        .terminal-border {
+            border: 1px solid rgba(0, 228, 121, 0.2);
         }
 
         /* Custom Scrollbar */
-        ::-webkit-scrollbar { width: 10px; background: var(--bg-black); }
-        ::-webkit-scrollbar-thumb { background: var(--neon-green); }
+        ::-webkit-scrollbar { width: 6px; background: var(--bg-black); }
+        ::-webkit-scrollbar-thumb { background: rgba(0, 228, 121, 0.3); border-radius: 3px; }
         
         .hidden { display: none !important; }
-
-        @keyframes blink {
-            0%, 49% { opacity: 1; }
-            50%, 100% { opacity: 0; }
-        }
-        .cursor-blink::after {
-            content: "_";
-            animation: blink 1s infinite;
-        }
     </style>
 </head>
-<body>
+<body class="selection:bg-emerald-primary/30 selection:text-white">
 <!-- LOGIN PAGE -->
-<div class="fixed inset-0 z-50 flex items-center justify-center" id="login-page">
-<div class="w-full max-w-md p-8 terminal-border bg-black">
+<div class="fixed inset-0 z-50 flex items-center justify-center bg-[#0a0a0f]" id="login-page">
+<div class="w-full max-w-md p-10 obsidian-card rounded-2xl">
 <div class="text-center mb-10">
-<div class="text-6xl mb-4">[ <span class="material-symbols-outlined text-4xl align-middle">terminal</span> ]</div>
-<h1 class="text-4xl font-bold uppercase tracking-tighter cursor-blink">MASTERS OF CUM</h1>
-<p class="text-lg opacity-80 mt-2">ADMIN PANEL</p>
+<div class="w-20 h-20 bg-emerald-primary/10 rounded-2xl flex items-center justify-center mx-auto mb-6 border border-emerald-primary/20">
+<span class="material-symbols-outlined text-4xl text-emerald-primary">security</span>
 </div>
-<div class="space-y-6">
+<h1 class="text-3xl font-black text-white tracking-tight uppercase font-display-lg">Masters_of_Cum</h1>
+<p class="text-sm font-bold tracking-[0.2em] text-emerald-primary/60 mt-2 font-label-caps">ADMIN PANEL</p>
+</div>
+<div class="space-y-8">
 <div>
-<label class="block text-sm uppercase mb-2">ТОКЕН АУТЕНТИФИКАЦИИ</label>
+<label class="block text-[11px] font-bold text-white/50 uppercase tracking-widest mb-3 font-label-caps">ТОКЕН АУТЕНТИФИКАЦИИ</label>
 <div class="relative">
-<input autofocus="" class="input-field w-full py-3 px-4" id="token-input" placeholder="ghp_************************************" type="password">
+<input autofocus="" class="input-field w-full py-4 px-5 text-sm" id="token-input" placeholder="ghp_************************************" type="password">
 </div>
 </div>
-<button class="btn-terminal w-full py-4 text-2xl font-bold flex items-center justify-center gap-2" onclick="login()">
+<button class="btn-emerald w-full py-4 text-sm font-bold flex items-center justify-center gap-3" onclick="login()">
+<span class="material-symbols-outlined text-xl">login</span>
                 ВЫПОЛНИТЬ ВХОД
             </button>
+<div class="pt-4 text-center">
+<p class="text-[10px] text-white/20 uppercase tracking-tighter">Obsidian Tech Security Framework v2.4.0</p>
+</div>
 </div>
 </div>
 </div>
 <!-- ADMIN DASHBOARD -->
 <div class="hidden min-h-screen flex flex-col lg:flex-row" id="admin-page">
 <!-- Sidebar -->
-<aside class="w-full lg:w-72 border-b-2 lg:border-b-0 lg:border-r-2 border-[var(--neon-green)] bg-black flex flex-col relative lg:fixed lg:h-full z-20">
-<div class="p-6 border-b-2 border-[var(--neon-green)]">
+<aside class="w-full lg:w-72 border-b lg:border-b-0 lg:border-r border-white/10 bg-[#0f0f15] flex flex-col relative lg:fixed lg:h-full z-20">
+<div class="p-6 border-b border-white/5">
 <div class="flex items-center gap-3">
-<div class="text-3xl text-[var(--neon-green)]">
-<span class="material-symbols-outlined text-3xl">shield</span>
+<div class="w-10 h-10 bg-emerald-primary/10 rounded-lg flex items-center justify-center border border-emerald-primary/20">
+<span class="material-symbols-outlined text-2xl text-emerald-primary">shield</span>
 </div>
 <div>
-<div class="text-xl font-bold tracking-tighter">ADMIN_PANEL</div>
+<div class="text-sm font-bold text-white tracking-wider">ADMIN_PANEL</div>
+<div class="text-[10px] text-white/40 uppercase">System Active</div>
 </div>
 </div>
 </div>
-<nav class="flex-1 p-4 flex flex-row lg:flex-col gap-2 lg:space-y-2 overflow-x-auto lg:overflow-x-visible">
-<button class="sidebar-btn active w-full flex items-center gap-3 px-4 py-3 text-lg transition-all whitespace-nowrap" onclick="switchTab('home-tab', this)">
-<span class="material-symbols-outlined">dashboard</span>
+<nav class="flex-1 p-4 flex flex-row lg:flex-col gap-1 lg:space-y-1 overflow-x-auto lg:overflow-x-visible">
+<button class="sidebar-btn active w-full flex items-center gap-3 px-4 py-3 text-sm font-medium transition-all whitespace-nowrap rounded-lg text-white/60 hover:text-white hover:bg-white/5" onclick="switchTab('home-tab', this)">
+<span class="material-symbols-outlined text-xl">dashboard</span>
                 ГЛАВНЫЙ ЭКРАН
             </button>
-<button class="sidebar-btn w-full flex items-center gap-3 px-4 py-3 text-lg transition-all whitespace-nowrap" onclick="switchTab('gallery-tab', this)">
-<span class="material-symbols-outlined">image</span>
+<button class="sidebar-btn w-full flex items-center gap-3 px-4 py-3 text-sm font-medium transition-all whitespace-nowrap rounded-lg text-white/60 hover:text-white hover:bg-white/5" onclick="switchTab('gallery-tab', this)">
+<span class="material-symbols-outlined text-xl">image</span>
                 ГАЛЕРЕЯ
             </button>
-<button class="sidebar-btn w-full flex items-center gap-3 px-4 py-3 text-lg transition-all whitespace-nowrap" onclick="switchTab('guides-tab', this)">
-<span class="material-symbols-outlined">auto_stories</span>
+<button class="sidebar-btn w-full flex items-center gap-3 px-4 py-3 text-sm font-medium transition-all whitespace-nowrap rounded-lg text-white/60 hover:text-white hover:bg-white/5" onclick="switchTab('guides-tab', this)">
+<span class="material-symbols-outlined text-xl">auto_stories</span>
                 РУКОВОДСТВА
             </button>
-<button class="sidebar-btn w-full flex items-center gap-3 px-4 py-3 text-lg transition-all whitespace-nowrap" onclick="switchTab('settings-tab', this)">
-<span class="material-symbols-outlined">settings</span>
-                НАСТРОЙКИ СИСТЕМЫ
+<button class="sidebar-btn w-full flex items-center gap-3 px-4 py-3 text-sm font-medium transition-all whitespace-nowrap rounded-lg text-white/60 hover:text-white hover:bg-white/5" onclick="switchTab('settings-tab', this)">
+<span class="material-symbols-outlined text-xl">settings</span>
+                НАСТРОЙКИ
             </button>
 </nav>
-<div class="p-4 border-t-2 border-[var(--neon-green)] space-y-3">
-<a class="btn-terminal flex items-center justify-center gap-2 w-full py-2 text-sm" href="/" target="_blank">
+<div class="p-4 border-t border-white/5 space-y-2">
+<a class="flex items-center justify-center gap-2 w-full py-2.5 text-xs font-bold text-white/40 hover:text-emerald-primary border border-white/10 rounded-lg transition-colors" href="/" target="_blank">
 <span class="material-symbols-outlined text-sm">open_in_new</span>
                 ПРОСМОТР САЙТА
             </a>
-<button class="btn-terminal flex items-center justify-center gap-2 w-full py-2 text-sm" onclick="loadAll()">
+<button class="flex items-center justify-center gap-2 w-full py-2.5 text-xs font-bold text-white/40 hover:text-white border border-white/10 rounded-lg transition-colors" onclick="loadAll()">
 <span class="material-symbols-outlined text-sm">refresh</span>
-                ПЕРЕЗАГРУЗИТЬ
+                ОБНОВИТЬ
             </button>
-<button class="btn-terminal flex items-center justify-center gap-2 w-full py-2 text-sm border-red-500 text-red-500 hover:bg-red-500 hover:text-black" onclick="logout()">
+<button class="flex items-center justify-center gap-2 w-full py-2.5 text-xs font-bold text-red-500/60 hover:text-red-500 border border-white/10 rounded-lg transition-colors" onclick="logout()">
 <span class="material-symbols-outlined text-sm">logout</span>
-                ЗАВЕРШИТЬ СЕАНС
+                ВЫЙТИ
             </button>
 </div>
 </aside>
 <!-- Main Content -->
-<main class="flex-1 lg:ml-72 flex flex-col">
+<main class="flex-1 lg:ml-72 flex flex-col bg-[#131319]">
 <!-- Top Bar -->
-<header class="min-h-20 h-auto py-4 md:py-0 border-b-2 border-[var(--neon-green)] bg-black sticky top-0 z-10 px-4 md:px-8 flex flex-col md:flex-row items-center justify-between gap-4">
+<header class="min-h-16 h-auto py-3 md:py-0 border-b border-white/5 bg-[#0f0f15]/80 backdrop-blur-md sticky top-0 z-10 px-6 md:px-8 flex flex-col md:flex-row items-center justify-between gap-4">
 <div class="flex items-center gap-4">
 <div class="relative">
-<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-[var(--neon-green)] text-sm">search</span>
-<input class="input-field py-1.5 pl-9 pr-4 text-sm w-full md:w-64" oninput="quickSearch(this.value)" placeholder="ПОИСК ПО МОДУЛЯМ..." type="text">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-white/30 text-lg">search</span>
+<input class="input-field py-1.5 pl-10 pr-4 text-xs w-full md:w-64 border-none !bg-white/5" oninput="quickSearch(this.value)" placeholder="ПОИСК..." type="text">
 </div>
 </div>
 <div class="flex items-center gap-6">
-<div class="flex items-center gap-2 px-4 py-2 border border-[var(--neon-green)] text-sm h-10">
-<div class="w-2 h-2 bg-[var(--neon-green)] animate-pulse"></div>
-<span class="font-bold uppercase">СВЯЗЬ С API УСТАНОВЛЕНА</span>
+<div class="flex items-center gap-2 px-3 py-1.5 bg-emerald-primary/5 rounded-full border border-emerald-primary/10 text-[10px]">
+<div class="w-1.5 h-1.5 bg-emerald-primary rounded-full animate-pulse shadow-[0_0_8px_#00e479]"></div>
+<span class="font-bold uppercase text-emerald-primary/80">API CONNECTED</span>
 </div>
-<button class="btn-terminal px-4 py-2 text-sm font-bold flex items-center gap-2 h-10" onclick="publishAll()"><span class="material-symbols-outlined">cloud_upload</span> СОХРАНИТЬ ВСЁ</button>
+<button class="btn-emerald px-5 py-2 text-xs font-bold flex items-center gap-2 h-9" onclick="publishAll()"><span class="material-symbols-outlined text-lg">cloud_upload</span> СОХРАНИТЬ ВСЁ</button>
 </div>
 </header>
 <div class="p-8 pb-20">
 <!-- HOME TAB -->
-<div class="tab-content space-y-10" id="home-tab">
-<div class="grid grid-cols-1 lg:grid-cols-2 gap-8 gap-6">
-<div class="terminal-border p-6 bg-black">
-<h3 class="text-2xl font-bold mb-6 flex items-center gap-2 border-b border-[var(--neon-green)] pb-2"><span class="material-symbols-outlined">featured_play_list</span> НАСТРОЙКА АРТА</h3>
+<div class="tab-content space-y-8" id="home-tab">
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+<div class="terminal-border p-6 rounded-xl bg-[#0f0f15]">
+<h3 class="text-lg font-bold mb-6 flex items-center gap-2 border-b border-white/5 pb-4 text-white"><span class="material-symbols-outlined text-emerald-primary">featured_play_list</span> НАСТРОЙКА АРТА</h3>
 <div class="space-y-4">
 <div>
-<label class="block text-xs uppercase mb-1">ЗАГОЛОВОК АРТА</label>
-<input class="input-field w-full p-2.5" id="home-title" type="text">
+<label class="block text-[10px] font-bold text-white/30 uppercase mb-1.5 tracking-wider">ЗАГОЛОВОК АРТА</label>
+<input class="input-field w-full p-3 text-sm" id="home-title" type="text">
 </div>
 <div>
-<label class="block text-xs uppercase mb-1">URL ИЗОБРАЖЕНИЯ</label>
-<input class="input-field w-full p-2.5" id="home-image" oninput="previewHomeImage()" type="text">
+<label class="block text-[10px] font-bold text-white/30 uppercase mb-1.5 tracking-wider">URL ИЗОБРАЖЕНИЯ</label>
+<input class="input-field w-full p-3 text-sm" id="home-image" oninput="previewHomeImage()" type="text">
 </div>
 <div>
-<label class="block text-xs uppercase mb-1">КООРДИНАТЫ WPLACE / ССЫЛКА</label>
-<input class="input-field w-full p-2.5" id="home-location" type="text">
+<label class="block text-[10px] font-bold text-white/30 uppercase mb-1.5 tracking-wider">ЛОКАЦИЯ / ССЫЛКА</label>
+<input class="input-field w-full p-3 text-sm" id="home-location" type="text">
 </div>
 <div>
-<label class="block text-xs uppercase mb-1">ОПИСАНИЕ</label>
-<textarea class="input-field w-full p-2.5" id="home-desc" rows="4"></textarea>
+<label class="block text-[10px] font-bold text-white/30 uppercase mb-1.5 tracking-wider">ОПИСАНИЕ</label>
+<textarea class="input-field w-full p-3 text-sm" id="home-desc" rows="4"></textarea>
 </div>
 </div>
 </div>
-<div class="terminal-border p-6 bg-black flex flex-col min-h-[300px]">
-<h3 class="text-2xl font-bold mb-6 flex items-center gap-2 border-b border-[var(--neon-green)] pb-2">
-<span class="material-symbols-outlined">image_search</span>
-                            ВИЗУАЛИЗАЦИЯ
+<div class="terminal-border p-6 rounded-xl bg-[#0f0f15] flex flex-col min-h-[300px]">
+<h3 class="text-lg font-bold mb-6 flex items-center gap-2 border-b border-white/5 pb-4 text-white">
+<span class="material-symbols-outlined text-emerald-primary">image_search</span>
+                            ПРЕДПРОСМОТР
                         </h3>
-<div class="flex-1 border-2 border-dashed border-[var(--neon-green)] flex items-center justify-center overflow-hidden min-h-[250px]" id="home-image-preview">
-<img alt="" class="max-w-full max-h-[350px] object-contain" id="home-preview-img" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MDAiIGhlaWdodD0iMzAwIj48cmVjdCB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgcng9IjgiIGZpbGw9IiNlOGVhZWQiLz48cGF0aCBkPSJNMTcwIDEzMCBsMzAgNDAgbDIwLTE1IGw0MCA1NSBIMTQweiIgZmlsbD0iI2JkYzFjNiIvPjxjaXJjbGUgY3g9IjI1MCIgY3k9IjEyMCIgcj0iMTgiIGZpbGw9IiNiZGMxYzYiLz48L3N2Zz4=">
-<div class="text-center opacity-40" id="no-preview">
-<span class="material-symbols-outlined text-6xl block mb-2">image_not_supported</span>
-<p class="">ОТСУТСТВУЮТ ДАННЫЕ</p>
+<div class="flex-1 rounded-lg border border-dashed border-white/10 flex items-center justify-center overflow-hidden min-h-[250px] bg-black/20" id="home-image-preview">
+<img alt="" class="max-w-full max-h-[400px] object-contain" id="home-preview-img" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MDAiIGhlaWdodD0iMzAwIj48cmVjdCB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgcng9IjgiIGZpbGw9IiNlOGVhZWQiLz48cGF0aCBkPSJNMTcwIDEzMCBsMzAgNDAgbDIwLTE1IGw0MCA1NSBIMTQweiIgZmlsbD0iI2JkYzFjNiIvPjxjaXJjbGUgY3g9IjI1MCIgY3k9IjEyMCIgcj0iMTgiIGZpbGw9IiNiZGMxYzYiLz48L3N2Zz4=">
+<div class="text-center opacity-20" id="no-preview">
+<span class="material-symbols-outlined text-5xl block mb-2">image_not_supported</span>
+<p class="text-xs uppercase font-bold tracking-widest">НЕТ ИЗОБРАЖЕНИЯ</p>
 </div>
 </div>
 </div>
 </div>
 <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-<div class="terminal-border p-6 bg-black">
-<div class="flex items-center justify-between mb-4 border-b border-[var(--neon-green)] pb-2">
-<h4 class="text-lg font-bold">WPLACE</h4>
-<button class="w-8 h-8 btn-terminal flex items-center justify-center" onclick="addStep('wplace')">
-<span class="material-symbols-outlined">add</span>
+<div class="terminal-border p-5 rounded-xl bg-[#0f0f15]">
+<div class="flex items-center justify-between mb-4 border-b border-white/5 pb-3">
+<h4 class="text-xs font-bold text-white uppercase tracking-wider">WPLACE</h4>
+<button class="w-8 h-8 rounded-lg bg-white/5 hover:bg-white/10 flex items-center justify-center transition-colors" onclick="addStep('wplace')">
+<span class="material-symbols-outlined text-xl">add</span>
 </button>
 </div>
-<div class="space-y-4" id="steps-wplace"></div>
+<div class="space-y-3" id="steps-wplace"></div>
 </div>
-<div class="terminal-border p-6 bg-black">
-<div class="flex items-center justify-between mb-4 border-b border-[var(--neon-green)] pb-2">
-<h4 class="text-lg font-bold">BLUE MARBLE</h4>
-<button class="w-8 h-8 btn-terminal flex items-center justify-center" onclick="addStep('blue')">
-<span class="material-symbols-outlined">add</span>
+<div class="terminal-border p-5 rounded-xl bg-[#0f0f15]">
+<div class="flex items-center justify-between mb-4 border-b border-white/5 pb-3">
+<h4 class="text-xs font-bold text-white uppercase tracking-wider">BLUE MARBLE</h4>
+<button class="w-8 h-8 rounded-lg bg-white/5 hover:bg-white/10 flex items-center justify-center transition-colors" onclick="addStep('blue')">
+<span class="material-symbols-outlined text-xl">add</span>
 </button>
 </div>
-<div class="space-y-4" id="steps-blue"></div>
+<div class="space-y-3" id="steps-blue"></div>
 </div>
-<div class="terminal-border p-6 bg-black">
-<div class="flex items-center justify-between mb-4 border-b border-[var(--neon-green)] pb-2">
-<h4 class="text-lg font-bold">WPLACE HELPER</h4>
-<button class="w-8 h-8 btn-terminal flex items-center justify-center" onclick="addStep('helper')">
-<span class="material-symbols-outlined">add</span>
+<div class="terminal-border p-5 rounded-xl bg-[#0f0f15]">
+<div class="flex items-center justify-between mb-4 border-b border-white/5 pb-3">
+<h4 class="text-xs font-bold text-white uppercase tracking-wider">HELPER</h4>
+<button class="w-8 h-8 rounded-lg bg-white/5 hover:bg-white/10 flex items-center justify-center transition-colors" onclick="addStep('helper')">
+<span class="material-symbols-outlined text-xl">add</span>
 </button>
 </div>
-<div class="space-y-4" id="steps-helper"></div>
+<div class="space-y-3" id="steps-helper"></div>
 </div>
 </div>
-<div class="flex justify-end pt-8 border-t border-[var(--neon-green)]/30"><button class="btn-terminal px-8 py-4 text-xl font-bold flex items-center gap-3" onclick="publishAll()"><span class="material-symbols-outlined">save</span> СОХРАНИТЬ ИЗМЕНЕНИЯ</button></div></div>
+<div class="flex justify-end pt-8 border-t border-white/5"><button class="btn-emerald px-8 py-3.5 text-sm font-bold flex items-center gap-3" onclick="publishAll()"><span class="material-symbols-outlined">save</span> СОХРАНИТЬ ИЗМЕНЕНИЯ</button></div></div>
 <!-- GALLERY TAB -->
 <div class="tab-content hidden" id="gallery-tab">
-<div class="flex items-center justify-between mb-8 border-b-2 border-[var(--neon-green)] pb-4">
-<h2 class="text-3xl font-bold uppercase">АРХИВ ИЗОБРАЖЕНИЙ</h2>
-<div class="flex gap-4">
-<button class="btn-terminal px-4 py-2 text-sm flex items-center gap-2" onclick="sortGallery()">
-<span class="material-symbols-outlined text-sm">sort_by_alpha</span>
-                            СОРТИРОВАТЬ А-Я
+<div class="flex items-center justify-between mb-8 border-b border-white/5 pb-6">
+<h2 class="text-2xl font-black uppercase text-white tracking-tight">АРХИВ ИЗОБРАЖЕНИЙ</h2>
+<div class="flex gap-3">
+<button class="px-4 py-2 text-xs font-bold text-white/60 hover:text-white border border-white/10 rounded-lg flex items-center gap-2 transition-all" onclick="sortGallery()">
+<span class="material-symbols-outlined text-lg">sort_by_alpha</span>
+                            СОРТИРОВАТЬ
                         </button>
-<button class="btn-terminal px-6 py-2 text-sm font-bold flex items-center gap-2" onclick="addGalleryItem()">
-<span class="material-symbols-outlined">add</span>
+<button class="btn-emerald px-6 py-2 text-xs font-bold flex items-center gap-2" onclick="addGalleryItem()">
+<span class="material-symbols-outlined text-lg">add</span>
                             НОВЫЙ ОБЪЕКТ
                         </button>
 </div>
 </div>
-<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-6 md:gap-8" id="gallery-items"></div>
-<div class="flex justify-end pt-8 mt-10 border-t border-[var(--neon-green)]/30"><button class="btn-terminal px-8 py-4 text-xl font-bold flex items-center gap-3" onclick="publishAll()"><span class="material-symbols-outlined">save</span> СОХРАНИТЬ ГАЛЕРЕЮ</button></div></div>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-6" id="gallery-items"></div>
+<div class="flex justify-end pt-8 mt-10 border-t border-white/5"><button class="btn-emerald px-8 py-3.5 text-sm font-bold flex items-center gap-3" onclick="publishAll()"><span class="material-symbols-outlined">save</span> СОХРАНИТЬ ГАЛЕРЕЮ</button></div></div>
 <!-- GUIDES TAB -->
-<div class="tab-content hidden space-y-10" id="guides-tab">
-<div class="flex items-center justify-between mb-6 border-b-2 border-[var(--neon-green)] pb-4">
-<h2 class="text-3xl font-bold uppercase">БАЗА ЗНАНИЙ</h2>
-<button class="btn-terminal px-6 py-2 text-sm font-bold flex items-center gap-2" onclick="addGuideItem()">
-<span class="material-symbols-outlined">library_add</span>
+<div class="tab-content hidden space-y-8" id="guides-tab">
+<div class="flex items-center justify-between mb-6 border-b border-white/5 pb-6">
+<h2 class="text-2xl font-black uppercase text-white tracking-tight">БАЗА ЗНАНИЙ</h2>
+<button class="btn-emerald px-6 py-2 text-xs font-bold flex items-center gap-2" onclick="addGuideItem()">
+<span class="material-symbols-outlined text-lg">library_add</span>
                         НОВАЯ ИНСТРУКЦИЯ
                     </button>
 </div>
 <div class="space-y-8" id="guides-items"></div>
-<div class="flex justify-end pt-8 border-t border-[var(--neon-green)]/30"><button class="btn-terminal px-8 py-4 text-xl font-bold flex items-center gap-3" onclick="publishAll()"><span class="material-symbols-outlined">save</span> СОХРАНИТЬ ИНСТРУКЦИИ</button></div></div>
+<div class="flex justify-end pt-8 border-t border-white/5"><button class="btn-emerald px-8 py-3.5 text-sm font-bold flex items-center gap-3" onclick="publishAll()"><span class="material-symbols-outlined">save</span> СОХРАНИТЬ ИНСТРУКЦИИ</button></div></div>
 <!-- SETTINGS TAB -->
 <div class="tab-content hidden" id="settings-tab">
-<div class="max-w-4xl mx-auto space-y-10">
-<div class="terminal-border p-8 bg-black">
-<h3 class="text-2xl font-bold mb-8 flex items-center gap-3 border-b border-[var(--neon-green)] pb-2">
-<span class="material-symbols-outlined">settings_suggest</span>
+<div class="max-w-4xl mx-auto space-y-8">
+<div class="terminal-border p-8 rounded-xl bg-[#0f0f15]">
+<h3 class="text-lg font-bold mb-8 flex items-center gap-3 border-b border-white/5 pb-4 text-white">
+<span class="material-symbols-outlined text-emerald-primary">settings_suggest</span>
                             ГЛОБАЛЬНАЯ КОНФИГУРАЦИЯ
                         </h3>
 <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
 <div class="space-y-6">
 <div>
-<label class="block text-sm uppercase mb-2">НАЗВАНИЕ ВКЛАДКИ</label>
-<input class="input-field w-full p-3" id="settings-siteTitle" type="text">
+<label class="block text-[10px] font-bold text-white/30 uppercase mb-2 tracking-wider">НАЗВАНИЕ ВКЛАДКИ</label>
+<input class="input-field w-full p-3 text-sm" id="settings-siteTitle" type="text">
 </div>
 <div>
-<label class="block text-sm uppercase mb-2">ГЛАВНЫЙ ЗАГОЛОВОК</label>
-<input class="input-field w-full p-3" id="settings-headerTitle" type="text">
+<label class="block text-[10px] font-bold text-white/30 uppercase mb-2 tracking-wider">ГЛАВНЫЙ ЗАГОЛОВОК</label>
+<input class="input-field w-full p-3 text-sm" id="settings-headerTitle" type="text">
 </div>
 </div>
 <div class="space-y-6">
 <div>
-<label class="block text-sm uppercase mb-2">ПОДЗАГОЛОВОК ШАПКИ</label>
-<input class="input-field w-full p-3" id="settings-headerSubtitle" type="text">
+<label class="block text-[10px] font-bold text-white/30 uppercase mb-2 tracking-wider">ПОДЗАГОЛОВОК ШАПКИ</label>
+<input class="input-field w-full p-3 text-sm" id="settings-headerSubtitle" type="text">
 </div>
 <div>
-<label class="block text-sm uppercase mb-2">КОПИРАЙТ ФУТЕРА</label>
-<input class="input-field w-full p-3" id="settings-footer" type="text">
+<label class="block text-[10px] font-bold text-white/30 uppercase mb-2 tracking-wider">КОПИРАЙТ ФУТЕРА</label>
+<input class="input-field w-full p-3 text-sm" id="settings-footer" type="text">
 </div>
 </div>
 </div>
 </div>
-<div class="terminal-border p-8 bg-black border-red-600">
-<h3 class="text-2xl font-bold mb-8 text-red-500 flex items-center gap-3 border-b border-red-600 pb-2">
+<div class="terminal-border p-8 rounded-xl bg-[#0f0f15] border-red-500/20">
+<h3 class="text-lg font-bold mb-8 text-red-500 flex items-center gap-3 border-b border-red-500/10 pb-4">
 <span class="material-symbols-outlined">warning</span>
                             СИСТЕМНОЕ ОБСЛУЖИВАНИЕ
                         </h3>
 <div class="flex flex-wrap gap-4">
-<button class="btn-terminal border-blue-500 text-blue-500 px-6 py-4 flex items-center gap-2 font-bold" onclick="exportAll()">
-<span class="material-symbols-outlined">download</span>
+<button class="px-6 py-3.5 text-xs font-bold text-blue-400 hover:bg-blue-400/10 border border-blue-400/20 rounded-lg flex items-center gap-2 transition-all" onclick="exportAll()">
+<span class="material-symbols-outlined text-lg">download</span>
                                 ЭКСПОРТ ДАННЫХ (.JSON)
                             </button>
-<button class="btn-terminal border-[var(--neon-green)] px-6 py-4 flex items-center gap-2 font-bold" onclick="importAll()">
-<span class="material-symbols-outlined">upload</span>
+<button class="px-6 py-3.5 text-xs font-bold text-emerald-primary hover:bg-emerald-primary/10 border border-emerald-primary/20 rounded-lg flex items-center gap-2 transition-all" onclick="importAll()">
+<span class="material-symbols-outlined text-lg">upload</span>
                                 ИМПОРТ / ПЕРЕЗАПИСЬ
                             </button>
-<button class="btn-terminal border-red-600 text-red-600 px-6 py-4 flex items-center gap-2 font-bold" onclick="if(confirm('ПОЛНАЯ ОЧИСТКА? ЭТО ДЕЙСТВИЕ НЕОБРАТИМО.')) resetAll()">
-<span class="material-symbols-outlined">delete_forever</span>
+<button class="px-6 py-3.5 text-xs font-bold text-red-500 hover:bg-red-500/10 border border-red-500/20 rounded-lg flex items-center gap-2 transition-all" onclick="if(confirm('ПОЛНАЯ ОЧИСТКА? ЭТО ДЕЙСТВИЕ НЕОБРАТИМО.')) resetAll()">
+<span class="material-symbols-outlined text-lg">delete_forever</span>
                                 СБРОС ДО ЗАВОДСКИХ
                             </button>
 <input accept=".json" class="hidden" id="import-file" onchange="handleImport(event)" type="file">
 </div>
 </div>
 </div>
-<div class="max-w-4xl mx-auto flex justify-end pt-8 mt-10 border-t border-[var(--neon-green)]/30"><button class="btn-terminal px-8 py-4 text-xl font-bold flex items-center gap-3" onclick="publishAll()"><span class="material-symbols-outlined">save</span> СОХРАНИТЬ КОНФИГУРАЦИЮ</button></div></div>
+<div class="max-w-4xl mx-auto flex justify-end pt-8 mt-10 border-t border-white/5"><button class="btn-emerald px-8 py-3.5 text-sm font-bold flex items-center gap-3" onclick="publishAll()"><span class="material-symbols-outlined">save</span> СОХРАНИТЬ КОНФИГУРАЦИЮ</button></div></div>
 </div>
 </main>
 </div>
 <!-- TOAST NOTIFICATION -->
 <div class="fixed bottom-10 right-10 z-[100] hidden" id="toast">
-<div class="terminal-border bg-black flex items-center gap-4 shadow-[0_0_20px_rgba(0,255,65,0.3)] p-3" id="toast-body">
-<span class="material-symbols-outlined text-xl" id="toast-icon"></span>
+<div class="obsidian-card rounded-xl flex items-center gap-4 p-4 min-w-[300px]" id="toast-body">
+<span class="material-symbols-outlined text-2xl" id="toast-icon"></span>
 <div>
-<p class="font-bold uppercase text-sm" id="toast-msg"></p>
+<p class="font-bold text-xs uppercase tracking-widest text-white" id="toast-msg"></p>
 </div>
 </div>
 </div>
@@ -361,8 +442,8 @@
         m.textContent = msg;
         t.classList.remove("hidden");
         
-        body.style.borderColor = type === 'error' ? '#ff0000' : '#00ff41';
-        body.style.color = type === 'error' ? '#ff0000' : '#00ff41';
+        body.style.borderColor = type === 'error' ? 'rgba(239, 68, 68, 0.5)' : 'rgba(0, 228, 121, 0.5)';
+        icon.style.color = type === 'error' ? '#ef4444' : '#00e479';
         icon.textContent = type === 'success' ? 'check_circle' : (type === 'error' ? 'report' : 'info');
 
         clearTimeout(t._timer);
@@ -392,7 +473,7 @@
     function logout() { sessionStorage.removeItem("wplace_admin_token"); location.reload(); }
     
     function showAdmin() {
-        document.getElementById("login-page").style.display = "none";
+        document.getElementById("login-page").classList.add("hidden");
         document.getElementById("admin-page").classList.remove("hidden");
     }
 
@@ -435,16 +516,16 @@
     function renderStepsAdmin(type, steps) {
         const el = document.getElementById(`steps-${type}`);
         if (!el) return;
-        el.innerHTML = steps.length === 0 ? '<p class="opacity-40 text-center py-2 italic">МОДУЛЬ ПУСТ</p>' : steps.map((s, i) => {
+        el.innerHTML = steps.length === 0 ? '<p class="opacity-30 text-center py-2 text-[10px] uppercase font-bold italic">МОДУЛЬ ПУСТ</p>' : steps.map((s, i) => {
             const sd = typeof s === 'object' ? s : { text: s, image: "", detail: "" };
-            return `<div class="p-4 border border-[var(--neon-green)] space-y-3 bg-black">
+            return `<div class="p-3 border border-white/5 space-y-2.5 bg-black/20 rounded-lg relative group">
                 <div class="flex gap-2">
-                    <span class="font-bold text-[var(--neon-green)]">${i+1}</span>
-                    <input class="input-field w-full py-1 px-2 text-sm" value="${(sd.text||'').replace(/"/g,'&quot;')}" onchange="updateStepField('${type}',${i},'text',this.value)" placeholder="ТЕКСТ ШАГА">
+                    <span class="text-[10px] font-bold text-emerald-primary/50">${i+1}</span>
+                    <input class="input-field w-full py-1 px-2 text-xs border-none !bg-white/5" value="${(sd.text||'').replace(/"/g,'&quot;')}" onchange="updateStepField('${type}',${i},'text',this.value)" placeholder="ТЕКСТ ШАГА">
                 </div>
-                <input class="input-field w-full py-1 px-2 text-xs" value="${sd.image||''}" onchange="updateStepField('${type}',${i},'image',this.value)" placeholder="URL ИЗОБРАЖЕНИЯ">
-                <textarea class="input-field w-full py-1 px-2 text-xs" onchange="updateStepField('${type}',${i},'detail',this.value)" placeholder="ДЕТАЛИ..." rows="2">${(sd.detail||'').replace(/</g,'&lt;')}</textarea>
-                <button class="text-xs text-red-500 hover:underline flex items-center gap-1" onclick="removeStep('${type}',${i})"><span class="material-symbols-outlined text-xs">close</span>УДАЛИТЬ ШАГ</button>
+                <input class="input-field w-full py-1 px-2 text-[10px] border-none !bg-white/5 opacity-50 focus:opacity-100" value="${sd.image||''}" onchange="updateStepField('${type}',${i},'image',this.value)" placeholder="URL ИЗОБРАЖЕНИЯ">
+                <textarea class="input-field w-full py-1 px-2 text-[10px] border-none !bg-white/5 opacity-50 focus:opacity-100" onchange="updateStepField('${type}',${i},'detail',this.value)" placeholder="ДЕТАЛИ..." rows="2">${(sd.detail||'').replace(/</g,'&lt;')}</textarea>
+                <button class="absolute top-1 right-1 opacity-0 group-hover:opacity-100 text-red-500 transition-opacity" onclick="removeStep('${type}',${i})"><span class="material-symbols-outlined text-sm">close</span></button>
             </div>`;
         }).join("");
     }
@@ -494,21 +575,21 @@
     function renderGallery() {
         const el = document.getElementById("gallery-items");
         if (!el) return;
-        if (galleryData.length === 0) { el.innerHTML = '<div class="col-span-full py-20 text-center opacity-30">БАЗА ГАЛЕРЕИ ПУСТА</div>'; return; }
+        if (galleryData.length === 0) { el.innerHTML = '<div class="col-span-full py-20 text-center opacity-20 text-sm uppercase tracking-widest font-bold">АРХИВ ПУСТ</div>'; return; }
         el.innerHTML = galleryData.map((item, i) => `
-            <div class="terminal-border bg-black p-4 group">
-                <div class="aspect-video mb-4 border border-[var(--neon-green)] relative overflow-hidden bg-black">
-                    ${item.image ? `<img src="${item.image}" class="w-full h-full object-contain opacity-100 transition-all">` : '<div class="flex items-center justify-center h-full opacity-20"><span class="material-symbols-outlined text-4xl">broken_image</span></div>'}
-                    <div class="absolute inset-0 bg-black/80 opacity-0 group-hover:opacity-100 flex items-center justify-center gap-6 transition-opacity">
-                        <button onclick="moveGalleryItem(${i},-1)" class="btn-terminal w-10 h-10 flex items-center justify-center"><span class="material-symbols-outlined">arrow_back</span></button>
-                        <button onclick="moveGalleryItem(${i},1)" class="btn-terminal w-10 h-10 flex items-center justify-center"><span class="material-symbols-outlined">arrow_forward</span></button>
-                        <button onclick="if(confirm('УДАЛИТЬ ОБЪЕКТ?')){galleryData.splice(${i},1);renderGallery();}" class="btn-terminal border-red-500 text-red-500 w-10 h-10 flex items-center justify-center"><span class="material-symbols-outlined">delete</span></button>
+            <div class="terminal-border bg-[#0f0f15] p-4 group rounded-xl hover:border-emerald-primary/40 transition-all">
+                <div class="aspect-video mb-4 rounded-lg border border-white/5 relative overflow-hidden bg-black/20">
+                    ${item.image ? `<img src="${item.image}" class="w-full h-full object-contain">` : '<div class="flex items-center justify-center h-full opacity-10"><span class="material-symbols-outlined text-4xl">broken_image</span></div>'}
+                    <div class="absolute inset-0 bg-[#0a0a0f]/90 opacity-0 group-hover:opacity-100 flex items-center justify-center gap-3 transition-opacity">
+                        <button onclick="moveGalleryItem(${i},-1)" class="w-10 h-10 rounded-lg bg-white/5 hover:bg-white/10 flex items-center justify-center text-white transition-colors"><span class="material-symbols-outlined text-xl">arrow_back</span></button>
+                        <button onclick="moveGalleryItem(${i},1)" class="w-10 h-10 rounded-lg bg-white/5 hover:bg-white/10 flex items-center justify-center text-white transition-colors"><span class="material-symbols-outlined text-xl">arrow_forward</span></button>
+                        <button onclick="if(confirm('УДАЛИТЬ ОБЪЕКТ?')){galleryData.splice(${i},1);renderGallery();}" class="w-10 h-10 rounded-lg bg-red-500/10 hover:bg-red-500 text-red-500 hover:text-white flex items-center justify-center transition-colors"><span class="material-symbols-outlined text-xl">delete</span></button>
                     </div>
                 </div>
-                <div class="space-y-3">
-                    <input placeholder="НАЗВАНИЕ" value="${item.title||''}" onchange="galleryData[${i}].title=this.value" class="input-field w-full text-lg font-bold py-1.5 px-3">
-                    <textarea placeholder="ОПИСАНИЕ" rows="2" onchange="galleryData[${i}].description=this.value" class="input-field w-full text-xs py-1.5 px-3">${item.description||''}</textarea>
-                    <input placeholder="URL ИЗОБРАЖЕНИЯ" value="${item.image||''}" onchange="galleryData[${i}].image=this.value;renderGallery();" class="input-field w-full text-[10px] py-1.5 px-3 opacity-60">
+                <div class="space-y-2">
+                    <input placeholder="НАЗВАНИЕ" value="${item.title||''}" onchange="galleryData[${i}].title=this.value" class="input-field w-full text-sm font-bold py-2 px-3 !bg-white/5 border-none">
+                    <textarea placeholder="ОПИСАНИЕ" rows="2" onchange="galleryData[${i}].description=this.value" class="input-field w-full text-[11px] py-2 px-3 !bg-white/5 border-none opacity-60 focus:opacity-100">${item.description||''}</textarea>
+                    <input placeholder="URL ИЗОБРАЖЕНИЯ" value="${item.image||''}" onchange="galleryData[${i}].image=this.value;renderGallery();" class="input-field w-full text-[10px] py-1.5 px-3 border-none !bg-white/5 opacity-40 focus:opacity-100">
                 </div>
             </div>`).join("");
     }
@@ -521,59 +602,59 @@
     function renderGuides() {
         const el = document.getElementById("guides-items");
         if (!el) return;
-        if (guidesData.length === 0) { el.innerHTML = '<div class="py-20 text-center opacity-30 italic">АРХИВ ИНСТРУКЦИЙ НЕ НАЙДЕН</div>'; return; }
+        if (guidesData.length === 0) { el.innerHTML = '<div class="py-20 text-center opacity-20 text-sm uppercase tracking-widest font-bold">ИНСТРУКЦИЙ НЕ НАЙДЕНЫ</div>'; return; }
         el.innerHTML = guidesData.map((g, i) => `
-            <div class="terminal-border p-8 bg-black">
-                <div class="flex items-center justify-between mb-8 border-b border-[var(--neon-green)] pb-4">
+            <div class="terminal-border p-6 bg-[#0f0f15] rounded-xl">
+                <div class="flex items-center justify-between mb-8 border-b border-white/5 pb-6">
                     <div class="flex-1 mr-4">
-                        <input class="input-field w-full text-3xl font-bold bg-transparent border-none px-0 focus:ring-0 uppercase" placeholder="ТЕМАТИКА" value="${g.title||''}" onchange="guidesData[${i}].title=this.value">
-                        <textarea class="input-field w-full text-lg opacity-80 bg-transparent border-none px-0 mt-2 focus:ring-0" placeholder="ВВОДНАЯ ИНФОРМАЦИЯ..." rows="1" onchange="guidesData[${i}].description=this.value">${g.description||''}</textarea>
+                        <input class="input-field w-full text-xl font-black bg-transparent border-none px-0 focus:ring-0 uppercase text-white" placeholder="ТЕМАТИКА" value="${g.title||''}" onchange="guidesData[${i}].title=this.value">
+                        <textarea class="input-field w-full text-sm opacity-60 bg-transparent border-none px-0 mt-2 focus:ring-0 text-white" placeholder="ВВОДНАЯ ИНФОРМАЦИЯ..." rows="1" onchange="guidesData[${i}].description=this.value">${g.description||''}</textarea>
                     </div>
-                    <button class="btn-terminal border-red-500 text-red-500 p-3" onclick="if(confirm('УДАЛИТЬ ЭТОТ РАЗДЕЛ?')){guidesData.splice(${i},1);renderGuides();}">
-                        <span class="material-symbols-outlined">delete</span>
+                    <button class="w-10 h-10 rounded-lg bg-red-500/10 hover:bg-red-500 text-red-500 hover:text-white transition-colors flex items-center justify-center" onclick="if(confirm('УДАЛИТЬ ЭТОТ РАЗДЕЛ?')){guidesData.splice(${i},1);renderGuides();}">
+                        <span class="material-symbols-outlined text-xl">delete</span>
                     </button>
                 </div>
                 
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
                     <div>
-                        <div class="flex items-center justify-between mb-4 border-b border-[var(--neon-green)]/30">
-                            <span class="text-sm font-bold uppercase flex items-center gap-2"><span class="material-symbols-outlined">desktop_windows</span> ПЛАТФОРМА PC</span>
-                            <button onclick="addGuideStep(${i},'pc')" class="text-sm hover:underline">+ НОВЫЙ ШАГ</button>
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="text-[10px] font-bold uppercase text-white/40 tracking-wider flex items-center gap-2"><span class="material-symbols-outlined text-sm">desktop_windows</span> ПЛАТФОРМА PC</span>
+                            <button onclick="addGuideStep(${i},'pc')" class="text-[10px] font-bold text-emerald-primary/60 hover:text-emerald-primary uppercase tracking-widest transition-colors">+ ШАГ</button>
                         </div>
                         <div class="space-y-4">${renderGuideStepsHTML(g.install_pc||[], i, 'pc')}</div>
                     </div>
                     <div>
-                        <div class="flex items-center justify-between mb-4 border-b border-[var(--neon-green)]/30">
-                            <span class="text-sm font-bold uppercase flex items-center gap-2"><span class="material-symbols-outlined">smartphone</span> ПЛАТФОРМА MOBILE</span>
-                            <button onclick="addGuideStep(${i},'phone')" class="text-sm hover:underline">+ НОВЫЙ ШАГ</button>
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="text-[10px] font-bold uppercase text-white/40 tracking-wider flex items-center gap-2"><span class="material-symbols-outlined text-sm">smartphone</span> ПЛАТФОРМА MOBILE</span>
+                            <button onclick="addGuideStep(${i},'phone')" class="text-[10px] font-bold text-emerald-primary/60 hover:text-emerald-primary uppercase tracking-widest transition-colors">+ ШАГ</button>
                         </div>
                         <div class="space-y-4">${renderGuideStepsHTML(g.install_phone||[], i, 'phone')}</div>
                     </div>
                 </div>
-                <div class="mt-8 pt-4 border-t border-[var(--neon-green)]/30">
-                    <label class="text-xs opacity-60 uppercase mb-2 block">ДОПОЛНИТЕЛЬНЫЕ ЗАМЕЧАНИЯ / ФУТЕР</label>
-                    <input class="input-field w-full text-sm py-2 px-3" placeholder="ПРИМЕЧАНИЯ..." value="${g.note||''}" onchange="guidesData[${i}].note=this.value">
+                <div class="mt-8 pt-4 border-t border-white/5">
+                    <label class="text-[10px] text-white/30 uppercase font-bold tracking-wider mb-2 block">ПРИМЕЧАНИЯ</label>
+                    <input class="input-field w-full text-xs py-2 px-3 border-none !bg-white/5" placeholder="ПРИМЕЧАНИЯ..." value="${g.note||''}" onchange="guidesData[${i}].note=this.value">
                 </div>
             </div>`).join("");
     }
 
     function renderGuideStepsHTML(steps, gi, type) {
-        if (!steps || steps.length === 0) return '<p class="text-xs opacity-30 italic">ДАННЫЕ ОТСУТСТВУЮТ</p>';
+        if (!steps || steps.length === 0) return '<p class="text-[10px] opacity-20 uppercase font-bold text-center py-4 border border-dashed border-white/5 rounded-lg">ПУСТО</p>';
         return steps.map((s, si) => {
             const sd = typeof s === 'object' ? s : { text: s, image: "", detail: "", section: "" };
-            return `<div class="p-4 border border-[var(--neon-green)] relative group bg-black">
+            return `<div class="p-4 bg-white/5 border border-white/5 rounded-lg relative group">
                 <div class="flex gap-2 mb-3">
-                    <select onchange="updateGuideField(${gi},'${type}',${si},'section',this.value)" class="input-field text-xs font-bold py-1 rounded-0 px-2 focus:ring-0 uppercase">
+                    <select onchange="updateGuideField(${gi},'${type}',${si},'section',this.value)" class="text-[10px] font-bold py-1 rounded px-2 bg-[#0f0f15] border-white/10 text-white/60 focus:border-emerald-primary focus:ring-0 uppercase">
                         <option value="">ОБЩЕЕ</option>
-                        <option value="💻 ПК" ${sd.section=='💻 ПК'?'selected':''}>PC / WINDOWS</option>
+                        <option value="💻 ПК" ${sd.section=='💻 ПК'?'selected':''}>PC</option>
                         <option value="📱 Android (Edge)" ${sd.section=='📱 Android (Edge)'?'selected':''}>ANDROID</option>
-                        <option value="📱 iPhone (iOS)" ${sd.section=='📱 iPhone (iOS)'?'selected':''}>IOS / IPHONE</option>
+                        <option value="📱 iPhone (iOS)" ${sd.section=='📱 iPhone (iOS)'?'selected':''}>IOS</option>
                     </select>
-                    <input value="${(sd.text||'').replace(/"/g,'&quot;')}" onchange="updateGuideField(${gi},'${type}',${si},'text',this.value)" class="input-field flex-1 py-1 px-3 text-xs" placeholder="ИНСТРУКЦИЯ">
+                    <input value="${(sd.text||'').replace(/"/g,'&quot;')}" onchange="updateGuideField(${gi},'${type}',${si},'text',this.value)" class="flex-1 py-1 px-3 text-xs bg-black/40 border-none rounded focus:ring-1 focus:ring-emerald-primary/50 text-white" placeholder="ИНСТРУКЦИЯ">
                 </div>
-                <input value="${sd.image||''}" onchange="updateGuideField(${gi},'${type}',${si},'image',this.value)" class="input-field w-full py-1 px-3 text-[10px] mb-3 opacity-60" placeholder="URL СКРИНШОТА">
-                <textarea onchange="updateGuideField(${gi},'${type}',${si},'detail',this.value)" class="input-field w-full py-2 px-3 text-xs" placeholder="ТЕХНИЧЕСКИЕ ДЕТАЛИ..." rows="2">${(sd.detail||'').replace(/</g,'&lt;')}</textarea>
-                <button class="absolute -top-3 -right-3 w-7 h-7 bg-red-600 text-black font-bold opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity" onclick="guidesData[${gi}].install_${type}.splice(${si},1);renderGuides();">
+                <input value="${sd.image||''}" onchange="updateGuideField(${gi},'${type}',${si},'image',this.value)" class="w-full py-1 px-3 text-[10px] bg-black/20 border-none rounded mb-3 text-white/40 focus:text-white" placeholder="URL СКРИНШОТА">
+                <textarea onchange="updateGuideField(${gi},'${type}',${si},'detail',this.value)" class="w-full py-2 px-3 text-xs bg-black/40 border-none rounded text-white/60 focus:text-white" placeholder="ТЕХНИЧЕСКИЕ ДЕТАЛИ..." rows="2">${(sd.detail||'').replace(/</g,'&lt;')}</textarea>
+                <button class="absolute -top-2 -right-2 w-6 h-6 bg-red-600 rounded-full text-white font-bold opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity shadow-lg" onclick="guidesData[${gi}].install_${type}.splice(${si},1);renderGuides();">
                     <span class="material-symbols-outlined text-sm">close</span>
                 </button>
             </div>`;
@@ -607,7 +688,7 @@
     }
 
     async function publishAll() {
-        toast("ЗАПУСК ОБЛАЧНОЙ СИНХРОНИЗАЦИИ...", "info");
+        toast("СИНХРОНИЗАЦИЯ С ОБЛАКОМ...", "info");
         try {
             const h = await saveHome();
             const g = await saveGallery();
@@ -668,8 +749,6 @@
     });
     document.getElementById("token-input").addEventListener("keydown", e => { if(e.key==="Enter")login(); });
 </script>
-
-
 
 
 </body></html>
