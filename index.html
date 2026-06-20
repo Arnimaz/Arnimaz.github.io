@@ -8,13 +8,8 @@
         @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap');
 
         :root {
-            --bg: #0a0a0a;
-            --surface: #1a1a2e;
-            --border: #00ff88;
-            --text: #e0ffe0;
-            --glow: #00ff88;
-            --accent: #ff6b6b;
-            --accent2: #ffd93d;
+            --bg: #0a0a0a; --surface: #1a1a2e; --border: #00ff88; --text: #e0ffe0;
+            --glow: #00ff88; --accent: #ff6b6b; --accent2: #ffd93d;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -24,14 +19,9 @@
             background-image:
                 linear-gradient(0deg, rgba(0,255,136,0.03) 1px, transparent 1px),
                 linear-gradient(90deg, rgba(0,255,136,0.03) 1px, transparent 1px);
-            background-size: 8px 8px;
-            color: var(--text);
-            font-family: 'VT323', monospace;
-            font-size: 20px;
-            line-height: 1.5;
-            min-height: 100vh;
-            image-rendering: pixelated;
-            overflow-x: hidden;
+            background-size: 8px 8px; color: var(--text);
+            font-family: 'VT323', monospace; font-size: 20px; line-height: 1.5;
+            min-height: 100vh; image-rendering: pixelated; overflow-x: hidden;
         }
 
         .container { max-width: 900px; margin: 0 auto; padding: 20px; position: relative; z-index: 1; }
@@ -75,16 +65,11 @@
         .link-pixel { display: inline-block; background: #0a1a10; border: 2px solid var(--glow); padding: 8px 16px; color: var(--glow); font-family: 'VT323', monospace; font-size: 18px; letter-spacing: 1px; word-break: break-all; margin: 5px 0; box-shadow: 0 3px 0 #0a5a2a; transition: all 0.1s step-end; }
         .link-pixel:hover { background: #0d2a1a; box-shadow: 0 3px 0 var(--glow); }
 
-        .art-image-container {
-            text-align: center; margin-bottom: 20px; border: 4px solid var(--border);
-            padding: 12px; background: #0a0a15; box-shadow: 0 0 30px rgba(0,255,136,0.2);
-            position: relative; z-index: 10001; isolation: isolate;
-        }
+        .art-image-container { text-align: center; margin-bottom: 20px; border: 4px solid var(--border); padding: 12px; background: #0a0a15; box-shadow: 0 0 30px rgba(0,255,136,0.2); position: relative; z-index: 10001; isolation: isolate; }
         .art-image-container img { max-width: 100%; height: auto; image-rendering: pixelated; display: block; margin: 0 auto; }
         .art-info { text-align: center; font-size: 22px; color: var(--accent2); margin-top: 15px; text-shadow: 0 0 10px rgba(255,217,61,0.4); }
         .art-info a { font-size: 22px; }
 
-        /* Шаги кликабельные */
         ol.pixel-list { list-style: none; counter-reset: pixel-counter; padding-left: 0; }
         ol.pixel-list li { 
             counter-increment: pixel-counter; padding: 14px 14px 14px 65px; margin-bottom: 8px;
@@ -101,14 +86,12 @@
         }
         ol.pixel-list li .step-arrow { margin-left: auto; font-size: 18px; color: var(--accent2); }
 
-        /* Галерея */
         .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 16px; }
         .gallery-item { border: 3px solid #2a2a4a; background: #0a0a1a; padding: 10px; transition: all 0.1s step-end; text-align: center; cursor: pointer; }
         .gallery-item:hover { border-color: var(--accent); box-shadow: 0 0 25px rgba(255,107,107,0.4); transform: scale(1.04); }
         .gallery-item img { width: 100%; aspect-ratio: 1; object-fit: contain; border: 2px solid #3a3a5a; display: block; image-rendering: pixelated; background: #050510; }
         .gallery-item .label { font-family: 'VT323', monospace; font-size: 20px; margin-top: 10px; color: #eee; }
 
-        /* Модалка для галереи */
         .modal-overlay {
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(0,0,0,0.92); z-index: 100000;
@@ -125,27 +108,16 @@
         .modal h3 { font-family: 'Press Start 2P', monospace; font-size: 16px; color: var(--accent2); margin-bottom: 12px; text-shadow: 0 0 10px rgba(255,217,61,0.5); }
         .modal .desc { font-size: 22px; color: #ddd; margin-bottom: 20px; line-height: 1.6; }
         .modal .desc a { font-size: 22px; }
-        .modal .close-btn {
-            font-family: 'Press Start 2P', monospace; font-size: 13px; padding: 12px 24px;
-            background: #0a2a0a; color: var(--glow); border: 3px solid var(--border); cursor: pointer;
-            box-shadow: 0 4px 0 #0a4a0a; margin-top: 10px;
-        }
+        .modal .close-btn { font-family: 'Press Start 2P', monospace; font-size: 13px; padding: 12px 24px; background: #0a2a0a; color: var(--glow); border: 3px solid var(--border); cursor: pointer; box-shadow: 0 4px 0 #0a4a0a; margin-top: 10px; }
         .modal .close-btn:hover { background: #0d3a0d; transform: translateY(-2px); }
-        .modal .nav-btn {
-            position: absolute; top: 50%; transform: translateY(-50%);
-            font-family: 'Press Start 2P', monospace; font-size: 20px;
-            background: #0a2a0a; color: var(--glow); border: 3px solid var(--border);
-            cursor: pointer; padding: 12px 16px; box-shadow: 0 3px 0 #0a4a0a; z-index: 10;
-        }
+        .modal .nav-btn { position: absolute; top: 50%; transform: translateY(-50%); font-family: 'Press Start 2P', monospace; font-size: 20px; background: #0a2a0a; color: var(--glow); border: 3px solid var(--border); cursor: pointer; padding: 12px 16px; box-shadow: 0 3px 0 #0a4a0a; z-index: 10; }
         .modal .nav-btn:hover { background: #0d3a0d; }
         .modal .nav-prev { left: -45px; }
         .modal .nav-next { right: -45px; }
         .modal .counter { font-size: 16px; color: var(--text-dim); margin-bottom: 10px; }
 
-        /* Модалка для шагов */
-        .step-modal-content img { max-width: 100%; max-height: 50vh; margin-top: 15px; border: 3px solid #3a3a5a; }
-
         .note { border: 3px dashed #3a3a5a; background: #0a0a15; padding: 15px; margin-top: 15px; font-style: italic; color: #88aacc; }
+        .note a { color: var(--glow); }
 
         footer { text-align: center; padding: 20px; margin-top: 30px; font-size: 16px; color: #3a3a5a; border-top: 2px solid #1a1a2e; }
 
@@ -201,7 +173,6 @@
     </footer>
 </div>
 
-<!-- Модалка для галереи и шагов -->
 <div class="modal-overlay" id="modal-overlay" onclick="closeModal(event)">
     <div class="modal" id="modal-box">
         <div class="counter" id="modal-counter"></div>
@@ -219,7 +190,7 @@
     let currentGalleryIndex = 0;
     let currentStepIndex = 0;
     let currentStepType = '';
-    let modalMode = 'gallery'; // 'gallery' или 'step'
+    let modalMode = 'gallery';
 
     function makeLinksClickable(text) {
         if (!text) return "";
@@ -242,8 +213,7 @@
         document.getElementById("site-footer").innerHTML = `<p>${settingsData.footer}</p>`;
 
         const homeData = await loadJSON('/content/home.json', {
-            title: "🎯 Актуальный арт", image: "", description: "Сейчас мы рисуем новый пиксель-арт на WPlace. Присоединяйся!",
-            location: "https://wplace.live/?lat=53.38222746808291&lng=27.91098632812499&zoom=22",
+            title: "🎯 Актуальный арт", image: "", description: "", location: "",
             help_wplace: [], help_blue: [], help_helper: []
         });
         window._homeData = homeData;
@@ -251,7 +221,7 @@
             <div class="card"><h3>${homeData.title}</h3>
             ${homeData.image ? `<div class="art-image-container"><img src="${homeData.image}" alt="Актуальный арт"></div>` : ''}
             <div class="art-info">${makeLinksClickable(homeData.description)}</div>
-            <p style="margin-top:15px;">📍 <strong>Местоположение:</strong><br><a href="${homeData.location}" class="link-pixel" target="_blank">🔗 ОТКРЫТЬ НА WPLACE</a></p></div>`;
+            ${homeData.location ? `<p style="margin-top:15px;">📍 <strong>Местоположение:</strong><br><a href="${homeData.location}" class="link-pixel" target="_blank">🔗 ОТКРЫТЬ НА WPLACE</a></p>` : ''}</div>`;
         document.getElementById('help-section').innerHTML = `
             <div class="card"><h3>🖌 Как помочь с этим артом</h3>
             <p style="color:var(--accent2);margin-bottom:10px;">⚡ <strong>WPlace (сайт):</strong></p><ol class="pixel-list">${renderStepsList(homeData.help_wplace, 'wplace')}</ol>
@@ -263,6 +233,7 @@
         renderGalleryGrid(galleryData);
 
         const guidesData = await loadJSON('/content/guides.json', []);
+        window._guidesData = guidesData;
         document.getElementById('guides-content').innerHTML = guidesData.length > 0
             ? guidesData.map(g => `
                 <div class="card"><h3>${g.title}</h3><p><strong>Что это:</strong> ${makeLinksClickable(g.description)}</p>
@@ -275,16 +246,27 @@
     function renderStepsList(steps, type) {
         if (!steps || steps.length === 0) return '<li style="color:var(--text-dim);">Пусто</li>';
         return steps.map((s, i) => {
-            const stepData = typeof s === 'object' ? s : { text: s, image: "" };
-            return `<li onclick="openStepModal('${type}', ${i})">${makeLinksClickable(stepData.text)} <span class="step-arrow">▶</span></li>`;
+            const stepData = typeof s === 'object' ? s : { text: s, image: "", detail: "" };
+            return `<li onclick="openStepModal('${type}', ${i})">${makeLinksClickable(stepData.text || 'Шаг '+(i+1))} <span class="step-arrow">▶</span></li>`;
         }).join('');
     }
 
     function getStepData(type, index) {
-        if (type === 'wplace') return window._homeData?.help_wplace?.[index] || { text: "", image: "" };
-        if (type === 'blue') return window._homeData?.help_blue?.[index] || { text: "", image: "" };
-        if (type === 'helper') return window._homeData?.help_helper?.[index] || { text: "", image: "" };
-        return { text: "", image: "" };
+        if (type === 'wplace') return window._homeData?.help_wplace?.[index] || { text: "", image: "", detail: "" };
+        if (type === 'blue') return window._homeData?.help_blue?.[index] || { text: "", image: "", detail: "" };
+        if (type === 'helper') return window._homeData?.help_helper?.[index] || { text: "", image: "", detail: "" };
+        // Гайды
+        const parts = type.split('_');
+        if (parts[0] === 'guide') {
+            const guideType = parts[1]; // pc или phone
+            const guideTitle = parts.slice(2).join('_');
+            const guide = window._guidesData?.find(g => g.title === guideTitle);
+            if (guide) {
+                const steps = guideType === 'pc' ? guide.install_pc : guide.install_phone;
+                return steps?.[index] || { text: "", image: "", detail: "" };
+            }
+        }
+        return { text: "", image: "", detail: "" };
     }
 
     function openStepModal(type, index) {
@@ -299,11 +281,13 @@
 
     function showStepInModal() {
         const data = getStepData(currentStepType, currentStepIndex);
-        const stepData = typeof data === 'object' ? data : { text: data || "", image: "" };
+        const stepData = typeof data === 'object' ? data : { text: data || "", image: "", detail: "" };
         document.getElementById("modal-img").src = stepData.image || "";
         document.getElementById("modal-img").style.display = stepData.image ? 'block' : 'none';
         document.getElementById("modal-title").textContent = `Шаг ${currentStepIndex + 1}`;
-        document.getElementById("modal-desc").innerHTML = makeLinksClickable(stepData.text || "Нет описания");
+        document.getElementById("modal-desc").innerHTML = 
+            '<p style="margin-bottom:12px;font-size:22px;">' + makeLinksClickable(stepData.text || "Нет описания") + '</p>' +
+            (stepData.detail ? '<div class="note" style="text-align:left;font-size:18px;">📋 <strong>Подробности:</strong><br>' + makeLinksClickable(stepData.detail) + '</div>' : '');
         document.getElementById("modal-counter").textContent = "";
     }
 
