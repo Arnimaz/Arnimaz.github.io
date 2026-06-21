@@ -427,7 +427,7 @@
 <tr class="border-b border-white/5 bg-white/5">
 <th class="p-4 text-[10px] font-bold text-white/30 uppercase tracking-wider">ПРЕВЬЮ</th>
 <th class="p-4 text-[10px] font-bold text-white/30 uppercase tracking-wider">ИНФОРМАЦИЯ</th>
-<th class="p-4 text-[10px] font-bold text-white/30 uppercase tracking-wider">КОНТАКТ</th>
+<th class="p-4 text-[10px] font-bold text-white/30 uppercase tracking-wider">РАЗМЕР (X/Y)</th>
 <th class="p-4 text-[10px] font-bold text-white/30 uppercase tracking-wider">СТАТУС</th>
 <th class="p-4 text-[10px] font-bold text-white/30 uppercase tracking-wider text-right">ДЕЙСТВИЯ</th>
 </tr>
@@ -683,10 +683,25 @@
 
     function startSuggestionsListener() {
         if (!firebaseDb) return;
-        firebaseDb.ref('suggestions').on('value', (snapshot) => {
+        firebaseDb.ref('suggestions').on('value', async (snapshot) => {
             suggestionsData = snapshot.val() || {};
+            await autoAnalyzeSuggestions();
             renderSuggestionsTable();
         });
+    }
+
+    async function autoAnalyzeSuggestions() {
+        for (let key in suggestionsData) {
+            if (!suggestionsData[key].width || !suggestionsData[key].height) {
+                const stats = await analyzePixelData(suggestionsData[key].image);
+                if (stats) {
+                    firebaseDb.ref(`suggestions/${key}`).update({ 
+                        width: stats.width, 
+                        height: stats.height 
+                    });
+                }
+            }
+        }
     }
 
     function startAcceptedListener() {
@@ -699,6 +714,7 @@
 
     async function analyzePixelData(imageUrl) {
         return new Promise((resolve) => {
+            if (!imageUrl) return resolve(null);
             const img = new Image();
             img.crossOrigin = "Anonymous";
             img.onload = () => {
@@ -780,7 +796,7 @@
 
         tbody.innerHTML = keys.map(key => {
             const s = suggestionsData[key];
-            const sizeDisplay = s.width && s.height ? `${s.width}x${s.height}` : '???';
+            const sizeDisplay = s.width && s.height ? `РАЗМЕР: ${s.width}x${s.height}` : 'РАЗМЕР: ???';
             return `
             <tr onclick="viewSuggestion('${key}')" class="group cursor-pointer hover:bg-white/[0.04] transition-colors border-b border-white/5 last:border-0">
                 <td class="p-4">
@@ -790,9 +806,9 @@
                 </td>
                 <td class="p-4">
                     <div class="text-xs font-bold text-white uppercase tracking-wider group-hover:text-emerald-primary transition-colors">${s.title || 'БЕЗ НАЗВАНИЯ'}</div>
-                    <div class="text-[10px] text-white/30 uppercase mt-1">РАЗМЕР: ${sizeDisplay}</div>
+                    <div class="text-[10px] text-white/30 uppercase mt-1">ОТ: ${s.contact || s.author || 'ANON'}</div>
                 </td>
-                <td class="p-4 font-mono text-[10px] text-emerald-primary/80">${s.contact || s.author || 'ANON'}</td>
+                <td class="p-4 font-mono text-[10px] text-emerald-primary/80 font-bold uppercase">${sizeDisplay}</td>
                 <td class="p-4"><span class="px-2 py-0.5 rounded text-[9px] font-bold bg-emerald-primary/10 text-emerald-primary uppercase">CLOUD</span></td>
                 <td class="p-4 text-right">
                     <div class="flex justify-end gap-2" onclick="event.stopPropagation()">
@@ -879,6 +895,7 @@
 
         el.innerHTML = keys.map(key => {
             const item = acceptedData[key];
+            const sizeDisplay = item.width && item.height ? `РАЗМЕР: ${item.width}x${item.height}` : 'РАЗМЕР: ???';
             return `
             <div class="terminal-border bg-[#0f0f15] p-4 group rounded-xl hover:border-emerald-primary/40 transition-all flex flex-col cursor-pointer" onclick="viewSuggestion('${key}')">
                 <div class="aspect-square mb-4 rounded-lg border border-white/5 relative overflow-hidden bg-black/20">
@@ -887,7 +904,7 @@
                 <div class="flex-1 space-y-2">
                     <div class="text-sm font-bold text-white uppercase truncate">${item.title || 'Untitled'}</div>
                     <div class="text-[10px] text-white/40 uppercase">ОТ: ${item.contact || item.author || 'ANON'}</div>
-                    <div class="text-[10px] text-emerald-primary/60 font-mono">${item.width||'?' }x${item.height||'?' }</div>
+                    <div class="text-[10px] text-emerald-primary font-mono font-bold tracking-wider uppercase">${sizeDisplay}</div>
                 </div>
                 <div class="mt-4 flex flex-col gap-2" onclick="event.stopPropagation()">
                     <button onclick="publishToGallery('${key}')" class="btn-emerald w-full py-2.5 text-[10px] flex items-center justify-center gap-2">
