@@ -1,10 +1,12 @@
-<!DOCTYPE html><html class="dark" lang="ru" style=""><head>
-<meta charset="utf-8">
-<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<!DOCTYPE html>
+
+<html class="dark" lang="ru"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>Masters_of_Cum — official site</title>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&amp;family=JetBrains+Mono:wght@400;700&amp;family=Inter:wght@400;600;700;800&amp;display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&amp;family=JetBrains+Mono:wght@400;700&amp;family=Inter:wght@400;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
 <!-- Firebase SDKs -->
 <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-database-compat.js"></script>
@@ -77,20 +79,26 @@
             box-shadow: 0 0 20px rgba(0, 228, 121, 0.05);
         }
 
-        .accent-border-t {
-            border-top: 1px solid var(--accent);
-            box-shadow: inset 0 1px 0 rgba(0, 228, 121, 0.2);
-        }
-
         .tab-btn {
             transition: all 0.2s ease;
             color: #8ca697;
+            position: relative;
         }
 
         .tab-btn.active {
             color: #00e479;
             background: rgba(0, 228, 121, 0.05);
-            border-bottom: 2px solid #00e479;
+        }
+        
+        .tab-btn.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: #00e479;
+            box-shadow: 0 0 8px #00e479;
         }
 
         .neon-glow {
@@ -140,9 +148,21 @@
         }
 
         .modal-overlay {
-            display: flex;
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 100;
+            backdrop-filter: blur(12px);
+            background: rgba(0, 0, 0, 0.9);
             align-items: center;
             justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+            opacity: 1;
         }
     </style>
 </head>
@@ -151,7 +171,7 @@
 <!-- Header -->
 <header class="text-center mb-16 relative">
 <div class="inline-block relative">
-<h1 class="text-6xl md:text-8xl font-black tracking-tight text-white mb-2 site-title font-display">Masters_of_Cum</h1>
+<h1 class="text-6xl md:text-8xl font-black tracking-tight text-white mb-2 site-title font-display uppercase">Masters_of_Cum</h1>
 <div class="absolute -top-4 -left-4 w-4 h-4 border-t-2 border-l-2 border-accent opacity-50"></div>
 <div class="absolute -bottom-4 -right-4 w-4 h-4 border-b-2 border-r-2 border-accent opacity-50"></div>
 </div>
@@ -190,14 +210,14 @@
 <!-- Left Column: Image -->
 <div class="w-full">
 <div class="rounded-lg overflow-hidden border border-white/10 bg-black/40" id="current-art-img-wrapper">
-<img alt="Current Art" class="w-full object-contain h-auto" id="current-art-img" src="">
+<img alt="Current Art" class="w-full object-contain h-auto" id="current-art-img" src=""/>
 </div>
 </div>
 <!-- Right Column: Info & Actions -->
 <div class="w-full flex flex-col">
 <div class="flex-grow">
-<h4 class="text-4xl font-black text-white uppercase tracking-tight font-display mb-6" id="current-art-title">FRIEREN</h4>
-<div class="bg-white/5 border border-white/5 rounded p-6 font-mono text-on-surface-variant leading-relaxed" id="current-art-desc">Последний и актуальный арт</div>
+<h4 class="text-4xl font-black text-white uppercase tracking-tight font-display mb-6" id="current-art-title">LOADING...</h4>
+<div class="bg-white/5 border border-white/5 rounded p-6 font-mono text-on-surface-variant leading-relaxed" id="current-art-desc">...</div>
 </div>
 <div class="flex flex-col sm:flex-row gap-4 mt-12 pt-8 border-t border-white/5">
 <a class="btn-obsidian px-6 py-4 rounded flex items-center justify-center gap-2 text-[10px] tracking-widest uppercase font-bold transition-all flex-1" href="#" id="btn-wplace" target="_blank">
@@ -250,7 +270,9 @@
 </section>
 </div>
 <div class="tab-content" id="gallery">
-<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8" id="gallery-grid"><p class="col-span-full text-center py-20 text-on-surface-variant font-mono uppercase tracking-widest opacity-40">АРХИВ_ПУСТ</p></div>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8" id="gallery-grid">
+<p class="col-span-full text-center py-20 text-on-surface-variant font-mono uppercase tracking-widest opacity-40">АРХИВ_ПУСТ</p>
+</div>
 </div>
 <div class="tab-content" id="guides">
 <div class="space-y-8" id="guides-content">
@@ -265,29 +287,29 @@
 <h3 class="text-2xl font-black text-white uppercase tracking-tight font-display">ПРЕДЛОЖИТЬ АРТ</h3>
 </div>
 <form action="https://formspree.io/f/xqevzpqv" class="space-y-8 max-w-2xl" id="suggestion-form" method="POST" onsubmit="submitSuggestion(event)">
-<input name="_subject" type="hidden" value="Новое предложение Masters_of_Cum">
+<input name="_subject" type="hidden" value="Новое предложение Masters_of_Cum"/>
 <div class="space-y-2">
 <label class="text-[10px] font-mono uppercase tracking-widest text-accent font-bold">[01] НАЗВАНИЕ АРТА</label>
-<input class="w-full bg-black/40 border border-white/10 rounded p-4 text-white font-mono focus:border-accent outline-none transition-colors" id="sug-title" name="art_title" placeholder="Введите название..." required="" type="text">
+<input class="w-full bg-black/40 border border-white/10 rounded p-4 text-white font-mono focus:border-accent outline-none transition-colors" id="sug-title" name="art_title" placeholder="Введите название..." required="" type="text"/>
 </div>
 <div class="space-y-2">
 <label class="text-[10px] font-mono uppercase tracking-widest text-accent font-bold">[02] ССЫЛКА НА ИЗОБРАЖЕНИЕ</label>
-<input class="w-full bg-black/40 border border-white/10 rounded p-4 text-white font-mono focus:border-accent outline-none transition-colors" id="sug-url" name="image_url" placeholder="https://..." type="url">
+<input class="w-full bg-black/40 border border-white/10 rounded p-4 text-white font-mono focus:border-accent outline-none transition-colors" id="sug-url" name="image_url" placeholder="https://..." type="url"/>
 <div class="mt-4 flex flex-col gap-2">
 <label class="text-[10px] font-mono uppercase tracking-widest text-accent/60 font-bold">ИЛИ ЗАГРУЗИТЬ ФАЙЛ</label>
 <div class="relative group">
-<input accept="image/*" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10" id="sug-file" onchange="handleFileChange(this)" type="file">
+<input accept="image/*" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10" id="sug-file" onchange="handleFileChange(this)" type="file"/>
 <div class="w-full bg-black/20 border border-dashed border-white/10 rounded p-4 text-white font-mono flex items-center justify-between group-hover:border-accent/40 transition-colors">
 <span class="text-xs opacity-50 uppercase tracking-widest">ВЫБРАТЬ ФАЙЛ</span>
 <span class="material-symbols-outlined text-accent">upload_file</span>
 </div>
 </div>
-<input id="sug-file-data" name="file_attachment" type="hidden">
+<input id="sug-file-data" name="file_attachment" type="hidden"/>
 </div>
 </div>
 <div class="space-y-2">
 <label class="text-[10px] font-mono uppercase tracking-widest text-accent font-bold">[03] ВАШ КОНТАКТ (TG/DS)</label>
-<input class="w-full bg-black/40 border border-white/10 rounded p-4 text-white font-mono focus:border-accent outline-none transition-colors" id="sug-contact" name="contact" placeholder="@username or Discord ID" required="" type="text">
+<input class="w-full bg-black/40 border border-white/10 rounded p-4 text-white font-mono focus:border-accent outline-none transition-colors" id="sug-contact" name="contact" placeholder="@username or Discord ID" required="" type="text"/>
 </div>
 <div class="space-y-2">
 <label class="text-[10px] font-mono uppercase tracking-widest text-accent font-bold">[04] КОММЕНТАРИЙ</label>
@@ -302,7 +324,7 @@
 </div>
 </main>
 <!-- Footer -->
-<footer class="mt-40 pt-16 border-t border-white/5 text-center pb-20" id="site-footer"><div class="text-[10px] font-mono tracking-[0.3em] uppercase text-on-surface-variant/60 flex flex-wrap justify-center gap-x-8 gap-y-4"><span class="">TELEGRAM KOHTAKT - <a href="https://t.me/ARNIMAZ" target="_blank" class="hover:text-white transition-colors" style="color:#00e479; text-decoration: none;">@ARNIMAZ</a></span><span class="w-1 h-1 bg-white/20 rounded-full my-auto hidden md:block"></span><span class="">КАНАЛ - <a href="https://t.me/MASTERS_OF_CUM" target="_blank" class="hover:text-white transition-colors" style="color:#00e479; text-decoration: none;">@MASTERS_OF_CUM</a></span></div></footer>
+<footer class="mt-40 pt-16 border-t border-white/5 text-center pb-20" id="site-footer"></footer>
 </div>
 <!-- Admin Interface -->
 <div id="admin-panel-container">
@@ -317,20 +339,9 @@
 <div class="md:col-span-1 space-y-4">
 <div class="terminal-box border border-[#00ff41] p-6 bg-[#00ff41]/5 rounded">
 <nav class="flex flex-col gap-2">
-<button class="text-left py-2 px-4 bg-[#00ff41] text-black font-bold text-xs uppercase" onclick="switchAdminTab('logs')">SYSTEM_LOGS</button>
-<button class="text-left py-2 px-4 border border-[#00ff41]/40 text-[#00ff41] hover:bg-[#00ff41]/10 font-bold text-xs uppercase" onclick="switchAdminTab('suggestions')">SUGGESTIONS_QUEUE</button>
+<button class="text-left py-2 px-4 bg-[#00ff41] text-black font-bold text-xs uppercase" id="admin-nav-logs" onclick="switchAdminTab('logs')">SYSTEM_LOGS</button>
+<button class="text-left py-2 px-4 border border-[#00ff41]/40 text-[#00ff41] hover:bg-[#00ff41]/10 font-bold text-xs uppercase" id="admin-nav-suggestions" onclick="switchAdminTab('suggestions')">SUGGESTIONS_QUEUE</button>
 </nav>
-</div>
-<div class="terminal-box border border-[#00ff41] p-6 bg-[#00ff41]/5 rounded">
-<div class="space-y-4">
-<div class="space-y-4 mb-6">
-<div class="space-y-1"><label class="text-[10px] uppercase text-[#00ff41]/60 font-bold">[01] НАЗВАНИЕ АРТА</label><input class="w-full bg-black border border-[#00ff41]/40 p-2 text-xs text-[#00ff41] outline-none focus:border-[#00ff41]" id="admin-art-title" placeholder="Art Title..." type="text"></div>
-<div class="space-y-1"><label class="text-[10px] uppercase text-[#00ff41]/60 font-bold">[02] ОПИСАНИЕ АРТА</label><textarea class="w-full bg-black border border-[#00ff41]/40 p-2 text-xs text-[#00ff41] outline-none focus:border-[#00ff41] resize-none" id="admin-art-desc" placeholder="Art Description..." rows="4"></textarea></div>
-<div class="space-y-1"><label class="text-[10px] uppercase text-[#00ff41]/60 font-bold">[03] ССЫЛКА (WPLACE)</label><input class="w-full bg-black border border-[#00ff41]/40 p-2 text-xs text-[#00ff41] outline-none focus:border-[#00ff41]" id="admin-art-url" placeholder="https://..." type="url"></div>
-<button class="w-full bg-[#00ff41] text-black font-bold py-3 text-[10px] uppercase hover:brightness-110 transition-all" onclick="updateCurrentArt()">COMMIT_CHANGES</button>
-</div>
-<div class="text-[10px] text-white/40 font-mono italic">SYSTEM_SYNC_ACTIVE</div>
-</div>
 </div>
 </div>
 <div class="md:col-span-3 border border-[#00ff41] p-8 bg-[#00ff41]/5 rounded min-h-[500px]">
@@ -340,9 +351,9 @@
 <h2 class="font-bold uppercase tracking-widest">SYSTEM_LOGS</h2>
 </div>
 <div class="font-mono text-xs space-y-2 opacity-80" id="terminal-output">
-<div class="">[00:00:00] SYSTEM INITIALIZED...</div>
-<div class="">[00:00:01] FIREBASE_CONFIG_LOADED...</div>
-<div class="">[00:00:01] READY.</div>
+<div>[00:00:00] SYSTEM INITIALIZED...</div>
+<div>[00:00:01] FIREBASE_CONFIG_LOADED...</div>
+<div>[00:00:01] READY.</div>
 </div>
 </div>
 <div class="hidden" id="admin-tab-suggestions">
@@ -361,31 +372,30 @@
 </div>
 </div>
 <!-- Modal -->
-<div class="modal-overlay fixed inset-0 z-[100] backdrop-blur-xl bg-black/90 items-center justify-center p-6 transition-opacity opacity-0 pointer-events-none hidden" id="modal-overlay" onclick="closeModal(event)">
-<div class="modal obsidian-glass w-full max-w-5xl max-h-[90vh] overflow-y-auto p-12 scale-95 transition-transform rounded-xl border border-white/10" id="modal-box" onclick="event.stopPropagation()">
-<div class="flex justify-between items-center mb-10 pb-6 border-b border-white/5">
-
+<div class="modal-overlay" id="modal-overlay" onclick="closeModal(event)">
+<div class="modal obsidian-glass w-full max-w-5xl max-h-[90vh] overflow-y-auto p-12 rounded-xl border border-white/10" id="modal-box" onclick="event.stopPropagation()">
+<div class="flex justify-end mb-6">
 <button class="text-on-surface-variant hover:text-white transition-colors" onclick="closeModal()">
-<span class="material-symbols-outlined text-2xl">close</span>
+<span class="material-symbols-outlined text-3xl">close</span>
 </button>
 </div>
 <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
 <div class="image-container rounded-lg overflow-hidden border border-white/10 bg-black/40">
-<img alt="" class="w-full object-contain max-h-[50vh]" id="modal-img" src="">
+<img alt="" class="w-full object-contain max-h-[60vh]" id="modal-img" src=""/>
 </div>
 <div class="flex flex-col h-full">
-<h3 class="text-4xl font-black text-white mb-8 tracking-tight font-display uppercase" id="modal-title">TITLE_PLACEHOLDER</h3>
-<div class="text-on-surface-variant leading-relaxed mb-12 text-lg text-center" id="modal-desc" style="overflow-wrap: break-word; max-width: 100%; text-align: left;"></div>
+<h3 class="text-4xl font-black text-white mb-8 tracking-tight font-display uppercase" id="modal-title">TITLE</h3>
+<div class="text-on-surface-variant leading-relaxed mb-12 text-lg text-left overflow-hidden break-words" id="modal-desc"></div>
 <div class="flex flex-col gap-4 mt-auto">
-<button class="btn-obsidian w-full py-5 rounded flex items-center justify-center gap-3 text-xs tracking-widest uppercase" id="modal-download" onclick="downloadModalImage()" style="display: none;">
+<button class="btn-obsidian w-full py-5 rounded flex items-center justify-center gap-3 text-xs tracking-widest uppercase" id="modal-download" onclick="downloadModalImage()">
 <span class="material-symbols-outlined">download</span> СКАЧАТЬ АРТ
                     </button>
 <div class="flex items-center justify-between bg-white/5 p-1 rounded border border-white/10" id="modal-nav-row">
-<button class="p-4 hover:bg-white/5 hover:text-accent transition-colors" id="modal-prev" onclick="event.stopPropagation(); navModal(-1)">
+<button class="p-4 hover:bg-white/5 hover:text-accent transition-colors" id="modal-prev" onclick="navModal(-1)">
 <span class="material-symbols-outlined">chevron_left</span>
 </button>
 <span class="font-mono text-xs text-accent font-bold tracking-widest px-6" id="modal-nav-counter">00 / 00</span>
-<button class="p-4 hover:bg-white/5 hover:text-accent transition-colors" id="modal-next" onclick="event.stopPropagation(); navModal(1)">
+<button class="p-4 hover:bg-white/5 hover:text-accent transition-colors" id="modal-next" onclick="navModal(1)">
 <span class="material-symbols-outlined">chevron_right</span>
 </button>
 </div>
@@ -394,6 +404,7 @@
 </div>
 </div>
 </div>
+<div class="fixed inset-0 pointer-events-none z-[200] flex items-center justify-center" id="toast-container"></div>
 <script>
     // --- Firebase Configuration ---
     const firebaseConfig = {
@@ -447,8 +458,9 @@
 
     function makeLinksClickable(text) {
         if (!text) return "";
-        let t = text.toString().replace(/(https?:\/\/[^\s<>]+)/g, '<a href="$1" target="_blank" class="hover:text-white transition-colors" style="color:#00e479; text-decoration: none;">$1</a>');
-        t = t.replace(/@([a-zA-Z0-9_]+)/g, '<a href="https://t.me/$1" target="_blank" class="hover:text-white transition-colors" style="color:#00e479; text-decoration: none;">@$1</a>');
+        let t = text.toString()
+            .replace(/(https?:\/\/[^\s<>]+)/g, '<a href="$1" target="_blank" class="text-accent hover:text-white transition-colors" style="text-decoration: none;">$1</a>')
+            .replace(/@([a-zA-Z0-9_]+)/g, '<a href="https://t.me/$1" target="_blank" class="text-accent hover:text-white transition-colors" style="text-decoration: none;">@$1</a>');
         return t;
     }
 
@@ -470,8 +482,19 @@
     }
 
     async function loadJSON(path, fallback) {
-        try { const res = await fetch(path); if (!res.ok) throw new Error('not found'); return await res.json(); }
-        catch { return fallback; }
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 5000); // 5s timeout
+
+        try { 
+            const res = await fetch(path, { signal: controller.signal }); 
+            clearTimeout(timeoutId);
+            if (!res.ok) throw new Error('not found'); 
+            return await res.json(); 
+        }
+        catch (e) { 
+            console.warn(`Failed to load ${path}:`, e.name === 'AbortError' ? 'Timeout' : e.message);
+            return fallback; 
+        }
     }
 
     async function initContent() {
@@ -496,29 +519,31 @@
         document.getElementById("site-footer").innerHTML = footerHtml;
 
         const homeData = await loadJSON('/content/home.json', {
-            title: "FRIEREN", image: "https://lh3.googleusercontent.com/aida-public/AB6AXuAZHc4nUzxjh3nWoC0UKG8lfpf5TZOBgTX7-3eXwslkBnHmVh6_qocXF3nE9nZZ7D1hawY852NAuK1lP92RHfiTpqulE-k3mzUxZitJCutuxYgnWZ4ygF--2c-G1IHsw7vPSLmBi2FBJwXktdznbt_e0FL9mxSFvLD2016doJyJs9Rr24GcnB-_0XzcCMHNrNHY-0Va2lm883yYuxoWZjXH1i5PxK6kTFRy2wEWQoAHEanYZ1DXeJYXPS-kyliG0z_0e_3db8QInr3t", description: "Последний и актуальный арт", location: "#", help_wplace: [], help_blue: [], help_helper: []
+            title: "FRIEREN", 
+            image: "https://lh3.googleusercontent.com/aida-public/AB6AXuAZHc4nUzxjh3nWoC0UKG8lfpf5TZOBgTX7-3eXwslkBnHmVh6_qocXF3nE9nZZ7D1hawY852NAuK1lP92RHfiTpqulE-k3mzUxZitJCutuxYgnWZ4ygF--2c-G1IHsw7vPSLmBi2FBJwXktdznbt_e0FL9mxSFvLD2016doJyJs9Rr24GcnB-_0XzcCMHNrNHY-0Va2lm883yYuxoWZjXH1i5PxK6kTFRy2wEWQoAHEanYZ1DXeJYXPS-kyliG0z_0e_3db8QInr3t", 
+            description: "Последний и актуальный арт", 
+            location: "#", 
+            help_wplace: [], 
+            help_blue: [], 
+            help_helper: []
         });
         window._homeData = homeData;
         
-        // Update Current Art UI
         document.getElementById('current-art-title').textContent = homeData.title || "FRIEREN";
-        const descEl = document.getElementById('current-art-desc');
-        descEl.innerHTML = makeLinksClickable(homeData.description || "Последний и актуальный арт");
+        document.getElementById('current-art-desc').innerHTML = makeLinksClickable(homeData.description || "Последний и актуальный арт");
         
         if (homeData.image) {
             document.getElementById('current-art-img').src = homeData.image;
-            const dlBtn = document.getElementById('btn-download');
-            dlBtn.onclick = () => downloadImage(homeData.image, 'art-capture.png');
+            document.getElementById('btn-download').onclick = () => downloadImage(homeData.image, 'art-capture.png');
         }
         
         if (homeData.location) {
-            const wplaceBtn = document.getElementById('btn-wplace');
-            wplaceBtn.href = homeData.location;
+            document.getElementById('btn-wplace').href = homeData.location;
         }
 
-        if (homeData.help_wplace) document.querySelector('#wplace-steps ol').innerHTML = renderStepsList(homeData.help_wplace, 'wplace');
-        if (homeData.help_blue) document.querySelector('#blue-steps ol').innerHTML = renderStepsList(homeData.help_blue, 'blue');
-        if (homeData.help_helper) document.querySelector('#helper-steps ol').innerHTML = renderStepsList(homeData.help_helper, 'helper');
+        document.querySelector('#wplace-steps ol').innerHTML = renderStepsList(homeData.help_wplace, 'wplace');
+        document.querySelector('#blue-steps ol').innerHTML = renderStepsList(homeData.help_blue, 'blue');
+        document.querySelector('#helper-steps ol').innerHTML = renderStepsList(homeData.help_helper, 'helper');
 
         const galleryData = await loadJSON('/content/gallery.json', []);
         window._galleryData = galleryData;
@@ -567,27 +592,26 @@
     }
 
     function getStepData(type, index) {
-        if (type === 'wplace') return window._homeData?.help_wplace?.[index] || { text: "", image: "", detail: "" };
-        if (type === 'blue') return window._homeData?.help_blue?.[index] || { text: "", image: "", detail: "" };
-        if (type === 'helper') return window._homeData?.help_helper?.[index] || { text: "", image: "", detail: "" };
+        if (type === 'wplace') return window._homeData?.help_wplace?.[index];
+        if (type === 'blue') return window._homeData?.help_blue?.[index];
+        if (type === 'helper') return window._homeData?.help_helper?.[index];
         const parts = type.split('_');
         if (parts[0] === 'guide') {
             const guideType = parts[1], guideTitle = parts.slice(2).join('_');
             const guide = window._guidesData?.find(g => g.title === guideTitle);
-            if (guide) { const steps = guideType === 'pc' ? (guide.install_pc || []) : (guide.install_phone || []); return steps[index] || { text: "", image: "", detail: "" }; }
+            if (guide) { 
+                const steps = guideType === 'pc' ? (guide.install_pc || []) : (guide.install_phone || []); 
+                return steps[index]; 
+            }
         }
-        return { text: "", image: "", detail: "" };
+        return null;
     }
 
     function openStepModal(type, index) {
         currentStepType = type; currentStepIndex = index; modalMode = 'step';
         showStepInModal();
         const overlay = document.getElementById("modal-overlay");
-        overlay.classList.remove("hidden");
         overlay.classList.add("active");
-        overlay.style.opacity = '1';
-        overlay.style.pointerEvents = 'auto';
-        document.getElementById("modal-box").classList.remove("scale-95");
         document.getElementById("modal-nav-row").style.display = 'none';
         document.getElementById("modal-download").style.display = 'none';
     }
@@ -600,11 +624,15 @@
         img.closest('.image-container').style.display = stepData.image ? 'block' : 'none';
         document.getElementById("modal-title").textContent = `ШАГ ${(currentStepIndex + 1).toString().padStart(2, '0')}`;
         document.getElementById("modal-desc").innerHTML = `<div class="text-2xl font-bold mb-10 uppercase tracking-tight text-white font-display">${makeLinksClickable(stepData.text || "НЕТ_ОПИСАНИЯ")}</div>` + (stepData.detail && stepData.detail.toString().trim() ? '<div class="text-left p-8 rounded bg-black/40 text-sm border border-white/5 font-mono leading-relaxed"><div class="text-accent font-black mb-4 uppercase tracking-[0.3em] text-[10px]">ДАННЫЕ:</div>' + makeLinksClickable(stepData.detail) + '</div>' : '');
-        document.getElementById("modal-counter").textContent = "ИНФОРМАЦИЯ_О_ШАГЕ";
     }
 
     function renderGalleryGrid(data) {
-        document.getElementById('gallery-grid').innerHTML = data.length > 0 ? data.map((item, i) => `
+        const grid = document.getElementById('gallery-grid');
+        if (!data || data.length === 0) {
+            grid.innerHTML = '<p class="col-span-full text-center py-20 text-on-surface-variant font-mono uppercase tracking-widest opacity-40">АРХИВ_ПУСТ</p>';
+            return;
+        }
+        grid.innerHTML = data.map((item, i) => `
             <div class="obsidian-card p-6 cursor-pointer rounded-xl group" onclick="openGalleryItem(${i})">
                 <div class="rounded-lg overflow-hidden border border-white/5 bg-black mb-6 aspect-square relative">
                     ${item.image ? `<img src="${item.image}" alt="${item.title}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">` : '<div class="w-full h-full flex items-center justify-center bg-white/5"><span class="material-symbols-outlined text-4xl opacity-10">image_not_supported</span></div>'}
@@ -612,59 +640,53 @@
                 </div>
                 <h4 class="text-center font-bold text-white text-[10px] uppercase tracking-[0.3em] px-2 truncate font-mono">${item.title}</h4>
             </div>
-        `).join('') : '<p class="col-span-full text-center py-20 text-on-surface-variant font-mono uppercase tracking-widest opacity-40">АРХИВ_ПУСТ</p>';
+        `).join('');
     }
 
     function openGalleryItem(index) {
-        currentGalleryIndex = index; modalMode = 'gallery';
+        currentGalleryIndex = index; 
+        modalMode = 'gallery';
         showGalleryModal();
-        const overlay = document.getElementById("modal-overlay");
-        overlay.classList.remove("hidden");
-        overlay.classList.add("active");
-        overlay.style.opacity = '1';
-        overlay.style.pointerEvents = 'auto';
-        document.getElementById("modal-box").classList.remove("scale-95");
+        document.getElementById("modal-overlay").classList.add("active");
         document.getElementById("modal-nav-row").style.display = 'flex';
         document.getElementById("modal-download").style.display = 'flex';
     }
 
     function navModal(dir) {
-        if (modalMode === 'gallery') { 
-            currentGalleryIndex += dir; 
-            if (currentGalleryIndex < 0) currentGalleryIndex = window._galleryData.length - 1; 
-            if (currentGalleryIndex >= window._galleryData.length) currentGalleryIndex = 0; 
+        if (modalMode === 'gallery' && window._galleryData.length > 0) { 
+            currentGalleryIndex = (currentGalleryIndex + dir + window._galleryData.length) % window._galleryData.length;
             showGalleryModal(); 
         }
     }
 
     function showGalleryModal() {
-        const data = window._galleryData[currentGalleryIndex]; if (!data) return;
+        const data = window._galleryData[currentGalleryIndex]; 
+        if (!data) return;
         const img = document.getElementById("modal-img");
         img.closest('.image-container').style.display = 'block';
         img.src = data.image || "";
         document.getElementById("modal-title").textContent = (data.title || "БЕЗ_НАЗВАНИЯ").toUpperCase();
-        document.getElementById("modal-desc").innerHTML = `<div class="text-lg leading-relaxed text-on-surface-variant font-medium">${makeLinksClickable(data.description || "ОПИСАНИЕ_ОТСУТСТВУЕТ")}</div>`;
-        document.getElementById("modal-counter").textContent = `АРХИВНЫЙ_ФАЙЛ • ${currentGalleryIndex + 1} / ${window._galleryData.length}`;
+        document.getElementById("modal-desc").innerHTML = `<div class="text-lg leading-relaxed text-on-surface-variant font-medium">${makeLinksClickable(data.description || "")}</div>`;
         document.getElementById("modal-nav-counter").textContent = `${(currentGalleryIndex + 1).toString().padStart(2, '0')} / ${window._galleryData.length.toString().padStart(2, '0')}`;
     }
 
     function closeModal(event) { 
-        if (event && event.target !== document.getElementById("modal-overlay")) return; 
-        const overlay = document.getElementById("modal-overlay");
-        overlay.style.opacity = '0';
-        overlay.style.pointerEvents = 'none';
-        setTimeout(() => {
-            overlay.classList.add("hidden");
-            overlay.classList.remove("active");
-        }, 300);
-        document.getElementById("modal-box").classList.add("scale-95");
+        document.getElementById("modal-overlay").classList.remove("active");
     }
 
     function openTab(tabId) {
         document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
         document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
         document.getElementById(tabId).classList.add('active');
-        if (window.event) event.currentTarget.classList.add('active');
+        
+        // Find the button that was clicked
+        const buttons = document.querySelectorAll('.tab-btn');
+        buttons.forEach(btn => {
+            if (btn.getAttribute('onclick').includes(`'${tabId}'`)) {
+                btn.classList.add('active');
+            }
+        });
+        
         window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
@@ -672,7 +694,10 @@
         const overlay = document.getElementById("modal-overlay");
         if (!overlay.classList.contains("active")) return;
         if (e.key === "Escape") closeModal();
-        if (modalMode === 'gallery') { if (e.key === "ArrowLeft") navModal(-1); if (e.key === "ArrowRight") navModal(1); }
+        if (modalMode === 'gallery') { 
+            if (e.key === "ArrowLeft") navModal(-1); 
+            if (e.key === "ArrowRight") navModal(1); 
+        }
     });
 
     window.addEventListener('hashchange', () => {
@@ -693,25 +718,20 @@
     function switchAdminTab(tab) {
         const logs = document.getElementById('admin-tab-logs');
         const sugs = document.getElementById('admin-tab-suggestions');
-        const buttons = document.querySelectorAll('#admin-panel-container nav button');
+        const btnLogs = document.getElementById('admin-nav-logs');
+        const btnSugs = document.getElementById('admin-nav-suggestions');
         
-        buttons.forEach(btn => {
-            btn.classList.remove('bg-[#00ff41]', 'text-black');
-            btn.classList.add('border', 'border-[#00ff41]/40', 'text-[#00ff41]');
-        });
-
         if (tab === 'logs') {
             logs.classList.remove('hidden');
             sugs.classList.add('hidden');
+            btnLogs.className = "text-left py-2 px-4 bg-[#00ff41] text-black font-bold text-xs uppercase";
+            btnSugs.className = "text-left py-2 px-4 border border-[#00ff41]/40 text-[#00ff41] hover:bg-[#00ff41]/10 font-bold text-xs uppercase";
         } else {
             logs.classList.add('hidden');
             sugs.classList.remove('hidden');
+            btnSugs.className = "text-left py-2 px-4 bg-[#00ff41] text-black font-bold text-xs uppercase";
+            btnLogs.className = "text-left py-2 px-4 border border-[#00ff41]/40 text-[#00ff41] hover:bg-[#00ff41]/10 font-bold text-xs uppercase";
             loadSuggestionsIntoAdmin();
-        }
-        
-        if (event) {
-            event.target.classList.add('bg-[#00ff41]', 'text-black');
-            event.target.classList.remove('border', 'border-[#00ff41]/40', 'text-[#00ff41]');
         }
     }
 
@@ -743,7 +763,7 @@
                             <span class="text-[#00ff41] font-bold text-xs uppercase tracking-widest">[REC_${(i+1).toString().padStart(3,'0')}]</span>
                             <span class="text-white/40 text-[10px] font-mono">${s.date || s.timestamp || 'N/A'}</span>
                         </div>
-                        <button onclick="removeSuggestion('${s.fb_id}', ${i})" class="text-red-500/50 hover:text-red-500 transition-colors"><span class="material-symbols-outlined text-sm">delete</span></button>
+                        <button onclick="removeSuggestion('${s.fb_id}')" class="text-red-500/50 hover:text-red-500 transition-colors"><span class="material-symbols-outlined text-sm">delete</span></button>
                     </div>
                     <div class="grid grid-cols-1 lg:grid-cols-4 gap-6">
                         ${s.image ? `<div class="lg:col-span-1 aspect-square border border-white/10 rounded overflow-hidden bg-black"><img src="${s.image}" class="w-full h-full object-cover"></div>` : ''}
@@ -769,9 +789,9 @@
         output.scrollTop = output.scrollHeight;
     }
 
-    async function removeSuggestion(fbId, localIdx) {
+    async function removeSuggestion(fbId) {
         if (!confirm('УДАЛИТЬ ЗАПИСЬ?')) return;
-        if (firebaseReady && db && fbId !== 'undefined') {
+        if (firebaseReady && db && fbId) {
             await db.ref('suggestions/' + fbId).remove();
             loadSuggestionsIntoAdmin();
         }
@@ -784,10 +804,6 @@
             loadSuggestionsIntoAdmin();
         }
     }
-
-    if(window.location.hash === '#admin') window.dispatchEvent(new Event('hashchange'));
-
-    initContent();
 
     function showToast(message, isError = false) { 
         const container = document.getElementById('toast-container'); 
@@ -851,8 +867,11 @@
             btn.innerHTML = originalText; 
         } 
     }
+
+    // Startup
+    window.addEventListener('load', () => {
+        initContent();
+        if(window.location.hash === '#admin') window.dispatchEvent(new Event('hashchange'));
+    });
 </script>
-<div class="fixed inset-0 pointer-events-none z-[200] flex items-center justify-center" id="toast-container"></div>
-
-
-<iframe src="javascript:void((function(){document.open();document.domain='';document.close();})())" style="display: none;"></iframe><iframe src="javascript:void((function(){document.open();document.domain='';document.close();})())" style="display: none;"></iframe><iframe src="javascript:void((function(){document.open();document.domain='';document.close();})())" style="display: none;"></iframe><iframe src="javascript:void((function(){document.open();document.domain='';document.close();})())" style="display: none;"></iframe><iframe src="javascript:void((function(){document.open();document.domain='';document.close();})())" style="display: none;"></iframe><iframe src="javascript:void((function(){document.open();document.domain='';document.close();})())" style="display: none;"></iframe><iframe src="javascript:void((function(){document.open();document.domain='';document.close();})())" style="display: none;"></iframe><iframe src="javascript:void((function(){document.open();document.domain='';document.close();})())" style="display: none;"></iframe><iframe src="javascript:void((function(){document.open();document.domain='';document.close();})())" style="display: none;"></iframe><iframe src="javascript:void((function(){document.open();document.domain='';document.close();})())" style="display: none;"></iframe><iframe src="javascript:void((function(){document.open();document.domain='';document.close();})())" style="display: none;"></iframe><iframe src="javascript:void((function(){document.open();document.domain='';document.close();})())" style="display: none;"></iframe><iframe src="javascript:void((function(){document.open();document.domain='';document.close();})())" style="display: none;"></iframe><iframe src="javascript:void((function(){document.open();document.domain='';document.close();})())" style="display: none;"></iframe><iframe src="javascript:void((function(){document.open();document.domain='';document.close();})())" style="display: none;"></iframe><iframe src="javascript:void((function(){document.open();document.domain='';document.close();})())" style="display: none;"></iframe><iframe src="javascript:void((function(){document.open();document.domain='';document.close();})())" style="display: none;"></iframe><iframe src="javascript:void((function(){document.open();document.domain='';document.close();})())" style="display: none;"></iframe><iframe src="javascript:void((function(){document.open();document.domain='';document.close();})())" style="display: none;"></iframe><iframe src="javascript:void((function(){document.open();document.domain='';document.close();})())" style="display: none;"></iframe><iframe src="javascript:void((function(){document.open();document.domain='';document.close();})())" style="display: none;"></iframe><iframe src="javascript:void((function(){document.open();document.domain='';document.close();})())" style="display: none;"></iframe><iframe src="javascript:void((function(){document.open();document.domain='';document.close();})())" style="display: none;"></iframe><iframe src="javascript:void((function(){document.open();document.domain='';document.close();})())" style="display: none;"></iframe></body></html>
+</body></html>
