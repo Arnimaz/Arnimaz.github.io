@@ -406,7 +406,14 @@
 <div class="flex items-center gap-4">
 <div class="flex items-center gap-2">
 <label class="text-[10px] font-bold text-white/30 uppercase tracking-widest">Сортировка:</label>
-<select class="input-field py-1.5 px-3 text-[10px] font-bold uppercase tracking-wider bg-white/5 border-white/10" onchange="sortSuggestions(this.value)"><option value="alpha_asc">А-Я (ПО АЛФАВИТУ)</option><option value="date_desc">ДАТА (НОВЫЕ)</option><option value="date_asc">ДАТА (СТАРЫЕ)</option><option value="size_desc">РАЗМЕР (MAX)</option><option value="has_contact">С КОНТАКТОМ</option><option value="has_comment">ПО НАЛИЧИЮ КОММЕНТАРИЯ</option></select>
+<select class="input-field py-1.5 px-3 text-[10px] font-bold uppercase tracking-wider bg-white/5 border-white/10" onchange="sortSuggestions(this.value)">
+<option value="alpha_asc">А-Я (ПО АЛФАВИТУ)</option>
+<option value="date_desc">ДАТА (НОВЫЕ)</option>
+<option value="date_asc">ДАТА (СТАРЫЕ)</option>
+<option value="size_desc">РАЗМЕР (MAX)</option>
+<option value="has_contact">С КОНТАКТОМ</option>
+<option value="has_comment">ПО НАЛИЧИЮ КОММЕНТАРИЯ</option>
+</select>
 </div>
 <div class="flex items-center gap-2 px-3 py-1.5 bg-emerald-primary/5 rounded-full border border-emerald-primary/10 text-[10px]">
 <span class="font-bold uppercase text-emerald-primary/80" id="suggestion-count">0 ЗАЯВОК</span>
@@ -437,7 +444,14 @@
 <div class="flex items-center gap-4">
 <div class="flex items-center gap-2">
 <label class="text-[10px] font-bold text-white/30 uppercase tracking-widest">Сортировка:</label>
-<select class="input-field py-1.5 px-3 text-[10px] font-bold uppercase tracking-wider bg-white/5 border-white/10" onchange="sortAccepted(this.value)"><option value="alpha_asc">А-Я (ПО АЛФАВИТУ)</option><option value="date_desc">ДАТА (НОВЫЕ)</option><option value="size_desc">РАЗМЕР (MAX)</option><option value="has_comment">ПО НАЛИЧИЮ КОММЕНТАРИЯ</option></select>
+<select class="input-field py-1.5 px-3 text-[10px] font-bold uppercase tracking-wider bg-white/5 border-white/10" onchange="sortAccepted(this.value)">
+<option value="alpha_asc">А-Я (ПО АЛФАВИТУ)</option>
+<option value="date_desc">ДАТА (НОВЫЕ)</option>
+<option value="date_asc">ДАТА (СТАРЫЕ)</option>
+<option value="size_desc">РАЗМЕР (MAX)</option>
+<option value="has_contact">С КОНТАКТОМ</option>
+<option value="has_comment">ПО НАЛИЧИЮ КОММЕНТАРИЯ</option>
+</select>
 </div>
 <div class="flex items-center gap-2 px-3 py-1.5 bg-emerald-primary/5 rounded-full border border-emerald-primary/10 text-[10px]">
 <span class="font-bold uppercase text-emerald-primary/80" id="accepted-count">0 АРТОВ</span>
@@ -488,7 +502,7 @@
 <button class="px-6 py-3.5 text-xs font-bold text-emerald-primary hover:bg-emerald-primary/10 border border-emerald-primary/20 rounded-lg flex items-center gap-2 transition-all" onclick="importAll()">
 <span class="material-symbols-outlined text-lg">upload</span> ИМПОРТ / ПЕРЕЗАПИСЬ
                             </button>
-<button class="px-6 py-3.5 text-xs font-bold text-red-500 hover:bg-red-500/10 border border-red-500/20 rounded-lg flex items-center gap-2 transition-all" onclick="if(confirm('ПОЛНАЯ ОЧИСТКА? ЭТО ДЕЙСТВИЕ НЕОБРАТИМО.')) resetAll()">
+<button class="px-6 py-3.5 text-xs font-bold text-red-500 hover:bg-red-500/10 border border-red-500/20 rounded-lg flex items-center gap-2 transition-all" onclick="resetAll()">
 <span class="material-symbols-outlined text-lg">delete_forever</span> СБРОС ДО ЗАВОДСКИХ
                             </button>
 <input accept=".json" class="hidden" id="import-file" onchange="handleImport(event)" type="file"/>
@@ -505,7 +519,7 @@
 </main>
 </div>
 <!-- SUGGESTION MODAL -->
-<div class="fixed inset-0 z-[100] flex items-center justify-center bg-black/80 backdrop-blur-sm hidden" id="suggestion-modal" onclick="if(event.target === this) closeSuggestionModal()">
+<div class="fixed inset-0 z-[100] flex items-center justify-center bg-black/80 backdrop-blur-sm hidden" id="suggestion-modal" onclick="closeSuggestionModal()">
 <div class="w-full max-w-2xl obsidian-card rounded-2xl p-8 border border-emerald-primary/30 shadow-[0_0_30px_rgba(0,228,121,0.1)]" onclick="event.stopPropagation()">
 <div class="flex justify-between items-start mb-6">
 <h3 class="text-xl font-black text-white uppercase tracking-tight font-display-lg" id="modal-title-header">ДЕТАЛИ ЗАЯВКИ (АРТ)</h3>
@@ -517,8 +531,8 @@
 <div class="mt-8 pt-6 border-t border-white/5 flex flex-wrap items-center justify-between gap-4"><div class="flex gap-3"><button class="btn-emerald px-6 py-2.5 text-xs flex items-center gap-2" id="modal-download-btn"><span class="material-symbols-outlined text-sm">download</span> СКАЧАТЬ АРТ</button><button class="hidden px-6 py-2.5 text-xs font-bold text-red-500/60 hover:text-red-500 border border-red-500/20 rounded-lg transition-colors flex items-center gap-2" id="modal-delete-btn"><span class="material-symbols-outlined text-sm">delete</span> УДАЛИТЬ</button></div><div class="flex gap-4"><button class="px-6 py-2.5 text-xs font-bold text-white/40 hover:text-white border border-white/10 rounded-lg transition-colors" onclick="closeSuggestionModal()">ЗАКРЫТЬ</button><button class="btn-emerald px-8 py-2.5 text-xs shadow-[0_0_15px_rgba(0,228,121,0.3)]" id="modal-accept-btn">ПЕРЕНЕСТИ В ОДОБРЕННЫЕ</button></div></div>
 </div>
 </div>
-<!-- ACCEPT PUBLISH MODAL (LEGACY - NOW HANDLED BY SCRIPT DIRECTLY) -->
-<div class="fixed inset-0 z-[110] flex items-center justify-center bg-black/90 backdrop-blur-md hidden" id="publish-modal" onclick="if(event.target === this) this.classList.add('hidden')">
+<!-- ACCEPT PUBLISH MODAL -->
+<div class="fixed inset-0 z-[110] flex items-center justify-center bg-black/90 backdrop-blur-md hidden" id="publish-modal" onclick="this.classList.add('hidden')">
 <div class="w-full max-w-lg obsidian-card rounded-2xl p-8" onclick="event.stopPropagation()">
 <h3 class="text-xl font-black text-white uppercase tracking-tight mb-6">ПУБЛИКАЦИЯ В ГАЛЕРЕЮ</h3>
 <div class="space-y-6">
@@ -698,7 +712,7 @@
                     const data = imageData.data;
                     let opaqueCount = 0;
                     for (let i = 3; i < data.length; i += 4) {
-                        if (data[i] > 10) opaqueCount++; // threshold for near-transparency
+                        if (data[i] > 10) opaqueCount++; 
                     }
                     resolve({
                         width: img.width,
@@ -767,7 +781,6 @@
         tbody.innerHTML = keys.map(key => {
             const s = suggestionsData[key];
             const sizeDisplay = s.width && s.height ? `${s.width}x${s.height}` : '???';
-            const contactInfo = s.contact || s.author || 'ANON';
             return `
             <tr onclick="viewSuggestion('${key}')" class="group cursor-pointer hover:bg-white/[0.04] transition-colors border-b border-white/5 last:border-0">
                 <td class="p-4">
@@ -777,9 +790,9 @@
                 </td>
                 <td class="p-4">
                     <div class="text-xs font-bold text-white uppercase tracking-wider group-hover:text-emerald-primary transition-colors">${s.title || 'БЕЗ НАЗВАНИЯ'}</div>
-                    <div class="text-[10px] text-white/30 uppercase mt-1">ОТ: ${contactInfo}</div>
+                    <div class="text-[10px] text-white/30 uppercase mt-1">РАЗМЕР: ${sizeDisplay}</div>
                 </td>
-                <td class="p-4 font-mono text-[10px] text-emerald-primary/80">${sizeDisplay}</td>
+                <td class="p-4 font-mono text-[10px] text-emerald-primary/80">${s.contact || s.author || 'ANON'}</td>
                 <td class="p-4"><span class="px-2 py-0.5 rounded text-[9px] font-bold bg-emerald-primary/10 text-emerald-primary uppercase">CLOUD</span></td>
                 <td class="p-4 text-right">
                     <div class="flex justify-end gap-2" onclick="event.stopPropagation()">
@@ -909,17 +922,14 @@
     }
 
     function deleteAccepted(key) {
-        if (!confirm('УДАЛИТЬ ИЗ ОДОБРЕННЫХ?')) return;
         firebaseDb.ref(`accepted/${key}`).remove();
     }
 
     function deleteSuggestion(key) {
-        if (!confirm('УДАЛИТЬ ЗАЯВКУ?')) return;
         firebaseDb.ref(`suggestions/${key}`).remove();
     }
 
     function clearFirebaseSuggestions() {
-        if (!confirm('ОЧИСТИТЬ ВСЕ ЗАЯВКИ?')) return;
         firebaseDb.ref('suggestions').set(null);
     }
 
@@ -1002,7 +1012,7 @@
                     <div class="absolute inset-0 bg-[#0a0a0f]/90 opacity-0 group-hover:opacity-100 flex items-center justify-center gap-3 transition-opacity">
                         <button onclick="moveGalleryItem(${i},-1)" class="w-10 h-10 rounded-lg bg-white/5 hover:bg-white/10 flex items-center justify-center text-white transition-colors"><span class="material-symbols-outlined text-xl">arrow_back</span></button>
                         <button onclick="moveGalleryItem(${i},1)" class="w-10 h-10 rounded-lg bg-white/5 hover:bg-white/10 flex items-center justify-center text-white transition-colors"><span class="material-symbols-outlined text-xl">arrow_forward</span></button>
-                        <button onclick="if(confirm('УДАЛИТЬ ОБЪЕКТ?')){galleryData.splice(${i},1);renderGallery();}" class="w-10 h-10 rounded-lg bg-red-500/10 hover:bg-red-500 text-red-500 hover:text-white flex items-center justify-center transition-colors"><span class="material-symbols-outlined text-xl">delete</span></button>
+                        <button onclick="galleryData.splice(${i},1);renderGallery();" class="w-10 h-10 rounded-lg bg-red-500/10 hover:bg-red-500 text-red-500 hover:text-white flex items-center justify-center transition-colors"><span class="material-symbols-outlined text-xl">delete</span></button>
                     </div>
                 </div>
                 <div class="space-y-2">
@@ -1028,7 +1038,7 @@
                         <input class="input-field w-full text-xl font-black bg-transparent border-none px-0 focus:ring-0 uppercase text-white" placeholder="ТЕМАТИКА" value="${g.title||''}" onchange="guidesData[${i}].title=this.value">
                         <textarea class="input-field w-full text-sm opacity-60 bg-transparent border-none px-0 mt-2 focus:ring-0 text-white" placeholder="ВВОДНАЯ ИНФОРМАЦИЯ..." rows="1" onchange="guidesData[${i}].description=this.value">${g.description||''}</textarea>
                     </div>
-                    <button class="w-10 h-10 rounded-lg bg-red-500/10 hover:bg-red-500 text-red-500 hover:text-white transition-colors flex items-center justify-center" onclick="if(confirm('УДАЛИТЬ ЭТОТ РАЗДЕЛ?')){guidesData.splice(${i},1);renderGuides();}">
+                    <button class="w-10 h-10 rounded-lg bg-red-500/10 hover:bg-red-500 text-red-500 hover:text-white transition-colors flex items-center justify-center" onclick="guidesData.splice(${i},1);renderGuides();">
                         <span class="material-symbols-outlined text-xl">delete</span>
                     </button>
                 </div>
@@ -1100,7 +1110,6 @@
     }
 
     async function resetAll() {
-        if(!confirm('ПОЛНАЯ ОЧИСТКА? ЭТО ДЕЙСТВИЕ НЕОБРАТИМО.')) return;
         homeData = { title: "", image: "", description: "", location: "", help_wplace: [], help_blue: [], help_helper: [] };
         galleryData = []; guidesData = [];
         settingsData = { siteTitle: "Admin panel", headerTitle: "⚔ WPLACE ⚔", headerSubtitle: "Pixel Art Community", footer: "© 2025" };
