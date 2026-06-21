@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html class="dark" lang="ru" style=""><head>
+<html class="dark" lang="ru"><head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>Masters_of_Cum — official site</title>
@@ -171,35 +171,50 @@
 <button class="tab-btn w-full md:w-auto px-10 py-5 flex items-center justify-center gap-3 text-xs font-bold uppercase tracking-widest" onclick="openTab('guides')">
 <span class="material-symbols-outlined text-lg">library_books</span> ГАЙДЫ
             </button>
-<button class="tab-btn w-full md:w-auto px-10 py-5 flex items-center justify-center gap-3 text-xs font-bold uppercase tracking-widest" onclick="openTab('suggestions')"><span class="material-symbols-outlined text-lg">move_to_inbox</span> ПРЕДЛОЖКА</button></div>
+<button class="tab-btn w-full md:w-auto px-10 py-5 flex items-center justify-center gap-3 text-xs font-bold uppercase tracking-widest" onclick="openTab('suggestions')">
+<span class="material-symbols-outlined text-lg">move_to_inbox</span> ПРЕДЛОЖКА
+            </button>
+</div>
 </nav>
 <!-- Main Content -->
 <main>
 <div class="tab-content space-y-12 active" id="home">
 <!-- Current Art Section -->
 <section id="current-art-section">
-<div class="obsidian-card rounded-xl border-t-2 border-t-accent/40 px-8 md:px-12 pb-8 md:pb-12 pt-0" style="transform: translateY(0px);">
-<div class="flex flex-col lg:flex-row gap-12"><!-- Left Column: Image -->
-<div class="w-full lg:w-1/2 flex flex-col">
-<div class="flex items-center gap-4">
-<div class="w-10 h-10 rounded bg-accent/10 flex items-center justify-center">
+<div class="obsidian-card rounded-xl p-8 md:p-10">
+<div class="flex items-center gap-3 mb-8">
+<div class="w-10 h-10 rounded-lg bg-[#00ff88]/10 flex items-center justify-center">
 <span class="material-symbols-outlined text-accent neon-glow">palette</span>
 </div>
 <h3 class="text-2xl font-black text-white uppercase tracking-tight font-display">АКТУАЛЬНЫЙ АРТ</h3>
 </div>
-<div class="w-full rounded-lg overflow-hidden border border-white/10 bg-black/40 p-2" id="current-art-img-wrapper">
-<img alt="Current Art" class="w-full h-auto object-contain" id="current-art-img" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDu3z_CaYPW544mR_XkBK1GwdeI3J3M-LkMVePNs-a9RYZcmJPQuTxBWJt07CdyVRaZ_v0F_PSDvhN6BFL0CsBJzg6gOODA4XsahAvf-BT-6637wROwaH-rNYRBH3h8Ytuk5CZb6cD9em-zGtmjaKUD0nCa9DX0jaUmkO2Yct7VOOi7u5zL4jhO9SDnV81Lgh7-wsnTdyDx-DH5io0JjLLn0s9c1k8rZTDUap11oGqw8pfMuogmxAMq3xF3biblJ14bG7iMLlYH0QyT"/>
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+<!-- Left Column: Image -->
+<div class="w-full">
+<div class="rounded-lg overflow-hidden border border-white/10 bg-black/40 aspect-square" id="current-art-img-wrapper">
+<img alt="Current Art" class="w-full h-full object-cover" id="current-art-img" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAZHc4nUzxjh3nWoC0UKG8lfpf5TZOBgTX7-3eXwslkBnHmVh6_qocXF3nE9nZZ7D1hawY852NAuK1lP92RHfiTpqulE-k3mzUxZitJCutuxYgnWZ4ygF--2c-G1IHsw7vPSLmBi2FBJwXktdznbt_e0FL9mxSFvLD2016doJyJs9Rr24GcnB-_0XzcCMHNrNHY-0Va2lm883yYuxoWZjXH1i5PxK6kTFRy2wEWQoAHEanYZ1DXeJYXPS-kyliG0z_0e_3db8QInr3t"/>
 </div>
 </div>
 <!-- Right Column: Info & Actions -->
-<div class="w-full lg:w-1/2 flex flex-col pt-0 justify-between">
-<div class="space-y-6 mb-12">
-<h4 class="text-4xl font-black text-white uppercase tracking-tight font-display neon-glow mt-0" id="current-art-title">FRIEREN</h4>
-<div class="text-xl text-on-surface-variant leading-relaxed font-medium font-mono bg-black/20 p-6 border border-white/5 rounded-lg" id="current-art-desc">Последний и актуальный арт</div>
+<div class="w-full flex flex-col h-full">
+<div class="flex-grow">
+<h4 class="text-4xl font-black text-white uppercase tracking-tight font-display mb-6" id="current-art-title">FRIEREN</h4>
+<div class="bg-white/5 border border-white/5 rounded p-6 font-mono text-on-surface-variant leading-relaxed" id="current-art-desc">
+                                    Последний и актуальный арт
+                                </div>
 </div>
-<div class="flex flex-wrap gap-3 pt-8 border-t border-white/5 mt-auto items-center"><a class="btn-obsidian px-6 py-4 rounded flex-1 flex items-center justify-center gap-2 text-[10px] tracking-widest uppercase font-bold transition-all" href="#" id="btn-wplace" target="_blank"><span class="material-symbols-outlined text-sm">link</span> ОТКРЫТЬ НА WPLACE</a><button class="btn-obsidian px-6 py-4 rounded flex-1 flex items-center justify-center gap-2 text-[10px] tracking-widest uppercase font-bold transition-all" id="btn-download"><span class="material-symbols-outlined text-sm">save</span> СКАЧАТЬ АРТ</button></div>
-</div></div>
-</div></section>
+<div class="flex flex-col sm:flex-row gap-4 mt-12 pt-8 border-t border-white/5">
+<a class="btn-obsidian px-6 py-4 rounded flex items-center justify-center gap-2 text-[10px] tracking-widest uppercase font-bold transition-all flex-1" href="#" id="btn-wplace" target="_blank">
+<span class="material-symbols-outlined text-sm">link</span> ОТКРЫТЬ НА WPLACE
+                                </a>
+<button class="btn-obsidian px-6 py-4 rounded flex items-center justify-center gap-2 text-[10px] tracking-widest uppercase font-bold transition-all flex-1" id="btn-download">
+<span class="material-symbols-outlined text-sm">save</span> СКАЧАТЬ АРТ
+                                </button>
+</div>
+</div>
+</div>
+</div>
+</section>
 <!-- Help Section -->
 <section id="help-section">
 <div class="obsidian-card rounded-xl p-8 md:p-12 border-t-2 border-t-accent/40">
@@ -246,9 +261,58 @@
 <p class="text-center py-16 text-on-surface-variant font-mono uppercase tracking-widest">База данных пуста.</p>
 </div>
 </div>
-<div class="tab-content space-y-12" id="suggestions"><section><div class="obsidian-card rounded-xl p-8 md:p-12 border-t-2 border-t-accent/40"><div class="flex items-center gap-4 mb-10"><div class="w-10 h-10 rounded bg-accent/10 flex items-center justify-center"><span class="material-symbols-outlined text-accent neon-glow">edit_note</span></div><h3 class="text-2xl font-black text-white uppercase tracking-tight font-display">ПРЕДЛОЖИТЬ АРТ</h3></div><form action="https://formspree.io/f/xqevzpqv" class="space-y-8 max-w-2xl" id="suggestion-form" method="POST" onsubmit="submitSuggestion(event)"><input name="_subject" type="hidden" value="Новое предложение Masters_of_Cum"/><div class="space-y-2"><label class="text-[10px] font-mono uppercase tracking-widest text-accent font-bold">[01] НАЗВАНИЕ АРТА</label><input class="w-full bg-black/40 border border-white/10 rounded p-4 text-white font-mono focus:border-accent outline-none transition-colors" id="sug-title" name="art_title" placeholder="Введите название..." required="" type="text"/></div><div class="space-y-2"><label class="text-[10px] font-mono uppercase tracking-widest text-accent font-bold">[02] ССЫЛКА НА ИЗОБРАЖЕНИЕ</label><input class="w-full bg-black/40 border border-white/10 rounded p-4 text-white font-mono focus:border-accent outline-none transition-colors" id="sug-url" name="image_url" placeholder="https://..." type="url"/><div class="mt-4 flex flex-col gap-2"><label class="text-[10px] font-mono uppercase tracking-widest text-accent/60 font-bold">ИЛИ ЗАГРУЗИТЬ ФАЙЛ</label><div class="relative group"><input accept="image/*" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10" id="sug-file" onchange="handleFileChange(this)" type="file"/><div class="w-full bg-black/20 border border-dashed border-white/10 rounded p-4 text-white font-mono flex items-center justify-between group-hover:border-accent/40 transition-colors"><span class="text-xs opacity-50 uppercase tracking-widest">ВЫБРАТЬ ФАЙЛ</span><span class="material-symbols-outlined text-accent">upload_file</span></div></div><input id="sug-file-data" name="file_attachment" type="hidden"/></div></div><div class="space-y-2"><label class="text-[10px] font-mono uppercase tracking-widest text-accent font-bold">[03] ВАШ КОНТАКТ (TG/DS)</label><input class="w-full bg-black/40 border border-white/10 rounded p-4 text-white font-mono focus:border-accent outline-none transition-colors" id="sug-contact" name="contact" placeholder="@username or Discord ID" required="" type="text"/></div><div class="space-y-2"><label class="text-[10px] font-mono uppercase tracking-widest text-accent font-bold">[04] КОММЕНТАРИЙ</label><textarea class="w-full bg-black/40 border border-white/10 rounded p-4 text-white font-mono focus:border-accent outline-none transition-colors resize-none" id="sug-desc" name="message" placeholder="Дополнительная информация..." rows="4"></textarea></div><button class="btn-obsidian w-full md:w-auto px-12 py-5 rounded flex items-center justify-center gap-3 text-xs tracking-widest uppercase" type="submit"><span class="material-symbols-outlined">send</span> ОТПРАВИТЬ ПРЕДЛОЖЕНИЕ</button></form></div></section></div></main>
+<div class="tab-content space-y-12" id="suggestions">
+<section>
+<div class="obsidian-card rounded-xl p-8 md:p-12 border-t-2 border-t-accent/40">
+<div class="flex items-center gap-4 mb-10">
+<div class="w-10 h-10 rounded bg-accent/10 flex items-center justify-center"><span class="material-symbols-outlined text-accent neon-glow">edit_note</span></div>
+<h3 class="text-2xl font-black text-white uppercase tracking-tight font-display">ПРЕДЛОЖИТЬ АРТ</h3>
+</div>
+<form action="https://formspree.io/f/xqevzpqv" class="space-y-8 max-w-2xl" id="suggestion-form" method="POST" onsubmit="submitSuggestion(event)">
+<input name="_subject" type="hidden" value="Новое предложение Masters_of_Cum"/>
+<div class="space-y-2">
+<label class="text-[10px] font-mono uppercase tracking-widest text-accent font-bold">[01] НАЗВАНИЕ АРТА</label>
+<input class="w-full bg-black/40 border border-white/10 rounded p-4 text-white font-mono focus:border-accent outline-none transition-colors" id="sug-title" name="art_title" placeholder="Введите название..." required="" type="text"/>
+</div>
+<div class="space-y-2">
+<label class="text-[10px] font-mono uppercase tracking-widest text-accent font-bold">[02] ССЫЛКА НА ИЗОБРАЖЕНИЕ</label>
+<input class="w-full bg-black/40 border border-white/10 rounded p-4 text-white font-mono focus:border-accent outline-none transition-colors" id="sug-url" name="image_url" placeholder="https://..." type="url"/>
+<div class="mt-4 flex flex-col gap-2">
+<label class="text-[10px] font-mono uppercase tracking-widest text-accent/60 font-bold">ИЛИ ЗАГРУЗИТЬ ФАЙЛ</label>
+<div class="relative group">
+<input accept="image/*" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10" id="sug-file" onchange="handleFileChange(this)" type="file"/>
+<div class="w-full bg-black/20 border border-dashed border-white/10 rounded p-4 text-white font-mono flex items-center justify-between group-hover:border-accent/40 transition-colors">
+<span class="text-xs opacity-50 uppercase tracking-widest">ВЫБРАТЬ ФАЙЛ</span>
+<span class="material-symbols-outlined text-accent">upload_file</span>
+</div>
+</div>
+<input id="sug-file-data" name="file_attachment" type="hidden"/>
+</div>
+</div>
+<div class="space-y-2">
+<label class="text-[10px] font-mono uppercase tracking-widest text-accent font-bold">[03] ВАШ КОНТАКТ (TG/DS)</label>
+<input class="w-full bg-black/40 border border-white/10 rounded p-4 text-white font-mono focus:border-accent outline-none transition-colors" id="sug-contact" name="contact" placeholder="@username or Discord ID" required="" type="text"/>
+</div>
+<div class="space-y-2">
+<label class="text-[10px] font-mono uppercase tracking-widest text-accent font-bold">[04] КОММЕНТАРИЙ</label>
+<textarea class="w-full bg-black/40 border border-white/10 rounded p-4 text-white font-mono focus:border-accent outline-none transition-colors resize-none" id="sug-desc" name="message" placeholder="Дополнительная информация..." rows="4"></textarea>
+</div>
+<button class="btn-obsidian w-full md:w-auto px-12 py-5 rounded flex items-center justify-center gap-3 text-xs tracking-widest uppercase" type="submit">
+<span class="material-symbols-outlined">send</span> ОТПРАВИТЬ ПРЕДЛОЖЕНИЕ
+                        </button>
+</form>
+</div>
+</section>
+</div>
+</main>
 <!-- Footer -->
-<footer class="mt-40 pt-16 border-t border-white/5 text-center pb-20" id="site-footer"><div class="text-[10px] font-mono tracking-[0.3em] uppercase text-on-surface-variant/60 flex flex-wrap justify-center gap-x-8 gap-y-4"><span class="">TELEGRAM KOHTAKT - <a class="hover:text-white transition-colors" href="https://t.me/ARNIMAZ" style="color:#00e479; text-decoration: none;" target="_blank">@ARNIMAZ</a></span><span class="w-1 h-1 bg-white/20 rounded-full my-auto hidden md:block"></span><span class="">КАНАЛ - <a class="hover:text-white transition-colors" href="https://t.me/MASTERS_OF_CUM" style="color:#00e479; text-decoration: none;" target="_blank">@MASTERS_OF_CUM</a></span></div></footer>
+<footer class="mt-40 pt-16 border-t border-white/5 text-center pb-20" id="site-footer">
+<div class="text-[10px] font-mono tracking-[0.3em] uppercase text-on-surface-variant/60 flex flex-wrap justify-center gap-x-8 gap-y-4">
+<span class="">TELEGRAM KOHTAKT - <a class="hover:text-white transition-colors" href="https://t.me/ARNIMAZ" style="color:#00e479; text-decoration: none;" target="_blank">@ARNIMAZ</a></span>
+<span class="w-1 h-1 bg-white/20 rounded-full my-auto hidden md:block"></span>
+<span class="">КАНАЛ - <a class="hover:text-white transition-colors" href="https://t.me/MASTERS_OF_CUM" style="color:#00e479; text-decoration: none;" target="_blank">@MASTERS_OF_CUM</a></span>
+</div>
+</footer>
 </div>
 <!-- Admin Interface -->
 <div id="admin-panel-container">
@@ -267,7 +331,17 @@
 <button class="text-left py-2 px-4 border border-[#00ff41]/40 text-[#00ff41] hover:bg-[#00ff41]/10 font-bold text-xs uppercase" onclick="switchAdminTab('suggestions')">SUGGESTIONS_QUEUE</button>
 </nav>
 </div>
-<div class="terminal-box border border-[#00ff41] p-6 bg-[#00ff41]/5 rounded"><div class="space-y-4"><div class="space-y-4 mb-6"><div class="space-y-1"><label class="text-[10px] uppercase text-[#00ff41]/60 font-bold">[01] НАЗВАНИЕ АРТА</label><input class="w-full bg-black border border-[#00ff41]/40 p-2 text-xs text-[#00ff41] outline-none focus:border-[#00ff41]" id="admin-art-title" placeholder="Art Title..." type="text"/></div><div class="space-y-1"><label class="text-[10px] uppercase text-[#00ff41]/60 font-bold">[02] ОПИСАНИЕ АРТА</label><textarea class="w-full bg-black border border-[#00ff41]/40 p-2 text-xs text-[#00ff41] outline-none focus:border-[#00ff41] resize-none" id="admin-art-desc" placeholder="Art Description..." rows="4"></textarea></div><div class="space-y-1"><label class="text-[10px] uppercase text-[#00ff41]/60 font-bold">[03] ССЫЛКА (WPLACE)</label><input class="w-full bg-black border border-[#00ff41]/40 p-2 text-xs text-[#00ff41] outline-none focus:border-[#00ff41]" id="admin-art-url" placeholder="https://..." type="url"/></div><button class="w-full bg-[#00ff41] text-black font-bold py-3 text-[10px] uppercase hover:brightness-110 transition-all" onclick="updateCurrentArt()">COMMIT_CHANGES</button></div><div class="text-[10px] text-white/40 font-mono italic">SYSTEM_SYNC_ACTIVE</div></div></div>
+<div class="terminal-box border border-[#00ff41] p-6 bg-[#00ff41]/5 rounded">
+<div class="space-y-4">
+<div class="space-y-4 mb-6">
+<div class="space-y-1"><label class="text-[10px] uppercase text-[#00ff41]/60 font-bold">[01] НАЗВАНИЕ АРТА</label><input class="w-full bg-black border border-[#00ff41]/40 p-2 text-xs text-[#00ff41] outline-none focus:border-[#00ff41]" id="admin-art-title" placeholder="Art Title..." type="text"/></div>
+<div class="space-y-1"><label class="text-[10px] uppercase text-[#00ff41]/60 font-bold">[02] ОПИСАНИЕ АРТА</label><textarea class="w-full bg-black border border-[#00ff41]/40 p-2 text-xs text-[#00ff41] outline-none focus:border-[#00ff41] resize-none" id="admin-art-desc" placeholder="Art Description..." rows="4"></textarea></div>
+<div class="space-y-1"><label class="text-[10px] uppercase text-[#00ff41]/60 font-bold">[03] ССЫЛКА (WPLACE)</label><input class="w-full bg-black border border-[#00ff41]/40 p-2 text-xs text-[#00ff41] outline-none focus:border-[#00ff41]" id="admin-art-url" placeholder="https://..." type="url"/></div>
+<button class="w-full bg-[#00ff41] text-black font-bold py-3 text-[10px] uppercase hover:brightness-110 transition-all" onclick="updateCurrentArt()">COMMIT_CHANGES</button>
+</div>
+<div class="text-[10px] text-white/40 font-mono italic">SYSTEM_SYNC_ACTIVE</div>
+</div>
+</div>
 </div>
 <div class="md:col-span-3 border border-[#00ff41] p-8 bg-[#00ff41]/5 rounded min-h-[500px]">
 <div id="admin-tab-logs">
@@ -331,7 +405,7 @@
 </div>
 </div>
 <script>
-    // --- Firebase Configuration (Hardcoded) ---
+    // --- Firebase Configuration ---
     const firebaseConfig = {
       apiKey: "AIzaSyBb88pnDmYYH9Z7aPIOymSgINA4L_K_9gc",
       authDomain: "wl-site-4f2a1.firebaseapp.com",
@@ -353,7 +427,6 @@
             }
             db = firebase.database();
             firebaseReady = true;
-            console.log("Firebase initialized from hardcoded config.");
         } catch (e) {
             console.error("Firebase init failed:", e);
             firebaseReady = false;
@@ -433,29 +506,25 @@
         document.getElementById("site-footer").innerHTML = footerHtml;
 
         const homeData = await loadJSON('/content/home.json', {
-            title: "АКТУАЛЬНЫЙ АРТ", image: "", description: "Загрузка данных...", location: "", help_wplace: [], help_blue: [], help_helper: []
+            title: "FRIEREN", image: "https://lh3.googleusercontent.com/aida-public/AB6AXuAZHc4nUzxjh3nWoC0UKG8lfpf5TZOBgTX7-3eXwslkBnHmVh6_qocXF3nE9nZZ7D1hawY852NAuK1lP92RHfiTpqulE-k3mzUxZitJCutuxYgnWZ4ygF--2c-G1IHsw7vPSLmBi2FBJwXktdznbt_e0FL9mxSFvLD2016doJyJs9Rr24GcnB-_0XzcCMHNrNHY-0Va2lm883yYuxoWZjXH1i5PxK6kTFRy2wEWQoAHEanYZ1DXeJYXPS-kyliG0z_0e_3db8QInr3t", description: "Последний и актуальный арт", location: "#", help_wplace: [], help_blue: [], help_helper: []
         });
         window._homeData = homeData;
         
-        // --- FIXED CURRENT ART UPDATE LOGIC ---
-        document.getElementById('current-art-title').textContent = homeData.title || "АКТУАЛЬНЫЙ АРТ";
+        // Update Current Art UI
+        document.getElementById('current-art-title').textContent = homeData.title || "FRIEREN";
         const descEl = document.getElementById('current-art-desc');
-        descEl.innerHTML = makeLinksClickable(homeData.description);
+        descEl.innerHTML = makeLinksClickable(homeData.description || "Последний и актуальный арт");
         
         if (homeData.image) {
             document.getElementById('current-art-img').src = homeData.image;
-            document.getElementById('current-art-img-wrapper').classList.remove('hidden');
             const dlBtn = document.getElementById('btn-download');
-            dlBtn.classList.remove('hidden');
             dlBtn.onclick = () => downloadImage(homeData.image, 'art-capture.png');
         }
         
         if (homeData.location) {
             const wplaceBtn = document.getElementById('btn-wplace');
             wplaceBtn.href = homeData.location;
-            wplaceBtn.classList.remove('hidden');
         }
-        // --- END FIXED LOGIC ---
 
         if (homeData.help_wplace) document.querySelector('#wplace-steps ol').innerHTML = renderStepsList(homeData.help_wplace, 'wplace');
         if (homeData.help_blue) document.querySelector('#blue-steps ol').innerHTML = renderStepsList(homeData.help_blue, 'blue');
@@ -644,18 +713,15 @@
         if (tab === 'logs') {
             logs.classList.remove('hidden');
             sugs.classList.add('hidden');
-            if (event) {
-                event.target.classList.add('bg-[#00ff41]', 'text-black');
-                event.target.classList.remove('border', 'border-[#00ff41]/40', 'text-[#00ff41]');
-            }
         } else {
             logs.classList.add('hidden');
             sugs.classList.remove('hidden');
-            if (event) {
-                event.target.classList.add('bg-[#00ff41]', 'text-black');
-                event.target.classList.remove('border', 'border-[#00ff41]/40', 'text-[#00ff41]');
-            }
             loadSuggestionsIntoAdmin();
+        }
+        
+        if (event) {
+            event.target.classList.add('bg-[#00ff41]', 'text-black');
+            event.target.classList.remove('border', 'border-[#00ff41]/40', 'text-[#00ff41]');
         }
     }
 
@@ -674,9 +740,7 @@
                     data = Object.keys(val).map(key => ({ ...val[key], fb_id: key }));
                     data.sort((a,b) => (b.timestamp || 0) - (a.timestamp || 0));
                 }
-            } catch (err) {
-                console.error("Firebase fetch failed:", err);
-            }
+            } catch (err) { console.error(err); }
         }
         
         if (data.length === 0) {
@@ -734,81 +798,69 @@
     if(window.location.hash === '#admin') window.dispatchEvent(new Event('hashchange'));
 
     initContent();
-</script>
-<div class="fixed inset-0 pointer-events-none z-[200] flex items-center justify-center" id="toast-container"></div>
-<script>
-function showToast(message, isError = false) { 
-    const container = document.getElementById('toast-container'); 
-    const toast = document.createElement('div'); 
-    toast.className = `obsidian-glass p-8 rounded-xl border-l-4 ${isError ? 'border-red-500' : 'border-accent'} text-white font-mono text-sm uppercase tracking-widest pointer-events-auto transition-all duration-500 opacity-0 scale-90 shadow-2xl mx-4 max-w-md text-center`; 
-    toast.innerHTML = `<div class="flex flex-col items-center gap-4"><span class="material-symbols-outlined ${isError ? 'text-red-500' : 'text-accent'} text-5xl mb-2">${isError ? 'error' : 'check_circle'}</span><div>${message}</div></div>`; 
-    container.appendChild(toast); 
-    setTimeout(() => { toast.classList.remove('opacity-0', 'scale-90'); }, 10); 
-    setTimeout(() => { toast.classList.add('opacity-0', 'scale-90'); setTimeout(() => toast.remove(), 500); }, 4000); 
-} 
 
-async function submitSuggestion(e) { 
-    e.preventDefault(); 
-    const form = e.target;
-    const btn = form.querySelector('button[type="submit"]'); 
-    const originalText = btn.innerHTML; 
-    
-    if (!firebaseReady || !db) {
-        showToast('ОШИБКА: СИСТЕМА НЕ ГОТОВА. ПОПРОБУЙТЕ ПОЗЖЕ.', true);
-        return;
-    }
+    function showToast(message, isError = false) { 
+        const container = document.getElementById('toast-container'); 
+        const toast = document.createElement('div'); 
+        toast.className = `obsidian-glass p-8 rounded-xl border-l-4 ${isError ? 'border-red-500' : 'border-accent'} text-white font-mono text-sm uppercase tracking-widest pointer-events-auto transition-all duration-500 opacity-0 scale-90 shadow-2xl mx-4 max-w-md text-center`; 
+        toast.innerHTML = `<div class="flex flex-col items-center gap-4"><span class="material-symbols-outlined ${isError ? 'text-red-500' : 'text-accent'} text-5xl mb-2">${isError ? 'error' : 'check_circle'}</span><div>${message}</div></div>`; 
+        container.appendChild(toast); 
+        setTimeout(() => { toast.classList.remove('opacity-0', 'scale-90'); }, 10); 
+        setTimeout(() => { toast.classList.add('opacity-0', 'scale-90'); setTimeout(() => toast.remove(), 500); }, 4000); 
+    } 
 
-    btn.disabled = true; 
-    btn.innerHTML = '<span class="material-symbols-outlined animate-spin">sync</span> ОТПРАВКА...'; 
-    
-    try { 
-        const formData = new FormData(form);
-        const dataObj = Object.fromEntries(formData.entries());
+    async function submitSuggestion(e) { 
+        e.preventDefault(); 
+        const form = e.target;
+        const btn = form.querySelector('button[type="submit"]'); 
+        const originalText = btn.innerHTML; 
         
-        let base64Image = null;
-        const fileInput = document.getElementById('sug-file');
-        if (fileInput.files && fileInput.files[0]) {
-            base64Image = await new Promise((resolve, reject) => {
-                const reader = new FileReader();
-                reader.onload = (ev) => resolve(ev.target.result);
-                reader.onerror = (err) => reject(err);
-                reader.readAsDataURL(fileInput.files[0]);
-            });
+        if (!firebaseReady || !db) {
+            showToast('ОШИБКА: СИСТЕМА НЕ ГОТОВА.', true);
+            return;
         }
 
-        const suggestionRecord = {
-            title: dataObj.art_title,
-            contact: dataObj.contact,
-            comment: dataObj.message,
-            image: base64Image || dataObj.image_url || null,
-            date: new Date().toLocaleString(),
-            timestamp: Date.now()
-        };
-
-        // Send to Firebase Realtime Database
-        await db.ref('suggestions').push(suggestionRecord);
-
-        // Also notify via Formspree
-        const formspreeId = 'xqevzpqv';
-        fetch(`https://formspree.io/f/${formspreeId}`, {
-            method: 'POST',
-            body: formData,
-            headers: { 'Accept': 'application/json' }
-        }).catch(err => console.warn("Formspree notification failed", err));
-
-        showToast('ПРЕДЛОЖЕНИЕ УСПЕШНО ОТПРАВЛЕНО!'); 
-        form.reset(); 
-        form.querySelector('input[type="file"]').nextElementSibling.querySelector('span').textContent = 'ВЫБРАТЬ ФАЙЛ'; 
-        document.getElementById('sug-file-data').value = '';
+        btn.disabled = true; 
+        btn.innerHTML = '<span class="material-symbols-outlined animate-spin">sync</span> ОТПРАВКА...'; 
         
-    } catch (err) { 
-        console.error(err); 
-        showToast(`ОШИБКА ПРИ ОТПРАВКЕ: ${err.message}`, true); 
-    } finally { 
-        btn.disabled = false; 
-        btn.innerHTML = originalText; 
-    } 
-}
+        try { 
+            const formData = new FormData(form);
+            const dataObj = Object.fromEntries(formData.entries());
+            
+            let base64Image = null;
+            const fileInput = document.getElementById('sug-file');
+            if (fileInput.files && fileInput.files[0]) {
+                base64Image = await new Promise((resolve, reject) => {
+                    const reader = new FileReader();
+                    reader.onload = (ev) => resolve(ev.target.result);
+                    reader.onerror = (err) => reject(err);
+                    reader.readAsDataURL(fileInput.files[0]);
+                });
+            }
+
+            const suggestionRecord = {
+                title: dataObj.art_title,
+                contact: dataObj.contact,
+                comment: dataObj.message,
+                image: base64Image || dataObj.image_url || null,
+                date: new Date().toLocaleString(),
+                timestamp: Date.now()
+            };
+
+            await db.ref('suggestions').push(suggestionRecord);
+            showToast('ПРЕДЛОЖЕНИЕ УСПЕШНО ОТПРАВЛЕНО!'); 
+            form.reset(); 
+            form.querySelector('input[type="file"]').nextElementSibling.querySelector('span').textContent = 'ВЫБРАТЬ ФАЙЛ'; 
+            document.getElementById('sug-file-data').value = '';
+            
+        } catch (err) { 
+            console.error(err); 
+            showToast(`ОШИБКА ПРИ ОТПРАВКЕ: ${err.message}`, true); 
+        } finally { 
+            btn.disabled = false; 
+            btn.innerHTML = originalText; 
+        } 
+    }
 </script>
-<iframe src="javascript:void((function(){document.open();document.domain='';document.close();})())" style="display: none;"></iframe><iframe src="javascript:void((function(){document.open();document.domain='';document.close();})())" style="display: none;"></iframe>
+<div class="fixed inset-0 pointer-events-none z-[200] flex items-center justify-center" id="toast-container"></div>
 </body></html>
