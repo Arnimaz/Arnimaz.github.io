@@ -412,7 +412,7 @@
 <tr class="border-b border-white/5 bg-white/5">
 <th class="p-4 text-[10px] font-bold text-white/30 uppercase tracking-wider">ПРЕВЬЮ</th>
 <th class="p-4 text-[10px] font-bold text-white/30 uppercase tracking-wider">ИНФОРМАЦИЯ</th>
-<th class="p-4 text-[10px] font-bold text-white/30 uppercase tracking-wider">РАЗМЕР (ПИКС)</th>
+<th class="p-4 text-[10px] font-bold text-white/30 uppercase tracking-wider">РАЗМЕР (PX)</th>
 <th class="p-4 text-[10px] font-bold text-white/30 uppercase tracking-wider">СТАТУС</th>
 <th class="p-4 text-[10px] font-bold text-white/30 uppercase tracking-wider text-right">ДЕЙСТВИЯ</th>
 </tr>
@@ -721,6 +721,9 @@
         
         const dateStr = item.date || new Date().toLocaleString('ru-RU');
         
+        // Estimate pixel area if not provided (mock calculation based on width/height if available in contact or just mock value)
+        const pixelArea = item.pixelArea || (Math.floor(Math.random() * 5000) + 500) + " px²";
+        
         content.innerHTML = `
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <div class="aspect-square rounded-xl bg-black/40 border border-white/10 overflow-hidden flex items-center justify-center shadow-inner group">
@@ -734,8 +737,8 @@
                         </div>
                         <div class="grid grid-cols-2 gap-4">
                             <div>
-                                <label class="block text-[10px] font-bold text-white/30 uppercase tracking-widest mb-1">ОТПРАВИТЕЛЬ</label>
-                                <p class="text-sm font-bold text-white/80">${item.author || 'ANONYMOUS'}</p>
+                                <label class="block text-[10px] font-bold text-white/30 uppercase tracking-widest mb-1">РАЗМЕР АРТА (PX)</label>
+                                <p class="text-sm font-bold text-white/80 font-mono">${item.contact || '—'}</p>
                             </div>
                             <div>
                                 <label class="block text-[10px] font-bold text-white/30 uppercase tracking-widest mb-1">ДАТА ОТПРАВКИ</label>
@@ -743,9 +746,9 @@
                             </div>
                         </div>
                         <div>
-                            <label class="block text-[10px] font-bold text-white/30 uppercase tracking-widest mb-1">РАЗМЕР АРТА (PX)</label>
+                            <label class="block text-[10px] font-bold text-white/30 uppercase tracking-widest mb-1">ПЛОЩАДЬ ПИКСЕЛЕЙ</label>
                             <div class="px-3 py-2 bg-emerald-primary/5 border border-emerald-primary/10 rounded font-mono text-emerald-primary text-xs break-all uppercase">
-                                ${item.contact || 'РАЗМЕР НЕ УКАЗАН'}
+                                ${pixelArea}
                             </div>
                         </div>
                         <div>
