@@ -1,9 +1,11 @@
-<!DOCTYPE html><html lang="ru"><head>
-<meta charset="utf-8">
-<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<!DOCTYPE html>
+
+<html lang="ru"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>Admin panel</title>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=VT323&amp;family=Inter:wght@400;600;700&amp;family=Geist:wght@700;800&amp;family=JetBrains+Mono:wght@700&amp;family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=VT323&amp;family=Inter:wght@400;600;700&amp;family=Geist:wght@700;800&amp;family=JetBrains+Mono:wght@700&amp;family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&amp;display=swap" rel="stylesheet"/>
 <!-- Firebase Compat SDKs -->
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
@@ -187,10 +189,10 @@
 <div>
 <label class="block text-[11px] font-bold text-white/50 uppercase tracking-widest mb-3 font-label-caps">АВТОРИЗАЦИЯ В СИСТЕМЕ</label>
 <div class="relative">
-<input autofocus="" class="input-field w-full py-4 px-5 text-sm" id="token-input" placeholder="ghp_************************************" type="password">
+<input autofocus="" class="input-field w-full py-4 px-5 text-sm" id="token-input" placeholder="ghp_************************************" type="password"/>
 </div>
 <div class="flex items-center gap-2 mt-4 mb-2">
-<input class="w-4 h-4 rounded border-white/10 bg-white/5 text-emerald-primary focus:ring-emerald-primary/20" id="remember-me" type="checkbox">
+<input class="w-4 h-4 rounded border-white/10 bg-white/5 text-emerald-primary focus:ring-emerald-primary/20" id="remember-me" type="checkbox"/>
 <label class="text-[10px] font-bold text-white/40 uppercase tracking-wider cursor-pointer" for="remember-me">ЗАПОМНИТЬ МЕНЯ</label>
 </div>
 </div>
@@ -274,15 +276,15 @@
 <div class="space-y-4">
 <div>
 <label class="block text-[10px] font-bold text-white/30 uppercase mb-1.5 tracking-wider">ЗАГОЛОВОК АРТА</label>
-<input class="input-field w-full p-3 text-sm" id="home-title" type="text">
+<input class="input-field w-full p-3 text-sm" id="home-title" type="text"/>
 </div>
 <div>
 <label class="block text-[10px] font-bold text-white/30 uppercase mb-1.5 tracking-wider">URL ИЗОБРАЖЕНИЯ</label>
-<input class="input-field w-full p-3 text-sm" id="home-image" oninput="previewHomeImage()" type="text">
+<input class="input-field w-full p-3 text-sm" id="home-image" oninput="previewHomeImage()" type="text"/>
 </div>
 <div>
 <label class="block text-[10px] font-bold text-white/30 uppercase mb-1.5 tracking-wider">ЛОКАЦИЯ / ССЫЛКА</label>
-<input class="input-field w-full p-3 text-sm" id="home-location" type="text">
+<input class="input-field w-full p-3 text-sm" id="home-location" type="text"/>
 </div>
 <div>
 <label class="block text-[10px] font-bold text-white/30 uppercase mb-1.5 tracking-wider">ОПИСАНИЕ</label>
@@ -295,7 +297,7 @@
 <span class="material-symbols-outlined text-emerald-primary">image_search</span> ПРЕДПРОСМОТР
                         </h3>
 <div class="flex-1 rounded-lg border border-dashed border-white/10 flex items-center justify-center overflow-hidden min-h-[250px] bg-black/20" id="home-image-preview">
-<img alt="" class="max-w-full max-h-[400px] object-contain hidden" id="home-preview-img" src="">
+<img alt="" class="max-w-full max-h-[400px] object-contain hidden" id="home-preview-img" src=""/>
 <div class="text-center opacity-20" id="no-preview">
 <span class="material-symbols-outlined text-5xl block mb-2">image_not_supported</span>
 <p class="text-xs uppercase font-bold tracking-widest">НЕТ ИЗОБРАЖЕНИЯ</p>
@@ -410,7 +412,7 @@
 <tr class="border-b border-white/5 bg-white/5">
 <th class="p-4 text-[10px] font-bold text-white/30 uppercase tracking-wider">ПРЕВЬЮ</th>
 <th class="p-4 text-[10px] font-bold text-white/30 uppercase tracking-wider">ИНФОРМАЦИЯ</th>
-<th class="p-4 text-[10px] font-bold text-white/30 uppercase tracking-wider">РАЗРЕШЕНИЕ (WxH)</th>
+<th class="p-4 text-[10px] font-bold text-white/30 uppercase tracking-wider">РАЗМЕР (WxH)</th>
 <th class="p-4 text-[10px] font-bold text-white/30 uppercase tracking-wider">СТАТУС</th>
 <th class="p-4 text-[10px] font-bold text-white/30 uppercase tracking-wider text-right">ДЕЙСТВИЯ</th>
 </tr>
@@ -433,21 +435,21 @@
 <div class="space-y-6">
 <div>
 <label class="block text-[10px] font-bold text-white/30 uppercase mb-2 tracking-wider">НАЗВАНИЕ ВКЛАДКИ</label>
-<input class="input-field w-full p-3 text-sm" id="settings-siteTitle" type="text">
+<input class="input-field w-full p-3 text-sm" id="settings-siteTitle" type="text"/>
 </div>
 <div>
 <label class="block text-[10px] font-bold text-white/30 uppercase mb-2 tracking-wider">ГЛАВНЫЙ ЗАГОЛОВОК</label>
-<input class="input-field w-full p-3 text-sm" id="settings-headerTitle" type="text">
+<input class="input-field w-full p-3 text-sm" id="settings-headerTitle" type="text"/>
 </div>
 </div>
 <div class="space-y-6">
 <div>
 <label class="block text-[10px] font-bold text-white/30 uppercase mb-2 tracking-wider">ПОДЗАГОЛОВОК ШАПКИ</label>
-<input class="input-field w-full p-3 text-sm" id="settings-headerSubtitle" type="text">
+<input class="input-field w-full p-3 text-sm" id="settings-headerSubtitle" type="text"/>
 </div>
 <div>
 <label class="block text-[10px] font-bold text-white/30 uppercase mb-2 tracking-wider">КОПИРАЙТ ФУТЕРА</label>
-<input class="input-field w-full p-3 text-sm" id="settings-footer" type="text">
+<input class="input-field w-full p-3 text-sm" id="settings-footer" type="text"/>
 </div>
 </div>
 </div>
@@ -466,7 +468,7 @@
 <button class="px-6 py-3.5 text-xs font-bold text-red-500 hover:bg-red-500/10 border border-red-500/20 rounded-lg flex items-center gap-2 transition-all" onclick="if(confirm('ПОЛНАЯ ОЧИСТКА? ЭТО ДЕЙСТВИЕ НЕОБРАТИМО.')) resetAll()">
 <span class="material-symbols-outlined text-lg">delete_forever</span> СБРОС ДО ЗАВОДСКИХ
                             </button>
-<input accept=".json" class="hidden" id="import-file" onchange="handleImport(event)" type="file">
+<input accept=".json" class="hidden" id="import-file" onchange="handleImport(event)" type="file"/>
 </div>
 </div>
 </div>
@@ -488,10 +490,44 @@
 <span class="material-symbols-outlined">close</span>
 </button>
 </div>
-<div class="space-y-6" id="modal-content"><div class="grid grid-cols-1 md:grid-cols-2 gap-8"><div class="aspect-square rounded-xl bg-black/40 border border-white/10 overflow-hidden flex items-center justify-center shadow-inner group"><img class="max-w-full max-h-full object-contain transition-transform group-hover:scale-105 duration-500" id="modal-preview-img" src=""></div><div class="flex flex-col h-full"><div class="space-y-5 flex-1"><div><label class="block text-[10px] font-bold text-white/30 uppercase tracking-widest mb-1">НАЗВАНИЕ АРТА</label><p class="text-lg font-black text-white uppercase" id="modal-art-title">—</p></div><div class="grid grid-cols-2 gap-4"><div><label class="block text-[10px] font-bold text-white/30 uppercase tracking-widest mb-1">РАЗМЕР (WxH)</label><p class="text-sm font-bold text-white/80 font-mono" id="modal-art-res">—</p></div><div><label class="block text-[10px] font-bold text-white/30 uppercase tracking-widest mb-1">ДАТА ОТПРАВКИ</label><p class="text-sm font-bold text-emerald-primary/80 font-mono" id="modal-art-date">—</p></div></div><div><label class="block text-[10px] font-bold text-white/30 uppercase tracking-widest mb-1">АНАЛИЗ ПЛОТНОСТИ (PX)</label><div class="px-3 py-2 bg-emerald-primary/5 border border-emerald-primary/10 rounded font-mono text-emerald-primary text-xs break-all uppercase flex flex-col gap-1" id="modal-art-area">
-  <div id="modal-pixel-total" class="">ОБЩЕЕ: —</div>
-  <div id="modal-pixel-opaque" class="text-white">ЧИСТЫЙ ВЕС: —</div>
-</div></div><div><label class="block text-[10px] font-bold text-white/30 uppercase tracking-widest mb-1">КОММЕНТАРИЙ</label><div class="max-h-[150px] overflow-y-auto pr-2 custom-scrollbar"><p class="text-xs text-white/60 leading-relaxed italic border-l-2 border-emerald-primary/30 pl-3" id="modal-art-comment">—</p></div></div></div></div></div></div>
+<div class="space-y-6" id="modal-content">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+<div class="aspect-square rounded-xl bg-black/40 border border-white/10 overflow-hidden flex items-center justify-center shadow-inner group">
+<img class="max-w-full max-h-full object-contain transition-transform group-hover:scale-105 duration-500" id="modal-preview-img" src=""/>
+</div>
+<div class="flex flex-col h-full">
+<div class="space-y-5 flex-1">
+<div>
+<label class="block text-[10px] font-bold text-white/30 uppercase tracking-widest mb-1">НАЗВАНИЕ АРТА</label>
+<p class="text-lg font-black text-white uppercase" id="modal-art-title">—</p>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<div>
+<label class="block text-[10px] font-bold text-white/30 uppercase tracking-widest mb-1">РАЗМЕР (X/Y)</label>
+<p class="text-sm font-bold text-white/80 font-mono" id="modal-art-res">—</p>
+</div>
+<div>
+<label class="block text-[10px] font-bold text-white/30 uppercase tracking-widest mb-1">ДАТА ОТПРАВКИ</label>
+<p class="text-sm font-bold text-emerald-primary/80 font-mono" id="modal-art-date">—</p>
+</div>
+</div>
+<div>
+<label class="block text-[10px] font-bold text-white/30 uppercase tracking-widest mb-1">АНАЛИЗ ПЛОТНОСТИ (PX)</label>
+<div class="px-3 py-2 bg-emerald-primary/5 border border-emerald-primary/10 rounded font-mono text-emerald-primary text-xs break-all uppercase flex flex-col gap-1">
+<div id="modal-pixel-total">ОБЩЕЕ: —</div>
+<div class="text-white" id="modal-pixel-opaque">ЧИСТЫЙ ВЕС: —</div>
+</div>
+</div>
+<div>
+<label class="block text-[10px] font-bold text-white/30 uppercase tracking-widest mb-1">КОММЕНТАРИЙ</label>
+<div class="max-h-[150px] overflow-y-auto pr-2 custom-scrollbar">
+<p class="text-xs text-white/60 leading-relaxed italic border-l-2 border-emerald-primary/30 pl-3" id="modal-art-comment">—</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
 <div class="mt-8 pt-6 border-t border-white/5 flex flex-wrap items-center justify-between gap-4">
 <button class="btn-emerald px-6 py-2.5 text-xs flex items-center gap-2" id="modal-download-btn">
 <span class="material-symbols-outlined text-sm">download</span> 💾 СКАЧАТЬ АРТ
@@ -655,6 +691,8 @@
 
         tbody.innerHTML = keys.map(key => {
             const s = suggestionsData[key];
+            // Fix: Show contact (which often contains dimensions in this system) or placeholder
+            const dimStr = s.contact || '?? x ??'; 
             return `
             <tr onclick="viewSuggestion('${key}')" class="group cursor-pointer hover:bg-white/[0.04] transition-colors border-b border-white/5 last:border-0">
                 <td class="p-4">
@@ -667,7 +705,7 @@
                     <div class="text-[10px] text-white/30 uppercase mt-1">ОТ: ${s.author || 'ANON'}</div>
                 </td>
                 <td class="p-4">
-                    <div class="text-[10px] text-emerald-primary/80 font-mono">${s.contact || '—'}</div>
+                    <div class="text-[10px] text-emerald-primary/80 font-mono">${dimStr}</div>
                 </td>
                 <td class="p-4">
                     <span class="px-2 py-0.5 rounded text-[9px] font-bold bg-emerald-primary/10 text-emerald-primary uppercase tracking-tighter">CLOUD</span>
@@ -713,60 +751,65 @@
         }
     }
 
-    function viewSuggestion(key) {
+    async function analyzePixelData(imageUrl) {
+        return new Promise((resolve) => {
+            const img = new Image();
+            img.crossOrigin = "Anonymous";
+            img.onload = () => {
+                const canvas = document.createElement('canvas');
+                canvas.width = img.width;
+                canvas.height = img.height;
+                const ctx = canvas.getContext('2d');
+                ctx.drawImage(img, 0, 0);
+                const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+                const data = imageData.data;
+                let opaqueCount = 0;
+                for (let i = 3; i < data.length; i += 4) {
+                    if (data[i] > 0) opaqueCount++;
+                }
+                resolve({
+                    width: img.width,
+                    height: img.height,
+                    total: img.width * img.height,
+                    opaque: opaqueCount
+                });
+            };
+            img.onerror = () => resolve(null);
+            img.src = imageUrl;
+        });
+    }
+
+    async function viewSuggestion(key) {
         const item = suggestionsData[key];
         const modal = document.getElementById('suggestion-modal');
-        const content = document.getElementById('modal-content');
-        const acceptBtn = document.getElementById('modal-accept-btn');
-        const downloadBtn = document.getElementById('modal-download-btn');
         
-        const dateStr = item.date || new Date().toLocaleString('ru-RU');
+        // Reset modal fields to "loading" state
+        document.getElementById('modal-preview-img').src = item.image;
+        document.getElementById('modal-art-title').textContent = item.title || 'БЕЗ НАЗВАНИЯ';
+        document.getElementById('modal-art-date').textContent = item.date || new Date().toLocaleString('ru-RU');
+        document.getElementById('modal-art-comment').textContent = item.comment || 'ОПИСАНИЕ ОТСУТСТВУЕТ';
         
-        // Estimate pixel area if not provided (mock calculation based on width/height if available in contact or just mock value)
-        const pixelArea = item.pixelArea || (Math.floor(Math.random() * 5000) + 500) + " px²";
+        document.getElementById('modal-art-res').textContent = "АНАЛИЗ...";
+        document.getElementById('modal-pixel-total').textContent = "ОБЩЕЕ: —";
+        document.getElementById('modal-pixel-opaque').textContent = "ЧИСТЫЙ ВЕС: —";
         
-        content.innerHTML = `
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div class="aspect-square rounded-xl bg-black/40 border border-white/10 overflow-hidden flex items-center justify-center shadow-inner group">
-                    <img src="${item.image}" class="max-w-full max-h-full object-contain transition-transform group-hover:scale-105 duration-500">
-                </div>
-                <div class="flex flex-col h-full">
-                    <div class="space-y-5 flex-1">
-                        <div>
-                            <label class="block text-[10px] font-bold text-white/30 uppercase tracking-widest mb-1">НАЗВАНИЕ АРТА</label>
-                            <p class="text-lg font-black text-white uppercase">${item.title || 'БЕЗ НАЗВАНИЯ'}</p>
-                        </div>
-                        <div class="grid grid-cols-2 gap-4">
-                            <div>
-                                <label class="block text-[10px] font-bold text-white/30 uppercase tracking-widest mb-1">РАЗМЕР АРТА (PX)</label>
-                                <p class="text-sm font-bold text-white/80 font-mono">${item.contact || '—'}</p>
-                            </div>
-                            <div>
-                                <label class="block text-[10px] font-bold text-white/30 uppercase tracking-widest mb-1">ДАТА ОТПРАВКИ</label>
-                                <p class="text-sm font-bold text-emerald-primary/80 font-mono">${dateStr}</p>
-                            </div>
-                        </div>
-                        <div>
-                            <label class="block text-[10px] font-bold text-white/30 uppercase tracking-widest mb-1">ПЛОЩАДЬ ПИКСЕЛЕЙ</label>
-                            <div class="px-3 py-2 bg-emerald-primary/5 border border-emerald-primary/10 rounded font-mono text-emerald-primary text-xs break-all uppercase">
-                                ${pixelArea}
-                            </div>
-                        </div>
-                        <div>
-                            <label class="block text-[10px] font-bold text-white/30 uppercase tracking-widest mb-1">КОММЕНТАРИЙ</label>
-                            <div class="max-h-[150px] overflow-y-auto pr-2 custom-scrollbar">
-                                <p class="text-xs text-white/60 leading-relaxed italic border-l-2 border-emerald-primary/30 pl-3">
-                                    ${item.comment || 'ОПИСАНИЕ ОТСУТСТВУЕТ'}
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>`;
+        modal.classList.remove('hidden');
+
+        // Perform real pixel analysis
+        const stats = await analyzePixelData(item.image);
+        if (stats) {
+            document.getElementById('modal-art-res').textContent = `${stats.width} x ${stats.height}`;
+            document.getElementById('modal-pixel-total').textContent = `ОБЩЕЕ: ${stats.total.toLocaleString()} PX`;
+            document.getElementById('modal-pixel-opaque').textContent = `ЧИСТЫЙ ВЕС: ${stats.opaque.toLocaleString()} PX`;
+        } else {
+            document.getElementById('modal-art-res').textContent = item.contact || "ОШИБКА";
+            document.getElementById('modal-pixel-total').textContent = "ОШИБКА ЧТЕНИЯ";
+            document.getElementById('modal-pixel-opaque').textContent = "ПРОВЕРЬТЕ URL";
+        }
             
-        downloadBtn.onclick = () => downloadImage(item.image, `${item.title || 'art'}_${Date.now()}.png`);
+        document.getElementById('modal-download-btn').onclick = () => downloadImage(item.image, `${item.title || 'art'}_${Date.now()}.png`);
         
-        acceptBtn.onclick = async () => {
+        document.getElementById('modal-accept-btn').onclick = async () => {
             galleryData.push({ 
                 title: item.title || 'Untitled', 
                 description: item.comment || '', 
@@ -777,7 +820,6 @@
             closeSuggestionModal();
             toast("ДОБАВЛЕНО В ОЧЕРЕДЬ ГАЛЕРЕИ", "success");
         };
-        modal.classList.remove('hidden');
     }
 
     function renderHome() {
@@ -1002,6 +1044,4 @@
     });
     document.getElementById("token-input").addEventListener("keydown", e => { if(e.key==="Enter")login(); });
 </script>
-
-
 </body></html>
