@@ -505,8 +505,8 @@
 </main>
 </div>
 <!-- SUGGESTION MODAL -->
-<div class="fixed inset-0 z-[100] flex items-center justify-center bg-black/80 backdrop-blur-sm hidden" id="suggestion-modal">
-<div class="w-full max-w-2xl obsidian-card rounded-2xl p-8 border border-emerald-primary/30 shadow-[0_0_30px_rgba(0,228,121,0.1)]">
+<div class="fixed inset-0 z-[100] flex items-center justify-center bg-black/80 backdrop-blur-sm hidden" id="suggestion-modal" onclick="if(event.target === this) closeSuggestionModal()">
+<div class="w-full max-w-2xl obsidian-card rounded-2xl p-8 border border-emerald-primary/30 shadow-[0_0_30px_rgba(0,228,121,0.1)]" onclick="event.stopPropagation()">
 <div class="flex justify-between items-start mb-6">
 <h3 class="text-xl font-black text-white uppercase tracking-tight font-display-lg" id="modal-title-header">ДЕТАЛИ ЗАЯВКИ (АРТ)</h3>
 <button class="text-white/40 hover:text-white transition-colors" onclick="closeSuggestionModal()">
@@ -514,12 +514,12 @@
 </button>
 </div>
 <div class="space-y-6" id="modal-content"><div class="grid grid-cols-1 md:grid-cols-2 gap-8"><div class="aspect-square rounded-xl bg-black/40 border border-white/10 overflow-hidden flex items-center justify-center shadow-inner group"><img class="max-w-full max-h-full object-contain transition-transform group-hover:scale-105 duration-500" id="modal-preview-img" src=""/></div><div class="flex flex-col h-full"><div class="space-y-5 flex-1"><div><label class="block text-[10px] font-bold text-white/30 uppercase tracking-widest mb-1">НАЗВАНИЕ АРТА</label><p class="text-lg font-black text-white uppercase" id="modal-art-title">—</p></div><div class="grid grid-cols-2 gap-4"><div><label class="block text-[10px] font-bold text-white/30 uppercase tracking-widest mb-1">РАЗМЕР (X/Y)</label><p class="text-sm font-bold text-white/80 font-mono" id="modal-art-res">—</p></div><div><label class="block text-[10px] font-bold text-white/30 uppercase tracking-widest mb-1">ДАТА ОТПРАВКИ</label><p class="text-sm font-bold text-emerald-primary/80 font-mono" id="modal-art-date">—</p></div></div><div><label class="block text-[10px] font-bold text-white/30 uppercase tracking-widest mb-1">АНАЛИЗ ПЛОТНОСТИ (PX)</label><div class="px-3 py-2 bg-emerald-primary/5 border border-emerald-primary/10 rounded font-mono text-emerald-primary text-xs break-all uppercase flex flex-col gap-1"><div id="modal-pixel-total">ОБЩЕЕ: —</div><div class="text-white" id="modal-pixel-opaque">ПЛОЩАДЬ (PX): —</div></div></div><div><label class="block text-[10px] font-bold text-white/30 uppercase tracking-widest mb-1">КОНТАКТ / ИМЯ</label><p class="text-xs text-emerald-primary font-mono font-bold" id="modal-art-contact">—</p></div><div><label class="block text-[10px] font-bold text-white/30 uppercase tracking-widest mb-1">КОММЕНТАРИЙ</label><div class="max-h-[100px] overflow-y-auto pr-2 custom-scrollbar"><p class="text-xs text-white/60 leading-relaxed italic border-l-2 border-emerald-primary/30 pl-3" id="modal-art-comment">—</p></div></div></div></div></div></div>
-<div class="mt-8 pt-6 border-t border-white/5 flex flex-wrap items-center justify-between gap-4"><div class="flex gap-3"><button class="btn-emerald px-6 py-2.5 text-xs flex items-center gap-2" id="modal-download-btn"><span class="material-symbols-outlined text-sm">download</span> 💾 СКАЧАТЬ АРТ</button><button class="hidden px-6 py-2.5 text-xs font-bold text-red-500/60 hover:text-red-500 border border-red-500/20 rounded-lg transition-colors flex items-center gap-2" id="modal-delete-btn"><span class="material-symbols-outlined text-sm">delete</span> УДАЛИТЬ</button></div><div class="flex gap-4"><button class="px-6 py-2.5 text-xs font-bold text-white/40 hover:text-white border border-white/10 rounded-lg transition-colors" onclick="closeSuggestionModal()">ЗАКРЫТЬ</button><button class="btn-emerald px-8 py-2.5 text-xs shadow-[0_0_15px_rgba(0,228,121,0.3)]" id="modal-accept-btn">ПЕРЕНЕСТИ В ОДОБРЕННЫЕ</button></div></div>
+<div class="mt-8 pt-6 border-t border-white/5 flex flex-wrap items-center justify-between gap-4"><div class="flex gap-3"><button class="btn-emerald px-6 py-2.5 text-xs flex items-center gap-2" id="modal-download-btn"><span class="material-symbols-outlined text-sm">download</span> СКАЧАТЬ АРТ</button><button class="hidden px-6 py-2.5 text-xs font-bold text-red-500/60 hover:text-red-500 border border-red-500/20 rounded-lg transition-colors flex items-center gap-2" id="modal-delete-btn"><span class="material-symbols-outlined text-sm">delete</span> УДАЛИТЬ</button></div><div class="flex gap-4"><button class="px-6 py-2.5 text-xs font-bold text-white/40 hover:text-white border border-white/10 rounded-lg transition-colors" onclick="closeSuggestionModal()">ЗАКРЫТЬ</button><button class="btn-emerald px-8 py-2.5 text-xs shadow-[0_0_15px_rgba(0,228,121,0.3)]" id="modal-accept-btn">ПЕРЕНЕСТИ В ОДОБРЕННЫЕ</button></div></div>
 </div>
 </div>
 <!-- ACCEPT PUBLISH MODAL (LEGACY - NOW HANDLED BY SCRIPT DIRECTLY) -->
-<div class="fixed inset-0 z-[110] flex items-center justify-center bg-black/90 backdrop-blur-md hidden" id="publish-modal">
-<div class="w-full max-w-lg obsidian-card rounded-2xl p-8">
+<div class="fixed inset-0 z-[110] flex items-center justify-center bg-black/90 backdrop-blur-md hidden" id="publish-modal" onclick="if(event.target === this) this.classList.add('hidden')">
+<div class="w-full max-w-lg obsidian-card rounded-2xl p-8" onclick="event.stopPropagation()">
 <h3 class="text-xl font-black text-white uppercase tracking-tight mb-6">ПУБЛИКАЦИЯ В ГАЛЕРЕЮ</h3>
 <div class="space-y-6">
 <div class="aspect-video rounded-lg border border-white/10 overflow-hidden bg-black/40">
@@ -836,8 +836,7 @@
         const deleteBtn = document.getElementById('modal-delete-btn');
         const acceptBtn = document.getElementById('modal-accept-btn');
         
-        // Detailed modal UI adjustments per request
-        deleteBtn.classList.add('hidden'); // Ensure NO "Delete" button in detailed modal
+        deleteBtn.classList.add('hidden'); 
         
         if(suggestionsData[key]) {
             acceptBtn.classList.remove('hidden');
@@ -847,7 +846,6 @@
                 closeSuggestionModal();
             };
         } else {
-            // If viewing an already accepted item in the detailed modal
             acceptBtn.classList.add('hidden');
         }
     }
@@ -894,10 +892,9 @@
         const item = acceptedData[key];
         if(!item) return;
         
-        // Skip comment prompt/logic as requested
         galleryData.push({
             title: item.title || "Новый арт",
-            description: item.comment || "",
+            description: "",
             image: item.image
         });
         
@@ -938,19 +935,13 @@
     function renderHome() {
         document.getElementById("home-title").value = homeData.title || "";
         document.getElementById("home-image").value = homeData.image || "";
-        document.getElementById("home-description").value = homeData.description || "";
+        document.getElementById("home-desc").value = homeData.description || "";
         document.getElementById("home-location").value = homeData.location || "";
         renderStepsAdmin("wplace", homeData.help_wplace || []);
         renderStepsAdmin("blue", homeData.help_blue || []);
         renderStepsAdmin("helper", homeData.help_helper || []);
         previewHomeImage();
     }
-
-    // Alias for content consistency
-    Object.defineProperty(homeData, 'description', {
-        get() { return this.desc; },
-        set(v) { this.desc = v; }
-    });
 
     function renderStepsAdmin(type, steps) {
         const el = document.getElementById(`steps-${type}`);
