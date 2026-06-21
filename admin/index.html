@@ -235,6 +235,10 @@
 <span class="material-symbols-outlined text-xl">inbox</span>
                 ПРЕДЛОЖКА
             </button>
+<button class="sidebar-btn w-full flex items-center gap-3 px-4 py-3 text-sm font-medium transition-all whitespace-nowrap rounded-lg text-white/60 hover:text-white hover:bg-white/5" id="accepted-tab-btn" onclick="switchTab('accepted-tab', this)">
+<span class="material-symbols-outlined text-xl">verified</span>
+                ПРИНЯТЫЕ
+            </button>
 <button class="sidebar-btn w-full flex items-center gap-3 px-4 py-3 text-sm font-medium transition-all whitespace-nowrap rounded-lg text-white/60 hover:text-white hover:bg-white/5" onclick="switchTab('settings-tab', this)">
 <span class="material-symbols-outlined text-xl">settings</span>
                 НАСТРОЙКИ
@@ -424,6 +428,19 @@
 </div>
 </div>
 </div>
+<!-- ACCEPTED TAB -->
+<div class="tab-content hidden space-y-8" id="accepted-tab">
+<div class="flex items-center justify-between mb-8 border-b border-white/5 pb-6">
+<h2 class="text-2xl font-black uppercase text-white tracking-tight">ОДОБРЕННЫЕ К ПУБЛИКАЦИИ</h2>
+<div class="flex gap-3">
+<div class="flex items-center gap-2 px-3 py-1.5 bg-emerald-primary/5 rounded-full border border-emerald-primary/10 text-[10px]">
+<span class="font-bold uppercase text-emerald-primary/80" id="accepted-count">0 АРТОВ</span>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-6" id="accepted-items"></div>
+<div class="p-10 text-center opacity-20 text-sm uppercase tracking-widest font-bold hidden" id="accepted-empty">СПИСОК ПУСТ</div>
+</div>
 <!-- SETTINGS TAB -->
 <div class="tab-content hidden" id="settings-tab">
 <div class="max-w-4xl mx-auto space-y-8">
@@ -519,8 +536,12 @@
 </div>
 </div>
 <div>
+<label class="block text-[10px] font-bold text-white/30 uppercase tracking-widest mb-1">КОНТАКТ СЕНДЕРА</label>
+<p class="text-xs text-white/80 font-mono" id="modal-art-contact">—</p>
+</div>
+<div>
 <label class="block text-[10px] font-bold text-white/30 uppercase tracking-widest mb-1">КОММЕНТАРИЙ</label>
-<div class="max-h-[150px] overflow-y-auto pr-2 custom-scrollbar">
+<div class="max-h-[100px] overflow-y-auto pr-2 custom-scrollbar">
 <p class="text-xs text-white/60 leading-relaxed italic border-l-2 border-emerald-primary/30 pl-3" id="modal-art-comment">—</p>
 </div>
 </div>
@@ -534,7 +555,30 @@
                 </button>
 <div class="flex gap-4">
 <button class="px-6 py-2.5 text-xs font-bold text-white/40 hover:text-white border border-white/10 rounded-lg transition-colors" onclick="closeSuggestionModal()">ЗАКРЫТЬ</button>
-<button class="btn-emerald px-8 py-2.5 text-xs shadow-[0_0_15px_rgba(0,228,121,0.3)]" id="modal-accept-btn">ПРИНЯТЬ В ГАЛЕРЕЮ</button>
+<button class="btn-emerald px-8 py-2.5 text-xs shadow-[0_0_15px_rgba(0,228,121,0.3)]" id="modal-accept-btn">ПЕРЕНЕСТИ В ОДОБРЕННЫЕ</button>
+</div>
+</div>
+</div>
+</div>
+<!-- ACCEPT PUBLISH MODAL -->
+<div class="fixed inset-0 z-[110] flex items-center justify-center bg-black/90 backdrop-blur-md hidden" id="publish-modal">
+<div class="w-full max-w-lg obsidian-card rounded-2xl p-8">
+<h3 class="text-xl font-black text-white uppercase tracking-tight mb-6">ПУБЛИКАЦИЯ В ГАЛЕРЕЮ</h3>
+<div class="space-y-6">
+<div class="aspect-video rounded-lg border border-white/10 overflow-hidden bg-black/40">
+<img class="w-full h-full object-contain" id="publish-preview-img" src=""/>
+</div>
+<div>
+<label class="block text-[10px] font-bold text-white/30 uppercase tracking-widest mb-2">НАЗВАНИЕ</label>
+<input class="input-field w-full p-3 text-sm" id="publish-title" type="text"/>
+</div>
+<div>
+<label class="block text-[10px] font-bold text-white/30 uppercase tracking-widest mb-2">КОММЕНТАРИЙ АДМИНА / ОПИСАНИЕ</label>
+<textarea class="input-field w-full p-3 text-sm" id="publish-desc" rows="4"></textarea>
+</div>
+<div class="flex gap-4 pt-4">
+<button class="flex-1 px-6 py-3.5 text-xs font-bold text-white/40 hover:text-white border border-white/10 rounded-lg transition-colors" onclick="document.getElementById('publish-modal').classList.add('hidden')">ОТМЕНА</button>
+<button class="flex-1 btn-emerald px-6 py-3.5 text-xs" id="publish-confirm-btn">ПОДТВЕРДИТЬ</button>
 </div>
 </div>
 </div>
@@ -553,9 +597,8 @@
     let token = sessionStorage.getItem("wplace_admin_token");
     let homeData = {}, galleryData = [], guidesData = [], settingsData = {};
     let firebaseApp = null, firebaseDb = null;
-    let suggestionsData = {}; 
+    let suggestionsData = {}, acceptedData = {}; 
     
-    // HARDCODED FIREBASE CONFIG
     const FIREBASE_CONFIG = {
         apiKey: "AIzaSyBb88pnDmYYH9Z7aPIOymSgINA4L_K_9gc",
         authDomain: "wl-site-4f2a1.firebaseapp.com",
@@ -633,7 +676,6 @@
         toast("СИНХРОНИЗАЦИЯ ЗАВЕРШЕНА", "success");
     }
 
-    // FIREBASE SYNC LOGIC
     function initFirebase() {
         try {
             if (firebase.apps.length > 0) {
@@ -656,14 +698,13 @@
     function finalizeFirebaseInit() {
         updateFirebaseStatus("CONNECTED", "bg-emerald-primary shadow-[0_0_8px_#00e479]");
         startSuggestionsListener();
+        startAcceptedListener();
     }
 
     function updateFirebaseStatus(text, colorClass) {
         const indicator = document.getElementById('firebase-status-indicator');
         const label = document.getElementById('firebase-status-text');
-        if(indicator) {
-            indicator.className = `w-2 h-2 rounded-full ${colorClass}`;
-        }
+        if(indicator) indicator.className = `w-2 h-2 rounded-full ${colorClass}`;
         if(label) label.textContent = text;
     }
 
@@ -672,83 +713,15 @@
         firebaseDb.ref('suggestions').on('value', (snapshot) => {
             suggestionsData = snapshot.val() || {};
             renderSuggestionsTable();
-        }, (error) => {
-            console.error(error);
-            toast("FIREBASE READ ERROR", "error");
         });
     }
 
-    function renderSuggestionsTable() {
-        const tbody = document.getElementById('suggestions-body');
-        const countEl = document.getElementById('suggestion-count');
-        const keys = Object.keys(suggestionsData);
-        countEl.textContent = `${keys.length} ЗАЯВОК`;
-        
-        if (keys.length === 0) {
-            tbody.innerHTML = '<tr><td colspan="5" class="p-10 text-center opacity-20 text-sm uppercase tracking-widest font-bold">ОЧЕРЕДЬ ПУСТА. НЕТ НОВЫХ ЗАЯВОК В ОБЛАКЕ.</td></tr>';
-            return;
-        }
-
-        tbody.innerHTML = keys.map(key => {
-            const s = suggestionsData[key];
-            // Fix: Show contact (which often contains dimensions in this system) or placeholder
-            const dimStr = s.contact || '?? x ??'; 
-            return `
-            <tr onclick="viewSuggestion('${key}')" class="group cursor-pointer hover:bg-white/[0.04] transition-colors border-b border-white/5 last:border-0">
-                <td class="p-4">
-                    <div class="w-12 h-12 rounded border border-white/10 bg-black/40 overflow-hidden group-hover:border-emerald-primary/40 transition-colors">
-                        <img class="w-full h-full object-cover" src="${s.image || ''}" onerror="this.style.display='none'">
-                    </div>
-                </td>
-                <td class="p-4">
-                    <div class="text-xs font-bold text-white uppercase tracking-wider group-hover:text-emerald-primary transition-colors">${s.title || 'БЕЗ НАЗВАНИЯ'}</div>
-                    <div class="text-[10px] text-white/30 uppercase mt-1">ОТ: ${s.author || 'ANON'}</div>
-                </td>
-                <td class="p-4">
-                    <div class="text-[10px] text-emerald-primary/80 font-mono">${dimStr}</div>
-                </td>
-                <td class="p-4">
-                    <span class="px-2 py-0.5 rounded text-[9px] font-bold bg-emerald-primary/10 text-emerald-primary uppercase tracking-tighter">CLOUD</span>
-                </td>
-                <td class="p-4 text-right">
-                    <div class="flex justify-end gap-2" onclick="event.stopPropagation()">
-                        <button onclick="viewSuggestion('${key}')" class="w-8 h-8 rounded bg-white/5 text-white/60 hover:bg-white/10 hover:text-white transition-all flex items-center justify-center"><span class="material-symbols-outlined text-lg">visibility</span></button>
-                        <button onclick="deleteSuggestion('${key}')" class="w-8 h-8 rounded bg-red-500/10 text-red-500 hover:bg-red-500 hover:text-white transition-all flex items-center justify-center"><span class="material-symbols-outlined text-lg">delete</span></button>
-                    </div>
-                </td>
-            </tr>
-        `}).join('');
-    }
-
-    function deleteSuggestion(key) {
-        if (!firebaseDb) return toast("DATABASE NOT CONNECTED", "error");
-        if (!confirm('УДАЛИТЬ ДАННУЮ ЗАЯВКУ ИЗ ОБЛАКА?')) return;
-        firebaseDb.ref(`suggestions/${key}`).remove()
-            .then(() => toast("ЗАЯВКА УДАЛЕНА", "success"))
-            .catch(e => toast("ОШИБКА УДАЛЕНИЯ", "error"));
-    }
-
-    function clearFirebaseSuggestions() {
-        if (!firebaseDb) return toast("DATABASE NOT CONNECTED", "error");
-        if (!confirm('ПОЛНАЯ ОЧИСТКА ОБЛАКА? ЭТО УДАЛИТ ВСЕ ЗАЯВКИ ДЛЯ ВСЕХ АДМИНОВ.')) return;
-        firebaseDb.ref('suggestions').set(null)
-            .then(() => toast("ОБЛАКО ОЧИЩЕНО", "success"))
-            .catch(e => toast("ОШИБКА", "error"));
-    }
-
-    async function downloadImage(url, filename) {
-        try {
-            const response = await fetch(url);
-            const blob = await response.blob();
-            const link = document.createElement("a");
-            link.href = URL.createObjectURL(blob);
-            link.download = filename || "art_download.png";
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-        } catch (e) {
-            toast("ОШИБКА СКАЧИВАНИЯ", "error");
-        }
+    function startAcceptedListener() {
+        if (!firebaseDb) return;
+        firebaseDb.ref('accepted').on('value', (snapshot) => {
+            acceptedData = snapshot.val() || {};
+            renderAcceptedItems();
+        });
     }
 
     async function analyzePixelData(imageUrl) {
@@ -761,33 +734,72 @@
                 canvas.height = img.height;
                 const ctx = canvas.getContext('2d');
                 ctx.drawImage(img, 0, 0);
-                const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-                const data = imageData.data;
-                let opaqueCount = 0;
-                for (let i = 3; i < data.length; i += 4) {
-                    if (data[i] > 0) opaqueCount++;
-                }
-                resolve({
-                    width: img.width,
-                    height: img.height,
-                    total: img.width * img.height,
-                    opaque: opaqueCount
-                });
+                try {
+                    const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+                    const data = imageData.data;
+                    let opaqueCount = 0;
+                    for (let i = 3; i < data.length; i += 4) {
+                        if (data[i] > 10) opaqueCount++; // threshold for near-transparency
+                    }
+                    resolve({
+                        width: img.width,
+                        height: img.height,
+                        total: img.width * img.height,
+                        opaque: opaqueCount
+                    });
+                } catch(e) { resolve(null); }
             };
             img.onerror = () => resolve(null);
             img.src = imageUrl;
         });
     }
 
+    function renderSuggestionsTable() {
+        const tbody = document.getElementById('suggestions-body');
+        const countEl = document.getElementById('suggestion-count');
+        const keys = Object.keys(suggestionsData);
+        countEl.textContent = `${keys.length} ЗАЯВОК`;
+        
+        if (keys.length === 0) {
+            tbody.innerHTML = '<tr><td colspan="5" class="p-10 text-center opacity-20 text-sm uppercase tracking-widest font-bold">ОЧЕРЕДЬ ПУСТА</td></tr>';
+            return;
+        }
+
+        tbody.innerHTML = keys.map(key => {
+            const s = suggestionsData[key];
+            const sizeDisplay = s.width && s.height ? `${s.width}x${s.height}` : '???';
+            return `
+            <tr onclick="viewSuggestion('${key}')" class="group cursor-pointer hover:bg-white/[0.04] transition-colors border-b border-white/5 last:border-0">
+                <td class="p-4">
+                    <div class="w-12 h-12 rounded border border-white/10 bg-black/40 overflow-hidden group-hover:border-emerald-primary/40 transition-colors">
+                        <img class="w-full h-full object-cover" src="${s.image || ''}" onerror="this.style.display='none'">
+                    </div>
+                </td>
+                <td class="p-4">
+                    <div class="text-xs font-bold text-white uppercase tracking-wider group-hover:text-emerald-primary transition-colors">${s.title || 'БЕЗ НАЗВАНИЯ'}</div>
+                    <div class="text-[10px] text-white/30 uppercase mt-1">ОТ: ${s.author || 'ANON'}</div>
+                </td>
+                <td class="p-4 font-mono text-[10px] text-emerald-primary/80">${sizeDisplay}</td>
+                <td class="p-4"><span class="px-2 py-0.5 rounded text-[9px] font-bold bg-emerald-primary/10 text-emerald-primary uppercase">CLOUD</span></td>
+                <td class="p-4 text-right">
+                    <div class="flex justify-end gap-2" onclick="event.stopPropagation()">
+                        <button onclick="viewSuggestion('${key}')" class="w-8 h-8 rounded bg-white/5 text-white/60 hover:bg-white/10 hover:text-white transition-all flex items-center justify-center"><span class="material-symbols-outlined text-lg">visibility</span></button>
+                        <button onclick="deleteSuggestion('${key}')" class="w-8 h-8 rounded bg-red-500/10 text-red-500 hover:bg-red-500 flex items-center justify-center"><span class="material-symbols-outlined text-lg">delete</span></button>
+                    </div>
+                </td>
+            </tr>`;
+        }).join('');
+    }
+
     async function viewSuggestion(key) {
         const item = suggestionsData[key];
         const modal = document.getElementById('suggestion-modal');
         
-        // Reset modal fields to "loading" state
         document.getElementById('modal-preview-img').src = item.image;
         document.getElementById('modal-art-title').textContent = item.title || 'БЕЗ НАЗВАНИЯ';
-        document.getElementById('modal-art-date').textContent = item.date || new Date().toLocaleString('ru-RU');
+        document.getElementById('modal-art-date').textContent = item.date || '—';
         document.getElementById('modal-art-comment').textContent = item.comment || 'ОПИСАНИЕ ОТСУТСТВУЕТ';
+        document.getElementById('modal-art-contact').textContent = item.contact || item.author || 'ANON';
         
         document.getElementById('modal-art-res').textContent = "АНАЛИЗ...";
         document.getElementById('modal-pixel-total').textContent = "ОБЩЕЕ: —";
@@ -795,31 +807,108 @@
         
         modal.classList.remove('hidden');
 
-        // Perform real pixel analysis
         const stats = await analyzePixelData(item.image);
         if (stats) {
             document.getElementById('modal-art-res').textContent = `${stats.width} x ${stats.height}`;
             document.getElementById('modal-pixel-total').textContent = `ОБЩЕЕ: ${stats.total.toLocaleString()} PX`;
             document.getElementById('modal-pixel-opaque').textContent = `ЧИСТЫЙ ВЕС: ${stats.opaque.toLocaleString()} PX`;
+            // Cache stats in firebase if possible
+            firebaseDb.ref(`suggestions/${key}`).update({ width: stats.width, height: stats.height });
         } else {
-            document.getElementById('modal-art-res').textContent = item.contact || "ОШИБКА";
-            document.getElementById('modal-pixel-total').textContent = "ОШИБКА ЧТЕНИЯ";
-            document.getElementById('modal-pixel-opaque').textContent = "ПРОВЕРЬТЕ URL";
+            document.getElementById('modal-art-res').textContent = "ОШИБКА";
         }
             
-        document.getElementById('modal-download-btn').onclick = () => downloadImage(item.image, `${item.title || 'art'}_${Date.now()}.png`);
+        document.getElementById('modal-download-btn').onclick = () => downloadImage(item.image, `${item.title || 'art'}.png`);
         
         document.getElementById('modal-accept-btn').onclick = async () => {
-            galleryData.push({ 
-                title: item.title || 'Untitled', 
-                description: item.comment || '', 
-                image: item.image 
-            });
-            renderGallery();
-            deleteSuggestion(key);
+            const data = {...item, acceptedAt: new Date().toISOString()};
+            await firebaseDb.ref('accepted').push(data);
+            await firebaseDb.ref(`suggestions/${key}`).remove();
             closeSuggestionModal();
-            toast("ДОБАВЛЕНО В ОЧЕРЕДЬ ГАЛЕРЕИ", "success");
+            toast("ПЕРЕНЕСЕНО В ОДОБРЕННЫЕ", "success");
         };
+    }
+
+    function renderAcceptedItems() {
+        const el = document.getElementById("accepted-items");
+        const empty = document.getElementById("accepted-empty");
+        const countEl = document.getElementById("accepted-count");
+        const keys = Object.keys(acceptedData);
+        
+        countEl.textContent = `${keys.length} АРТОВ`;
+        if (keys.length === 0) {
+            el.innerHTML = '';
+            empty.classList.remove("hidden");
+            return;
+        }
+        empty.classList.add("hidden");
+
+        el.innerHTML = keys.map(key => {
+            const item = acceptedData[key];
+            return `
+            <div class="terminal-border bg-[#0f0f15] p-4 group rounded-xl hover:border-emerald-primary/40 transition-all flex flex-col">
+                <div class="aspect-square mb-4 rounded-lg border border-white/5 relative overflow-hidden bg-black/20">
+                    <img src="${item.image}" class="w-full h-full object-contain">
+                    <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 flex items-center justify-center gap-3 transition-opacity">
+                        <button onclick="deleteAccepted('${key}')" class="w-10 h-10 rounded-lg bg-red-500/20 hover:bg-red-500 text-red-500 hover:text-white flex items-center justify-center transition-colors"><span class="material-symbols-outlined text-xl">delete</span></button>
+                    </div>
+                </div>
+                <div class="flex-1 space-y-2">
+                    <div class="text-sm font-bold text-white uppercase truncate">${item.title || 'Untitled'}</div>
+                    <div class="text-[10px] text-white/40 uppercase">ОТ: ${item.author || 'ANON'}</div>
+                    <div class="text-[10px] text-emerald-primary/60 font-mono">${item.width||'?' }x${item.height||'?' }</div>
+                </div>
+                <button onclick="preparePublish('${key}')" class="mt-4 btn-emerald w-full py-2.5 text-[10px] flex items-center justify-center gap-2">
+                    <span class="material-symbols-outlined text-sm">publish</span> ОПУБЛИКОВАТЬ
+                </button>
+            </div>`;
+        }).join("");
+    }
+
+    function preparePublish(key) {
+        const item = acceptedData[key];
+        const modal = document.getElementById('publish-modal');
+        document.getElementById('publish-preview-img').src = item.image;
+        document.getElementById('publish-title').value = item.title || '';
+        document.getElementById('publish-desc').value = item.comment || '';
+        
+        document.getElementById('publish-confirm-btn').onclick = async () => {
+            galleryData.push({
+                title: document.getElementById('publish-title').value,
+                description: document.getElementById('publish-desc').value,
+                image: item.image
+            });
+            await firebaseDb.ref(`accepted/${key}`).remove();
+            modal.classList.add('hidden');
+            renderGallery();
+            toast("ДОБАВЛЕНО В ГАЛЕРЕЮ. СОХРАНИТЕ ДАННЫЕ.", "success");
+            switchTab('gallery-tab', document.querySelector('button[onclick*="gallery-tab"]'));
+        };
+        modal.classList.remove('hidden');
+    }
+
+    function deleteAccepted(key) {
+        if (!confirm('УДАЛИТЬ ИЗ ОДОБРЕННЫХ?')) return;
+        firebaseDb.ref(`accepted/${key}`).remove();
+    }
+
+    function deleteSuggestion(key) {
+        if (!confirm('УДАЛИТЬ ЗАЯВКУ?')) return;
+        firebaseDb.ref(`suggestions/${key}`).remove();
+    }
+
+    function clearFirebaseSuggestions() {
+        if (!confirm('ОЧИСТИТЬ ВСЕ ЗАЯВКИ?')) return;
+        firebaseDb.ref('suggestions').set(null);
+    }
+
+    function downloadImage(url, filename) {
+        const link = document.createElement("a");
+        link.href = url;
+        link.download = filename;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
     }
 
     function renderHome() {
@@ -967,11 +1056,7 @@
         settingsData.headerTitle = document.getElementById("settings-headerTitle").value;
         settingsData.headerSubtitle = document.getElementById("settings-headerSubtitle").value;
         settingsData.footer = document.getElementById("settings-footer").value;
-        
-        try { 
-            settingsData._sha = await saveJSON("content/settings.json", settingsData, settingsData._sha); 
-            return true; 
-        } catch(e) { toast(e.message, "error"); return false; } 
+        try { settingsData._sha = await saveJSON("content/settings.json", settingsData, settingsData._sha); return true; } catch(e) { toast(e.message, "error"); return false; } 
     }
 
     async function publishAll() {
@@ -994,6 +1079,7 @@
     }
 
     async function resetAll() {
+        if(!confirm('ПОЛНАЯ ОЧИСТКА? ЭТО ДЕЙСТВИЕ НЕОБРАТИМО.')) return;
         homeData = { title: "", image: "", description: "", location: "", help_wplace: [], help_blue: [], help_helper: [] };
         galleryData = []; guidesData = [];
         settingsData = { siteTitle: "Admin panel", headerTitle: "⚔ WPLACE ⚔", headerSubtitle: "Pixel Art Community", footer: "© 2025" };
@@ -1040,7 +1126,7 @@
 
     document.addEventListener("keydown", function(e) {
         if ((e.ctrlKey||e.metaKey) && e.key === "s") { e.preventDefault(); publishAll(); }
-        if (e.key === "Escape") closeSuggestionModal();
+        if (e.key === "Escape") { closeSuggestionModal(); document.getElementById('publish-modal').classList.add('hidden'); }
     });
     document.getElementById("token-input").addEventListener("keydown", e => { if(e.key==="Enter")login(); });
 </script>
