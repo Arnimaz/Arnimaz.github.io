@@ -483,7 +483,7 @@
 </div>
 <!-- SUGGESTION MODAL -->
 <div class="fixed inset-0 z-[100] flex items-center justify-center bg-black/80 backdrop-blur-sm hidden" id="suggestion-modal">
-<div class="w-full max-w-lg obsidian-card rounded-2xl p-8 border border-emerald-primary/30 shadow-[0_0_30px_rgba(0,228,121,0.1)]">
+<div class="w-full max-w-2xl obsidian-card rounded-2xl p-8 border border-emerald-primary/30 shadow-[0_0_30px_rgba(0,228,121,0.1)]">
 <div class="flex justify-between items-start mb-6">
 <h3 class="text-xl font-black text-white uppercase tracking-tight font-display-lg" id="modal-title-header">ДЕТАЛИ ЗАЯВКИ</h3>
 <button class="text-white/40 hover:text-white transition-colors" onclick="closeSuggestionModal()">
@@ -491,9 +491,14 @@
 </button>
 </div>
 <div class="space-y-6" id="modal-content"></div>
-<div class="mt-8 pt-6 border-t border-white/5 flex justify-end gap-4">
-<button class="px-6 py-2 text-xs font-bold text-white/40 hover:text-white border border-white/10 rounded-lg transition-colors" onclick="closeSuggestionModal()">ЗАКРЫТЬ</button>
-<button class="btn-emerald px-6 py-2 text-xs" id="modal-accept-btn">ПРИНЯТЬ</button>
+<div class="mt-8 pt-6 border-t border-white/5 flex flex-wrap items-center justify-between gap-4">
+<button class="btn-emerald px-6 py-2.5 text-xs flex items-center gap-2" id="modal-download-btn">
+<span class="material-symbols-outlined text-sm">download</span> 💾 СКАЧАТЬ АРТ
+                </button>
+<div class="flex gap-4">
+<button class="px-6 py-2.5 text-xs font-bold text-white/40 hover:text-white border border-white/10 rounded-lg transition-colors" onclick="closeSuggestionModal()">ЗАКРЫТЬ</button>
+<button class="btn-emerald px-8 py-2.5 text-xs shadow-[0_0_15px_rgba(0,228,121,0.3)]" id="modal-accept-btn">ПРИНЯТЬ В ГАЛЕРЕЮ</button>
+</div>
 </div>
 </div>
 </div>
@@ -650,14 +655,14 @@
         tbody.innerHTML = keys.map(key => {
             const s = suggestionsData[key];
             return `
-            <tr class="hover:bg-white/[0.02] transition-colors border-b border-white/5 last:border-0">
+            <tr onclick="viewSuggestion('${key}')" class="group cursor-pointer hover:bg-white/[0.04] transition-colors border-b border-white/5 last:border-0">
                 <td class="p-4">
-                    <div class="w-12 h-12 rounded border border-white/10 bg-black/40 overflow-hidden">
+                    <div class="w-12 h-12 rounded border border-white/10 bg-black/40 overflow-hidden group-hover:border-emerald-primary/40 transition-colors">
                         <img class="w-full h-full object-cover" src="${s.image || ''}" onerror="this.style.display='none'">
                     </div>
                 </td>
                 <td class="p-4">
-                    <div class="text-xs font-bold text-white uppercase tracking-wider">${s.title || 'БЕЗ НАЗВАНИЯ'}</div>
+                    <div class="text-xs font-bold text-white uppercase tracking-wider group-hover:text-emerald-primary transition-colors">${s.title || 'БЕЗ НАЗВАНИЯ'}</div>
                     <div class="text-[10px] text-white/30 uppercase mt-1">ОТ: ${s.author || 'ANON'}</div>
                 </td>
                 <td class="p-4">
@@ -667,7 +672,7 @@
                     <span class="px-2 py-0.5 rounded text-[9px] font-bold bg-emerald-primary/10 text-emerald-primary uppercase tracking-tighter">CLOUD</span>
                 </td>
                 <td class="p-4 text-right">
-                    <div class="flex justify-end gap-2">
+                    <div class="flex justify-end gap-2" onclick="event.stopPropagation()">
                         <button onclick="viewSuggestion('${key}')" class="w-8 h-8 rounded bg-white/5 text-white/60 hover:bg-white/10 hover:text-white transition-all flex items-center justify-center"><span class="material-symbols-outlined text-lg">visibility</span></button>
                         <button onclick="deleteSuggestion('${key}')" class="w-8 h-8 rounded bg-red-500/10 text-red-500 hover:bg-red-500 hover:text-white transition-all flex items-center justify-center"><span class="material-symbols-outlined text-lg">delete</span></button>
                     </div>
@@ -692,24 +697,77 @@
             .catch(e => toast("ОШИБКА", "error"));
     }
 
+    async function downloadImage(url, filename) {
+        try {
+            const response = await fetch(url);
+            const blob = await response.blob();
+            const link = document.createElement("a");
+            link.href = URL.createObjectURL(blob);
+            link.download = filename || "art_download.png";
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        } catch (e) {
+            toast("ОШИБКА СКАЧИВАНИЯ", "error");
+        }
+    }
+
     function viewSuggestion(key) {
         const item = suggestionsData[key];
         const modal = document.getElementById('suggestion-modal');
         const content = document.getElementById('modal-content');
         const acceptBtn = document.getElementById('modal-accept-btn');
+        const downloadBtn = document.getElementById('modal-download-btn');
+        
+        const dateStr = item.date || new Date().toLocaleString('ru-RU');
+        
         content.innerHTML = `
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div class="aspect-square rounded-xl bg-black/40 border border-white/5 overflow-hidden flex items-center justify-center">
-                    <img src="${item.image}" class="max-w-full max-h-full object-contain">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="aspect-square rounded-xl bg-black/40 border border-white/10 overflow-hidden flex items-center justify-center shadow-inner group">
+                    <img src="${item.image}" class="max-w-full max-h-full object-contain transition-transform group-hover:scale-105 duration-500">
                 </div>
-                <div class="space-y-4">
-                    <div><label class="block text-[10px] font-bold text-white/30 uppercase tracking-widest mb-1">НАЗВАНИЕ</label><p class="text-sm font-bold text-white">${item.title || 'БЕЗ НАЗВАНИЯ'}</p></div>
-                    <div><label class="block text-[10px] font-bold text-white/30 uppercase tracking-widest mb-1">КОНТАКТ</label><p class="text-sm font-bold text-emerald-primary">${item.contact || '—'}</p></div>
-                    <div><label class="block text-[10px] font-bold text-white/30 uppercase tracking-widest mb-1">КОММЕНТАРИЙ</label><p class="text-xs text-white/60 leading-relaxed italic border-l-2 border-emerald-primary/30 pl-3">${item.comment || 'ОПИСАНИЕ ОТСУТСТВУЕТ'}</p></div>
+                <div class="flex flex-col h-full">
+                    <div class="space-y-5 flex-1">
+                        <div>
+                            <label class="block text-[10px] font-bold text-white/30 uppercase tracking-widest mb-1">НАЗВАНИЕ АРТА</label>
+                            <p class="text-lg font-black text-white uppercase">${item.title || 'БЕЗ НАЗВАНИЯ'}</p>
+                        </div>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-[10px] font-bold text-white/30 uppercase tracking-widest mb-1">ОТПРАВИТЕЛЬ</label>
+                                <p class="text-sm font-bold text-white/80">${item.author || 'ANONYMOUS'}</p>
+                            </div>
+                            <div>
+                                <label class="block text-[10px] font-bold text-white/30 uppercase tracking-widest mb-1">ДАТА ОТПРАВКИ</label>
+                                <p class="text-sm font-bold text-emerald-primary/80 font-mono">${dateStr}</p>
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-[10px] font-bold text-white/30 uppercase tracking-widest mb-1">КОНТАКТНАЯ СВЯЗЬ</label>
+                            <div class="px-3 py-2 bg-emerald-primary/5 border border-emerald-primary/10 rounded font-mono text-emerald-primary text-xs break-all">
+                                ${item.contact || 'ДАННЫЕ НЕ УКАЗАНЫ'}
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-[10px] font-bold text-white/30 uppercase tracking-widest mb-1">КОММЕНТАРИЙ</label>
+                            <div class="max-h-[150px] overflow-y-auto pr-2 custom-scrollbar">
+                                <p class="text-xs text-white/60 leading-relaxed italic border-l-2 border-emerald-primary/30 pl-3">
+                                    ${item.comment || 'ОПИСАНИЕ ОТСУТСТВУЕТ'}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>`;
+            
+        downloadBtn.onclick = () => downloadImage(item.image, `${item.title || 'art'}_${Date.now()}.png`);
+        
         acceptBtn.onclick = async () => {
-            galleryData.push({ title: item.title, description: item.comment, image: item.image });
+            galleryData.push({ 
+                title: item.title || 'Untitled', 
+                description: item.comment || '', 
+                image: item.image 
+            });
             renderGallery();
             deleteSuggestion(key);
             closeSuggestionModal();
