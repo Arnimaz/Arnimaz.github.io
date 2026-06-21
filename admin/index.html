@@ -6,6 +6,9 @@
 <title>Admin panel</title>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 <link href="https://fonts.googleapis.com/css2?family=VT323&amp;family=Inter:wght@400;600;700&amp;family=Geist:wght@700;800&amp;family=JetBrains+Mono:wght@700&amp;family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&amp;display=swap" rel="stylesheet"/>
+<!-- Firebase Compat SDKs -->
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
 <script id="tailwind-config">
       tailwind.config = {
         darkMode: "class",
@@ -258,8 +261,8 @@
 <header class="min-h-16 h-auto py-3 md:py-0 border-b border-white/5 bg-[#0f0f15]/80 backdrop-blur-md sticky top-0 z-10 px-6 md:px-8 flex flex-col md:flex-row items-center justify-between gap-4">
 <div class="flex items-center gap-6">
 <div class="flex items-center gap-2 px-3 py-1.5 bg-emerald-primary/5 rounded-full border border-emerald-primary/10 text-[10px]">
-<div class="w-1.5 h-1.5 bg-emerald-primary rounded-full animate-pulse shadow-[0_0_8px_#00e479]"></div>
-<span class="font-bold uppercase text-emerald-primary/80">API CONNECTED</span>
+<div class="w-1.5 h-1.5 bg-emerald-primary rounded-full animate-pulse shadow-[0_0_8px_#00e479]" id="connection-dot"></div>
+<span class="font-bold uppercase text-emerald-primary/80" id="connection-status">API CONNECTED</span>
 </div>
 <button class="btn-emerald px-5 py-2 text-xs font-bold flex items-center gap-2 h-9 px-8 h-10 text-sm shadow-[0_0_15px_#00e479] uppercase" onclick="publishAll()"><span class="material-symbols-outlined text-lg">cloud_upload</span> СОХРАНИТЬ ВСЁ</button>
 </div>
@@ -373,9 +376,29 @@
 </div>
 </div>
 <!-- SUGGESTIONS TAB -->
-<div class="tab-content hidden space-y-8" id="suggestions-tab"><div class="terminal-border p-6 rounded-xl bg-[#0f0f15] mb-8 shadow-[0_0_10px_rgba(0,228,121,0.05)]"><h3 class="text-sm font-bold mb-4 flex items-center gap-2 text-white uppercase tracking-widest"><span class="material-symbols-outlined text-emerald-primary text-lg">api</span> Конфигурация источников</h3><div class="grid grid-cols-1 md:grid-cols-2 gap-6"><div><label class="block text-[10px] font-bold text-white/30 uppercase mb-2 tracking-wider">FORMSPREE ID / ENDPOINT</label><div class="flex gap-2"><input class="input-field flex-1 p-2.5 text-xs" id="suggestion-endpoint-input" placeholder="https://formspree.io/f/xxxxxx" type="text"/><button class="px-4 py-2 bg-emerald-primary/10 hover:bg-emerald-primary/20 text-emerald-primary text-[10px] font-bold rounded transition-colors uppercase" onclick="saveSuggestionEndpoint()">ОК</button></div><p class="text-[9px] text-white/20 mt-2 uppercase">Новые заявки будут приходить на указанный сервис. Используйте импорт для управления.</p></div><div><label class="block text-[10px] font-bold text-white/30 uppercase mb-2 tracking-wider">ЦЕНТРАЛИЗОВАННЫЙ ИМПОРТ</label><div class="flex gap-2"><button class="btn-emerald flex-1 py-2.5 text-[10px] flex items-center justify-center gap-2" onclick="importSuggestionsJSON()"><span class="material-symbols-outlined text-sm">content_paste</span> ВСТАВИТЬ JSON</button><button class="px-4 py-2 border border-white/10 hover:bg-white/5 text-white/40 text-[10px] font-bold rounded transition-colors uppercase" onclick="localStorage.removeItem('wplace_suggestions'); loadSuggestions();">ОЧИСТИТЬ</button></div></div></div></div>
+<div class="tab-content hidden space-y-8" id="suggestions-tab">
+<div class="terminal-border p-6 rounded-xl bg-[#0f0f15] mb-8 shadow-[0_0_10px_rgba(0,228,121,0.05)]">
+<h3 class="text-sm font-bold mb-4 flex items-center gap-2 text-white uppercase tracking-widest"><span class="material-symbols-outlined text-emerald-primary text-lg">cloud_sync</span> Синхронизация данных (Firebase)</h3>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div>
+<label class="block text-[10px] font-bold text-white/30 uppercase mb-2 tracking-wider">СТАТУС ПОДКЛЮЧЕНИЯ</label>
+<div class="flex items-center gap-3 px-3 py-2 bg-white/5 border border-white/10 rounded">
+<div class="w-2 h-2 rounded-full bg-gray-600" id="firebase-status-indicator"></div>
+<span class="text-[10px] font-bold text-white/60 uppercase" id="firebase-status-text">DISCONNECTED</span>
+</div>
+<p class="text-[9px] text-white/20 mt-2 uppercase">Заявки синхронизируются в реальном времени через общую базу данных Firebase.</p>
+</div>
+<div>
+<label class="block text-[10px] font-bold text-white/30 uppercase mb-2 tracking-wider">УПРАВЛЕНИЕ ИМПОРТОМ</label>
+<div class="flex gap-2">
+<button class="btn-emerald flex-1 py-2.5 text-[10px] flex items-center justify-center gap-2" onclick="importSuggestionsJSON()"><span class="material-symbols-outlined text-sm">content_paste</span> ВСТАВИТЬ JSON</button>
+<button class="px-4 py-2 border border-white/10 hover:bg-white/5 text-white/40 text-[10px] font-bold rounded transition-colors uppercase" onclick="clearFirebaseSuggestions()">ОЧИСТИТЬ ОБЛАКО</button>
+</div>
+</div>
+</div>
+</div>
 <div class="flex items-center justify-between mb-8 border-b border-white/5 pb-6">
-<h2 class="text-2xl font-black uppercase text-white tracking-tight">ПРЕДЛОЖЕННЫЕ АРТЫ</h2>
+<h2 class="text-2xl font-black uppercase text-white tracking-tight">ОБЩАЯ ОЧЕРЕДЬ ЗАЯВОК</h2>
 <div class="flex gap-3">
 <div class="flex items-center gap-2 px-3 py-1.5 bg-emerald-primary/5 rounded-full border border-emerald-primary/10 text-[10px]">
 <span class="font-bold uppercase text-emerald-primary/80" id="suggestion-count">0 ЗАЯВОК</span>
@@ -395,7 +418,7 @@
 </tr>
 </thead>
 <tbody class="divide-y divide-white/5" id="suggestions-body">
-<tr><td class="p-10 text-center opacity-20 text-sm uppercase tracking-widest font-bold animate-pulse" colspan="5">НЕТ ДАННЫХ. ИМПОРТИРУЙТЕ ЗАЯВКИ ИЗ ВНЕШНЕГО ИСТОЧНИКА.</td></tr>
+<tr><td class="p-10 text-center opacity-20 text-sm uppercase tracking-widest font-bold animate-pulse" colspan="5">ОЖИДАНИЕ ПОДКЛЮЧЕНИЯ К БАЗЕ ДАННЫХ...</td></tr>
 </tbody>
 </table>
 </div>
@@ -430,6 +453,45 @@
 </div>
 </div>
 </div>
+</div>
+<div class="terminal-border p-8 rounded-xl bg-[#0f0f15]">
+<h3 class="text-lg font-bold mb-8 flex items-center gap-3 border-b border-white/5 pb-4 text-white">
+<span class="material-symbols-outlined text-emerald-primary">storage</span> КОНФИГУРАЦИЯ FIREBASE
+                        </h3>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div class="space-y-4">
+<div>
+<label class="block text-[10px] font-bold text-white/30 uppercase mb-1.5 tracking-wider">API KEY</label>
+<input class="input-field w-full p-3 text-xs font-mono" id="settings-fb-apiKey" placeholder="AIzaSy..." type="text"/>
+</div>
+<div>
+<label class="block text-[10px] font-bold text-white/30 uppercase mb-1.5 tracking-wider">DATABASE URL</label>
+<input class="input-field w-full p-3 text-xs font-mono" id="settings-fb-databaseURL" placeholder="https://project-id.firebaseio.com" type="text"/>
+</div>
+<div>
+<label class="block text-[10px] font-bold text-white/30 uppercase mb-1.5 tracking-wider">PROJECT ID</label>
+<input class="input-field w-full p-3 text-xs font-mono" id="settings-fb-projectId" placeholder="project-id-123" type="text"/>
+</div>
+</div>
+<div class="space-y-4">
+<div>
+<label class="block text-[10px] font-bold text-white/30 uppercase mb-1.5 tracking-wider">AUTH DOMAIN</label>
+<input class="input-field w-full p-3 text-xs font-mono" id="settings-fb-authDomain" placeholder="project-id.firebaseapp.com" type="text"/>
+</div>
+<div>
+<label class="block text-[10px] font-bold text-white/30 uppercase mb-1.5 tracking-wider">STORAGE BUCKET</label>
+<input class="input-field w-full p-3 text-xs font-mono" id="settings-fb-storageBucket" placeholder="project-id.appspot.com" type="text"/>
+</div>
+<div>
+<label class="block text-[10px] font-bold text-white/30 uppercase mb-1.5 tracking-wider">APP ID</label>
+<input class="input-field w-full p-3 text-xs font-mono" id="settings-fb-appId" placeholder="1:123456789:web:abcdef" type="text"/>
+</div>
+</div>
+</div>
+<div class="mt-8 flex justify-start">
+<button class="px-6 py-2.5 bg-emerald-primary/10 hover:bg-emerald-primary text-emerald-primary hover:text-black text-[10px] font-bold rounded transition-all uppercase border border-emerald-primary/20" onclick="initFirebase()">ПРОВЕРИТЬ ПОДКЛЮЧЕНИЕ</button>
+</div>
+<p class="text-[9px] text-white/20 mt-4 uppercase tracking-widest leading-relaxed">Эти данные необходимы для работы вкладки "Предложка". Вы можете найти их в консоли Firebase (Project Settings -&gt; General -&gt; Your Apps).</p>
 </div>
 <div class="terminal-border p-8 rounded-xl bg-[#0f0f15] border-red-500/20">
 <h3 class="text-lg font-bold mb-8 text-red-500 flex items-center gap-3 border-b border-red-500/10 pb-4">
@@ -487,7 +549,8 @@
     const REPO_OWNER = "Arnimaz", REPO_NAME = "Arnimaz.github.io", BRANCH = "main";
     let token = sessionStorage.getItem("wplace_admin_token");
     let homeData = {}, galleryData = [], guidesData = [], settingsData = {};
-    let suggestionsLocal = [];
+    let firebaseApp = null, firebaseDb = null;
+    let suggestionsData = {}; 
     
     if (token) { showAdmin(); loadAll(); }
 
@@ -496,14 +559,11 @@
         const body = document.getElementById("toast-body");
         const icon = document.getElementById("toast-icon");
         const m = document.getElementById("toast-msg");
-        
         m.textContent = msg;
         t.classList.remove("hidden");
-        
         body.style.borderColor = type === 'error' ? 'rgba(239, 68, 68, 0.5)' : 'rgba(0, 228, 121, 0.5)';
         icon.style.color = type === 'error' ? '#ef4444' : '#00e479';
         icon.textContent = type === 'success' ? 'check_circle' : (type === 'error' ? 'report' : 'info');
-
         clearTimeout(t._timer);
         t._timer = setTimeout(() => t.classList.add("hidden"), 4000);
     }
@@ -512,7 +572,6 @@
         const input = document.getElementById("token-input");
         token = input.value.trim();
         if (!token) return toast("ТРЕБУЕТСЯ ТОКЕН ДОСТУПА", "error");
-        
         try {
             const res = await fetch(`https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}`, { headers: { Authorization: `token ${token}` } });
             if (res.ok) {
@@ -520,20 +579,12 @@
                 showAdmin();
                 await loadAll();
                 toast("ДОСТУП К СИСТЕМЕ РАЗРЕШЕН", "success");
-            } else {
-                toast("ОШИБКА АВТОРИЗАЦИИ", "error");
-            }
-        } catch(e) {
-            toast("СБОЙ ПОДКЛЮЧЕНИЯ", "error");
-        }
+            } else { toast("ОШИБКА АВТОРИЗАЦИИ", "error"); }
+        } catch(e) { toast("СБОЙ ПОДКЛЮЧЕНИЯ", "error"); }
     }
 
     function logout() { sessionStorage.removeItem("wplace_admin_token"); location.reload(); }
-    
-    function showAdmin() {
-        document.getElementById("login-page").classList.add("hidden");
-        document.getElementById("admin-page").classList.remove("hidden");
-    }
+    function showAdmin() { document.getElementById("login-page").classList.add("hidden"); document.getElementById("admin-page").classList.remove("hidden"); }
 
     async function loadJSON(path) {
         const res = await fetch(`https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${path}?ref=${BRANCH}`, { headers: { Authorization: `token ${token}`, Accept: "application/vnd.github.v3+json" } });
@@ -553,13 +604,160 @@
         try { const h = await loadJSON("content/home.json"); homeData = h.content; homeData._sha = h.sha; renderHome(); } catch(e) { console.error(e); }
         try { const g = await loadJSON("content/gallery.json"); galleryData = g.content; galleryData._sha = g.sha; renderGallery(); } catch(e) { console.error(e); }
         try { const gu = await loadJSON("content/guides.json"); guidesData = gu.content; guidesData._sha = gu.sha; renderGuides(); } catch(e) { console.error(e); }
-        try { const s = await loadJSON("content/settings.json"); settingsData = s.content; settingsData._sha = s.sha; renderSettings(); } catch(e) { 
+        try { 
+            const s = await loadJSON("content/settings.json"); 
+            settingsData = s.content; 
+            settingsData._sha = s.sha; 
+            renderSettings(); 
+            initFirebase(); 
+        } catch(e) { 
             settingsData = { siteTitle: "Admin panel", headerTitle: "⚔ WPLACE ⚔", headerSubtitle: "Pixel Art Community", footer: "© 2025" }; 
             renderSettings(); 
         }
-        loadSuggestions();
-        loadSuggestionEndpoint(); // Load endpoint on startup
         toast("СИНХРОНИЗАЦИЯ ЗАВЕРШЕНА", "success");
+    }
+
+    // FIREBASE SYNC LOGIC
+    function initFirebase() {
+        const config = {
+            apiKey: document.getElementById('settings-fb-apiKey').value.trim(),
+            authDomain: document.getElementById('settings-fb-authDomain').value.trim(),
+            databaseURL: document.getElementById('settings-fb-databaseURL').value.trim(),
+            projectId: document.getElementById('settings-fb-projectId').value.trim(),
+            storageBucket: document.getElementById('settings-fb-storageBucket').value.trim(),
+            appId: document.getElementById('settings-fb-appId').value.trim()
+        };
+
+        if (!config.apiKey || !config.databaseURL) {
+            updateFirebaseStatus("MISSING CONFIG", "bg-red-500/50");
+            return;
+        }
+
+        try {
+            if (firebase.apps.length > 0) {
+                firebase.app().delete().then(() => {
+                    firebaseApp = firebase.initializeApp(config);
+                    firebaseDb = firebase.database();
+                    finalizeFirebaseInit();
+                });
+            } else {
+                firebaseApp = firebase.initializeApp(config);
+                firebaseDb = firebase.database();
+                finalizeFirebaseInit();
+            }
+        } catch(e) {
+            toast("FIREBASE INIT ERROR", "error");
+            updateFirebaseStatus("CONFIG ERROR", "bg-red-500/50");
+        }
+    }
+
+    function finalizeFirebaseInit() {
+        updateFirebaseStatus("CONNECTED", "bg-emerald-primary shadow-[0_0_8px_#00e479]");
+        startSuggestionsListener();
+        toast("ПОДКЛЮЧЕНИЕ К FIREBASE УСТАНОВЛЕНО", "success");
+    }
+
+    function updateFirebaseStatus(text, colorClass) {
+        const indicator = document.getElementById('firebase-status-indicator');
+        const label = document.getElementById('firebase-status-text');
+        if(indicator) {
+            indicator.className = `w-2 h-2 rounded-full ${colorClass}`;
+        }
+        if(label) label.textContent = text;
+    }
+
+    function startSuggestionsListener() {
+        if (!firebaseDb) return;
+        firebaseDb.ref('suggestions').on('value', (snapshot) => {
+            suggestionsData = snapshot.val() || {};
+            renderSuggestionsTable();
+        }, (error) => {
+            console.error(error);
+            toast("FIREBASE READ ERROR", "error");
+        });
+    }
+
+    function renderSuggestionsTable() {
+        const tbody = document.getElementById('suggestions-body');
+        const countEl = document.getElementById('suggestion-count');
+        const keys = Object.keys(suggestionsData);
+        countEl.textContent = `${keys.length} ЗАЯВОК`;
+        
+        if (keys.length === 0) {
+            tbody.innerHTML = '<tr><td colspan="5" class="p-10 text-center opacity-20 text-sm uppercase tracking-widest font-bold">ОЧЕРЕДЬ ПУСТА. НЕТ НОВЫХ ЗАЯВОК В ОБЛАКЕ.</td></tr>';
+            return;
+        }
+
+        tbody.innerHTML = keys.map(key => {
+            const s = suggestionsData[key];
+            return `
+            <tr class="hover:bg-white/[0.02] transition-colors border-b border-white/5 last:border-0">
+                <td class="p-4">
+                    <div class="w-12 h-12 rounded border border-white/10 bg-black/40 overflow-hidden">
+                        <img class="w-full h-full object-cover" src="${s.image || ''}" onerror="this.style.display='none'">
+                    </div>
+                </td>
+                <td class="p-4">
+                    <div class="text-xs font-bold text-white uppercase tracking-wider">${s.title || 'БЕЗ НАЗВАНИЯ'}</div>
+                    <div class="text-[10px] text-white/30 uppercase mt-1">ОТ: ${s.author || 'ANON'}</div>
+                </td>
+                <td class="p-4">
+                    <div class="text-[10px] text-emerald-primary/80 font-mono">${s.contact || '—'}</div>
+                </td>
+                <td class="p-4">
+                    <span class="px-2 py-0.5 rounded text-[9px] font-bold bg-emerald-primary/10 text-emerald-primary uppercase tracking-tighter">CLOUD</span>
+                </td>
+                <td class="p-4 text-right">
+                    <div class="flex justify-end gap-2">
+                        <button onclick="viewSuggestion('${key}')" class="w-8 h-8 rounded bg-white/5 text-white/60 hover:bg-white/10 hover:text-white transition-all flex items-center justify-center"><span class="material-symbols-outlined text-lg">visibility</span></button>
+                        <button onclick="deleteSuggestion('${key}')" class="w-8 h-8 rounded bg-red-500/10 text-red-500 hover:bg-red-500 hover:text-white transition-all flex items-center justify-center"><span class="material-symbols-outlined text-lg">delete</span></button>
+                    </div>
+                </td>
+            </tr>
+        `}).join('');
+    }
+
+    function deleteSuggestion(key) {
+        if (!firebaseDb) return toast("DATABASE NOT CONNECTED", "error");
+        if (!confirm('УДАЛИТЬ ДАННУЮ ЗАЯВКУ ИЗ ОБЛАКА?')) return;
+        firebaseDb.ref(`suggestions/${key}`).remove()
+            .then(() => toast("ЗАЯВКА УДАЛЕНА", "success"))
+            .catch(e => toast("ОШИБКА УДАЛЕНИЯ", "error"));
+    }
+
+    function clearFirebaseSuggestions() {
+        if (!firebaseDb) return toast("DATABASE NOT CONNECTED", "error");
+        if (!confirm('ПОЛНАЯ ОЧИСТКА ОБЛАКА? ЭТО УДАЛИТ ВСЕ ЗАЯВКИ ДЛЯ ВСЕХ АДМИНОВ.')) return;
+        firebaseDb.ref('suggestions').set(null)
+            .then(() => toast("ОБЛАКО ОЧИЩЕНО", "success"))
+            .catch(e => toast("ОШИБКА", "error"));
+    }
+
+    function viewSuggestion(key) {
+        const item = suggestionsData[key];
+        const modal = document.getElementById('suggestion-modal');
+        const content = document.getElementById('modal-content');
+        const acceptBtn = document.getElementById('modal-accept-btn');
+        content.innerHTML = `
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="aspect-square rounded-xl bg-black/40 border border-white/5 overflow-hidden flex items-center justify-center">
+                    <img src="${item.image}" class="max-w-full max-h-full object-contain">
+                </div>
+                <div class="space-y-4">
+                    <div><label class="block text-[10px] font-bold text-white/30 uppercase tracking-widest mb-1">НАЗВАНИЕ</label><p class="text-sm font-bold text-white">${item.title || 'БЕЗ НАЗВАНИЯ'}</p></div>
+                    <div><label class="block text-[10px] font-bold text-white/30 uppercase tracking-widest mb-1">КОНТАКТ</label><p class="text-sm font-bold text-emerald-primary">${item.contact || '—'}</p></div>
+                    <div><label class="block text-[10px] font-bold text-white/30 uppercase tracking-widest mb-1">КОММЕНТАРИЙ</label><p class="text-xs text-white/60 leading-relaxed italic border-l-2 border-emerald-primary/30 pl-3">${item.comment || 'ОПИСАНИЕ ОТСУТСТВУЕТ'}</p></div>
+                </div>
+            </div>`;
+        acceptBtn.onclick = async () => {
+            // Option to compress before adding to gallery if needed, but since it's already in DB as string:
+            galleryData.push({ title: item.title, description: item.comment, image: item.image });
+            renderGallery();
+            deleteSuggestion(key);
+            closeSuggestionModal();
+            toast("ДОБАВЛЕНО В ОЧЕРЕДЬ ГАЛЕРЕИ", "success");
+        };
+        modal.classList.remove('hidden');
     }
 
     function renderHome() {
@@ -579,10 +777,7 @@
         el.innerHTML = steps.length === 0 ? '<p class="opacity-30 text-center py-2 text-[10px] uppercase font-bold italic">МОДУЛЬ ПУСТ</p>' : steps.map((s, i) => {
             const sd = typeof s === 'object' ? s : { text: s, image: "", detail: "" };
             return `<div class="p-3 border border-white/5 space-y-2.5 bg-black/20 rounded-lg relative group">
-                <div class="flex gap-2">
-                    <span class="text-[10px] font-bold text-emerald-primary/50">${i+1}</span>
-                    <input class="input-field w-full py-1 px-2 text-xs border-none !bg-white/5" value="${(sd.text||'').replace(/"/g,'&quot;')}" onchange="updateStepField('${type}',${i},'text',this.value)" placeholder="ТЕКСТ ШАГА">
-                </div>
+                <div class="flex gap-2"><span class="text-[10px] font-bold text-emerald-primary/50">${i+1}</span><input class="input-field w-full py-1 px-2 text-xs border-none !bg-white/5" value="${(sd.text||'').replace(/"/g,'&quot;')}" onchange="updateStepField('${type}',${i},'text',this.value)" placeholder="ТЕКСТ ШАГА"></div>
                 <input class="input-field w-full py-1 px-2 text-[10px] border-none !bg-white/5 opacity-50 focus:opacity-100" value="${sd.image||''}" onchange="updateStepField('${type}',${i},'image',this.value)" placeholder="URL ИЗОБРАЖЕНИЯ">
                 <textarea class="input-field w-full py-1 px-2 text-[10px] border-none !bg-white/5 opacity-50 focus:opacity-100" onchange="updateStepField('${type}',${i},'detail',this.value)" placeholder="ДЕТАЛИ..." rows="2">${(sd.detail||'').replace(/</g,'&lt;')}</textarea>
                 <button class="absolute top-1 right-1 opacity-0 group-hover:opacity-100 text-red-500 transition-opacity" onclick="removeStep('${type}',${i})"><span class="material-symbols-outlined text-sm">close</span></button>
@@ -595,33 +790,25 @@
         if(typeof homeData[key][i]!=='object') homeData[key][i]={text:homeData[key][i]||"",image:"",detail:""};
         homeData[key][i][field]=v;
     }
-    
     function addStep(type) {
         const key = type==="wplace"?"help_wplace":type==="blue"?"help_blue":"help_helper";
         if(!homeData[key]) homeData[key]=[];
         homeData[key].push({text:"",image:"",detail:""});
         renderStepsAdmin(type, homeData[key]);
     }
-
     function removeStep(type, i) {
         const key = type==="wplace"?"help_wplace":type==="blue"?"help_blue":"help_helper";
         homeData[key].splice(i,1);
         renderStepsAdmin(type, homeData[key]);
     }
-
     function previewHomeImage() {
         const url = document.getElementById("home-image").value;
         const img = document.getElementById("home-preview-img");
         const placeholder = document.getElementById("no-preview");
         if (url) {
-            img.src = url;
-            img.classList.remove("hidden");
-            placeholder.classList.add("hidden");
+            img.src = url; img.classList.remove("hidden"); placeholder.classList.add("hidden");
             img.onerror = () => { img.classList.add("hidden"); placeholder.classList.remove("hidden"); };
-        } else {
-            img.classList.add("hidden");
-            placeholder.classList.remove("hidden");
-        }
+        } else { img.classList.add("hidden"); placeholder.classList.remove("hidden"); }
     }
 
     async function saveHome() {
@@ -653,7 +840,6 @@
                 </div>
             </div>`).join("");
     }
-
     function addGalleryItem() { galleryData.push({ title: "", description: "", image: "" }); renderGallery(); }
     function moveGalleryItem(i, d) { const n = i+d; if(n<0||n>=galleryData.length)return; [galleryData[i], galleryData[n]] = [galleryData[n], galleryData[i]]; renderGallery(); }
     function sortGallery() { galleryData.sort((a,b) => (a.title||"").localeCompare(b.title||"")); renderGallery(); }
@@ -674,60 +860,35 @@
                         <span class="material-symbols-outlined text-xl">delete</span>
                     </button>
                 </div>
-                
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
                     <div>
-                        <div class="flex items-center justify-between mb-4">
-                            <span class="text-[10px] font-bold uppercase text-white/40 tracking-wider flex items-center gap-2"><span class="material-symbols-outlined text-sm">desktop_windows</span> ПЛАТФОРМА PC</span>
-                            <button onclick="addGuideStep(${i},'pc')" class="text-[10px] font-bold text-emerald-primary/60 hover:text-emerald-primary uppercase tracking-widest transition-colors">+ ШАГ</button>
-                        </div>
+                        <div class="flex items-center justify-between mb-4"><span class="text-[10px] font-bold uppercase text-white/40 tracking-wider flex items-center gap-2"><span class="material-symbols-outlined text-sm">desktop_windows</span> ПЛАТФОРМА PC</span><button onclick="addGuideStep(${i},'pc')" class="text-[10px] font-bold text-emerald-primary/60 hover:text-emerald-primary uppercase tracking-widest transition-colors">+ ШАГ</button></div>
                         <div class="space-y-4">${renderGuideStepsHTML(g.install_pc||[], i, 'pc')}</div>
                     </div>
                     <div>
-                        <div class="flex items-center justify-between mb-4">
-                            <span class="text-[10px] font-bold uppercase text-white/40 tracking-wider flex items-center gap-2"><span class="material-symbols-outlined text-sm">smartphone</span> ПЛАТФОРМА MOBILE</span>
-                            <button onclick="addGuideStep(${i},'phone')" class="text-[10px] font-bold text-emerald-primary/60 hover:text-emerald-primary uppercase tracking-widest transition-colors">+ ШАГ</button>
-                        </div>
+                        <div class="flex items-center justify-between mb-4"><span class="text-[10px] font-bold uppercase text-white/40 tracking-wider flex items-center gap-2"><span class="material-symbols-outlined text-sm">smartphone</span> ПЛАТФОРМА MOBILE</span><button onclick="addGuideStep(${i},'phone')" class="text-[10px] font-bold text-emerald-primary/60 hover:text-emerald-primary uppercase tracking-widest transition-colors">+ ШАГ</button></div>
                         <div class="space-y-4">${renderGuideStepsHTML(g.install_phone||[], i, 'phone')}</div>
                     </div>
                 </div>
-                <div class="mt-8 pt-4 border-t border-white/5">
-                    <label class="text-[10px] text-white/30 uppercase font-bold tracking-wider mb-2 block">ПРИМЕЧАНИЯ</label>
-                    <input class="input-field w-full text-xs py-2 px-3 border-none !bg-white/5" placeholder="ПРИМЕЧАНИЯ..." value="${g.note||''}" onchange="guidesData[${i}].note=this.value">
-                </div>
             </div>`).join("");
     }
-
     function renderGuideStepsHTML(steps, gi, type) {
         if (!steps || steps.length === 0) return '<p class="text-[10px] opacity-20 uppercase font-bold text-center py-4 border border-dashed border-white/5 rounded-lg">ПУСТО</p>';
         return steps.map((s, si) => {
             const sd = typeof s === 'object' ? s : { text: s, image: "", detail: "", section: "" };
             return `<div class="p-4 bg-white/5 border border-white/5 rounded-lg relative group">
-                <div class="flex gap-2 mb-3">
-                    <select onchange="updateGuideField(${gi},'${type}',${si},'section',this.value)" class="text-[10px] font-bold py-1 rounded px-2 bg-[#0f0f15] border-white/10 text-white/60 focus:border-emerald-primary focus:ring-0 uppercase">
-                        <option value="">ОБЩЕЕ</option>
-                        <option value="💻 ПК" ${sd.section=='💻 ПК'?'selected':''}>PC</option>
-                        <option value="📱 Android (Edge)" ${sd.section=='📱 Android (Edge)'?'selected':''}>ANDROID</option>
-                        <option value="📱 iPhone (iOS)" ${sd.section=='📱 iPhone (iOS)'?'selected':''}>IOS</option>
-                    </select>
-                    <input value="${(sd.text||'').replace(/"/g,'&quot;')}" onchange="updateGuideField(${gi},'${type}',${si},'text',this.value)" class="flex-1 py-1 px-3 text-xs bg-black/40 border-none rounded focus:ring-1 focus:ring-emerald-primary/50 text-white" placeholder="ИНСТРУКЦИЯ">
-                </div>
+                <div class="flex gap-2 mb-3"><input value="${(sd.text||'').replace(/"/g,'&quot;')}" onchange="updateGuideField(${gi},'${type}',${si},'text',this.value)" class="flex-1 py-1 px-3 text-xs bg-black/40 border-none rounded focus:ring-1 focus:ring-emerald-primary/50 text-white" placeholder="ИНСТРУКЦИЯ"></div>
                 <input value="${sd.image||''}" onchange="updateGuideField(${gi},'${type}',${si},'image',this.value)" class="w-full py-1 px-3 text-[10px] bg-black/20 border-none rounded mb-3 text-white/40 focus:text-white" placeholder="URL СКРИНШОТА">
-                <textarea onchange="updateGuideField(${gi},'${type}',${si},'detail',this.value)" class="w-full py-2 px-3 text-xs bg-black/40 border-none rounded text-white/60 focus:text-white" placeholder="ТЕХНИЧЕСКИЕ ДЕТАЛИ..." rows="2">${(sd.detail||'').replace(/</g,'&lt;')}</textarea>
-                <button class="absolute -top-2 -right-2 w-6 h-6 bg-red-600 rounded-full text-white font-bold opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity shadow-lg" onclick="guidesData[${gi}].install_${type}.splice(${si},1);renderGuides();">
-                    <span class="material-symbols-outlined text-sm">close</span>
-                </button>
+                <button class="absolute -top-2 -right-2 w-6 h-6 bg-red-600 rounded-full text-white font-bold opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity shadow-lg" onclick="guidesData[${gi}].install_${type}.splice(${si},1);renderGuides();"><span class="material-symbols-outlined text-sm">close</span></button>
             </div>`;
         }).join("");
     }
-
     function updateGuideField(gi, type, si, field, v) {
         const key = `install_${type}`;
         if (!guidesData[gi][key]) guidesData[gi][key] = [];
         if (typeof guidesData[gi][key][si] !== 'object') guidesData[gi][key][si] = { text: guidesData[gi][key][si] || "", image: "", detail: "", section: "" };
         guidesData[gi][key][si][field] = v;
     }
-
     function addGuideItem() { guidesData.push({ title: "", description: "", install_pc: [], install_phone: [], note: "" }); renderGuides(); }
     function addGuideStep(gi, type) { const key = `install_${type}`; if(!guidesData[gi][key])guidesData[gi][key]=[]; guidesData[gi][key].push({text:"",image:"",detail:"",section:""}); renderGuides(); }
     async function saveGuides() { try { guidesData._sha = await saveJSON("content/guides.json", guidesData, guidesData._sha); return true; } catch(e) { toast(e.message, "error"); return false; } }
@@ -737,6 +898,15 @@
         document.getElementById("settings-headerTitle").value = settingsData.headerTitle || "";
         document.getElementById("settings-headerSubtitle").value = settingsData.headerSubtitle || "";
         document.getElementById("settings-footer").value = settingsData.footer || "";
+        
+        if (settingsData.firebase) {
+            document.getElementById("settings-fb-apiKey").value = settingsData.firebase.apiKey || "";
+            document.getElementById("settings-fb-databaseURL").value = settingsData.firebase.databaseURL || "";
+            document.getElementById("settings-fb-projectId").value = settingsData.firebase.projectId || "";
+            document.getElementById("settings-fb-authDomain").value = settingsData.firebase.authDomain || "";
+            document.getElementById("settings-fb-storageBucket").value = settingsData.firebase.storageBucket || "";
+            document.getElementById("settings-fb-appId").value = settingsData.firebase.appId || "";
+        }
     }
 
     async function saveSettings() {
@@ -744,12 +914,25 @@
         settingsData.headerTitle = document.getElementById("settings-headerTitle").value;
         settingsData.headerSubtitle = document.getElementById("settings-headerSubtitle").value;
         settingsData.footer = document.getElementById("settings-footer").value;
-        try { settingsData._sha = await saveJSON("content/settings.json", settingsData, settingsData._sha); return true; } catch(e) { toast(e.message, "error"); return false; } 
+        
+        settingsData.firebase = {
+            apiKey: document.getElementById("settings-fb-apiKey").value.trim(),
+            databaseURL: document.getElementById("settings-fb-databaseURL").value.trim(),
+            projectId: document.getElementById("settings-fb-projectId").value.trim(),
+            authDomain: document.getElementById("settings-fb-authDomain").value.trim(),
+            storageBucket: document.getElementById("settings-fb-storageBucket").value.trim(),
+            appId: document.getElementById("settings-fb-appId").value.trim()
+        };
+
+        try { 
+            settingsData._sha = await saveJSON("content/settings.json", settingsData, settingsData._sha); 
+            initFirebase();
+            return true; 
+        } catch(e) { toast(e.message, "error"); return false; } 
     }
 
     async function publishAll() {
         toast("СИНХРОНИЗАЦИЯ С ОБЛАКОМ...", "info");
-        saveSuggestionEndpoint(true); // Silent save of endpoint on global save
         try {
             const h = await saveHome();
             const g = await saveGallery();
@@ -764,7 +947,6 @@
         document.querySelectorAll(".sidebar-btn").forEach(b => b.classList.remove("active"));
         document.getElementById(tabId).classList.remove("hidden");
         btn.classList.add("active");
-        if (tabId === 'suggestions-tab') loadSuggestions();
         window.scrollTo(0,0);
     }
 
@@ -772,18 +954,15 @@
         homeData = { title: "", image: "", description: "", location: "", help_wplace: [], help_blue: [], help_helper: [] };
         galleryData = []; guidesData = [];
         settingsData = { siteTitle: "Admin panel", headerTitle: "⚔ WPLACE ⚔", headerSubtitle: "Pixel Art Community", footer: "© 2025" };
-        localStorage.removeItem('wplace_suggestion_endpoint');
         await publishAll();
         renderHome(); renderGallery(); renderGuides(); renderSettings();
-        loadSuggestionEndpoint();
     }
 
     function exportAll() {
-        const data = { home: homeData, gallery: galleryData, guides: guidesData, settings: settingsData, suggestion_endpoint: localStorage.getItem('wplace_suggestion_endpoint'), date: new Date().toISOString() };
+        const data = { home: homeData, gallery: galleryData, guides: guidesData, settings: settingsData, date: new Date().toISOString() };
         delete data.home._sha; delete data.gallery._sha; delete data.guides._sha; delete data.settings._sha;
-        const b = new Blob([JSON.stringify(data,null,2)],{type:"application/json"}); const a = document.createElement("a"); a.href = URL.createObjectURL(b); a.download = `moc-terminal-export-${Date.now()}.json`; a.click();
+        const b = new Blob([JSON.stringify(data,null,2)],{type:"application/json"}); const a = document.createElement("a"); a.href = URL.createObjectURL(b); a.download = `terminal-export-${Date.now()}.json`; a.click();
     }
-
     function importAll() { document.getElementById("import-file").click(); }
     function handleImport(e) {
         const f = e.target.files[0]; if(!f)return; const r = new FileReader();
@@ -793,138 +972,50 @@
             if(d.gallery){galleryData=d.gallery;renderGallery();} 
             if(d.guides){guidesData=d.guides;renderGuides();} 
             if(d.settings){settingsData=d.settings;renderSettings();} 
-            if(d.suggestion_endpoint) {
-                localStorage.setItem('wplace_suggestion_endpoint', d.suggestion_endpoint);
-                loadSuggestionEndpoint();
-            }
             toast("ДАННЫЕ ЗАГРУЖЕНЫ В БУФЕР. СОХРАНИТЕ ДЛЯ ЗАПИСИ.", "info"); 
         } catch(er) { toast("ОШИБКА ПРОВЕРКИ ЦЕЛОСТНОСТИ", "error"); } };
         r.readAsText(f); e.target.value = "";
     }
 
-    // SUGGESTIONS MANAGEMENT
-    function loadSuggestions() {
-        const raw = localStorage.getItem('wplace_suggestions');
-        suggestionsLocal = raw ? JSON.parse(raw) : [];
-        renderSuggestionsTable();
+    function importSuggestionsJSON() {
+        const input = prompt("ВСТАВЬТЕ JSON МАССИВ ЗАЯВОК:");
+        if (!input || !firebaseDb) return;
+        try {
+            const data = JSON.parse(input);
+            const array = Array.isArray(data) ? data : [data];
+            array.forEach(item => {
+                firebaseDb.ref('suggestions').push({
+                    ...item,
+                    date: item.date || new Date().toLocaleString('ru-RU')
+                });
+            });
+            toast(`ИМПОРТИРОВАНО ${array.length} ЗАПИСЕЙ`, "success");
+        } catch(e) { toast("ОШИБКА JSON", "error"); }
     }
 
-    function saveSuggestionEndpoint(silent = false) {
-        const input = document.getElementById('suggestion-endpoint-input');
-        const value = input.value.trim();
-        localStorage.setItem('wplace_suggestion_endpoint', value);
-        if (!silent) toast('ЭНДПОИНТ СОХРАНЕН (LOCAL)', 'success');
-    }
-
-    function loadSuggestionEndpoint() {
-        const endpoint = localStorage.getItem('wplace_suggestion_endpoint');
-        const input = document.getElementById('suggestion-endpoint-input');
-        if (endpoint && input) {
-            input.value = endpoint;
-        }
-    }
-
-    function renderSuggestionsTable() {
-        const tbody = document.getElementById('suggestions-body');
-        const countEl = document.getElementById('suggestion-count');
-        
-        countEl.textContent = `${suggestionsLocal.length} ЗАЯВОК`;
-        
-        if (suggestionsLocal.length === 0) {
-            tbody.innerHTML = '<tr><td colspan="5" class="p-10 text-center opacity-20 text-sm uppercase tracking-widest font-bold">НЕТ НОВЫХ ЗАЯВОК В LOCALSTORAGE</td></tr>';
-            return;
-        }
-
-        tbody.innerHTML = suggestionsLocal.map((s, i) => `
-            <tr class="hover:bg-white/[0.02] transition-colors border-b border-white/5 last:border-0">
-                <td class="p-4">
-                    <div class="w-12 h-12 rounded border border-white/10 bg-black/40 overflow-hidden">
-                        <img class="w-full h-full object-cover" src="${s.image || ''}" onerror="this.style.display='none'">
-                    </div>
-                </td>
-                <td class="p-4">
-                    <div class="text-xs font-bold text-white uppercase tracking-wider">${s.title || 'БЕЗ НАЗВАНИЯ'}</div>
-                    <div class="text-[10px] text-white/30 uppercase mt-1">ОТ: ${s.author || 'ANON'}</div>
-                </td>
-                <td class="p-4">
-                    <div class="text-[10px] text-emerald-primary/80 font-mono">${s.contact || '—'}</div>
-                </td>
-                <td class="p-4">
-                    <span class="px-2 py-0.5 rounded text-[9px] font-bold bg-blue-400/10 text-blue-400 uppercase tracking-tighter">LOCAL</span>
-                </td>
-                <td class="p-4 text-right">
-                    <div class="flex justify-end gap-2">
-                        <button onclick="viewSuggestion(${i})" class="w-8 h-8 rounded bg-white/5 text-white/60 hover:bg-white/10 hover:text-white transition-all flex items-center justify-center"><span class="material-symbols-outlined text-lg">visibility</span></button>
-                        <button onclick="downloadSuggestionImage(${i})" class="w-8 h-8 rounded bg-emerald-primary/10 text-emerald-primary hover:bg-emerald-primary hover:text-black transition-all flex items-center justify-center"><span class="material-symbols-outlined text-lg">download</span></button>
-                        <button onclick="deleteSuggestion(${i})" class="w-8 h-8 rounded bg-red-500/10 text-red-500 hover:bg-red-500 hover:text-white transition-all flex items-center justify-center"><span class="material-symbols-outlined text-lg">delete</span></button>
-                    </div>
-                </td>
-            </tr>
-        `).join('');
-    }
-
-    function viewSuggestion(index) {
-        const item = suggestionsLocal[index];
-        const modal = document.getElementById('suggestion-modal');
-        const content = document.getElementById('modal-content');
-        const acceptBtn = document.getElementById('modal-accept-btn');
-        
-        content.innerHTML = `
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div class="aspect-square rounded-xl bg-black/40 border border-white/5 overflow-hidden flex items-center justify-center">
-                    <img src="${item.image}" class="max-w-full max-h-full object-contain">
-                </div>
-                <div class="space-y-4">
-                    <div>
-                        <label class="block text-[10px] font-bold text-white/30 uppercase tracking-widest mb-1">НАЗВАНИЕ</label>
-                        <p class="text-sm font-bold text-white">${item.title || 'БЕЗ НАЗВАНИЯ'}</p>
-                    </div>
-                    <div>
-                        <label class="block text-[10px] font-bold text-white/30 uppercase tracking-widest mb-1">КОНТАКТ (TG/DS)</label>
-                        <p class="text-sm font-bold text-emerald-primary">${item.contact || '—'}</p>
-                    </div>
-                    <div>
-                        <label class="block text-[10px] font-bold text-white/30 uppercase tracking-widest mb-1">ДАТА ОТПРАВКИ</label>
-                        <p class="text-sm text-white/60 font-mono">${item.date || 'НЕИЗВЕСТНО'}</p>
-                    </div>
-                    <div>
-                        <label class="block text-[10px] font-bold text-white/30 uppercase tracking-widest mb-1">КОММЕНТАРИЙ</label>
-                        <p class="text-xs text-white/60 leading-relaxed italic border-l-2 border-emerald-primary/30 pl-3">${item.comment || 'ОПИСАНИЕ ОТСУТСТВУЕТ'}</p>
-                    </div>
-                </div>
-            </div>
-        `;
-
-        acceptBtn.onclick = () => {
-            galleryData.push({ title: item.title, description: item.comment, image: item.image });
-            renderGallery();
-            deleteSuggestion(index);
-            closeSuggestionModal();
-            toast("ДОБАВЛЕНО В ОЧЕРЕДЬ ГАЛЕРЕИ", "success");
-        };
-
-        modal.classList.remove('hidden');
-    }
-
-    function closeSuggestionModal() {
-        document.getElementById('suggestion-modal').classList.add('hidden');
-    }
-
-    function deleteSuggestion(index) {
-        if (!confirm('УДАЛИТЬ ДАННУЮ ЗАЯВКУ ИЗ СПИСКА?')) return;
-        suggestionsLocal.splice(index, 1);
-        localStorage.setItem('wplace_suggestions', JSON.stringify(suggestionsLocal));
-        renderSuggestionsTable();
-        toast("ЗАЯВКА УДАЛЕНА", "info");
-    }
-
-    function downloadSuggestionImage(index) {
-        const item = suggestionsLocal[index];
-        if (item.image) {
-            window.open(item.image, '_blank');
-        } else {
-            toast("URL ИЗОБРАЖЕНИЯ ОТСУТСТВУЕТ", "error");
-        }
+    function closeSuggestionModal() { document.getElementById('suggestion-modal').classList.add('hidden'); }
+    
+    // Compression Helper for future implementation if adding via admin
+    async function compressImage(base64Str, maxWidth = 1200, maxHeight = 1200) {
+        return new Promise((resolve) => {
+            const img = new Image();
+            img.src = base64Str;
+            img.onload = () => {
+                const canvas = document.createElement('canvas');
+                let width = img.width;
+                let height = img.height;
+                if (width > height) {
+                    if (width > maxWidth) { height *= maxWidth / width; width = maxWidth; }
+                } else {
+                    if (height > maxHeight) { width *= maxHeight / height; height = maxHeight; }
+                }
+                canvas.width = width;
+                canvas.height = height;
+                const ctx = canvas.getContext('2d');
+                ctx.drawImage(img, 0, 0, width, height);
+                resolve(canvas.toDataURL('image/jpeg', 0.8));
+            };
+        });
     }
 
     document.addEventListener("keydown", function(e) {
