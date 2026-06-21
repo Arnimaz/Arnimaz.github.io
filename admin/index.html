@@ -822,8 +822,12 @@
             
         document.getElementById('modal-download-btn').onclick = () => downloadImage(item.image, `${item.title || 'art'}.png`);
         
+        const deleteBtn = document.getElementById('modal-delete-btn');
         const acceptBtn = document.getElementById('modal-accept-btn');
+        
         if(suggestionsData[key]) {
+            deleteBtn.classList.remove('hidden');
+            deleteBtn.onclick = () => deleteSuggestion(key);
             acceptBtn.classList.remove('hidden');
             acceptBtn.onclick = async () => {
                 const data = {...item, acceptedAt: new Date().toISOString()};
@@ -833,6 +837,8 @@
                 toast("ПЕРЕНЕСЕНО В ОДОБРЕННЫЕ", "success");
             };
         } else {
+            // Accepted list details: hide Delete button per request
+            deleteBtn.classList.add('hidden');
             acceptBtn.classList.add('hidden');
         }
     }
@@ -854,21 +860,23 @@
         el.innerHTML = keys.map(key => {
             const item = acceptedData[key];
             return `
-            <div onclick="viewSuggestion('${key}')" class="terminal-border bg-[#0f0f15] p-4 group rounded-xl hover:border-emerald-primary/40 transition-all flex flex-col cursor-pointer">
+            <div class="terminal-border bg-[#0f0f15] p-4 group rounded-xl hover:border-emerald-primary/40 transition-all flex flex-col cursor-pointer" onclick="viewSuggestion('${key}')">
                 <div class="aspect-square mb-4 rounded-lg border border-white/5 relative overflow-hidden bg-black/20">
                     <img src="${item.image}" class="w-full h-full object-contain">
-                    <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 flex items-center justify-center gap-3 transition-opacity" onclick="event.stopPropagation()">
-                        <button onclick="deleteAccepted('${key}')" class="w-10 h-10 rounded-lg bg-red-500/20 hover:bg-red-500 text-red-500 hover:text-white flex items-center justify-center transition-colors"><span class="material-symbols-outlined text-xl">delete</span></button>
-                    </div>
                 </div>
                 <div class="flex-1 space-y-2">
                     <div class="text-sm font-bold text-white uppercase truncate">${item.title || 'Untitled'}</div>
                     <div class="text-[10px] text-white/40 uppercase">ОТ: ${item.contact || item.author || 'ANON'}</div>
                     <div class="text-[10px] text-emerald-primary/60 font-mono">${item.width||'?' }x${item.height||'?' }</div>
                 </div>
-                <button onclick="event.stopPropagation(); preparePublish('${key}')" class="mt-4 btn-emerald w-full py-2.5 text-[10px] flex items-center justify-center gap-2">
-                    <span class="material-symbols-outlined text-sm">publish</span> ОПУБЛИКОВАТЬ
-                </button>
+                <div class="mt-4 flex flex-col gap-2" onclick="event.stopPropagation()">
+                    <button onclick="preparePublish('${key}')" class="btn-emerald w-full py-2.5 text-[10px] flex items-center justify-center gap-2">
+                        <span class="material-symbols-outlined text-sm">publish</span> ОПУБЛИКОВАТЬ
+                    </button>
+                    <button onclick="deleteAccepted('${key}')" class="w-full py-2 text-[10px] font-bold text-red-500/60 hover:text-white hover:bg-red-500/20 border border-red-500/10 rounded transition-colors flex items-center justify-center gap-2">
+                        <span class="material-symbols-outlined text-sm">delete</span> УДАЛИТЬ
+                    </button>
+                </div>
             </div>`;
         }).join("");
     }
@@ -903,6 +911,7 @@
     function deleteSuggestion(key) {
         if (!confirm('УДАЛИТЬ ЗАЯВКУ?')) return;
         firebaseDb.ref(`suggestions/${key}`).remove();
+        closeSuggestionModal();
     }
 
     function clearFirebaseSuggestions() {
