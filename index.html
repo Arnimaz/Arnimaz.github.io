@@ -83,6 +83,7 @@
             transition: all 0.2s ease;
             color: #8ca697;
             position: relative;
+            min-height: 56px; /* Touch-friendly height */
         }
 
         .tab-btn.active {
@@ -110,6 +111,7 @@
             color: #00210c;
             font-weight: 700;
             transition: all 0.2s ease;
+            min-height: 48px; /* Touch-friendly height */
         }
 
         .btn-obsidian:hover {
@@ -158,72 +160,77 @@
             justify-content: center;
             opacity: 0;
             transition: opacity 0.3s ease;
+            padding: 1rem;
         }
 
         .modal-overlay.active {
             display: flex;
             opacity: 1;
         }
+
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+        }
     </style>
 </head>
 <body class="antialiased">
-<div class="max-w-6xl mx-auto px-6 py-12" id="main-site-container">
+<div class="max-w-6xl mx-auto px-4 md:px-6 py-8 md:py-12" id="main-site-container">
 <!-- Header -->
-<header class="text-center mb-16 relative">
+<header class="text-center mb-10 md:mb-16 relative">
 <div class="inline-block relative">
-<h1 class="text-6xl md:text-8xl font-black tracking-tight text-white mb-2 site-title font-display uppercase">Masters_of_Cum</h1>
-<div class="absolute -top-4 -left-4 w-4 h-4 border-t-2 border-l-2 border-accent opacity-50"></div>
-<div class="absolute -bottom-4 -right-4 w-4 h-4 border-b-2 border-r-2 border-accent opacity-50"></div>
+<h1 class="text-4xl sm:text-6xl md:text-8xl font-black tracking-tight text-white mb-2 site-title font-display uppercase break-words px-4">Masters_of_Cum</h1>
+<div class="absolute -top-2 -left-2 md:-top-4 md:-left-4 w-4 h-4 border-t-2 border-l-2 border-accent opacity-50"></div>
+<div class="absolute -bottom-2 -right-2 md:-bottom-4 md:-right-4 w-4 h-4 border-b-2 border-r-2 border-accent opacity-50"></div>
 </div>
-<p class="text-on-surface-variant font-mono text-xs uppercase tracking-[0.4em] site-subtitle mt-4">OFFICIAL SITE</p>
+<p class="text-on-surface-variant font-mono text-[10px] sm:text-xs uppercase tracking-[0.3em] sm:tracking-[0.4em] site-subtitle mt-4">OFFICIAL SITE</p>
 </header>
 <!-- Navigation -->
-<nav class="obsidian-glass mb-16 sticky top-6 z-50 rounded-lg overflow-hidden border border-accent/30 bg-black/80 backdrop-blur-xl">
-<div class="flex flex-col md:flex-row items-center justify-center">
-<button class="tab-btn w-full md:w-auto px-10 py-5 flex items-center justify-center gap-3 text-xs font-bold uppercase tracking-widest active" id="nav-btn-home" onclick="openTab('home')">
-<span class="material-symbols-outlined text-lg">home</span> ГЛАВНАЯ
-                </button>
-<button class="tab-btn w-full md:w-auto px-10 py-5 flex items-center justify-center gap-3 text-xs font-bold uppercase tracking-widest" id="nav-btn-gallery" onclick="openTab('gallery')">
-<span class="material-symbols-outlined text-lg">image</span> ГАЛЕРЕЯ
-                </button>
-<button class="tab-btn w-full md:w-auto px-10 py-5 flex items-center justify-center gap-3 text-xs font-bold uppercase tracking-widest" id="nav-btn-guides" onclick="openTab('guides')">
-<span class="material-symbols-outlined text-lg">library_books</span> ГАЙДЫ
-                </button>
-<button class="tab-btn w-full md:w-auto px-10 py-5 flex items-center justify-center gap-3 text-xs font-bold uppercase tracking-widest" id="nav-btn-suggestions" onclick="openTab('suggestions')">
-<span class="material-symbols-outlined text-lg">move_to_inbox</span> ПРЕДЛОЖКА
-                </button>
+<nav class="obsidian-glass mb-10 md:mb-16 sticky top-4 md:top-6 z-50 rounded-lg overflow-hidden border border-accent/30 bg-black/80 backdrop-blur-xl">
+<div class="flex flex-wrap items-center justify-center">
+<button class="tab-btn flex-1 md:flex-initial px-4 sm:px-10 py-4 md:py-5 flex items-center justify-center gap-2 md:gap-3 text-[10px] sm:text-xs font-bold uppercase tracking-widest active" id="nav-btn-home" onclick="openTab('home')">
+<span class="material-symbols-outlined text-lg">home</span> <span class="hidden sm:inline">ГЛАВНАЯ</span>
+</button>
+<button class="tab-btn flex-1 md:flex-initial px-4 sm:px-10 py-4 md:py-5 flex items-center justify-center gap-2 md:gap-3 text-[10px] sm:text-xs font-bold uppercase tracking-widest" id="nav-btn-gallery" onclick="openTab('gallery')">
+<span class="material-symbols-outlined text-lg">image</span> <span class="hidden sm:inline">ГАЛЕРЕЯ</span>
+</button>
+<button class="tab-btn flex-1 md:flex-initial px-4 sm:px-10 py-4 md:py-5 flex items-center justify-center gap-2 md:gap-3 text-[10px] sm:text-xs font-bold uppercase tracking-widest" id="nav-btn-guides" onclick="openTab('guides')">
+<span class="material-symbols-outlined text-lg">library_books</span> <span class="hidden sm:inline">ГАЙДЫ</span>
+</button>
+<button class="tab-btn flex-1 md:flex-initial px-4 sm:px-10 py-4 md:py-5 flex items-center justify-center gap-2 md:gap-3 text-[10px] sm:text-xs font-bold uppercase tracking-widest" id="nav-btn-suggestions" onclick="openTab('suggestions')">
+<span class="material-symbols-outlined text-lg">move_to_inbox</span> <span class="hidden sm:inline">ПРЕДЛОЖКА</span>
+</button>
 </div>
 </nav>
 <!-- Main Content -->
 <main>
-<div class="tab-content active space-y-12" id="home">
+<div class="tab-content active space-y-8 md:space-y-12" id="home">
 <!-- Current Art Section -->
 <section id="current-art-section">
-<div class="obsidian-card rounded-xl p-8 md:p-10">
-<div class="flex items-center gap-3 mb-8">
+<div class="obsidian-card rounded-xl p-6 md:p-10">
+<div class="flex items-center gap-3 mb-6 md:mb-8">
 <div class="w-10 h-10 rounded-lg bg-[#00ff88]/10 flex items-center justify-center">
 <span class="material-symbols-outlined text-accent neon-glow">palette</span>
 </div>
-<h3 class="text-2xl font-black text-white uppercase tracking-tight font-display">АКТУАЛЬНЫЙ АРТ</h3>
+<h3 class="text-xl md:text-2xl font-black text-white uppercase tracking-tight font-display">АКТУАЛЬНЫЙ АРТ</h3>
 </div>
-<div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+<div class="flex flex-col lg:grid lg:grid-cols-2 gap-8 md:gap-12">
 <div class="w-full">
-<div class="rounded-lg overflow-hidden border border-white/10 bg-black/40" id="current-art-img-wrapper">
-<img alt="Current Art" class="w-full object-contain h-auto" id="current-art-img" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAobyibfIyBZszfTCryZ0lqrix_dNVJ-95L74S_tYuA6LxgsB0X7QazpWTZ5kXYAT4CaNgkoggBoInBFilSldSahWvy7vWkNM60mUDS6qknt8Ud7jxO3i7tx58YvR5UzQG1-UX6AUMrKtjlpinyVeO0OjnDtV8kO1hDIPrTNvZuNV8fUc1rLe9aKTybqsMRewacrQmzPPnAKUTFP_SIiek_1qtYd0QoqS2xmq14-xQz2qhZzGSmBCws4UnrZLE-F_0Etm4Q9GecIHs-"/>
+<div class="rounded-lg overflow-hidden border border-white/10 bg-black/40 aspect-square md:aspect-auto" id="current-art-img-wrapper">
+<img alt="Current Art" class="w-full h-full object-contain md:h-auto" id="current-art-img" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAobyibfIyBZszfTCryZ0lqrix_dNVJ-95L74S_tYuA6LxgsB0X7QazpWTZ5kXYAT4CaNgkoggBoInBFilSldSahWvy7vWkNM60mUDS6qknt8Ud7jxO3i7tx58YvR5UzQG1-UX6AUMrKtjlpinyVeO0OjnDtV8kO1hDIPrTNvZuNV8fUc1rLe9aKTybqsMRewacrQmzPPnAKUTFP_SIiek_1qtYd0QoqS2xmq14-xQz2qhZzGSmBCws4UnrZLE-F_0Etm4Q9GecIHs-"/>
 </div>
 </div>
 <div class="w-full flex flex-col">
 <div class="flex-grow">
-<h4 class="text-4xl font-black text-white uppercase tracking-tight font-display mb-6" id="current-art-title">???</h4>
-<div class="bg-white/5 border border-white/5 rounded p-6 font-mono text-on-surface-variant leading-relaxed" id="current-art-desc">???</div>
+<h4 class="text-2xl md:text-4xl font-black text-white uppercase tracking-tight font-display mb-4 md:mb-6" id="current-art-title">???</h4>
+<div class="bg-white/5 border border-white/5 rounded p-4 md:p-6 font-mono text-xs sm:text-sm text-on-surface-variant leading-relaxed" id="current-art-desc">???</div>
 </div>
-<div class="flex flex-col sm:flex-row gap-4 mt-12 pt-8 border-t border-white/5">
+<div class="flex flex-col sm:flex-row gap-3 md:gap-4 mt-8 md:mt-12 pt-6 md:pt-8 border-t border-white/5">
 <a class="btn-obsidian px-6 py-4 rounded flex items-center justify-center gap-2 text-[10px] tracking-widest uppercase font-bold transition-all flex-1" href="#" id="btn-wplace" rel="noopener noreferrer" target="_blank">
 <span class="material-symbols-outlined text-sm">link</span> ОТКРЫТЬ НА WPLACE
-                                    </a>
+                                </a>
 <button class="btn-obsidian px-6 py-4 rounded flex items-center justify-center gap-2 text-[10px] tracking-widest uppercase font-bold transition-all flex-1" id="btn-download">
 <span class="material-symbols-outlined text-sm">save</span> СКАЧАТЬ АРТ
-                                    </button>
+                                </button>
 </div>
 </div>
 </div>
@@ -231,34 +238,34 @@
 </section>
 <!-- Help Section -->
 <section id="help-section">
-<div class="obsidian-card rounded-xl p-8 md:p-12 border-t-2 border-t-accent/40">
-<div class="flex items-center gap-4 mb-12">
+<div class="obsidian-card rounded-xl p-6 md:p-12 border-t-2 border-t-accent/40">
+<div class="flex items-center gap-4 mb-8 md:mb-12">
 <div class="w-10 h-10 rounded bg-accent/10 flex items-center justify-center">
 <span class="material-symbols-outlined text-accent neon-glow">precision_manufacturing</span>
 </div>
-<h3 class="text-2xl font-black text-white uppercase tracking-tight font-display">КАК ПОМОЧЬ</h3>
+<h3 class="text-xl md:text-2xl font-black text-white uppercase tracking-tight font-display">КАК ПОМОЧЬ</h3>
 </div>
-<div class="grid grid-cols-1 lg:grid-cols-3 gap-10">
-<div class="space-y-6">
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-10">
+<div class="space-y-4 md:space-y-6">
 <p class="text-accent font-black text-[10px] tracking-widest flex items-center gap-2 uppercase">
 <span class="material-symbols-outlined text-sm">bolt</span> [01] WPlace
-                                </p>
+                            </p>
 <div class="bg-black/20 rounded-lg border border-white/5 p-1" id="wplace-steps">
 <ol class="space-y-1 list-none"><li class="p-4 opacity-40 italic font-mono text-[10px] uppercase text-center">ДАННЫЕ_ОТСУТСТВУЮТ</li></ol>
 </div>
 </div>
-<div class="space-y-6">
+<div class="space-y-4 md:space-y-6">
 <p class="text-accent font-black text-[10px] tracking-widest flex items-center gap-2 uppercase">
 <span class="material-symbols-outlined text-sm">public</span> [02] Blue Marble
-                                </p>
+                            </p>
 <div class="bg-black/20 rounded-lg border border-white/5 p-1" id="blue-steps">
 <ol class="space-y-1 list-none"><li class="p-4 opacity-40 italic font-mono text-[10px] uppercase text-center">ДАННЫЕ_ОТСУТСТВУЮТ</li></ol>
 </div>
 </div>
-<div class="space-y-6">
+<div class="space-y-4 md:space-y-6 lg:col-span-1 md:col-span-2">
 <p class="text-accent font-black text-[10px] tracking-widest flex items-center gap-2 uppercase">
 <span class="material-symbols-outlined text-sm">extension</span> [03] WPlace Helper
-                                </p>
+                            </p>
 <div class="bg-black/20 rounded-lg border border-white/5 p-1" id="helper-steps">
 <ol class="space-y-1 list-none"><li class="p-4 opacity-40 italic font-mono text-[10px] uppercase text-center">ДАННЫЕ_ОТСУТСТВУЮТ</li></ol>
 </div>
@@ -268,7 +275,7 @@
 </section>
 </div>
 <div class="tab-content" id="gallery">
-<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8" id="gallery-grid">
+<div class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-8" id="gallery-grid">
 <p class="col-span-full text-center py-20 text-on-surface-variant font-mono uppercase tracking-widest opacity-40">АРХИВ_ПУСТ</p>
 </div>
 </div>
@@ -279,25 +286,25 @@
 </div>
 <div class="tab-content space-y-12" id="suggestions">
 <section>
-<div class="obsidian-card rounded-xl p-8 md:p-12 border-t-2 border-t-accent/40">
-<div class="flex items-center gap-4 mb-10">
+<div class="obsidian-card rounded-xl p-6 md:p-12 border-t-2 border-t-accent/40">
+<div class="flex items-center gap-4 mb-8 md:mb-10">
 <div class="w-10 h-10 rounded bg-accent/10 flex items-center justify-center"><span class="material-symbols-outlined text-accent neon-glow">edit_note</span></div>
-<h3 class="text-2xl font-black text-white uppercase tracking-tight font-display">ПРЕДЛОЖИТЬ АРТ</h3>
+<h3 class="text-xl md:text-2xl font-black text-white uppercase tracking-tight font-display">ПРЕДЛОЖИТЬ АРТ</h3>
 </div>
-<form class="space-y-8 max-w-2xl flex flex-col" id="suggestion-form" onsubmit="submitSuggestion(event)">
+<form class="space-y-6 md:space-y-8 max-w-2xl flex flex-col" id="suggestion-form" onsubmit="submitSuggestion(event)">
 <div class="space-y-2 flex flex-col w-full">
 <label class="text-[10px] font-mono uppercase tracking-widest text-accent font-bold">[01] НАЗВАНИЕ АРТА</label>
-<input class="w-full bg-black/40 border border-white/10 rounded p-4 text-white font-mono focus:border-accent outline-none transition-colors max-w-lg" id="sug-title" name="art_title" placeholder="Введите название..." required="" type="text"/>
+<input class="w-full bg-black/40 border border-white/10 rounded p-4 text-white font-mono text-sm focus:border-accent outline-none transition-colors max-w-lg" id="sug-title" name="art_title" placeholder="Введите название..." required="" type="text"/>
 </div>
 <div class="space-y-2 flex flex-col w-full">
 <label class="text-[10px] font-mono uppercase tracking-widest text-accent font-bold">[02] ССЫЛКА НА ИЗОБРАЖЕНИЕ</label>
-<input class="w-full bg-black/40 border border-white/10 rounded p-4 text-white font-mono focus:border-accent outline-none transition-colors max-w-lg" id="sug-url" name="image_url" placeholder="https://..." type="url"/>
+<input class="w-full bg-black/40 border border-white/10 rounded p-4 text-white font-mono text-sm focus:border-accent outline-none transition-colors max-w-lg" id="sug-url" name="image_url" placeholder="https://..." type="url"/>
 <div class="mt-4 flex flex-col gap-2">
 <label class="text-[10px] font-mono uppercase tracking-widest text-accent/60 font-bold">ИЛИ ЗАГРУЗИТЬ ФАЙЛ</label>
 <div class="relative group w-full max-w-lg">
 <input accept="image/*" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10 max-w-lg" id="sug-file" onchange="handleFileChange(this)" type="file"/>
 <div class="w-full bg-black/20 border border-dashed border-white/10 rounded p-4 text-white font-mono flex items-center justify-between group-hover:border-accent/40 transition-colors">
-<span class="text-xs opacity-50 uppercase tracking-widest">ВЫБРАТЬ ФАЙЛ</span>
+<span class="text-xs opacity-50 uppercase tracking-widest truncate mr-2">ВЫБРАТЬ ФАЙЛ</span>
 <span class="material-symbols-outlined text-accent">upload_file</span>
 </div>
 </div>
@@ -306,32 +313,32 @@
 </div>
 <div class="space-y-2 flex flex-col w-full">
 <label class="text-[10px] font-mono uppercase tracking-widest text-accent font-bold">[03] ВАШ КОНТАКТ (TG/DS)</label>
-<input class="w-full bg-black/40 border border-white/10 rounded p-4 text-white font-mono focus:border-accent outline-none transition-colors max-w-lg" id="sug-contact" name="contact" placeholder="@username or Discord ID" required="" type="text"/>
+<input class="w-full bg-black/40 border border-white/10 rounded p-4 text-white font-mono text-sm focus:border-accent outline-none transition-colors max-w-lg" id="sug-contact" name="contact" placeholder="@username or Discord ID" required="" type="text"/>
 </div>
 <div class="space-y-2 flex flex-col w-full">
 <label class="text-[10px] font-mono uppercase tracking-widest text-accent font-bold">[04] КОММЕНТАРИЙ</label>
-<textarea class="w-full bg-black/40 border border-white/10 rounded p-4 text-white font-mono focus:border-accent outline-none transition-colors resize-none max-w-lg" id="sug-desc" name="message" placeholder="Дополнительная информация..." rows="4"></textarea>
+<textarea class="w-full bg-black/40 border border-white/10 rounded p-4 text-white font-mono text-sm focus:border-accent outline-none transition-colors resize-none max-w-lg" id="sug-desc" name="message" placeholder="Дополнительная информация..." rows="4"></textarea>
 </div>
-<button class="btn-obsidian w-full md:w-auto px-12 py-5 rounded flex items-center justify-center gap-3 text-xs tracking-widest uppercase" type="submit">
+<button class="btn-obsidian w-full md:w-auto px-12 py-5 rounded flex items-center justify-center gap-3 text-[10px] sm:text-xs tracking-widest uppercase" type="submit">
 <span class="material-symbols-outlined">send</span> ОТПРАВИТЬ ПРЕДЛОЖЕНИЕ
-                            </button>
+                        </button>
 </form>
 </div>
 </section>
 </div>
 </main>
 <!-- Footer -->
-<footer class="mt-40 pt-16 border-t border-white/5 text-center pb-20" id="site-footer">
-<div class="text-[10px] font-mono tracking-[0.3em] uppercase text-on-surface-variant/60 flex flex-wrap justify-center gap-x-8 gap-y-4">
+<footer class="mt-20 md:mt-40 pt-10 md:pt-16 border-t border-white/5 text-center pb-20" id="site-footer">
+<div class="text-[10px] font-mono tracking-[0.2em] md:tracking-[0.3em] uppercase text-on-surface-variant/60 flex flex-wrap justify-center items-center gap-x-4 md:gap-x-8 gap-y-4 px-4">
 <span>TELEGRAM KOHTAKT - <a class="text-accent hover:text-white transition-colors" href="https://t.me/ARNIMAZ" target="_blank">@ARNIMAZ</a></span>
-<span class="w-1 h-1 bg-white/20 rounded-full my-auto hidden md:block"></span>
+<span class="w-1 h-1 bg-white/20 rounded-full hidden md:block"></span>
 <span>КАНАЛ - <a class="text-accent hover:text-white transition-colors" href="https://t.me/MASTERS_OF_CUM" target="_blank">@MASTERS_OF_CUM</a></span>
 </div>
 </footer>
 </div>
 <!-- Admin Interface -->
 <div id="admin-panel-container">
-<div class="terminal-header border-b border-[#00ff41] pb-4 mb-8 flex justify-between font-mono">
+<div class="terminal-header border-b border-[#00ff41] pb-4 mb-8 flex flex-col sm:flex-row justify-between font-mono gap-4">
 <span>&gt; obsidian_tech_admin_v4.2.0</span>
 <div class="flex gap-4">
 <button class="text-white/60 hover:text-[#00ff41] text-xs uppercase" onclick="window.location.hash = ''">EXIT_CONSOLE</button>
@@ -340,14 +347,14 @@
 </div>
 <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
 <div class="md:col-span-1 space-y-4">
-<div class="terminal-box border border-[#00ff41] p-6 bg-[#00ff41]/5 rounded">
+<div class="terminal-box border border-[#00ff41] p-4 md:p-6 bg-[#00ff41]/5 rounded">
 <nav class="flex flex-col gap-2">
 <button class="text-left py-2 px-4 bg-[#00ff41] text-black font-bold text-xs uppercase" id="admin-nav-logs" onclick="switchAdminTab('logs')">SYSTEM_LOGS</button>
 <button class="text-left py-2 px-4 border border-[#00ff41]/40 text-[#00ff41] hover:bg-[#00ff41]/10 font-bold text-xs uppercase" id="admin-nav-suggestions" onclick="switchAdminTab('suggestions')">SUGGESTIONS_QUEUE</button>
 </nav>
 </div>
 </div>
-<div class="md:col-span-3 border border-[#00ff41] p-8 bg-[#00ff41]/5 rounded min-h-[500px]">
+<div class="md:col-span-3 border border-[#00ff41] p-6 md:p-8 bg-[#00ff41]/5 rounded min-h-[400px] md:min-h-[500px]">
 <div id="admin-tab-logs">
 <div class="flex items-center gap-4 mb-6">
 <span class="material-symbols-outlined">terminal</span>
@@ -364,7 +371,7 @@
 <span class="material-symbols-outlined">inbox</span>
 <h2 class="font-bold uppercase tracking-widest">SUGGESTIONS_QUEUE</h2>
 </div>
-<button class="text-xs border border-red-500 text-red-500 px-4 py-1 hover:bg-red-500 hover:text-black transition-colors font-bold" onclick="clearSuggestions()">PURGE_ALL</button>
+<button class="text-[10px] border border-red-500 text-red-500 px-4 py-1 hover:bg-red-500 hover:text-black transition-colors font-bold" onclick="clearSuggestions()">PURGE_ALL</button>
 </div>
 <div class="space-y-6" id="admin-suggestions-list">
 <p class="text-center py-10 opacity-40 italic">NO_PENDING_SUGGESTIONS</p>
@@ -375,29 +382,29 @@
 </div>
 <!-- Modal -->
 <div class="modal-overlay" id="modal-overlay" onclick="closeModal(event)" style="background-image: radial-gradient(circle, transparent 0%, rgba(0, 0, 0, 0.95) 100%), repeating-linear-gradient(0deg, rgba(0, 255, 136, 0.03) 0px, rgba(0, 255, 136, 0.03) 1px, transparent 1px, transparent 2px); background-size: 100% 100%, 100% 3px;">
-<div class="modal obsidian-glass w-full max-w-5xl max-h-[90vh] overflow-y-auto p-8 md:p-12 rounded-xl border-2 border-accent/20 shadow-[0_0_50px_rgba(0,228,121,0.1)]" id="modal-box" onclick="event.stopPropagation()">
-<div class="flex justify-end mb-6">
-<button class="w-10 h-10 flex items-center justify-center rounded border border-white/10 text-on-surface-variant hover:text-accent hover:border-accent transition-all bg-white/5" onclick="closeModal()">
-<span class="material-symbols-outlined text-3xl">close</span>
+<div class="modal obsidian-glass w-full max-w-5xl max-h-[90vh] overflow-y-auto p-6 md:p-12 rounded-xl border-2 border-accent/20 shadow-[0_0_50px_rgba(0,228,121,0.1)] relative" id="modal-box" onclick="event.stopPropagation()">
+<div class="flex justify-end mb-4 md:mb-6 sticky top-0 bg-transparent z-10">
+<button class="w-10 h-10 flex items-center justify-center rounded border border-white/10 text-on-surface-variant hover:text-accent hover:border-accent transition-all bg-black/60 backdrop-blur-md" onclick="closeModal()">
+<span class="material-symbols-outlined text-2xl md:text-3xl">close</span>
 </button>
 </div>
-<div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 items-start">
 <div class="image-container rounded-lg overflow-hidden border border-white/10 bg-black/40">
-<img alt="" class="w-full object-contain max-h-[60vh]" id="modal-img" src=""/>
+<img alt="" class="w-full object-contain max-h-[40vh] md:max-h-[60vh]" id="modal-img" src=""/>
 </div>
 <div class="flex flex-col h-full">
-<h3 class="text-4xl font-black text-white mb-8 tracking-tight font-display uppercase" id="modal-title">TITLE</h3>
-<div class="text-on-surface-variant leading-relaxed mb-12 text-lg text-left overflow-hidden break-words max-h-[300px] overflow-y-auto pr-4 custom-scrollbar" id="modal-desc"></div>
+<h3 class="text-2xl md:text-4xl font-black text-white mb-4 md:mb-8 tracking-tight font-display uppercase text-left" id="modal-title">TITLE</h3>
+<div class="text-on-surface-variant leading-relaxed mb-8 md:mb-12 text-sm md:text-lg text-left overflow-y-auto pr-4 custom-scrollbar max-h-[200px] md:max-h-[300px]" id="modal-desc"></div>
 <div class="flex flex-col gap-4 mt-auto">
-<button class="btn-obsidian w-full py-5 rounded flex items-center justify-center gap-3 text-xs tracking-widest uppercase" id="modal-download" onclick="downloadModalImage()">
+<button class="btn-obsidian w-full py-4 md:py-5 rounded flex items-center justify-center gap-3 text-[10px] md:text-xs tracking-widest uppercase" id="modal-download" onclick="downloadModalImage()">
 <span class="material-symbols-outlined">download</span> СКАЧАТЬ АРТ
-                        </button>
-<div class="flex items-center justify-between bg-black/40 p-2 rounded border border-accent/20" id="modal-nav-row">
-<button class="p-4 hover:bg-white/5 hover:text-accent transition-colors bg-white/5 rounded border border-white/5" id="modal-prev" onclick="navModal(-1)">
+                    </button>
+<div class="flex items-center justify-between bg-black/40 p-1 md:p-2 rounded border border-accent/20" id="modal-nav-row">
+<button class="p-3 md:p-4 hover:bg-white/5 hover:text-accent transition-colors bg-white/5 rounded border border-white/5" id="modal-prev" onclick="navModal(-1)">
 <span class="material-symbols-outlined">chevron_left</span>
 </button>
-<span class="font-mono text-xs text-accent font-bold tracking-widest px-6" id="modal-nav-counter">00 / 00</span>
-<button class="p-4 hover:bg-white/5 hover:text-accent transition-colors bg-white/5 rounded border border-white/5" id="modal-next" onclick="navModal(1)">
+<span class="font-mono text-[10px] md:text-xs text-accent font-bold tracking-widest px-4 md:px-6" id="modal-nav-counter">00 / 00</span>
+<button class="p-3 md:p-4 hover:bg-white/5 hover:text-accent transition-colors bg-white/5 rounded border border-white/5" id="modal-next" onclick="navModal(1)">
 <span class="material-symbols-outlined">chevron_right</span>
 </button>
 </div>
@@ -406,7 +413,7 @@
 </div>
 </div>
 </div>
-<div class="fixed inset-0 pointer-events-none z-[200] flex items-center justify-center" id="toast-container"></div>
+<div class="fixed inset-0 pointer-events-none z-[200] flex items-end md:items-center justify-center p-4" id="toast-container"></div>
 <script>
     // --- 1. Firebase Configuration (Hardcoded) ---
     const firebaseConfig = {
@@ -450,7 +457,7 @@
     function makeLinksClickable(text) {
         if (!text) return "";
         return text.toString()
-            .replace(/(https?:\/\/[^\s<>]+)/g, '<a href="$1" target="_blank" class="text-accent hover:text-white transition-colors">$1</a>')
+            .replace(/(https?:\/\/[^\s<>]+)/g, '<a href="$1" target="_blank" class="text-accent hover:text-white transition-colors underline decoration-accent/30 underline-offset-4">$1</a>')
             .replace(/@([a-zA-Z0-9_]+)/g, '<a href="https://t.me/$1" target="_blank" class="text-accent hover:text-white transition-colors">@$1</a>');
     }
 
@@ -552,12 +559,12 @@
         if (!steps || steps.length === 0) return '<li class="p-4 opacity-40 italic font-mono text-[10px] uppercase text-center">ДАННЫЕ_ОТСУТСТВУЮТ</li>';
         return steps.map((s, i) => {
             const sd = typeof s === 'object' ? s : { text: s };
-            return `<li class="p-5 flex items-center justify-between group cursor-pointer hover:bg-white/5 rounded transition-all" onclick="openStepModal('${type}', ${i})">
-                <span class="flex items-center gap-6">
-                    <span class="w-8 h-8 flex items-center justify-center rounded bg-accent/10 text-accent text-[10px] font-bold border border-accent/20 font-mono">${(i + 1).toString().padStart(2, '0')}</span>
-                    <span class="text-sm font-bold uppercase tracking-widest text-on-surface-variant group-hover:text-white transition-colors">${sd.text || 'ШАГ '+(i+1)}</span>
+            return `<li class="p-4 md:p-5 flex items-center justify-between group cursor-pointer hover:bg-white/5 rounded transition-all" onclick="openStepModal('${type}', ${i})">
+                <span class="flex items-center gap-4 md:gap-6">
+                    <span class="w-8 h-8 flex items-center justify-center rounded bg-accent/10 text-accent text-[10px] font-bold border border-accent/20 font-mono flex-shrink-0">${(i + 1).toString().padStart(2, '0')}</span>
+                    <span class="text-xs md:text-sm font-bold uppercase tracking-widest text-on-surface-variant group-hover:text-white transition-colors line-clamp-1">${sd.text || 'ШАГ '+(i+1)}</span>
                 </span>
-                <span class="material-symbols-outlined opacity-10 group-hover:opacity-100 transition-opacity text-accent text-lg">chevron_right</span>
+                <span class="material-symbols-outlined opacity-10 md:opacity-10 md:group-hover:opacity-100 transition-opacity text-accent text-lg flex-shrink-0">chevron_right</span>
             </li>`;
         }).join('');
     }
@@ -569,12 +576,12 @@
             return;
         }
         grid.innerHTML = data.map((item, i) => `
-            <div class="obsidian-card p-6 cursor-pointer rounded-xl group" onclick="openGalleryItem(${i})">
-                <div class="rounded-lg overflow-hidden border border-white/5 bg-black mb-6 aspect-square relative">
+            <div class="obsidian-card p-3 md:p-6 cursor-pointer rounded-xl group" onclick="openGalleryItem(${i})">
+                <div class="rounded-lg overflow-hidden border border-white/5 bg-black mb-3 md:mb-6 aspect-square relative">
                     <img src="${item.image || ''}" alt="${item.title}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
                     <div class="absolute inset-0 bg-accent/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
                 </div>
-                <h4 class="text-center font-bold text-white text-[10px] uppercase tracking-[0.3em] px-2 truncate font-mono">${item.title || 'БЕЗ НАЗВАНИЯ'}</h4>
+                <h4 class="text-center font-bold text-white text-[9px] md:text-[10px] uppercase tracking-[0.2em] md:tracking-[0.3em] px-1 truncate font-mono">${item.title || 'БЕЗ НАЗВАНИЯ'}</h4>
             </div>
         `).join('');
     }
@@ -588,14 +595,14 @@
         container.innerHTML = data.map(g => {
             let html = '';
             if (g.install_pc?.length) {
-                html += `<div class="bg-accent/5 border border-accent/20 px-4 py-2 text-[10px] font-bold text-accent uppercase mb-4 mt-8 inline-block tracking-[0.2em] rounded">🖥 ПК</div><div class="bg-black/20 rounded-lg border border-white/5 p-1"><ol class="space-y-1 list-none">${renderStepsList(g.install_pc, 'guide_pc_'+g.title)}</ol></div>`;
+                html += `<div class="bg-accent/5 border border-accent/20 px-3 py-1.5 md:px-4 md:py-2 text-[9px] md:text-[10px] font-bold text-accent uppercase mb-4 mt-6 md:mt-8 inline-block tracking-[0.2em] rounded">🖥 ПК</div><div class="bg-black/20 rounded-lg border border-white/5 p-1"><ol class="space-y-1 list-none">${renderStepsList(g.install_pc, 'guide_pc_'+g.title)}</ol></div>`;
             }
             if (g.install_phone?.length) {
-                html += `<div class="bg-accent/5 border border-accent/20 px-4 py-2 text-[10px] font-bold text-accent uppercase mb-4 mt-8 inline-block tracking-[0.2em] rounded">📱 МОБИЛЬНЫЕ</div><div class="bg-black/20 rounded-lg border border-white/5 p-1"><ol class="space-y-1 list-none">${renderStepsList(g.install_phone, 'guide_phone_'+g.title)}</ol></div>`;
+                html += `<div class="bg-accent/5 border border-accent/20 px-3 py-1.5 md:px-4 md:py-2 text-[9px] md:text-[10px] font-bold text-accent uppercase mb-4 mt-6 md:mt-8 inline-block tracking-[0.2em] rounded">📱 МОБИЛЬНЫЕ</div><div class="bg-black/20 rounded-lg border border-white/5 p-1"><ol class="space-y-1 list-none">${renderStepsList(g.install_phone, 'guide_phone_'+g.title)}</ol></div>`;
             }
-            return `<div class="obsidian-card p-10 md:p-14 mb-12 rounded-xl border-t-2 border-t-accent/40">
-                <h3 class="text-3xl font-black text-white mb-8 uppercase tracking-tight font-display neon-glow">ГАЙД: ${g.title || 'БЕЗ НАЗВАНИЯ'}</h3>
-                <p class="text-on-surface-variant mb-10 text-lg leading-relaxed">${makeLinksClickable(g.description || '')}</p>
+            return `<div class="obsidian-card p-6 md:p-14 mb-8 md:mb-12 rounded-xl border-t-2 border-t-accent/40">
+                <h3 class="text-2xl md:text-3xl font-black text-white mb-6 md:mb-8 uppercase tracking-tight font-display neon-glow">ГАЙД: ${g.title || 'БЕЗ НАЗВАНИЯ'}</h3>
+                <div class="text-on-surface-variant mb-6 md:mb-10 text-sm md:text-lg leading-relaxed">${makeLinksClickable(g.description || '')}</div>
                 ${html}
             </div>`;
         }).join('');
@@ -630,7 +637,7 @@
         if (!data) return;
         document.getElementById("modal-img").src = data.image || "";
         document.getElementById("modal-title").textContent = (data.title || "БЕЗ_НАЗВАНИЯ").toUpperCase();
-        document.getElementById("modal-desc").innerHTML = `<div class="text-lg leading-relaxed text-on-surface-variant">${makeLinksClickable(data.description || "")}</div>`;
+        document.getElementById("modal-desc").innerHTML = `<div class="text-sm md:text-lg leading-relaxed text-on-surface-variant">${makeLinksClickable(data.description || "")}</div>`;
         document.getElementById("modal-nav-counter").textContent = `${(currentGalleryIndex + 1).toString().padStart(2, '0')} / ${window._galleryData.length.toString().padStart(2, '0')}`;
     }
 
@@ -641,9 +648,9 @@
         
         const sd = typeof data === 'object' ? data : { text: data };
         document.getElementById("modal-img").src = sd.image || "";
-        document.getElementById("modal-img").closest('.image-container').style.display = sd.image ? 'block' : 'none';
+        document.getElementById("modal-img").parentElement.style.display = sd.image ? 'block' : 'none';
         document.getElementById("modal-title").textContent = `ШАГ ${(index + 1).toString().padStart(2, '0')}`;
-        document.getElementById("modal-desc").innerHTML = `<div class="text-2xl font-bold mb-6 uppercase text-white">${sd.text || ""}</div>` + (sd.detail ? `<div class="text-sm font-mono opacity-70">${makeLinksClickable(sd.detail)}</div>` : "");
+        document.getElementById("modal-desc").innerHTML = `<div class="text-xl md:text-2xl font-bold mb-4 md:mb-6 uppercase text-white">${sd.text || ""}</div>` + (sd.detail ? `<div class="text-xs md:text-sm font-mono opacity-70">${makeLinksClickable(sd.detail)}</div>` : "");
         
         document.getElementById("modal-overlay").classList.add("active");
         document.getElementById("modal-nav-row").style.display = 'none';
@@ -690,7 +697,7 @@
 
         const originalText = btn.innerHTML; 
         btn.disabled = true; 
-        btn.innerHTML = '<span class="material-symbols-outlined animate-spin">sync</span> ОТПРАВКА...'; 
+        btn.innerHTML = '<span class="material-symbols-outlined animate-spin text-sm">sync</span> ОТПРАВКА...'; 
         
         try { 
             const formData = new FormData(form);
@@ -730,7 +737,7 @@
     function showToast(msg, isErr = false) {
         const container = document.getElementById('toast-container');
         const toast = document.createElement('div');
-        toast.className = `obsidian-glass p-6 rounded-lg border-l-4 ${isErr ? 'border-red-500' : 'border-accent'} text-white font-mono text-xs uppercase tracking-widest pointer-events-auto transition-all duration-300 opacity-0 transform translate-y-4`;
+        toast.className = `obsidian-glass p-4 md:p-6 rounded-lg border-l-4 ${isErr ? 'border-red-500' : 'border-accent'} text-white font-mono text-[10px] md:text-xs uppercase tracking-widest pointer-events-auto transition-all duration-300 opacity-0 transform translate-y-4 mb-4 shadow-2xl`;
         toast.textContent = msg;
         container.appendChild(toast);
         setTimeout(() => toast.classList.remove('opacity-0', 'translate-y-4'), 10);
