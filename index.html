@@ -1,10 +1,11 @@
-<!DOCTYPE html><html class="dark" lang="ru"><head>
-<meta charset="utf-8">
-<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<html class="dark" lang="ru"><head></head><body class="antialiased">```html
+
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>Masters_of_Cum — official site</title>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&amp;family=JetBrains+Mono:wght@400;700&amp;family=Inter:wght@400;600;700;800&amp;display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&amp;family=JetBrains+Mono:wght@400;700&amp;family=Inter:wght@400;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
 <!-- Firebase SDKs -->
 <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-database-compat.js"></script>
@@ -81,7 +82,7 @@
             transition: all 0.2s ease;
             color: #8ca697;
             position: relative;
-            min-height: 56px; /* Touch-friendly height */
+            min-height: 56px;
         }
 
         .tab-btn.active {
@@ -109,7 +110,7 @@
             color: #00210c;
             font-weight: 700;
             transition: all 0.2s ease;
-            min-height: 48px; /* Touch-friendly height */
+            min-height: 48px;
         }
 
         .btn-obsidian:hover {
@@ -170,8 +171,6 @@
             width: 4px;
         }
     </style>
-</head>
-<body class="antialiased">
 <div class="max-w-6xl mx-auto px-4 md:px-6 py-8 md:py-12" id="main-site-container">
 <!-- Header -->
 <header class="text-center mb-10 md:mb-16 relative">
@@ -214,13 +213,13 @@
 <div class="flex flex-col lg:grid lg:grid-cols-2 gap-8 md:gap-12">
 <div class="w-full">
 <div class="rounded-lg overflow-hidden border border-white/10 bg-black/40 aspect-square md:aspect-auto" id="current-art-img-wrapper">
-<img alt="Current Art" class="w-full h-full object-contain md:h-auto" id="current-art-img" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAobyibfIyBZszfTCryZ0lqrix_dNVJ-95L74S_tYuA6LxgsB0X7QazpWTZ5kXYAT4CaNgkoggBoInBFilSldSahWvy7vWkNM60mUDS6qknt8Ud7jxO3i7tx58YvR5UzQG1-UX6AUMrKtjlpinyVeO0OjnDtV8kO1hDIPrTNvZuNV8fUc1rLe9aKTybqsMRewacrQmzPPnAKUTFP_SIiek_1qtYd0QoqS2xmq14-xQz2qhZzGSmBCws4UnrZLE-F_0Etm4Q9GecIHs-">
+<img alt="Current Art" class="w-full h-full object-contain md:h-auto" id="current-art-img" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAobyibfIyBZszfTCryZ0lqrix_dNVJ-95L74S_tYuA6LxgsB0X7QazpWTZ5kXYAT4CaNgkoggBoInBFilSldSahWvy7vWkNM60mUDS6qknt8Ud7jxO3i7tx58YvR5UzQG1-UX6AUMrKtjlpinyVeO0OjnDtV8kO1hDIPrTNvZuNV8fUc1rLe9aKTybqsMRewacrQmzPPnAKUTFP_SIiek_1qtYd0QoqS2xmq14-xQz2qhZzGSmBCws4UnrZLE-F_0Etm4Q9GecIHs-"/>
 </div>
 </div>
 <div class="w-full flex flex-col">
 <div class="flex-grow">
-<h4 class="text-2xl md:text-4xl font-black text-white uppercase tracking-tight font-display mb-4 md:mb-6" id="current-art-title">???</h4>
-<div class="bg-white/5 border border-white/5 rounded p-4 md:p-6 font-mono text-xs sm:text-sm text-on-surface-variant leading-relaxed" id="current-art-desc">???</div>
+<h4 class="text-2xl md:text-4xl font-black text-white uppercase tracking-tight font-display mb-4 md:mb-6" id="current-art-title">ЗАГРУЗКА...</h4>
+<div class="bg-white/5 border border-white/5 rounded p-4 md:p-6 font-mono text-xs sm:text-sm text-on-surface-variant leading-relaxed" id="current-art-desc">...</div>
 </div>
 <div class="flex flex-col sm:flex-row gap-3 md:gap-4 mt-8 md:mt-12 pt-6 md:pt-8 border-t border-white/5">
 <a class="btn-obsidian px-6 py-4 rounded flex items-center justify-center gap-2 text-[10px] tracking-widest uppercase font-bold transition-all flex-1" href="#" id="btn-wplace" rel="noopener noreferrer" target="_blank">
@@ -249,7 +248,7 @@
 <span class="material-symbols-outlined text-sm">bolt</span> [01] WPlace
                             </p>
 <div class="bg-black/20 rounded-lg border border-white/5 p-1" id="wplace-steps">
-<ol class="space-y-1 list-none"><li class="p-4 md:p-5 flex items-center justify-between group cursor-pointer hover:bg-white/5 rounded transition-all" onclick="openStepModal('wplace', 0)"><span class="flex items-center gap-4 md:gap-6"><span class="w-8 h-8 flex items-center justify-center rounded bg-accent/10 text-accent text-[10px] font-bold border border-accent/20 font-mono flex-shrink-0">01</span><span class="text-xs sm:text-sm text-on-surface-variant break-words leading-relaxed uppercase tracking-widest font-bold group-hover:text-white transition-colors">ДАННЫЕ_ОТСУТСТВУЮТ</span></span><span class="material-symbols-outlined opacity-10 md:opacity-10 md:group-hover:opacity-100 transition-opacity text-accent text-lg flex-shrink-0">chevron_right</span></li></ol>
+<ol class="space-y-1 list-none"><li class="p-4 md:p-5 flex items-center justify-between group cursor-pointer hover:bg-white/5 rounded transition-all"><span class="flex items-center gap-4 md:gap-6"><span class="w-8 h-8 flex items-center justify-center rounded bg-accent/10 text-accent text-[10px] font-bold border border-accent/20 font-mono flex-shrink-0">01</span><span class="text-xs sm:text-sm text-on-surface-variant break-words leading-relaxed uppercase tracking-widest font-bold group-hover:text-white transition-colors">ДАННЫЕ_ОТСУТСТВУЮТ</span></span></li></ol>
 </div>
 </div>
 <div class="space-y-4 md:space-y-6">
@@ -257,7 +256,7 @@
 <span class="material-symbols-outlined text-sm">public</span> [02] Blue Marble
                             </p>
 <div class="bg-black/20 rounded-lg border border-white/5 p-1" id="blue-steps">
-<ol class="space-y-1 list-none"><li class="p-4 md:p-5 flex items-center justify-between group cursor-pointer hover:bg-white/5 rounded transition-all" onclick="openStepModal('blue', 0)"><span class="flex items-center gap-4 md:gap-6"><span class="w-8 h-8 flex items-center justify-center rounded bg-accent/10 text-accent text-[10px] font-bold border border-accent/20 font-mono flex-shrink-0">01</span><span class="text-xs sm:text-sm text-on-surface-variant break-words leading-relaxed uppercase tracking-widest font-bold group-hover:text-white transition-colors">ДАННЫЕ_ОТСУТСТВУЮТ</span></span><span class="material-symbols-outlined opacity-10 md:opacity-10 md:group-hover:opacity-100 transition-opacity text-accent text-lg flex-shrink-0">chevron_right</span></li></ol>
+<ol class="space-y-1 list-none"><li class="p-4 md:p-5 flex items-center justify-between group cursor-pointer hover:bg-white/5 rounded transition-all"><span class="flex items-center gap-4 md:gap-6"><span class="w-8 h-8 flex items-center justify-center rounded bg-accent/10 text-accent text-[10px] font-bold border border-accent/20 font-mono flex-shrink-0">01</span><span class="text-xs sm:text-sm text-on-surface-variant break-words leading-relaxed uppercase tracking-widest font-bold group-hover:text-white transition-colors">ДАННЫЕ_ОТСУТСТВУЮТ</span></span></li></ol>
 </div>
 </div>
 <div class="space-y-4 md:space-y-6 lg:col-span-1 md:col-span-2">
@@ -265,7 +264,7 @@
 <span class="material-symbols-outlined text-sm">extension</span> [03] WPlace Helper
                             </p>
 <div class="bg-black/20 rounded-lg border border-white/5 p-1" id="helper-steps">
-<ol class="space-y-1 list-none"><li class="p-4 md:p-5 flex items-center justify-between group cursor-pointer hover:bg-white/5 rounded transition-all" onclick="openStepModal('helper', 0)"><span class="flex items-center gap-4 md:gap-6"><span class="w-8 h-8 flex items-center justify-center rounded bg-accent/10 text-accent text-[10px] font-bold border border-accent/20 font-mono flex-shrink-0">01</span><span class="text-xs sm:text-sm text-on-surface-variant break-words leading-relaxed uppercase tracking-widest font-bold group-hover:text-white transition-colors">ДАННЫЕ_ОТСУТСТВУЮТ</span></span><span class="material-symbols-outlined opacity-10 md:opacity-10 md:group-hover:opacity-100 transition-opacity text-accent text-lg flex-shrink-0">chevron_right</span></li></ol>
+<ol class="space-y-1 list-none"><li class="p-4 md:p-5 flex items-center justify-between group cursor-pointer hover:bg-white/5 rounded transition-all"><span class="flex items-center gap-4 md:gap-6"><span class="w-8 h-8 flex items-center justify-center rounded bg-accent/10 text-accent text-[10px] font-bold border border-accent/20 font-mono flex-shrink-0">01</span><span class="text-xs sm:text-sm text-on-surface-variant break-words leading-relaxed uppercase tracking-widest font-bold group-hover:text-white transition-colors">ДАННЫЕ_ОТСУТСТВУЮТ</span></span></li></ol>
 </div>
 </div>
 </div>
@@ -288,26 +287,26 @@
 <form class="space-y-6 md:space-y-8 max-w-2xl flex flex-col" id="suggestion-form" onsubmit="submitSuggestion(event)">
 <div class="space-y-2 flex flex-col w-full">
 <label class="text-[10px] font-mono uppercase tracking-widest text-accent font-bold">[01] НАЗВАНИЕ АРТА</label>
-<input class="w-full bg-black/40 border border-white/10 rounded p-4 text-white font-mono text-sm focus:border-accent outline-none transition-colors max-w-lg" id="sug-title" name="art_title" placeholder="Введите название..." required="" type="text">
+<input class="w-full bg-black/40 border border-white/10 rounded p-4 text-white font-mono text-sm focus:border-accent outline-none transition-colors max-w-lg" id="sug-title" name="art_title" placeholder="Введите название..." required="" type="text"/>
 </div>
 <div class="space-y-2 flex flex-col w-full">
 <label class="text-[10px] font-mono uppercase tracking-widest text-accent font-bold">[02] ССЫЛКА НА ИЗОБРАЖЕНИЕ</label>
-<input class="w-full bg-black/40 border border-white/10 rounded p-4 text-white font-mono text-sm focus:border-accent outline-none transition-colors max-w-lg" id="sug-url" name="image_url" placeholder="https://..." type="url">
+<input class="w-full bg-black/40 border border-white/10 rounded p-4 text-white font-mono text-sm focus:border-accent outline-none transition-colors max-w-lg" id="sug-url" name="image_url" placeholder="https://..." type="url"/>
 <div class="mt-4 flex flex-col gap-2">
 <label class="text-[10px] font-mono uppercase tracking-widest text-accent/60 font-bold">ИЛИ ЗАГРУЗИТЬ ФАЙЛ</label>
 <div class="relative group w-full max-w-lg">
-<input accept="image/*" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10 max-w-lg" id="sug-file" onchange="handleFileChange(this)" type="file">
+<input accept="image/*" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10 max-w-lg" id="sug-file" onchange="handleFileChange(this)" type="file"/>
 <div class="w-full bg-black/20 border border-dashed border-white/10 rounded p-4 text-white font-mono flex items-center justify-between group-hover:border-accent/40 transition-colors">
 <span class="text-xs opacity-50 uppercase tracking-widest truncate mr-2">ВЫБРАТЬ ФАЙЛ</span>
 <span class="material-symbols-outlined text-accent">upload_file</span>
 </div>
 </div>
-<input id="sug-file-data" name="file_attachment" type="hidden">
+<input id="sug-file-data" name="file_attachment" type="hidden"/>
 </div>
 </div>
 <div class="space-y-2 flex flex-col w-full">
 <label class="text-[10px] font-mono uppercase tracking-widest text-accent font-bold">[03] ВАШ КОНТАКТ (TG/DS)</label>
-<input class="w-full bg-black/40 border border-white/10 rounded p-4 text-white font-mono text-sm focus:border-accent outline-none transition-colors max-w-lg" id="sug-contact" name="contact" placeholder="@username or Discord ID" required="" type="text">
+<input class="w-full bg-black/40 border border-white/10 rounded p-4 text-white font-mono text-sm focus:border-accent outline-none transition-colors max-w-lg" id="sug-contact" name="contact" placeholder="@username or Discord ID" required="" type="text"/>
 </div>
 <div class="space-y-2 flex flex-col w-full">
 <label class="text-[10px] font-mono uppercase tracking-widest text-accent font-bold">[04] КОММЕНТАРИЙ</label>
@@ -322,7 +321,13 @@
 </div>
 </main>
 <!-- Footer -->
-<footer class="mt-20 md:mt-40 pt-10 md:pt-16 border-t border-white/5 text-center pb-20" id="site-footer"><div class="text-[10px] font-mono tracking-[0.3em] uppercase text-on-surface-variant/60 flex flex-wrap justify-center gap-x-8 gap-y-4"><span class="">TELEGRAM KOHTAKT - <a href="https://t.me/ARNIMAZ" target="_blank" class="text-accent hover:text-white transition-colors">@ARNIMAZ</a></span><span class="w-1 h-1 bg-white/20 rounded-full my-auto hidden md:block"></span><span class="">КАНАЛ - <a href="https://t.me/MASTERS_OF_CUM" target="_blank" class="text-accent hover:text-white transition-colors">@MASTERS_OF_CUM</a></span></div></footer>
+<footer class="mt-20 md:mt-40 pt-10 md:pt-16 border-t border-white/5 text-center pb-20" id="site-footer">
+<div class="text-[10px] font-mono tracking-[0.3em] uppercase text-on-surface-variant/60 flex flex-wrap justify-center gap-x-8 gap-y-4">
+<span>TELEGRAM KOHTAKT - <a class="text-accent hover:text-white transition-colors" href="https://t.me/ARNIMAZ" target="_blank">@ARNIMAZ</a></span>
+<span class="w-1 h-1 bg-white/20 rounded-full my-auto hidden md:block"></span>
+<span>КАНАЛ - <a class="text-accent hover:text-white transition-colors" href="https://t.me/MASTERS_OF_CUM" target="_blank">@MASTERS_OF_CUM</a></span>
+</div>
+</footer>
 </div>
 <!-- Admin Interface -->
 <div id="admin-panel-container">
@@ -377,8 +382,8 @@
 </button>
 </div>
 <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 items-start">
-<div class="image-container rounded-lg overflow-hidden border border-white/10 bg-black/40">
-<img alt="" class="w-full object-contain max-h-[40vh] md:max-h-[60vh]" id="modal-img" src="">
+<div class="image-container rounded-lg overflow-hidden border border-white/10 bg-black/40" id="modal-img-container">
+<img alt="" class="w-full object-contain max-h-[40vh] md:max-h-[60vh] block" id="modal-img" src=""/>
 </div>
 <div class="flex flex-col h-full">
 <h3 class="text-2xl md:text-4xl font-black text-white mb-4 md:mb-8 tracking-tight font-display uppercase text-left" id="modal-title">TITLE</h3>
@@ -403,7 +408,7 @@
 </div>
 <div class="fixed inset-0 pointer-events-none z-[200] flex items-end md:items-center justify-center p-4" id="toast-container"></div>
 <script>
-    // --- 1. Firebase Configuration (Hardcoded) ---
+    // --- 1. Firebase Configuration ---
     const firebaseConfig = {
       apiKey: "AIzaSyBb88pnDmYYH9Z7aPIOymSgINA4L_K_9gc",
       authDomain: "wl-site-4f2a1.firebaseapp.com",
@@ -425,7 +430,7 @@
             }
             db = firebase.database();
             firebaseReady = true;
-            console.log("Firebase initialized successfully.");
+            console.log("Firebase initialized.");
         } catch (e) {
             console.error("Firebase init error:", e);
             firebaseReady = false;
@@ -437,7 +442,9 @@
     let currentStepIndex = 0;
     let currentStepType = '';
     let modalMode = 'gallery';
-    window._homeData = null;
+    
+    // Default initial states to prevent "undefined" errors
+    window._homeData = { title: "???", image: "", description: "???", help_wplace: [], help_blue: [], help_helper: [] };
     window._galleryData = [];
     window._guidesData = [];
 
@@ -466,81 +473,84 @@
         if (img && img.src) downloadImage(img.src, 'obsidian-asset.png');
     }
 
-    // --- 2. Refactored Load JSON (Non-blocking) ---
+    // Resilience-focused JSON loader
     async function loadJSON(path, fallback) {
         try { 
             const controller = new AbortController();
-            const id = setTimeout(() => controller.abort(), 3000);
+            const id = setTimeout(() => controller.abort(), 2000); // Strict 2s timeout
             const res = await fetch(path, { signal: controller.signal });
             clearTimeout(id);
             if (!res.ok) throw new Error(`HTTP ${res.status}`);
             return await res.json(); 
         } catch (e) { 
-            console.warn(`Fallback for ${path}:`, e.message);
+            console.error(`Error loading ${path}, using fallback. Error:`, e.message);
             return fallback; 
         }
     }
 
-    // --- 3. Refactored initContent (Ensures it doesn't hang) ---
+    // --- Refactored Content Loader ---
     async function initContent() {
-        // Init site visuals first (Immediate UI)
-        document.querySelector(".site-title").textContent = "Masters_of_Cum";
-        document.querySelector(".site-subtitle").textContent = "OFFICIAL SITE";
-
-        // Load content parts independently
-        const settingsPromise = loadJSON('content/settings.json', {
-            siteTitle: "Masters_of_Cum — official site", 
-            headerTitle: "Masters_of_Cum",
-            headerSubtitle: "official site", 
-            footer: "TELEGRAM KOHTAKT - @ARNIMAZ | КАНАЛ - @MASTERS_OF_CUM"
-        }).then(data => {
-            document.title = data.siteTitle;
-            document.querySelector(".site-title").textContent = data.headerTitle;
-            document.querySelector(".site-subtitle").textContent = data.headerSubtitle.toUpperCase();
-            
-            const footerLinks = data.footer.split('|');
-            let footerHtml = '<div class="text-[10px] font-mono tracking-[0.3em] uppercase text-on-surface-variant/60 flex flex-wrap justify-center gap-x-8 gap-y-4">';
-            footerLinks.forEach((link, idx) => {
-                footerHtml += `<span>${makeLinksClickable(link.trim())}</span>`;
-                if (idx < footerLinks.length - 1) footerHtml += `<span class="w-1 h-1 bg-white/20 rounded-full my-auto hidden md:block"></span>`;
-            });
-            footerHtml += '</div>';
-            document.getElementById("site-footer").innerHTML = footerHtml;
-        });
-
-        const homePromise = loadJSON('content/home.json', {
-            title: "???", 
-            image: "https://lh3.googleusercontent.com/aida-public/AB6AXuAobyibfIyBZszfTCryZ0lqrix_dNVJ-95L74S_tYuA6LxgsB0X7QazpWTZ5kXYAT4CaNgkoggBoInBFilSldSahWvy7vWkNM60mUDS6qknt8Ud7jxO3i7tx58YvR5UzQG1-UX6AUMrKtjlpinyVeO0OjnDtV8kO1hDIPrTNvZuNV8fUc1rLe9aKTybqsMRewacrQmzPPnAKUTFP_SIiek_1qtYd0QoqS2xmq14-xQz2qhZzGSmBCws4UnrZLE-F_0Etm4Q9GecIHs-", 
-            description: "???", 
-            location: "#", 
-            help_wplace: [], 
-            help_blue: [], 
-            help_helper: []
-        }).then(data => {
-            window._homeData = data;
-            document.getElementById('current-art-title').textContent = data.title;
-            document.getElementById('current-art-desc').innerHTML = makeLinksClickable(data.description);
-            document.getElementById('current-art-img').src = data.image;
-            document.getElementById('btn-download').onclick = () => downloadImage(data.image, 'art-capture.png');
-            document.getElementById('btn-wplace').href = data.location || "#";
-            document.querySelector('#wplace-steps ol').innerHTML = renderStepsList(data.help_wplace, 'wplace');
-            document.querySelector('#blue-steps ol').innerHTML = renderStepsList(data.help_blue, 'blue');
-            document.querySelector('#helper-steps ol').innerHTML = renderStepsList(data.help_helper, 'helper');
-        });
-
-        const galleryPromise = loadJSON('content/gallery.json', []).then(data => {
-            window._galleryData = data;
-            renderGalleryGrid(data);
-        });
-
-        const guidesPromise = loadJSON('content/guides.json', []).then(data => {
-            window._guidesData = data;
-            renderGuides(data);
-        });
-
-        // Initialize Firebase in background
         initFirebase();
+
+        const dataPromises = [
+            loadJSON('content/settings.json', {
+                siteTitle: "Masters_of_Cum — official site", 
+                headerTitle: "Masters_of_Cum",
+                headerSubtitle: "official site", 
+                footer: "TELEGRAM KOHTAKT - @ARNIMAZ | КАНАЛ - @MASTERS_OF_CUM"
+            }),
+            loadJSON('content/home.json', {
+                title: "Masters_of_Cum", 
+                image: "https://lh3.googleusercontent.com/aida-public/AB6AXuAobyibfIyBZszfTCryZ0lqrix_dNVJ-95L74S_tYuA6LxgsB0X7QazpWTZ5kXYAT4CaNgkoggBoInBFilSldSahWvy7vWkNM60mUDS6qknt8Ud7jxO3i7tx58YvR5UzQG1-UX6AUMrKtjlpinyVeO0OjnDtV8kO1hDIPrTNvZuNV8fUc1rLe9aKTybqsMRewacrQmzPPnAKUTFP_SIiek_1qtYd0QoqS2xmq14-xQz2qhZzGSmBCws4UnrZLE-F_0Etm4Q9GecIHs-", 
+                description: "Добро пожаловать в архив Masters_of_Cum.", 
+                location: "#", 
+                help_wplace: [], help_blue: [], help_helper: []
+            }),
+            loadJSON('content/gallery.json', []),
+            loadJSON('content/guides.json', [])
+        ];
+
+        const results = await Promise.allSettled(dataPromises);
+
+        // Map results safely
+        const settings = results[0].status === 'fulfilled' ? results[0].value : results[0].reason;
+        window._homeData = results[1].status === 'fulfilled' ? results[1].value : results[1].reason;
+        window._galleryData = results[2].status === 'fulfilled' ? results[2].value : results[2].reason;
+        window._guidesData = results[3].status === 'fulfilled' ? results[3].value : results[3].reason;
+
+        // Apply UI Updates
+        updateSettingsUI(settings);
+        updateHomeUI(window._homeData);
+        renderGalleryGrid(window._galleryData);
+        renderGuides(window._guidesData);
+
         if (firebaseReady) loadSuggestionsIntoAdmin();
+    }
+
+    function updateSettingsUI(data) {
+        document.title = data.siteTitle;
+        document.querySelector(".site-title").textContent = data.headerTitle;
+        document.querySelector(".site-subtitle").textContent = data.headerSubtitle.toUpperCase();
+        
+        const footerLinks = data.footer.split('|');
+        let footerHtml = '<div class="text-[10px] font-mono tracking-[0.3em] uppercase text-on-surface-variant/60 flex flex-wrap justify-center gap-x-8 gap-y-4">';
+        footerLinks.forEach((link, idx) => {
+            footerHtml += `<span>${makeLinksClickable(link.trim())}</span>`;
+            if (idx < footerLinks.length - 1) footerHtml += `<span class="w-1 h-1 bg-white/20 rounded-full my-auto hidden md:block"></span>`;
+        });
+        footerHtml += '</div>';
+        document.getElementById("site-footer").innerHTML = footerHtml;
+    }
+
+    function updateHomeUI(data) {
+        document.getElementById('current-art-title').textContent = data.title || "Masters_of_Cum";
+        document.getElementById('current-art-desc').innerHTML = makeLinksClickable(data.description || "");
+        document.getElementById('current-art-img').src = data.image || "";
+        document.getElementById('btn-download').onclick = () => downloadImage(data.image, 'art-capture.png');
+        document.getElementById('btn-wplace').href = data.location || "#";
+        document.querySelector('#wplace-steps ol').innerHTML = renderStepsList(data.help_wplace, 'wplace');
+        document.querySelector('#blue-steps ol').innerHTML = renderStepsList(data.help_blue, 'blue');
+        document.querySelector('#helper-steps ol').innerHTML = renderStepsList(data.help_helper, 'helper');
     }
 
     function renderStepsList(steps, type) {
@@ -566,7 +576,7 @@
         grid.innerHTML = data.map((item, i) => `
             <div class="obsidian-card p-3 md:p-6 cursor-pointer rounded-xl group" onclick="openGalleryItem(${i})">
                 <div class="rounded-lg overflow-hidden border border-white/5 bg-black mb-3 md:mb-6 aspect-square relative">
-                    <img src="${item.image || ''}" alt="${item.title}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                    <img src="${item.image || ''}" alt="${item.title || ''}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
                     <div class="absolute inset-0 bg-accent/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
                 </div>
                 <h4 class="text-center font-bold text-white text-[9px] md:text-[10px] uppercase tracking-[0.2em] md:tracking-[0.3em] px-1 truncate font-mono">${item.title || 'БЕЗ НАЗВАНИЯ'}</h4>
@@ -610,23 +620,36 @@
         window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
-    // --- Modal Logic ---
+    // --- Fixed Modal Logic ---
     function openGalleryItem(index) {
+        if (!window._galleryData || window._galleryData.length === 0) return;
         currentGalleryIndex = index; 
         modalMode = 'gallery';
         showGalleryModal();
         document.getElementById("modal-overlay").classList.add("active");
         document.getElementById("modal-nav-row").style.display = 'flex';
         document.getElementById("modal-download").style.display = 'flex';
+        document.getElementById("modal-img-container").style.display = 'block';
     }
 
     function showGalleryModal() {
-        const data = window._galleryData[currentGalleryIndex]; 
-        if (!data) return;
-        document.getElementById("modal-img").src = data.image || "";
-        document.getElementById("modal-title").textContent = (data.title || "БЕЗ_НАЗВАНИЯ").toUpperCase();
-        document.getElementById("modal-desc").innerHTML = `<div class="text-sm md:text-lg leading-relaxed text-on-surface-variant">${makeLinksClickable(data.description || "")}</div>`;
+        const item = window._galleryData[currentGalleryIndex]; 
+        if (!item) return;
+        
+        const imgEl = document.getElementById("modal-img");
+        imgEl.src = item.image || "";
+        imgEl.style.display = "block";
+        
+        document.getElementById("modal-title").textContent = (item.title || "БЕЗ_НАЗВАНИЯ").toUpperCase();
+        document.getElementById("modal-desc").innerHTML = `<div class="text-sm md:text-lg leading-relaxed text-on-surface-variant">${makeLinksClickable(item.description || "")}</div>`;
         document.getElementById("modal-nav-counter").textContent = `${(currentGalleryIndex + 1).toString().padStart(2, '0')} / ${window._galleryData.length.toString().padStart(2, '0')}`;
+    }
+
+    function navModal(dir) {
+        if (modalMode === 'gallery' && window._galleryData.length > 0) {
+            currentGalleryIndex = (currentGalleryIndex + dir + window._galleryData.length) % window._galleryData.length;
+            showGalleryModal();
+        }
     }
 
     function openStepModal(type, index) {
@@ -635,8 +658,11 @@
         if (!data) return;
         
         const sd = typeof data === 'object' ? data : { text: data };
-        document.getElementById("modal-img").src = sd.image || "";
-        document.getElementById("modal-img").parentElement.style.display = sd.image ? 'block' : 'none';
+        const imgEl = document.getElementById("modal-img");
+        
+        imgEl.src = sd.image || "";
+        document.getElementById("modal-img-container").style.display = sd.image ? 'block' : 'none';
+        
         document.getElementById("modal-title").textContent = `ШАГ ${(index + 1).toString().padStart(2, '0')}`;
         document.getElementById("modal-desc").innerHTML = `<div class="text-xl md:text-2xl font-bold mb-4 md:mb-6 uppercase text-white">${sd.text || ""}</div>` + (sd.detail ? `<div class="text-xs md:text-sm font-mono opacity-70">${makeLinksClickable(sd.detail)}</div>` : "");
         
@@ -659,13 +685,6 @@
             if (g) return guideType === 'pc' ? g.install_pc[index] : g.install_phone[index];
         }
         return null;
-    }
-
-    function navModal(dir) {
-        if (modalMode === 'gallery') {
-            currentGalleryIndex = (currentGalleryIndex + dir + window._galleryData.length) % window._galleryData.length;
-            showGalleryModal();
-        }
     }
 
     function closeModal() {
@@ -735,7 +754,6 @@
         }, 3000);
     }
 
-    // --- Admin Sync ---
     async function loadSuggestionsIntoAdmin() {
         if (!firebaseReady) return;
         try {
@@ -757,7 +775,9 @@
                     </div>
                 </div>
             `).join('');
-        } catch(e) {}
+        } catch(e) {
+            console.error("Error loading admin suggestions:", e);
+        }
     }
 
     function switchAdminTab(tab) {
@@ -770,7 +790,10 @@
     }
 
     // --- Init ---
-    window.addEventListener('load', initContent);
+    window.addEventListener('load', () => {
+        initContent();
+    });
+
     window.addEventListener('hashchange', () => {
         const isAdmin = window.location.hash === '#admin';
         document.getElementById('main-site-container').style.display = isAdmin ? 'none' : 'block';
@@ -778,6 +801,4 @@
         document.body.style.background = isAdmin ? '#000' : '';
     });
 </script>
-
-
-<iframe src="javascript:void((function(){document.open();document.domain='';document.close();})())" style="display: none;"></iframe><iframe src="javascript:void((function(){document.open();document.domain='';document.close();})())" style="display: none;"></iframe><iframe src="javascript:void((function(){document.open();document.domain='';document.close();})())" style="display: none;"></iframe><iframe src="javascript:void((function(){document.open();document.domain='';document.close();})())" style="display: none;"></iframe><iframe src="javascript:void((function(){document.open();document.domain='';document.close();})())" style="display: none;"></iframe><iframe src="javascript:void((function(){document.open();document.domain='';document.close();})())" style="display: none;"></iframe><iframe src="javascript:void((function(){document.open();document.domain='';document.close();})())" style="display: none;"></iframe><iframe src="javascript:void((function(){document.open();document.domain='';document.close();})())" style="display: none;"></iframe><iframe src="javascript:void((function(){document.open();document.domain='';document.close();})())" style="display: none;"></iframe><iframe src="javascript:void((function(){document.open();document.domain='';document.close();})())" style="display: none;"></iframe><iframe src="javascript:void((function(){document.open();document.domain='';document.close();})())" style="display: none;"></iframe><iframe src="javascript:void((function(){document.open();document.domain='';document.close();})())" style="display: none;"></iframe><iframe src="javascript:void((function(){document.open();document.domain='';document.close();})())" style="display: none;"></iframe><iframe src="javascript:void((function(){document.open();document.domain='';document.close();})())" style="display: none;"></iframe><iframe src="javascript:void((function(){document.open();document.domain='';document.close();})())" style="display: none;"></iframe><iframe src="javascript:void((function(){document.open();document.domain='';document.close();})())" style="display: none;"></iframe><iframe src="javascript:void((function(){document.open();document.domain='';document.close();})())" style="display: none;"></iframe><iframe src="javascript:void((function(){document.open();document.domain='';document.close();})())" style="display: none;"></iframe><iframe src="javascript:void((function(){document.open();document.domain='';document.close();})())" style="display: none;"></iframe><iframe src="javascript:void((function(){document.open();document.domain='';document.close();})())" style="display: none;"></iframe><iframe src="javascript:void((function(){document.open();document.domain='';document.close();})())" style="display: none;"></iframe><iframe src="javascript:void((function(){document.open();document.domain='';document.close();})())" style="display: none;"></iframe><iframe src="javascript:void((function(){document.open();document.domain='';document.close();})())" style="display: none;"></iframe><iframe src="javascript:void((function(){document.open();document.domain='';document.close();})())" style="display: none;"></iframe><iframe src="javascript:void((function(){document.open();document.domain='';document.close();})())" style="display: none;"></iframe><iframe src="javascript:void((function(){document.open();document.domain='';document.close();})())" style="display: none;"></iframe><iframe src="javascript:void((function(){document.open();document.domain='';document.close();})())" style="display: none;"></iframe><iframe src="javascript:void((function(){document.open();document.domain='';document.close();})())" style="display: none;"></iframe><iframe src="javascript:void((function(){document.open();document.domain='';document.close();})())" style="display: none;"></iframe></body></html>
+```</body></html>
