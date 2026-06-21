@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 
-<html class="dark" lang="ru" style=""><head></head><body class="antialiased overflow-x-hidden break-words"><meta charset="utf-8"/>
+<html class="dark" lang="ru"><head>
+<meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>Masters_of_Cum — official site</title>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
@@ -171,6 +172,8 @@
             width: 4px;
         }
     </style>
+</head>
+<body class="antialiased overflow-x-hidden break-words">
 <div class="max-w-6xl mx-auto px-4 md:px-6 py-8 md:py-12" id="main-site-container">
 <!-- Header -->
 <header class="text-center mb-10 md:mb-16 relative">
@@ -402,7 +405,7 @@
 </div>
 <div class="fixed inset-0 pointer-events-none z-[200] flex items-end md:items-center justify-center p-4" id="toast-container"></div>
 <script>
-    // --- 1. Firebase Configuration (Updated from {{DATA:DOCUMENT:DOCUMENT_8}}) ---
+    // --- 1. Firebase Configuration (Directly from DataStore) ---
     const firebaseConfig = {
       apiKey: "AIzaSyBb88pnDmYYH9Z7aPIOymSgINA4L_K_9gc",
       authDomain: "wl-site-4f2a1.firebaseapp.com",
@@ -414,43 +417,78 @@
       measurementId: "G-PP1LZGWVX5"
     };
 
+    // Global references
     let db = null;
     let firebaseReady = false;
 
-    function initFirebase() {
-        try {
-            if (!firebase.apps.length) {
-                firebase.initializeApp(firebaseConfig);
-            }
-            db = firebase.database();
-            firebaseReady = true;
-            console.log("Firebase initialized.");
-        } catch (e) {
-            console.error("Firebase init error:", e);
-            firebaseReady = false;
-        }
-    }
-
-    // --- State & Variables ---
-    let currentGalleryIndex = 0;
-    let currentStepIndex = 0;
-    let currentStepType = '';
-    let modalMode = 'gallery';
-    
-    // Default initial states to prevent "undefined" errors
-    window._homeData = { 
+    // Default Fallback Data
+    const FALLBACK_HOME = { 
         title: "???", 
         image: "https://lh3.googleusercontent.com/aida-public/AB6AXuAobyibfIyBZszfTCryZ0lqrix_dNVJ-95L74S_tYuA6LxgsB0X7QazpWTZ5kXYAT4CaNgkoggBoInBFilSldSahWvy7vWkNM60mUDS6qknt8Ud7jxO3i7tx58YvR5UzQG1-UX6AUMrKtjlpinyVeO0OjnDtV8kO1hDIPrTNvZuNV8fUc1rLe9aKTybqsMRewacrQmzPPnAKUTFP_SIiek_1qtYd0QoqS2xmq14-xQz2qhZzGSmBCws4UnrZLE-F_0Etm4Q9GecIHs-", 
-        description: "???", 
+        description: "ДАННЫЕ_ОТСУТСТВУЮТ", 
         location: "#",
         help_wplace: [], 
         help_blue: [], 
         help_helper: [] 
     };
+
+    // State
+    let currentGalleryIndex = 0;
+    let currentStepIndex = 0;
+    let currentStepType = '';
+    let modalMode = 'gallery';
+    
+    window._homeData = { ...FALLBACK_HOME };
     window._galleryData = [];
     window._guidesData = [];
 
-    // --- Utility Functions ---
+    /**
+     * Robust fetch with timeout and error handling
+     */
+    async function fetchWithTimeout(resource, options = {}) {
+        const { timeout = 5000 } = options;
+        const controller = new AbortController();
+        const id = setTimeout(() => controller.abort(), timeout);
+        
+        try {
+            const response = await fetch(resource, {
+                ...options,
+                signal: controller.signal
+            });
+            clearTimeout(id);
+            if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+            return await response.json();
+        } catch (error) {
+            clearTimeout(id);
+            console.warn(`Fetch failed for ${resource}: ${error.message}`);
+            return null; // Return null so we can check it and use fallback
+        }
+    }
+
+    /**
+     * Firebase Initialization
+     */
+    function initFirebase() {
+        try {
+            if (typeof firebase !== 'undefined') {
+                if (!firebase.apps.length) {
+                    firebase.initializeApp(firebaseConfig);
+                }
+                db = firebase.database();
+                firebaseReady = true;
+                console.log("Firebase system initialized.");
+            } else {
+                console.warn("Firebase SDK not found.");
+            }
+        } catch (e) {
+            console.error("Firebase init failed:", e);
+            firebaseReady = false;
+        }
+    }
+
+    /**
+     * Utility Functions
+     */
     function makeLinksClickable(text) {
         if (!text) return "";
         return text.toString()
@@ -475,54 +513,39 @@
         if (img && img.src) downloadImage(img.src, 'obsidian-asset.png');
     }
 
-    // Resilience-focused JSON loader
-    async function loadJSON(path, fallback) {
-        try { 
-            const controller = new AbortController();
-            const id = setTimeout(() => controller.abort(), 2000); // Strict 2s timeout
-            const res = await fetch(path, { signal: controller.signal });
-            clearTimeout(id);
-            if (!res.ok) throw new Error(`HTTP ${res.status}`);
-            return await res.json(); 
-        } catch (e) { 
-            console.error(`Error loading ${path}, using fallback. Error:`, e.message);
-            return fallback; 
-        }
-    }
-
-    // --- Content Loader ---
+    /**
+     * Content Loader
+     */
     async function initContent() {
+        // Init Firebase but don't block
         initFirebase();
 
-        const dataPromises = [
-            loadJSON('content/settings.json', {
+        // Parallel fetch for content with error resilience
+        const [settings, home, gallery, guides] = await Promise.all([
+            fetchWithTimeout('content/settings.json').then(res => res || {
                 siteTitle: "Masters_of_Cum — official site", 
                 headerTitle: "Masters_of_Cum",
                 headerSubtitle: "official site", 
                 footer: "TELEGRAM KOHTAKT - @ARNIMAZ | КАНАЛ - @MASTERS_OF_CUM"
             }),
-            loadJSON('content/home.json', window._homeData),
-            loadJSON('content/gallery.json', []),
-            loadJSON('content/guides.json', [])
-        ];
+            fetchWithTimeout('content/home.json').then(res => res || FALLBACK_HOME),
+            fetchWithTimeout('content/gallery.json').then(res => res || []),
+            fetchWithTimeout('content/guides.json').then(res => res || [])
+        ]);
 
-        const results = await Promise.allSettled(dataPromises);
+        window._homeData = home;
+        window._galleryData = gallery;
+        window._guidesData = guides;
 
-        // Map results safely
-        const settings = results[0].status === 'fulfilled' ? results[0].value : results[0].reason;
-        window._homeData = results[1].status === 'fulfilled' ? results[1].value : results[1].reason;
-        window._galleryData = results[2].status === 'fulfilled' ? results[2].value : results[2].reason;
-        window._guidesData = results[3].status === 'fulfilled' ? results[3].value : results[3].reason;
-
-        // Apply UI Updates
+        // UI Updates
         updateSettingsUI(settings);
         updateHomeUI(window._homeData);
         renderGalleryGrid(window._galleryData);
         renderGuides(window._guidesData);
 
+        // Attempt to load admin items if firebase is up
         if (firebaseReady) {
-            // Non-blocking Firebase fetch
-            loadSuggestionsIntoAdmin().catch(e => console.warn("Admin suggestions not loaded:", e));
+            loadSuggestionsIntoAdmin().catch(err => console.log("Admin preview silent fail"));
         }
     }
 
@@ -541,15 +564,15 @@
             });
             footerHtml += '</div>';
             document.getElementById("site-footer").innerHTML = footerHtml;
-        } catch (e) { console.error("Error updating settings UI:", e); }
+        } catch (e) { console.error("UI Update Error (Settings):", e); }
     }
 
     function updateHomeUI(data) {
         try {
             document.getElementById('current-art-title').textContent = data.title || "???";
             document.getElementById('current-art-desc').innerHTML = makeLinksClickable(data.description || "???");
-            document.getElementById('current-art-img').src = data.image || "https://lh3.googleusercontent.com/aida-public/AB6AXuAobyibfIyBZszfTCryZ0lqrix_dNVJ-95L74S_tYuA6LxgsB0X7QazpWTZ5kXYAT4CaNgkoggBoInBFilSldSahWvy7vWkNM60mUDS6qknt8Ud7jxO3i7tx58YvR5UzQG1-UX6AUMrKtjlpinyVeO0OjnDtV8kO1hDIPrTNvZuNV8fUc1rLe9aKTybqsMRewacrQmzPPnAKUTFP_SIiek_1qtYd0QoqS2xmq14-xQz2qhZzGSmBCws4UnrZLE-F_0Etm4Q9GecIHs-";
-            document.getElementById('btn-download').onclick = () => downloadImage(data.image, 'art-capture.png');
+            document.getElementById('current-art-img').src = data.image || FALLBACK_HOME.image;
+            document.getElementById('btn-download').onclick = () => downloadImage(data.image || FALLBACK_HOME.image, 'art-capture.png');
             document.getElementById('btn-wplace').href = data.location || "#";
             
             const wplaceList = document.querySelector('#wplace-steps ol');
@@ -560,7 +583,7 @@
             
             const helperList = document.querySelector('#helper-steps ol');
             if (helperList) helperList.innerHTML = renderStepsList(data.help_helper, 'helper');
-        } catch (e) { console.error("Error updating home UI:", e); }
+        } catch (e) { console.error("UI Update Error (Home):", e); }
     }
 
     function renderStepsList(steps, type) {
@@ -618,7 +641,9 @@
         }).join('');
     }
 
-    // --- Tab Handling ---
+    /**
+     * Tab Handling
+     */
     function openTab(tabId) {
         document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
         document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
@@ -632,7 +657,9 @@
         window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
-    // --- Modal Logic ---
+    /**
+     * Modal Logic
+     */
     function openGalleryItem(index) {
         if (!window._galleryData || window._galleryData.length === 0) return;
         currentGalleryIndex = index; 
@@ -703,7 +730,9 @@
         document.getElementById("modal-overlay").classList.remove("active");
     }
 
-    // --- Admin & Suggestions ---
+    /**
+     * Suggestions & Admin
+     */
     async function submitSuggestion(e) { 
         e.preventDefault(); 
         const form = e.target;
@@ -803,7 +832,7 @@
         document.getElementById('admin-nav-suggestions').classList.toggle('text-black', tab === 'suggestions');
     }
 
-    // --- Init ---
+    // --- Init Application ---
     window.addEventListener('load', () => {
         initContent();
     });
@@ -817,5 +846,4 @@
         document.body.style.background = isAdmin ? '#000' : '';
     });
 </script>
-<iframe src="javascript:void((function(){document.open();document.domain='';document.close();})())" style="display: none;"></iframe>
 </body></html>
