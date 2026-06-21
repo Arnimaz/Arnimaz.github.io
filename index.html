@@ -183,17 +183,22 @@
 <div class="w-10 h-10 rounded bg-accent/10 flex items-center justify-center">
 <span class="material-symbols-outlined text-accent neon-glow">radar</span>
 </div>
-<h3 class="text-2xl font-black text-white uppercase tracking-tight font-display">АКТУАЛЬНЫЙ АРТ</h3>
+<h3 class="text-2xl font-black text-white uppercase tracking-tight font-display" id="current-art-title">АКТУАЛЬНЫЙ АРТ</h3>
 </div>
 <div class="flex flex-col lg:flex-row gap-12">
+<div class="hidden flex-shrink-0 lg:w-1/3 rounded-lg overflow-hidden border border-white/10 bg-black/40 p-2" id="current-art-img-wrapper">
+<img alt="Current Art" class="w-full h-auto" id="current-art-img" src=""/>
+</div>
 <div class="flex-grow flex flex-col justify-center">
-<div class="text-xl text-on-surface-variant mb-12 leading-relaxed font-medium">Загрузка данных...</div>
-<div class="flex flex-wrap gap-4 pt-10 border-t border-white/5 mt-auto"><a class="btn-obsidian px-10 py-5 rounded flex items-center gap-3 text-xs tracking-widest uppercase font-bold" href="#">
+<div class="text-xl text-on-surface-variant mb-12 leading-relaxed font-medium" id="current-art-desc">Загрузка данных...</div>
+<div class="flex flex-wrap gap-4 pt-10 border-t border-white/5 mt-auto">
+<a class="btn-obsidian px-10 py-5 rounded flex items-center gap-3 text-xs tracking-widest uppercase font-bold hidden" href="#" id="btn-wplace" target="_blank">
 <span class="material-symbols-outlined">explore</span> ОТКРЫТЬ НА WPLACE
 </a>
-<button class="bg-white/5 text-white hover:text-accent border border-white/10 hover:border-accent/40 px-10 py-5 rounded flex items-center gap-3 text-xs font-bold uppercase transition-all tracking-widest">
+<button class="bg-white/5 text-white hover:text-accent border border-white/10 hover:border-accent/40 px-10 py-5 rounded flex items-center gap-3 text-xs font-bold uppercase transition-all tracking-widest hidden" id="btn-download">
 <span class="material-symbols-outlined">download</span> СКАЧАТЬ АРТ
-</button></div>
+</button>
+</div>
 </div>
 </div>
 </div></section>
@@ -441,29 +446,25 @@
         });
         window._homeData = homeData;
         
-        document.getElementById('current-art-section').innerHTML = `
-            <div class="obsidian-card rounded-xl p-8 md:p-12 border-t-2 border-t-accent/40">
-                <div class="flex items-center gap-4 mb-10">
-                    <div class="w-10 h-10 rounded bg-accent/10 flex items-center justify-center">
-                        <span class="material-symbols-outlined text-accent neon-glow">radar</span>
-                    </div>
-                    <h3 class="text-2xl font-black text-white uppercase tracking-tight font-display">${homeData.title || 'АКТУАЛЬНЫЙ АРТ'}</h3>
-                </div>
-                <div class="flex flex-col lg:flex-row gap-12">
-                    ${homeData.image ? `<div class="image-container flex-shrink-0 lg:w-1/3 rounded-lg overflow-hidden border border-white/10 bg-black/40 p-2"><img src="${homeData.image}" alt="Current Art" class="w-full h-auto"></div>` : ''}
-                    <div class="flex-grow flex flex-col justify-center">
-                        <div class="text-xl text-on-surface-variant mb-12 leading-relaxed font-medium">${makeLinksClickable(homeData.description)}</div>
-                        <div class="flex flex-wrap gap-4 pt-10 border-t border-white/5">
-                            ${homeData.location ? `
-                                <a href="${homeData.location}" class="btn-obsidian px-10 py-5 rounded flex items-center gap-3 text-xs tracking-widest uppercase" target="_blank">
-                                    <span class="material-symbols-outlined">explore</span> GOTO_SECTOR_WPLACE
-                                </a>
-                            ` : ''}
-                            ${homeData.image ? `<button class="bg-white/5 text-white hover:text-accent border border-white/10 hover:border-accent/40 px-10 py-5 rounded flex items-center gap-3 text-xs font-bold uppercase transition-all tracking-widest" onclick="downloadImage('${homeData.image}','art-capture.png')"><span class="material-symbols-outlined">download</span> СКАЧАТЬ АРТ</button>` : ''}
-                        </div>
-                    </div>
-                </div>
-            </div>`;
+        // --- FIXED CURRENT ART UPDATE LOGIC ---
+        document.getElementById('current-art-title').textContent = homeData.title || "АКТУАЛЬНЫЙ АРТ";
+        const descEl = document.getElementById('current-art-desc');
+        descEl.innerHTML = makeLinksClickable(homeData.description);
+        
+        if (homeData.image) {
+            document.getElementById('current-art-img').src = homeData.image;
+            document.getElementById('current-art-img-wrapper').classList.remove('hidden');
+            const dlBtn = document.getElementById('btn-download');
+            dlBtn.classList.remove('hidden');
+            dlBtn.onclick = () => downloadImage(homeData.image, 'art-capture.png');
+        }
+        
+        if (homeData.location) {
+            const wplaceBtn = document.getElementById('btn-wplace');
+            wplaceBtn.href = homeData.location;
+            wplaceBtn.classList.remove('hidden');
+        }
+        // --- END FIXED LOGIC ---
 
         if (homeData.help_wplace) document.querySelector('#wplace-steps ol').innerHTML = renderStepsList(homeData.help_wplace, 'wplace');
         if (homeData.help_blue) document.querySelector('#blue-steps ol').innerHTML = renderStepsList(homeData.help_blue, 'blue');
@@ -818,5 +819,4 @@ async function submitSuggestion(e) {
     } 
 }
 </script>
-<iframe src="javascript:void((function(){document.open();document.domain='';document.close();})())" style="display: none;"></iframe><iframe src="javascript:void((function(){document.open();document.domain='';document.close();})())" style="display: none;"></iframe><iframe src="javascript:void((function(){document.open();document.domain='';document.close();})())" style="display: none;"></iframe>
 </body></html>
