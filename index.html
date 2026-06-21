@@ -1,9 +1,11 @@
-<!DOCTYPE html><html class="dark" lang="ru" style=""><head></head><body class="antialiased overflow-x-hidden break-words"><meta charset="utf-8">
-<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<!DOCTYPE html>
+
+<html class="dark" lang="ru" style=""><head></head><body class="antialiased overflow-x-hidden break-words"><meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>Masters_of_Cum — official site</title>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&amp;family=JetBrains+Mono:wght@400;700&amp;family=Inter:wght@400;600;700;800&amp;display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&amp;family=JetBrains+Mono:wght@400;700&amp;family=Inter:wght@400;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
 <!-- Firebase SDKs -->
 <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-database-compat.js"></script>
@@ -211,7 +213,7 @@
 <div class="flex flex-col lg:grid lg:grid-cols-2 gap-8 md:gap-12">
 <div class="w-full">
 <div class="rounded-lg overflow-hidden border border-white/10 bg-black/40 aspect-square md:aspect-auto" id="current-art-img-wrapper">
-<img alt="Current Art" class="w-full h-full object-contain md:h-auto" id="current-art-img" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAobyibfIyBZszfTCryZ0lqrix_dNVJ-95L74S_tYuA6LxgsB0X7QazpWTZ5kXYAT4CaNgkoggBoInBFilSldSahWvy7vWkNM60mUDS6qknt8Ud7jxO3i7tx58YvR5UzQG1-UX6AUMrKtjlpinyVeO0OjnDtV8kO1hDIPrTNvZuNV8fUc1rLe9aKTybqsMRewacrQmzPPnAKUTFP_SIiek_1qtYd0QoqS2xmq14-xQz2qhZzGSmBCws4UnrZLE-F_0Etm4Q9GecIHs-">
+<img alt="Current Art" class="w-full h-full object-contain md:h-auto" id="current-art-img" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAobyibfIyBZszfTCryZ0lqrix_dNVJ-95L74S_tYuA6LxgsB0X7QazpWTZ5kXYAT4CaNgkoggBoInBFilSldSahWvy7vWkNM60mUDS6qknt8Ud7jxO3i7tx58YvR5UzQG1-UX6AUMrKtjlpinyVeO0OjnDtV8kO1hDIPrTNvZuNV8fUc1rLe9aKTybqsMRewacrQmzPPnAKUTFP_SIiek_1qtYd0QoqS2xmq14-xQz2qhZzGSmBCws4UnrZLE-F_0Etm4Q9GecIHs-"/>
 </div>
 </div>
 <div class="w-full flex flex-col">
@@ -285,26 +287,26 @@
 <form class="space-y-6 md:space-y-8 max-w-2xl flex flex-col" id="suggestion-form" onsubmit="submitSuggestion(event)">
 <div class="space-y-2 flex flex-col w-full">
 <label class="text-[10px] font-mono uppercase tracking-widest text-accent font-bold">[01] НАЗВАНИЕ АРТА</label>
-<input class="w-full bg-black/40 border border-white/10 rounded p-4 text-white font-mono text-sm focus:border-accent outline-none transition-colors max-w-lg" id="sug-title" name="art_title" placeholder="Введите название..." required="" type="text">
+<input class="w-full bg-black/40 border border-white/10 rounded p-4 text-white font-mono text-sm focus:border-accent outline-none transition-colors max-w-lg" id="sug-title" name="art_title" placeholder="Введите название..." required="" type="text"/>
 </div>
 <div class="space-y-2 flex flex-col w-full">
 <label class="text-[10px] font-mono uppercase tracking-widest text-accent font-bold">[02] ССЫЛКА НА ИЗОБРАЖЕНИЕ</label>
-<input class="w-full bg-black/40 border border-white/10 rounded p-4 text-white font-mono text-sm focus:border-accent outline-none transition-colors max-w-lg" id="sug-url" name="image_url" placeholder="https://..." type="url">
+<input class="w-full bg-black/40 border border-white/10 rounded p-4 text-white font-mono text-sm focus:border-accent outline-none transition-colors max-w-lg" id="sug-url" name="image_url" placeholder="https://..." type="url"/>
 <div class="mt-4 flex flex-col gap-2">
 <label class="text-[10px] font-mono uppercase tracking-widest text-accent/60 font-bold">ИЛИ ЗАГРУЗИТЬ ФАЙЛ</label>
 <div class="relative group w-full max-w-lg">
-<input accept="image/*" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10 max-w-lg" id="sug-file" onchange="handleFileChange(this)" type="file">
+<input accept="image/*" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10 max-w-lg" id="sug-file" onchange="handleFileChange(this)" type="file"/>
 <div class="w-full bg-black/20 border border-dashed border-white/10 rounded p-4 text-white font-mono flex items-center justify-between group-hover:border-accent/40 transition-colors">
 <span class="text-xs opacity-50 uppercase tracking-widest truncate mr-2">ВЫБРАТЬ ФАЙЛ</span>
 <span class="material-symbols-outlined text-accent">upload_file</span>
 </div>
 </div>
-<input id="sug-file-data" name="file_attachment" type="hidden">
+<input id="sug-file-data" name="file_attachment" type="hidden"/>
 </div>
 </div>
 <div class="space-y-2 flex flex-col w-full">
 <label class="text-[10px] font-mono uppercase tracking-widest text-accent font-bold">[03] ВАШ КОНТАКТ (TG/DS)</label>
-<input class="w-full bg-black/40 border border-white/10 rounded p-4 text-white font-mono text-sm focus:border-accent outline-none transition-colors max-w-lg" id="sug-contact" name="contact" placeholder="@username or Discord ID" required="" type="text">
+<input class="w-full bg-black/40 border border-white/10 rounded p-4 text-white font-mono text-sm focus:border-accent outline-none transition-colors max-w-lg" id="sug-contact" name="contact" placeholder="@username or Discord ID" required="" type="text"/>
 </div>
 <div class="space-y-2 flex flex-col w-full">
 <label class="text-[10px] font-mono uppercase tracking-widest text-accent font-bold">[04] КОММЕНТАРИЙ</label>
@@ -319,7 +321,7 @@
 </div>
 </main>
 <!-- Footer -->
-<footer class="mt-20 md:mt-40 pt-10 md:pt-16 border-t border-white/5 text-center pb-20" id="site-footer"><div class="text-[10px] font-mono tracking-[0.3em] uppercase text-on-surface-variant/60 flex flex-wrap justify-center gap-x-8 gap-y-4"><span class="">TELEGRAM KOHTAKT - <a href="https://t.me/ARNIMAZ" target="_blank" class="text-accent hover:text-white transition-colors">@ARNIMAZ</a></span><span class="w-1 h-1 bg-white/20 rounded-full my-auto hidden md:block"></span><span class="">КАНАЛ - <a href="https://t.me/MASTERS_OF_CUM" target="_blank" class="text-accent hover:text-white transition-colors">@MASTERS_OF_CUM</a></span></div></footer>
+<footer class="mt-20 md:mt-40 pt-10 md:pt-16 border-t border-white/5 text-center pb-20" id="site-footer"><div class="text-[10px] font-mono tracking-[0.3em] uppercase text-on-surface-variant/60 flex flex-wrap justify-center gap-x-8 gap-y-4"><span class="">TELEGRAM KOHTAKT - <a class="text-accent hover:text-white transition-colors" href="https://t.me/ARNIMAZ" target="_blank">@ARNIMAZ</a></span><span class="w-1 h-1 bg-white/20 rounded-full my-auto hidden md:block"></span><span class="">КАНАЛ - <a class="text-accent hover:text-white transition-colors" href="https://t.me/MASTERS_OF_CUM" target="_blank">@MASTERS_OF_CUM</a></span></div></footer>
 </div>
 <!-- Admin Interface -->
 <div id="admin-panel-container">
@@ -375,7 +377,7 @@
 </div>
 <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 items-start">
 <div class="image-container rounded-lg overflow-hidden border border-white/10 bg-black/40" id="modal-img-container">
-<img alt="" class="w-full object-contain max-h-[40vh] md:max-h-[60vh] block" id="modal-img" src="">
+<img alt="" class="w-full object-contain max-h-[40vh] md:max-h-[60vh] block" id="modal-img" src=""/>
 </div>
 <div class="flex flex-col h-full">
 <h3 class="text-2xl md:text-4xl font-black text-white mb-4 md:mb-8 tracking-tight font-display uppercase text-left" id="modal-title">TITLE</h3>
@@ -400,7 +402,7 @@
 </div>
 <div class="fixed inset-0 pointer-events-none z-[200] flex items-end md:items-center justify-center p-4" id="toast-container"></div>
 <script>
-    // --- 1. Firebase Configuration ---
+    // --- 1. Firebase Configuration (Updated from {{DATA:DOCUMENT:DOCUMENT_8}}) ---
     const firebaseConfig = {
       apiKey: "AIzaSyBb88pnDmYYH9Z7aPIOymSgINA4L_K_9gc",
       authDomain: "wl-site-4f2a1.firebaseapp.com",
@@ -436,7 +438,15 @@
     let modalMode = 'gallery';
     
     // Default initial states to prevent "undefined" errors
-    window._homeData = { title: "???", image: "", description: "???", help_wplace: [], help_blue: [], help_helper: [] };
+    window._homeData = { 
+        title: "???", 
+        image: "https://lh3.googleusercontent.com/aida-public/AB6AXuAobyibfIyBZszfTCryZ0lqrix_dNVJ-95L74S_tYuA6LxgsB0X7QazpWTZ5kXYAT4CaNgkoggBoInBFilSldSahWvy7vWkNM60mUDS6qknt8Ud7jxO3i7tx58YvR5UzQG1-UX6AUMrKtjlpinyVeO0OjnDtV8kO1hDIPrTNvZuNV8fUc1rLe9aKTybqsMRewacrQmzPPnAKUTFP_SIiek_1qtYd0QoqS2xmq14-xQz2qhZzGSmBCws4UnrZLE-F_0Etm4Q9GecIHs-", 
+        description: "???", 
+        location: "#",
+        help_wplace: [], 
+        help_blue: [], 
+        help_helper: [] 
+    };
     window._galleryData = [];
     window._guidesData = [];
 
@@ -480,7 +490,7 @@
         }
     }
 
-    // --- Refactored Content Loader ---
+    // --- Content Loader ---
     async function initContent() {
         initFirebase();
 
@@ -491,13 +501,7 @@
                 headerSubtitle: "official site", 
                 footer: "TELEGRAM KOHTAKT - @ARNIMAZ | КАНАЛ - @MASTERS_OF_CUM"
             }),
-            loadJSON('content/home.json', {
-                title: "Masters_of_Cum", 
-                image: "https://lh3.googleusercontent.com/aida-public/AB6AXuAobyibfIyBZszfTCryZ0lqrix_dNVJ-95L74S_tYuA6LxgsB0X7QazpWTZ5kXYAT4CaNgkoggBoInBFilSldSahWvy7vWkNM60mUDS6qknt8Ud7jxO3i7tx58YvR5UzQG1-UX6AUMrKtjlpinyVeO0OjnDtV8kO1hDIPrTNvZuNV8fUc1rLe9aKTybqsMRewacrQmzPPnAKUTFP_SIiek_1qtYd0QoqS2xmq14-xQz2qhZzGSmBCws4UnrZLE-F_0Etm4Q9GecIHs-", 
-                description: "Добро пожаловать в архив Masters_of_Cum.", 
-                location: "#", 
-                help_wplace: [], help_blue: [], help_helper: []
-            }),
+            loadJSON('content/home.json', window._homeData),
             loadJSON('content/gallery.json', []),
             loadJSON('content/guides.json', [])
         ];
@@ -516,33 +520,47 @@
         renderGalleryGrid(window._galleryData);
         renderGuides(window._guidesData);
 
-        if (firebaseReady) loadSuggestionsIntoAdmin();
+        if (firebaseReady) {
+            // Non-blocking Firebase fetch
+            loadSuggestionsIntoAdmin().catch(e => console.warn("Admin suggestions not loaded:", e));
+        }
     }
 
     function updateSettingsUI(data) {
-        document.title = data.siteTitle;
-        document.querySelector(".site-title").textContent = data.headerTitle;
-        document.querySelector(".site-subtitle").textContent = data.headerSubtitle.toUpperCase();
-        
-        const footerLinks = data.footer.split('|');
-        let footerHtml = '<div class="text-[10px] font-mono tracking-[0.3em] uppercase text-on-surface-variant/60 flex flex-wrap justify-center gap-x-8 gap-y-4">';
-        footerLinks.forEach((link, idx) => {
-            footerHtml += `<span>${makeLinksClickable(link.trim())}</span>`;
-            if (idx < footerLinks.length - 1) footerHtml += `<span class="w-1 h-1 bg-white/20 rounded-full my-auto hidden md:block"></span>`;
-        });
-        footerHtml += '</div>';
-        document.getElementById("site-footer").innerHTML = footerHtml;
+        try {
+            document.title = data.siteTitle || "Masters_of_Cum";
+            document.querySelector(".site-title").textContent = data.headerTitle || "Masters_of_Cum";
+            document.querySelector(".site-subtitle").textContent = (data.headerSubtitle || "official site").toUpperCase();
+            
+            const footerText = data.footer || "TELEGRAM KOHTAKT - @ARNIMAZ | КАНАЛ - @MASTERS_OF_CUM";
+            const footerLinks = footerText.split('|');
+            let footerHtml = '<div class="text-[10px] font-mono tracking-[0.3em] uppercase text-on-surface-variant/60 flex flex-wrap justify-center gap-x-8 gap-y-4">';
+            footerLinks.forEach((link, idx) => {
+                footerHtml += `<span>${makeLinksClickable(link.trim())}</span>`;
+                if (idx < footerLinks.length - 1) footerHtml += `<span class="w-1 h-1 bg-white/20 rounded-full my-auto hidden md:block"></span>`;
+            });
+            footerHtml += '</div>';
+            document.getElementById("site-footer").innerHTML = footerHtml;
+        } catch (e) { console.error("Error updating settings UI:", e); }
     }
 
     function updateHomeUI(data) {
-        document.getElementById('current-art-title').textContent = data.title || "Masters_of_Cum";
-        document.getElementById('current-art-desc').innerHTML = makeLinksClickable(data.description || "");
-        document.getElementById('current-art-img').src = data.image || "";
-        document.getElementById('btn-download').onclick = () => downloadImage(data.image, 'art-capture.png');
-        document.getElementById('btn-wplace').href = data.location || "#";
-        document.querySelector('#wplace-steps ol').innerHTML = renderStepsList(data.help_wplace, 'wplace');
-        document.querySelector('#blue-steps ol').innerHTML = renderStepsList(data.help_blue, 'blue');
-        document.querySelector('#helper-steps ol').innerHTML = renderStepsList(data.help_helper, 'helper');
+        try {
+            document.getElementById('current-art-title').textContent = data.title || "???";
+            document.getElementById('current-art-desc').innerHTML = makeLinksClickable(data.description || "???");
+            document.getElementById('current-art-img').src = data.image || "https://lh3.googleusercontent.com/aida-public/AB6AXuAobyibfIyBZszfTCryZ0lqrix_dNVJ-95L74S_tYuA6LxgsB0X7QazpWTZ5kXYAT4CaNgkoggBoInBFilSldSahWvy7vWkNM60mUDS6qknt8Ud7jxO3i7tx58YvR5UzQG1-UX6AUMrKtjlpinyVeO0OjnDtV8kO1hDIPrTNvZuNV8fUc1rLe9aKTybqsMRewacrQmzPPnAKUTFP_SIiek_1qtYd0QoqS2xmq14-xQz2qhZzGSmBCws4UnrZLE-F_0Etm4Q9GecIHs-";
+            document.getElementById('btn-download').onclick = () => downloadImage(data.image, 'art-capture.png');
+            document.getElementById('btn-wplace').href = data.location || "#";
+            
+            const wplaceList = document.querySelector('#wplace-steps ol');
+            if (wplaceList) wplaceList.innerHTML = renderStepsList(data.help_wplace, 'wplace');
+            
+            const blueList = document.querySelector('#blue-steps ol');
+            if (blueList) blueList.innerHTML = renderStepsList(data.help_blue, 'blue');
+            
+            const helperList = document.querySelector('#helper-steps ol');
+            if (helperList) helperList.innerHTML = renderStepsList(data.help_helper, 'helper');
+        } catch (e) { console.error("Error updating home UI:", e); }
     }
 
     function renderStepsList(steps, type) {
@@ -561,6 +579,7 @@
 
     function renderGalleryGrid(data) {
         const grid = document.getElementById('gallery-grid');
+        if (!grid) return;
         if (!data || data.length === 0) {
             grid.innerHTML = '<p class="col-span-full text-center py-20 text-on-surface-variant font-mono uppercase tracking-widest opacity-40">АРХИВ_ПУСТ</p>';
             return;
@@ -578,6 +597,7 @@
 
     function renderGuides(data) {
         const container = document.getElementById('guides-content');
+        if (!container) return;
         if (!data || data.length === 0) {
             container.innerHTML = '<p class="text-center py-16 text-on-surface-variant font-mono uppercase tracking-widest">База данных пуста.</p>';
             return;
@@ -612,7 +632,7 @@
         window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
-    // --- Fixed Modal Logic ---
+    // --- Modal Logic ---
     function openGalleryItem(index) {
         if (!window._galleryData || window._galleryData.length === 0) return;
         currentGalleryIndex = index; 
@@ -735,6 +755,7 @@
 
     function showToast(msg, isErr = false) {
         const container = document.getElementById('toast-container');
+        if (!container) return;
         const toast = document.createElement('div');
         toast.className = `obsidian-glass p-4 md:p-6 rounded-lg border-l-4 ${isErr ? 'border-red-500' : 'border-accent'} text-white font-mono text-[10px] md:text-xs uppercase tracking-widest pointer-events-auto transition-all duration-300 opacity-0 transform translate-y-4 mb-4 shadow-2xl`;
         toast.textContent = msg;
@@ -749,9 +770,10 @@
     async function loadSuggestionsIntoAdmin() {
         if (!firebaseReady) return;
         try {
+            const list = document.getElementById('admin-suggestions-list');
+            if (!list) return;
             const snap = await db.ref('suggestions').once('value');
             const data = snap.val();
-            const list = document.getElementById('admin-suggestions-list');
             if (!data) {
                 list.innerHTML = '<p class="text-center py-10 opacity-40 italic">NO_PENDING_SUGGESTIONS</p>';
                 return;
@@ -768,7 +790,7 @@
                 </div>
             `).join('');
         } catch(e) {
-            console.error("Error loading admin suggestions:", e);
+            console.warn("Error loading admin suggestions:", e);
         }
     }
 
@@ -788,12 +810,12 @@
 
     window.addEventListener('hashchange', () => {
         const isAdmin = window.location.hash === '#admin';
-        document.getElementById('main-site-container').style.display = isAdmin ? 'none' : 'block';
-        document.getElementById('admin-panel-container').style.display = isAdmin ? 'block' : 'none';
+        const mainSite = document.getElementById('main-site-container');
+        const adminPanel = document.getElementById('admin-panel-container');
+        if (mainSite) mainSite.style.display = isAdmin ? 'none' : 'block';
+        if (adminPanel) adminPanel.style.display = isAdmin ? 'block' : 'none';
         document.body.style.background = isAdmin ? '#000' : '';
     });
 </script>
-
 <iframe src="javascript:void((function(){document.open();document.domain='';document.close();})())" style="display: none;"></iframe>
-
 </body></html>
