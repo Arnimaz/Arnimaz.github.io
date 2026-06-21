@@ -514,10 +514,10 @@
 </button>
 </div>
 <div class="space-y-6" id="modal-content"><div class="grid grid-cols-1 md:grid-cols-2 gap-8"><div class="aspect-square rounded-xl bg-black/40 border border-white/10 overflow-hidden flex items-center justify-center shadow-inner group"><img class="max-w-full max-h-full object-contain transition-transform group-hover:scale-105 duration-500" id="modal-preview-img" src=""/></div><div class="flex flex-col h-full"><div class="space-y-5 flex-1"><div><label class="block text-[10px] font-bold text-white/30 uppercase tracking-widest mb-1">НАЗВАНИЕ АРТА</label><p class="text-lg font-black text-white uppercase" id="modal-art-title">—</p></div><div class="grid grid-cols-2 gap-4"><div><label class="block text-[10px] font-bold text-white/30 uppercase tracking-widest mb-1">РАЗМЕР (X/Y)</label><p class="text-sm font-bold text-white/80 font-mono" id="modal-art-res">—</p></div><div><label class="block text-[10px] font-bold text-white/30 uppercase tracking-widest mb-1">ДАТА ОТПРАВКИ</label><p class="text-sm font-bold text-emerald-primary/80 font-mono" id="modal-art-date">—</p></div></div><div><label class="block text-[10px] font-bold text-white/30 uppercase tracking-widest mb-1">АНАЛИЗ ПЛОТНОСТИ (PX)</label><div class="px-3 py-2 bg-emerald-primary/5 border border-emerald-primary/10 rounded font-mono text-emerald-primary text-xs break-all uppercase flex flex-col gap-1"><div id="modal-pixel-total">ОБЩЕЕ: —</div><div class="text-white" id="modal-pixel-opaque">ПЛОЩАДЬ (PX): —</div></div></div><div><label class="block text-[10px] font-bold text-white/30 uppercase tracking-widest mb-1">КОНТАКТ / ИМЯ</label><p class="text-xs text-emerald-primary font-mono font-bold" id="modal-art-contact">—</p></div><div><label class="block text-[10px] font-bold text-white/30 uppercase tracking-widest mb-1">КОММЕНТАРИЙ</label><div class="max-h-[100px] overflow-y-auto pr-2 custom-scrollbar"><p class="text-xs text-white/60 leading-relaxed italic border-l-2 border-emerald-primary/30 pl-3" id="modal-art-comment">—</p></div></div></div></div></div></div>
-<div class="mt-8 pt-6 border-t border-white/5 flex flex-wrap items-center justify-between gap-4"><div class="flex gap-3"><button class="btn-emerald px-6 py-2.5 text-xs flex items-center gap-2" id="modal-download-btn"><span class="material-symbols-outlined text-sm">download</span> 💾 СКАЧАТЬ АРТ</button><button class="px-6 py-2.5 text-xs font-bold text-red-500/60 hover:text-red-500 border border-red-500/20 rounded-lg transition-colors flex items-center gap-2" id="modal-delete-btn"><span class="material-symbols-outlined text-sm">delete</span> УДАЛИТЬ</button></div><div class="flex gap-4"><button class="px-6 py-2.5 text-xs font-bold text-white/40 hover:text-white border border-white/10 rounded-lg transition-colors" onclick="closeSuggestionModal()">ЗАКРЫТЬ</button><button class="btn-emerald px-8 py-2.5 text-xs shadow-[0_0_15px_rgba(0,228,121,0.3)]" id="modal-accept-btn">ПЕРЕНЕСТИ В ОДОБРЕННЫЕ</button></div></div>
+<div class="mt-8 pt-6 border-t border-white/5 flex flex-wrap items-center justify-between gap-4"><div class="flex gap-3"><button class="btn-emerald px-6 py-2.5 text-xs flex items-center gap-2" id="modal-download-btn"><span class="material-symbols-outlined text-sm">download</span> 💾 СКАЧАТЬ АРТ</button><button class="hidden px-6 py-2.5 text-xs font-bold text-red-500/60 hover:text-red-500 border border-red-500/20 rounded-lg transition-colors flex items-center gap-2" id="modal-delete-btn"><span class="material-symbols-outlined text-sm">delete</span> УДАЛИТЬ</button></div><div class="flex gap-4"><button class="px-6 py-2.5 text-xs font-bold text-white/40 hover:text-white border border-white/10 rounded-lg transition-colors" onclick="closeSuggestionModal()">ЗАКРЫТЬ</button><button class="btn-emerald px-8 py-2.5 text-xs shadow-[0_0_15px_rgba(0,228,121,0.3)]" id="modal-accept-btn">ПЕРЕНЕСТИ В ОДОБРЕННЫЕ</button></div></div>
 </div>
 </div>
-<!-- ACCEPT PUBLISH MODAL -->
+<!-- ACCEPT PUBLISH MODAL (LEGACY - NOW HANDLED BY SCRIPT DIRECTLY) -->
 <div class="fixed inset-0 z-[110] flex items-center justify-center bg-black/90 backdrop-blur-md hidden" id="publish-modal">
 <div class="w-full max-w-lg obsidian-card rounded-2xl p-8">
 <h3 class="text-xl font-black text-white uppercase tracking-tight mb-6">ПУБЛИКАЦИЯ В ГАЛЕРЕЮ</h3>
@@ -783,12 +783,23 @@
                 <td class="p-4"><span class="px-2 py-0.5 rounded text-[9px] font-bold bg-emerald-primary/10 text-emerald-primary uppercase">CLOUD</span></td>
                 <td class="p-4 text-right">
                     <div class="flex justify-end gap-2" onclick="event.stopPropagation()">
-                        <button onclick="viewSuggestion('${key}')" class="w-8 h-8 rounded bg-white/5 text-white/60 hover:bg-emerald-primary hover:text-black transition-all flex items-center justify-center"><span class="material-symbols-outlined text-lg">check_circle</span></button>
+                        <button onclick="acceptSuggestion('${key}')" class="w-8 h-8 rounded bg-white/5 text-white/60 hover:bg-emerald-primary hover:text-black transition-all flex items-center justify-center"><span class="material-symbols-outlined text-lg">check_circle</span></button>
                         <button onclick="deleteSuggestion('${key}')" class="w-8 h-8 rounded bg-red-500/10 text-red-500 hover:bg-red-500 hover:text-white flex items-center justify-center transition-all"><span class="material-symbols-outlined text-lg">delete</span></button>
                     </div>
                 </td>
             </tr>`;
         }).join('');
+    }
+
+    async function acceptSuggestion(key) {
+        const item = suggestionsData[key];
+        if(!item) return;
+        try {
+            const data = {...item, acceptedAt: new Date().toISOString()};
+            await firebaseDb.ref('accepted').push(data);
+            await firebaseDb.ref(`suggestions/${key}`).remove();
+            toast("ЗАЯВКА ОДОБРЕНА", "success");
+        } catch(e) { toast("ОШИБКА ПЕРЕНОСА", "error"); }
     }
 
     async function viewSuggestion(key) {
@@ -825,20 +836,18 @@
         const deleteBtn = document.getElementById('modal-delete-btn');
         const acceptBtn = document.getElementById('modal-accept-btn');
         
+        // Detailed modal UI adjustments per request
+        deleteBtn.classList.add('hidden'); // Ensure NO "Delete" button in detailed modal
+        
         if(suggestionsData[key]) {
-            deleteBtn.classList.remove('hidden');
-            deleteBtn.onclick = () => deleteSuggestion(key);
             acceptBtn.classList.remove('hidden');
+            acceptBtn.textContent = "ПЕРЕНЕСТИ В ОДОБРЕННЫЕ";
             acceptBtn.onclick = async () => {
-                const data = {...item, acceptedAt: new Date().toISOString()};
-                await firebaseDb.ref('accepted').push(data);
-                await firebaseDb.ref(`suggestions/${key}`).remove();
+                await acceptSuggestion(key);
                 closeSuggestionModal();
-                toast("ПЕРЕНЕСЕНО В ОДОБРЕННЫЕ", "success");
             };
         } else {
-            // Accepted list details: hide Delete button per request
-            deleteBtn.classList.add('hidden');
+            // If viewing an already accepted item in the detailed modal
             acceptBtn.classList.add('hidden');
         }
     }
@@ -870,7 +879,7 @@
                     <div class="text-[10px] text-emerald-primary/60 font-mono">${item.width||'?' }x${item.height||'?' }</div>
                 </div>
                 <div class="mt-4 flex flex-col gap-2" onclick="event.stopPropagation()">
-                    <button onclick="preparePublish('${key}')" class="btn-emerald w-full py-2.5 text-[10px] flex items-center justify-center gap-2">
+                    <button onclick="publishToGallery('${key}')" class="btn-emerald w-full py-2.5 text-[10px] flex items-center justify-center gap-2">
                         <span class="material-symbols-outlined text-sm">publish</span> ОПУБЛИКОВАТЬ
                     </button>
                     <button onclick="deleteAccepted('${key}')" class="w-full py-2 text-[10px] font-bold text-red-500/60 hover:text-white hover:bg-red-500/20 border border-red-500/10 rounded transition-colors flex items-center justify-center gap-2">
@@ -881,26 +890,25 @@
         }).join("");
     }
 
-    function preparePublish(key) {
+    async function publishToGallery(key) {
         const item = acceptedData[key];
-        const modal = document.getElementById('publish-modal');
-        document.getElementById('publish-preview-img').src = item.image;
-        document.getElementById('publish-title').value = item.title || '';
-        document.getElementById('publish-desc').value = item.comment || '';
+        if(!item) return;
         
-        document.getElementById('publish-confirm-btn').onclick = async () => {
-            galleryData.push({
-                title: document.getElementById('publish-title').value,
-                description: document.getElementById('publish-desc').value,
-                image: item.image
-            });
+        // Skip comment prompt/logic as requested
+        galleryData.push({
+            title: item.title || "Новый арт",
+            description: item.comment || "",
+            image: item.image
+        });
+        
+        try {
             await firebaseDb.ref(`accepted/${key}`).remove();
-            modal.classList.add('hidden');
             renderGallery();
-            toast("ДОБАВЛЕНО В ГАЛЕРЕЮ. СОХРАНИТЕ ДАННЫЕ.", "success");
+            toast("ОПУБЛИКОВАНО В ГАЛЕРЕЮ. СОХРАНИТЕ ДАННЫЕ.", "success");
             switchTab('gallery-tab', document.querySelector('button[onclick*="gallery-tab"]'));
-        };
-        modal.classList.remove('hidden');
+        } catch(e) {
+            toast("ОШИБКА ПУБЛИКАЦИИ", "error");
+        }
     }
 
     function deleteAccepted(key) {
@@ -911,7 +919,6 @@
     function deleteSuggestion(key) {
         if (!confirm('УДАЛИТЬ ЗАЯВКУ?')) return;
         firebaseDb.ref(`suggestions/${key}`).remove();
-        closeSuggestionModal();
     }
 
     function clearFirebaseSuggestions() {
@@ -931,13 +938,19 @@
     function renderHome() {
         document.getElementById("home-title").value = homeData.title || "";
         document.getElementById("home-image").value = homeData.image || "";
-        document.getElementById("home-desc").value = homeData.description || "";
+        document.getElementById("home-description").value = homeData.description || "";
         document.getElementById("home-location").value = homeData.location || "";
         renderStepsAdmin("wplace", homeData.help_wplace || []);
         renderStepsAdmin("blue", homeData.help_blue || []);
         renderStepsAdmin("helper", homeData.help_helper || []);
         previewHomeImage();
     }
+
+    // Alias for content consistency
+    Object.defineProperty(homeData, 'description', {
+        get() { return this.desc; },
+        set(v) { this.desc = v; }
+    });
 
     function renderStepsAdmin(type, steps) {
         const el = document.getElementById(`steps-${type}`);
@@ -1047,7 +1060,7 @@
             return `<div class="p-4 bg-white/5 border border-white/5 rounded-lg relative group">
                 <div class="flex gap-2 mb-3"><input value="${(sd.text||'').replace(/"/g,'&quot;')}" onchange="updateGuideField(${gi},'${type}',${si},'text',this.value)" class="flex-1 py-1 px-3 text-xs bg-black/40 border-none rounded focus:ring-1 focus:ring-emerald-primary/50 text-white" placeholder="ИНСТРУКЦИЯ"></div>
                 <input value="${sd.image||''}" onchange="updateGuideField(${gi},'${type}',${si},'image',this.value)" class="w-full py-1 px-3 text-[10px] bg-black/20 border-none rounded mb-3 text-white/40 focus:text-white" placeholder="URL СКРИНШОТА">
-                <button class="absolute -top-2 -right-2 w-6 h-6 bg-red-600 rounded-full text-white font-bold opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity shadow-lg" onclick="guidesData[${gi}].install_${type}.splice(${si},1);renderGuides();"><span class="material-symbols-outlined text-sm">close</span></button>
+                <button class="absolute -top-2 -right-2 w-6 h-6 bg-red-600 rounded-full text-white font-bold opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity shadow-lg" onclick="guidesData[gi].install_${type}.splice(${si},1);renderGuides();"><span class="material-symbols-outlined text-sm">close</span></button>
             </div>`;
         }).join("");
     }
