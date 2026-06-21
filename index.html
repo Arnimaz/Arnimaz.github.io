@@ -350,7 +350,6 @@
 </div>
 <div class="font-mono text-xs space-y-2 opacity-80" id="terminal-output">
 <div class="">[00:00:00] SYSTEM INITIALIZED...</div>
-<div class="">[00:00:01] FIREBASE_CONFIG_LOADED...</div>
 <div class="">[00:00:01] READY.</div>
 </div>
 </div>
@@ -426,12 +425,14 @@
             }
             db = firebase.database();
             firebaseReady = true;
+            console.log("Firebase initialized successfully.");
         } catch (e) {
-            console.error("Firebase init failed:", e);
+            console.warn("Firebase initialization skipped or failed:", e.message);
             firebaseReady = false;
         }
     }
 
+    // Try to init but don't block
     initFirebase();
 
     let currentGalleryIndex = 0;
@@ -479,24 +480,29 @@
         if (img && img.src) downloadImage(img.src, 'obsidian-asset.png');
     }
 
+    /**
+     * Robust JSON loading with timeout and error handling.
+     * Path logic assumes /content/ directory or similar relative structure.
+     */
     async function loadJSON(path, fallback) {
         const controller = new AbortController();
-        const timeoutId = setTimeout(() => controller.abort(), 5000); // 5s timeout
+        const timeoutId = setTimeout(() => controller.abort(), 2000); // 2s timeout for critical assets
 
         try { 
             const res = await fetch(path, { signal: controller.signal }); 
             clearTimeout(timeoutId);
-            if (!res.ok) throw new Error('not found'); 
+            if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`); 
             return await res.json(); 
         }
         catch (e) { 
-            console.warn(`Failed to load ${path}:`, e.name === 'AbortError' ? 'Timeout' : e.message);
+            console.warn(`Failed to load ${path}, using fallback. Reason:`, e.name === 'AbortError' ? 'Timeout' : e.message);
             return fallback; 
         }
     }
 
     async function initContent() {
-        const settingsData = await loadJSON('/content/settings.json', {
+        // 1. Settings (Header/Footer)
+        const settingsData = await loadJSON('content/settings.json', {
             siteTitle: "Masters_of_Cum — official site", 
             headerTitle: "Masters_of_Cum",
             headerSubtitle: "official site", 
@@ -516,10 +522,11 @@
         footerHtml += '</div>';
         document.getElementById("site-footer").innerHTML = footerHtml;
 
-        const homeData = await loadJSON('/content/home.json', {
-            title: "FRIEREN", 
-            image: "https://lh3.googleusercontent.com/aida-public/AB6AXuAZHc4nUzxjh3nWoC0UKG8lfpf5TZOBgTX7-3eXwslkBnHmVh6_qocXF3nE9nZZ7D1hawY852NAuK1lP92RHfiTpqulE-k3mzUxZitJCutuxYgnWZ4ygF--2c-G1IHsw7vPSLmBi2FBJwXktdznbt_e0FL9mxSFvLD2016doJyJs9Rr24GcnB-_0XzcCMHNrNHY-0Va2lm883yYuxoWZjXH1i5PxK6kTFRy2wEWQoAHEanYZ1DXeJYXPS-kyliG0z_0e_3db8QInr3t", 
-            description: "Последний и актуальный арт", 
+        // 2. Home Content (Current Art)
+        const homeData = await loadJSON('content/home.json', {
+            title: "???", 
+            image: "https://lh3.googleusercontent.com/aida-public/AB6AXuAobyibfIyBZszfTCryZ0lqrix_dNVJ-95L74S_tYuA6LxgsB0X7QazpWTZ5kXYAT4CaNgkoggBoInBFilSldSahWvy7vWkNM60mUDS6qknt8Ud7jxO3i7tx58YvR5UzQG1-UX6AUMrKtjlpinyVeO0OjnDtV8kO1hDIPrTNvZuNV8fUc1rLe9aKTybqsMRewacrQmzPPnAKUTFP_SIiek_1qtYd0QoqS2xmq14-xQz2qhZzGSmBCws4UnrZLE-F_0Etm4Q9GecIHs-", 
+            description: "???", 
             location: "#", 
             help_wplace: [], 
             help_blue: [], 
@@ -527,8 +534,8 @@
         });
         window._homeData = homeData;
         
-        document.getElementById('current-art-title').textContent = homeData.title || "FRIEREN";
-        document.getElementById('current-art-desc').innerHTML = makeLinksClickable(homeData.description || "Последний и актуальный арт");
+        document.getElementById('current-art-title').textContent = homeData.title;
+        document.getElementById('current-art-desc').innerHTML = makeLinksClickable(homeData.description);
         
         if (homeData.image) {
             document.getElementById('current-art-img').src = homeData.image;
@@ -543,41 +550,52 @@
         document.querySelector('#blue-steps ol').innerHTML = renderStepsList(homeData.help_blue, 'blue');
         document.querySelector('#helper-steps ol').innerHTML = renderStepsList(homeData.help_helper, 'helper');
 
-        const galleryData = await loadJSON('/content/gallery.json', []);
+        // 3. Gallery
+        const galleryData = await loadJSON('content/gallery.json', []);
         window._galleryData = galleryData;
         renderGalleryGrid(galleryData);
 
-        const guidesData = await loadJSON('/content/guides.json', []);
+        // 4. Guides
+        const guidesData = await loadJSON('content/guides.json', []);
         window._guidesData = guidesData;
-        if (guidesData.length > 0) {
+        if (guidesData && guidesData.length > 0) {
             document.getElementById('guides-content').innerHTML = guidesData.map(g => {
+                if (!g) return '';
                 let html = '';
-                if (g.install_pc && g.install_pc.length > 0) html += `<div class="bg-accent/5 border border-accent/20 px-4 py-2 text-[10px] font-bold text-accent uppercase mb-4 mt-8 inline-block tracking-[0.2em] rounded">🖥 ПК</div><div class="bg-black/20 rounded-lg border border-white/5 p-1"><ol class="space-y-1 list-none">${renderStepsList(g.install_pc, 'guide_pc_'+g.title)}</ol></div>`;
+                if (g.install_pc && g.install_pc.length > 0) {
+                    html += `<div class="bg-accent/5 border border-accent/20 px-4 py-2 text-[10px] font-bold text-accent uppercase mb-4 mt-8 inline-block tracking-[0.2em] rounded">🖥 ПК</div><div class="bg-black/20 rounded-lg border border-white/5 p-1"><ol class="space-y-1 list-none">${renderStepsList(g.install_pc, 'guide_pc_'+g.title)}</ol></div>`;
+                }
                 if (g.install_phone && g.install_phone.length > 0) {
                     const sections = {};
                     g.install_phone.forEach(step => {
+                        if (!step) return;
                         const sd = typeof step === 'object' ? step : { text: step, section: "" };
                         const name = sd.section || 'МОБИЛЬНЫЕ';
                         if (!sections[name]) sections[name] = [];
                         sections[name].push(sd);
                     });
-                    for (const [title, steps] of Object.entries(sections)) if (steps.length > 0) html += `<div class="bg-accent/5 border border-accent/20 px-4 py-2 text-[10px] font-bold text-accent uppercase mb-4 mt-8 inline-block tracking-[0.2em] rounded">${title}</div><div class="bg-black/20 rounded-lg border border-white/5 p-1"><ol class="space-y-1 list-none">${renderStepsList(steps, 'guide_phone_'+g.title)}</ol></div>`;
+                    for (const [title, steps] of Object.entries(sections)) {
+                        if (steps.length > 0) html += `<div class="bg-accent/5 border border-accent/20 px-4 py-2 text-[10px] font-bold text-accent uppercase mb-4 mt-8 inline-block tracking-[0.2em] rounded">${title}</div><div class="bg-black/20 rounded-lg border border-white/5 p-1"><ol class="space-y-1 list-none">${renderStepsList(steps, 'guide_phone_'+g.title)}</ol></div>`;
+                    }
                 }
                 return `<div class="obsidian-card p-10 md:p-14 mb-12 rounded-xl border-t-2 border-t-accent/40">
-                    <h3 class="text-3xl font-black text-white mb-8 uppercase tracking-tight font-display neon-glow">ГАЙД: ${g.title}</h3>
-                    <p class="text-on-surface-variant mb-10 text-lg leading-relaxed">${makeLinksClickable(g.description)}</p>
+                    <h3 class="text-3xl font-black text-white mb-8 uppercase tracking-tight font-display neon-glow">ГАЙД: ${g.title || 'БЕЗ НАЗВАНИЯ'}</h3>
+                    <p class="text-on-surface-variant mb-10 text-lg leading-relaxed">${makeLinksClickable(g.description || '')}</p>
                     ${html}
                     ${g.note && g.note.toString().trim() ? `<div class="mt-12 p-8 rounded bg-accent/5 border-l-4 border-accent text-sm italic text-on-surface-variant font-mono leading-relaxed"><span class="text-accent not-italic font-bold block mb-4 uppercase tracking-[0.2em] text-[10px]">[!] ЗАМЕТКА:</span>${makeLinksClickable(g.note)}</div>` : ''}
                 </div>`;
             }).join('');
         }
         
-        loadSuggestionsIntoAdmin();
+        if (firebaseReady) {
+            loadSuggestionsIntoAdmin();
+        }
     }
 
     function renderStepsList(steps, type) {
         if (!steps || steps.length === 0) return '<li class="p-4 opacity-40 italic font-mono text-[10px] uppercase text-center">ДАННЫЕ_ОТСУТСТВУЮТ</li>';
         return steps.map((s, i) => {
+            if (!s) return '';
             const stepData = typeof s === 'object' ? s : { text: s, image: "", detail: "" };
             return `<li class="p-5 flex items-center justify-between group cursor-pointer hover:bg-white/5 rounded transition-all" onclick="openStepModal('${type}', ${i})">
                 <span class="flex items-center gap-6">
@@ -616,6 +634,7 @@
 
     function showStepInModal() {
         const data = getStepData(currentStepType, currentStepIndex);
+        if (!data) return;
         const stepData = typeof data === 'object' ? data : { text: data || "", image: "", detail: "" };
         const img = document.getElementById("modal-img");
         img.src = stepData.image || "";
@@ -630,15 +649,17 @@
             grid.innerHTML = '<p class="col-span-full text-center py-20 text-on-surface-variant font-mono uppercase tracking-widest opacity-40">АРХИВ_ПУСТ</p>';
             return;
         }
-        grid.innerHTML = data.map((item, i) => `
+        grid.innerHTML = data.map((item, i) => {
+            if (!item) return '';
+            return `
             <div class="obsidian-card p-6 cursor-pointer rounded-xl group" onclick="openGalleryItem(${i})">
                 <div class="rounded-lg overflow-hidden border border-white/5 bg-black mb-6 aspect-square relative">
                     ${item.image ? `<img src="${item.image}" alt="${item.title}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">` : '<div class="w-full h-full flex items-center justify-center bg-white/5"><span class="material-symbols-outlined text-4xl opacity-10">image_not_supported</span></div>'}
                     <div class="absolute inset-0 bg-accent/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
                 </div>
-                <h4 class="text-center font-bold text-white text-[10px] uppercase tracking-[0.3em] px-2 truncate font-mono">${item.title}</h4>
+                <h4 class="text-center font-bold text-white text-[10px] uppercase tracking-[0.3em] px-2 truncate font-mono">${item.title || 'БЕЗ НАЗВАНИЯ'}</h4>
             </div>
-        `).join('');
+        `; }).join('');
     }
 
     function openGalleryItem(index) {
@@ -651,7 +672,7 @@
     }
 
     function navModal(dir) {
-        if (modalMode === 'gallery' && window._galleryData.length > 0) { 
+        if (modalMode === 'gallery' && window._galleryData && window._galleryData.length > 0) { 
             currentGalleryIndex = (currentGalleryIndex + dir + window._galleryData.length) % window._galleryData.length;
             showGalleryModal(); 
         }
@@ -675,12 +696,13 @@
     function openTab(tabId) {
         document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
         document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-        document.getElementById(tabId).classList.add('active');
         
-        // Find the button that was clicked
+        const content = document.getElementById(tabId);
+        if (content) content.classList.add('active');
+        
         const buttons = document.querySelectorAll('.tab-btn');
         buttons.forEach(btn => {
-            if (btn.getAttribute('onclick').includes(`'${tabId}'`)) {
+            if (btn.getAttribute('onclick') && btn.getAttribute('onclick').includes(`'${tabId}'`)) {
                 btn.classList.add('active');
             }
         });
@@ -704,7 +726,7 @@
             document.getElementById('admin-panel-container').style.display = 'block';
             document.body.style.background = '#000';
             document.body.style.backgroundImage = 'none';
-            loadSuggestionsIntoAdmin();
+            if (firebaseReady) loadSuggestionsIntoAdmin();
         } else {
             document.getElementById('main-site-container').style.display = 'block';
             document.getElementById('admin-panel-container').style.display = 'none';
@@ -729,27 +751,27 @@
             sugs.classList.remove('hidden');
             btnSugs.className = "text-left py-2 px-4 bg-[#00ff41] text-black font-bold text-xs uppercase";
             btnLogs.className = "text-left py-2 px-4 border border-[#00ff41]/40 text-[#00ff41] hover:bg-[#00ff41]/10 font-bold text-xs uppercase";
-            loadSuggestionsIntoAdmin();
+            if (firebaseReady) loadSuggestionsIntoAdmin();
         }
     }
 
     async function loadSuggestionsIntoAdmin() {
+        if (!firebaseReady || !db) return;
+        
         const list = document.getElementById('admin-suggestions-list');
         const output = document.getElementById('terminal-output');
         
         let data = [];
         const time = new Date().toLocaleTimeString();
 
-        if (firebaseReady && db) {
-            try {
-                const snapshot = await db.ref('suggestions').once('value');
-                const val = snapshot.val();
-                if (val) {
-                    data = Object.keys(val).map(key => ({ ...val[key], fb_id: key }));
-                    data.sort((a,b) => (b.timestamp || 0) - (a.timestamp || 0));
-                }
-            } catch (err) { console.error(err); }
-        }
+        try {
+            const snapshot = await db.ref('suggestions').once('value');
+            const val = snapshot.val();
+            if (val) {
+                data = Object.keys(val).map(key => ({ ...val[key], fb_id: key }));
+                data.sort((a,b) => (b.timestamp || 0) - (a.timestamp || 0));
+            }
+        } catch (err) { console.warn("Firebase Fetch Error:", err); }
         
         if (data.length === 0) {
             list.innerHTML = '<p class="text-center py-10 opacity-40 italic">НЕТ_ПРЕДЛОЖЕНИЙ</p>';
@@ -766,10 +788,10 @@
                     <div class="grid grid-cols-1 lg:grid-cols-4 gap-6">
                         ${s.image ? `<div class="lg:col-span-1 aspect-square border border-white/10 rounded overflow-hidden bg-black"><img src="${s.image}" class="w-full h-full object-cover"></div>` : ''}
                         <div class="lg:col-span-3 space-y-3">
-                            <h4 class="text-white font-bold uppercase tracking-tight">${s.title}</h4>
+                            <h4 class="text-white font-bold uppercase tracking-tight">${s.title || 'БЕЗ ТЕМЫ'}</h4>
                             <div class="flex gap-2">
                                 <span class="text-[#00ff41] text-[10px] font-bold">CONTACT:</span>
-                                <span class="text-white/60 text-xs font-mono">${s.contact}</span>
+                                <span class="text-white/60 text-xs font-mono">${s.contact || 'anon'}</span>
                             </div>
                             <div class="p-3 bg-black/40 border border-[#00ff41]/10 rounded text-xs text-white/70 leading-relaxed font-mono">
                                 <span class="text-[#00ff41]/40 block text-[10px] mb-1">COMMENT:</span>
@@ -866,10 +888,15 @@
         } 
     }
 
-    // Startup
+    // Main initialization sequence
     window.addEventListener('load', () => {
-        initContent();
+        // Initial setup
+        initContent().catch(err => {
+            console.warn("InitContent error caught:", err);
+        });
+
+        // Ensure we handle deep linking to admin
         if(window.location.hash === '#admin') window.dispatchEvent(new Event('hashchange'));
     });
 </script>
-<iframe src="javascript:void((function(){document.open();document.domain='';document.close();})())" style="display: none;"></iframe><iframe src="javascript:void((function(){document.open();document.domain='';document.close();})())" style="display: none;"></iframe><iframe src="javascript:void((function(){document.open();document.domain='';document.close();})())" style="display: none;"></iframe><iframe src="javascript:void((function(){document.open();document.domain='';document.close();})())" style="display: none;"></iframe><iframe src="javascript:void((function(){document.open();document.domain='';document.close();})())" style="display: none;"></iframe></body></html>
+</body></html>
