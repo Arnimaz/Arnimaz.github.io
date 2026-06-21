@@ -1,10 +1,12 @@
-<!DOCTYPE html><html class="dark" lang="ru" style=""><head>
-<meta charset="utf-8">
-<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<!DOCTYPE html>
+
+<html class="dark" lang="ru" style=""><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>Masters_of_Cum — official site</title>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&amp;family=JetBrains+Mono:wght@400;700&amp;family=Inter:wght@400;600;700;800&amp;display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&amp;family=JetBrains+Mono:wght@400;700&amp;family=Inter:wght@400;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
 <!-- Firebase SDKs -->
 <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-database-compat.js"></script>
@@ -179,24 +181,23 @@
 <div class="obsidian-card rounded-xl border-t-2 border-t-accent/40 px-8 md:px-12 pb-8 md:pb-12 pt-0" style="transform: translateY(0px);">
 <div class="flex flex-col lg:flex-row gap-12"><!-- Left Column: Image -->
 <div class="w-full lg:w-1/2 flex flex-col">
-    <div class="flex items-center gap-4">
-        <div class="w-10 h-10 rounded bg-accent/10 flex items-center justify-center">
-            <span class="material-symbols-outlined text-accent neon-glow">palette</span>
-        </div>
-        <h3 class="text-2xl font-black text-white uppercase tracking-tight font-display">АКТУАЛЬНЫЙ АРТ</h3>
-    </div>
-    <div class="hidden w-full rounded-lg overflow-hidden border border-white/10 bg-black/40 p-2" id="current-art-img-wrapper">
-        <img alt="Current Art" class="w-full h-auto object-contain" id="current-art-img" src="">
-    </div>
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded bg-accent/10 flex items-center justify-center">
+<span class="material-symbols-outlined text-accent neon-glow">palette</span>
 </div>
-
+<h3 class="text-2xl font-black text-white uppercase tracking-tight font-display">АКТУАЛЬНЫЙ АРТ</h3>
+</div>
+<div class="w-full rounded-lg overflow-hidden border border-white/10 bg-black/40 p-2" id="current-art-img-wrapper">
+<img alt="Current Art" class="w-full h-auto object-contain" id="current-art-img" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDu3z_CaYPW544mR_XkBK1GwdeI3J3M-LkMVePNs-a9RYZcmJPQuTxBWJt07CdyVRaZ_v0F_PSDvhN6BFL0CsBJzg6gOODA4XsahAvf-BT-6637wROwaH-rNYRBH3h8Ytuk5CZb6cD9em-zGtmjaKUD0nCa9DX0jaUmkO2Yct7VOOi7u5zL4jhO9SDnV81Lgh7-wsnTdyDx-DH5io0JjLLn0s9c1k8rZTDUap11oGqw8pfMuogmxAMq3xF3biblJ14bG7iMLlYH0QyT"/>
+</div>
+</div>
 <!-- Right Column: Info & Actions -->
-<div class="w-full lg:w-1/2 flex flex-col pt-0">
-    <div class="space-y-6 mb-12">
-        <h4 class="text-4xl font-black text-white uppercase tracking-tight font-display neon-glow mt-0" id="current-art-title">АКТУАЛЬНЫЙ АРТ</h4>
-        <div class="text-xl text-on-surface-variant leading-relaxed font-medium font-mono bg-black/20 p-6 border border-white/5 rounded-lg" id="current-art-desc">Загрузка данных...</div>
-    </div>
-    <div class="flex flex-wrap gap-3 pt-8 border-t border-white/5 mt-auto items-center"><a class="btn-obsidian px-6 py-3 rounded flex items-center justify-center gap-2 text-[10px] tracking-widest uppercase font-bold transition-all" href="#" id="btn-wplace" target="_blank"><span class="material-symbols-outlined text-sm">link</span> ОТКРЫТЬ НА WPLACE</a><button class="btn-obsidian px-6 py-3 rounded flex items-center justify-center gap-2 text-[10px] tracking-widest uppercase font-bold transition-all" id="btn-download"><span class="material-symbols-outlined text-sm">save</span> СКАЧАТЬ АРТ</button></div>
+<div class="w-full lg:w-1/2 flex flex-col pt-0 justify-between">
+<div class="space-y-6 mb-12">
+<h4 class="text-4xl font-black text-white uppercase tracking-tight font-display neon-glow mt-0" id="current-art-title">FRIEREN</h4>
+<div class="text-xl text-on-surface-variant leading-relaxed font-medium font-mono bg-black/20 p-6 border border-white/5 rounded-lg" id="current-art-desc">Последний и актуальный арт</div>
+</div>
+<div class="flex flex-wrap gap-3 pt-8 border-t border-white/5 mt-auto items-center"><a class="btn-obsidian px-6 py-4 rounded flex-1 flex items-center justify-center gap-2 text-[10px] tracking-widest uppercase font-bold transition-all" href="#" id="btn-wplace" target="_blank"><span class="material-symbols-outlined text-sm">link</span> ОТКРЫТЬ НА WPLACE</a><button class="btn-obsidian px-6 py-4 rounded flex-1 flex items-center justify-center gap-2 text-[10px] tracking-widest uppercase font-bold transition-all" id="btn-download"><span class="material-symbols-outlined text-sm">save</span> СКАЧАТЬ АРТ</button></div>
 </div></div>
 </div></section>
 <!-- Help Section -->
@@ -245,9 +246,9 @@
 <p class="text-center py-16 text-on-surface-variant font-mono uppercase tracking-widest">База данных пуста.</p>
 </div>
 </div>
-<div class="tab-content space-y-12" id="suggestions"><section><div class="obsidian-card rounded-xl p-8 md:p-12 border-t-2 border-t-accent/40"><div class="flex items-center gap-4 mb-10"><div class="w-10 h-10 rounded bg-accent/10 flex items-center justify-center"><span class="material-symbols-outlined text-accent neon-glow">edit_note</span></div><h3 class="text-2xl font-black text-white uppercase tracking-tight font-display">ПРЕДЛОЖИТЬ АРТ</h3></div><form action="https://formspree.io/f/xqevzpqv" class="space-y-8 max-w-2xl" id="suggestion-form" method="POST" onsubmit="submitSuggestion(event)"><input name="_subject" type="hidden" value="Новое предложение Masters_of_Cum"><div class="space-y-2"><label class="text-[10px] font-mono uppercase tracking-widest text-accent font-bold">[01] НАЗВАНИЕ АРТА</label><input class="w-full bg-black/40 border border-white/10 rounded p-4 text-white font-mono focus:border-accent outline-none transition-colors" id="sug-title" name="art_title" placeholder="Введите название..." required="" type="text"></div><div class="space-y-2"><label class="text-[10px] font-mono uppercase tracking-widest text-accent font-bold">[02] ССЫЛКА НА ИЗОБРАЖЕНИЕ</label><input class="w-full bg-black/40 border border-white/10 rounded p-4 text-white font-mono focus:border-accent outline-none transition-colors" id="sug-url" name="image_url" placeholder="https://..." type="url"><div class="mt-4 flex flex-col gap-2"><label class="text-[10px] font-mono uppercase tracking-widest text-accent/60 font-bold">ИЛИ ЗАГРУЗИТЬ ФАЙЛ</label><div class="relative group"><input accept="image/*" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10" id="sug-file" onchange="handleFileChange(this)" type="file"><div class="w-full bg-black/20 border border-dashed border-white/10 rounded p-4 text-white font-mono flex items-center justify-between group-hover:border-accent/40 transition-colors"><span class="text-xs opacity-50 uppercase tracking-widest">ВЫБРАТЬ ФАЙЛ</span><span class="material-symbols-outlined text-accent">upload_file</span></div></div><input id="sug-file-data" name="file_attachment" type="hidden"></div></div><div class="space-y-2"><label class="text-[10px] font-mono uppercase tracking-widest text-accent font-bold">[03] ВАШ КОНТАКТ (TG/DS)</label><input class="w-full bg-black/40 border border-white/10 rounded p-4 text-white font-mono focus:border-accent outline-none transition-colors" id="sug-contact" name="contact" placeholder="@username or Discord ID" required="" type="text"></div><div class="space-y-2"><label class="text-[10px] font-mono uppercase tracking-widest text-accent font-bold">[04] КОММЕНТАРИЙ</label><textarea class="w-full bg-black/40 border border-white/10 rounded p-4 text-white font-mono focus:border-accent outline-none transition-colors resize-none" id="sug-desc" name="message" placeholder="Дополнительная информация..." rows="4"></textarea></div><button class="btn-obsidian w-full md:w-auto px-12 py-5 rounded flex items-center justify-center gap-3 text-xs tracking-widest uppercase" type="submit"><span class="material-symbols-outlined">send</span> ОТПРАВИТЬ ПРЕДЛОЖЕНИЕ</button></form></div></section></div></main>
+<div class="tab-content space-y-12" id="suggestions"><section><div class="obsidian-card rounded-xl p-8 md:p-12 border-t-2 border-t-accent/40"><div class="flex items-center gap-4 mb-10"><div class="w-10 h-10 rounded bg-accent/10 flex items-center justify-center"><span class="material-symbols-outlined text-accent neon-glow">edit_note</span></div><h3 class="text-2xl font-black text-white uppercase tracking-tight font-display">ПРЕДЛОЖИТЬ АРТ</h3></div><form action="https://formspree.io/f/xqevzpqv" class="space-y-8 max-w-2xl" id="suggestion-form" method="POST" onsubmit="submitSuggestion(event)"><input name="_subject" type="hidden" value="Новое предложение Masters_of_Cum"/><div class="space-y-2"><label class="text-[10px] font-mono uppercase tracking-widest text-accent font-bold">[01] НАЗВАНИЕ АРТА</label><input class="w-full bg-black/40 border border-white/10 rounded p-4 text-white font-mono focus:border-accent outline-none transition-colors" id="sug-title" name="art_title" placeholder="Введите название..." required="" type="text"/></div><div class="space-y-2"><label class="text-[10px] font-mono uppercase tracking-widest text-accent font-bold">[02] ССЫЛКА НА ИЗОБРАЖЕНИЕ</label><input class="w-full bg-black/40 border border-white/10 rounded p-4 text-white font-mono focus:border-accent outline-none transition-colors" id="sug-url" name="image_url" placeholder="https://..." type="url"/><div class="mt-4 flex flex-col gap-2"><label class="text-[10px] font-mono uppercase tracking-widest text-accent/60 font-bold">ИЛИ ЗАГРУЗИТЬ ФАЙЛ</label><div class="relative group"><input accept="image/*" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10" id="sug-file" onchange="handleFileChange(this)" type="file"/><div class="w-full bg-black/20 border border-dashed border-white/10 rounded p-4 text-white font-mono flex items-center justify-between group-hover:border-accent/40 transition-colors"><span class="text-xs opacity-50 uppercase tracking-widest">ВЫБРАТЬ ФАЙЛ</span><span class="material-symbols-outlined text-accent">upload_file</span></div></div><input id="sug-file-data" name="file_attachment" type="hidden"/></div></div><div class="space-y-2"><label class="text-[10px] font-mono uppercase tracking-widest text-accent font-bold">[03] ВАШ КОНТАКТ (TG/DS)</label><input class="w-full bg-black/40 border border-white/10 rounded p-4 text-white font-mono focus:border-accent outline-none transition-colors" id="sug-contact" name="contact" placeholder="@username or Discord ID" required="" type="text"/></div><div class="space-y-2"><label class="text-[10px] font-mono uppercase tracking-widest text-accent font-bold">[04] КОММЕНТАРИЙ</label><textarea class="w-full bg-black/40 border border-white/10 rounded p-4 text-white font-mono focus:border-accent outline-none transition-colors resize-none" id="sug-desc" name="message" placeholder="Дополнительная информация..." rows="4"></textarea></div><button class="btn-obsidian w-full md:w-auto px-12 py-5 rounded flex items-center justify-center gap-3 text-xs tracking-widest uppercase" type="submit"><span class="material-symbols-outlined">send</span> ОТПРАВИТЬ ПРЕДЛОЖЕНИЕ</button></form></div></section></div></main>
 <!-- Footer -->
-<footer class="mt-40 pt-16 border-t border-white/5 text-center pb-20" id="site-footer"><div class="text-[10px] font-mono tracking-[0.3em] uppercase text-on-surface-variant/60 flex flex-wrap justify-center gap-x-8 gap-y-4"><span class="">TELEGRAM KOHTAKT - <a href="https://t.me/ARNIMAZ" target="_blank" class="hover:text-white transition-colors" style="color:#00e479; text-decoration: none;">@ARNIMAZ</a></span><span class="w-1 h-1 bg-white/20 rounded-full my-auto hidden md:block"></span><span class="">КАНАЛ - <a href="https://t.me/MASTERS_OF_CUM" target="_blank" class="hover:text-white transition-colors" style="color:#00e479; text-decoration: none;">@MASTERS_OF_CUM</a></span></div></footer>
+<footer class="mt-40 pt-16 border-t border-white/5 text-center pb-20" id="site-footer"><div class="text-[10px] font-mono tracking-[0.3em] uppercase text-on-surface-variant/60 flex flex-wrap justify-center gap-x-8 gap-y-4"><span class="">TELEGRAM KOHTAKT - <a class="hover:text-white transition-colors" href="https://t.me/ARNIMAZ" style="color:#00e479; text-decoration: none;" target="_blank">@ARNIMAZ</a></span><span class="w-1 h-1 bg-white/20 rounded-full my-auto hidden md:block"></span><span class="">КАНАЛ - <a class="hover:text-white transition-colors" href="https://t.me/MASTERS_OF_CUM" style="color:#00e479; text-decoration: none;" target="_blank">@MASTERS_OF_CUM</a></span></div></footer>
 </div>
 <!-- Admin Interface -->
 <div id="admin-panel-container">
@@ -261,13 +262,12 @@
 <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
 <div class="md:col-span-1 space-y-4">
 <div class="terminal-box border border-[#00ff41] p-6 bg-[#00ff41]/5 rounded">
-
 <nav class="flex flex-col gap-2">
 <button class="text-left py-2 px-4 bg-[#00ff41] text-black font-bold text-xs uppercase" onclick="switchAdminTab('logs')">SYSTEM_LOGS</button>
 <button class="text-left py-2 px-4 border border-[#00ff41]/40 text-[#00ff41] hover:bg-[#00ff41]/10 font-bold text-xs uppercase" onclick="switchAdminTab('suggestions')">SUGGESTIONS_QUEUE</button>
 </nav>
 </div>
-<div class="terminal-box border border-[#00ff41] p-6 bg-[#00ff41]/5 rounded"><div class="space-y-4"><div class="space-y-4 mb-6"><div class="space-y-1"><label class="text-[10px] uppercase text-[#00ff41]/60 font-bold">[01] НАЗВАНИЕ АРТА</label><input class="w-full bg-black border border-[#00ff41]/40 p-2 text-xs text-[#00ff41] outline-none focus:border-[#00ff41]" id="admin-art-title" placeholder="Art Title..." type="text"></div><div class="space-y-1"><label class="text-[10px] uppercase text-[#00ff41]/60 font-bold">[02] ОПИСАНИЕ АРТА</label><textarea class="w-full bg-black border border-[#00ff41]/40 p-2 text-xs text-[#00ff41] outline-none focus:border-[#00ff41] resize-none" id="admin-art-desc" placeholder="Art Description..." rows="4"></textarea></div><div class="space-y-1"><label class="text-[10px] uppercase text-[#00ff41]/60 font-bold">[03] ССЫЛКА (WPLACE)</label><input class="w-full bg-black border border-[#00ff41]/40 p-2 text-xs text-[#00ff41] outline-none focus:border-[#00ff41]" id="admin-art-url" placeholder="https://..." type="url"></div><button class="w-full bg-[#00ff41] text-black font-bold py-3 text-[10px] uppercase hover:brightness-110 transition-all" onclick="updateCurrentArt()">COMMIT_CHANGES</button></div><div class="text-[10px] text-white/40 font-mono italic">SYSTEM_SYNC_ACTIVE</div></div></div>
+<div class="terminal-box border border-[#00ff41] p-6 bg-[#00ff41]/5 rounded"><div class="space-y-4"><div class="space-y-4 mb-6"><div class="space-y-1"><label class="text-[10px] uppercase text-[#00ff41]/60 font-bold">[01] НАЗВАНИЕ АРТА</label><input class="w-full bg-black border border-[#00ff41]/40 p-2 text-xs text-[#00ff41] outline-none focus:border-[#00ff41]" id="admin-art-title" placeholder="Art Title..." type="text"/></div><div class="space-y-1"><label class="text-[10px] uppercase text-[#00ff41]/60 font-bold">[02] ОПИСАНИЕ АРТА</label><textarea class="w-full bg-black border border-[#00ff41]/40 p-2 text-xs text-[#00ff41] outline-none focus:border-[#00ff41] resize-none" id="admin-art-desc" placeholder="Art Description..." rows="4"></textarea></div><div class="space-y-1"><label class="text-[10px] uppercase text-[#00ff41]/60 font-bold">[03] ССЫЛКА (WPLACE)</label><input class="w-full bg-black border border-[#00ff41]/40 p-2 text-xs text-[#00ff41] outline-none focus:border-[#00ff41]" id="admin-art-url" placeholder="https://..." type="url"/></div><button class="w-full bg-[#00ff41] text-black font-bold py-3 text-[10px] uppercase hover:brightness-110 transition-all" onclick="updateCurrentArt()">COMMIT_CHANGES</button></div><div class="text-[10px] text-white/40 font-mono italic">SYSTEM_SYNC_ACTIVE</div></div></div>
 </div>
 <div class="md:col-span-3 border border-[#00ff41] p-8 bg-[#00ff41]/5 rounded min-h-[500px]">
 <div id="admin-tab-logs">
@@ -307,7 +307,7 @@
 </div>
 <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
 <div class="image-container rounded-lg overflow-hidden border border-white/10 bg-black/40">
-<img alt="" class="w-full object-contain max-h-[50vh]" id="modal-img" src="">
+<img alt="" class="w-full object-contain max-h-[50vh]" id="modal-img" src=""/>
 </div>
 <div class="flex flex-col h-full">
 <h3 class="text-4xl font-black text-white mb-8 tracking-tight font-display uppercase" id="modal-title">TITLE_PLACEHOLDER</h3>
@@ -811,17 +811,4 @@ async function submitSuggestion(e) {
 }
 </script>
 <iframe src="javascript:void((function(){document.open();document.domain='';document.close();})())" style="display: none;"></iframe><iframe src="javascript:void((function(){document.open();document.domain='';document.close();})())" style="display: none;"></iframe>
-
-
-
-
-
-
-
-
-
-
-
-
-
 </body></html>
