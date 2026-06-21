@@ -1,4 +1,5 @@
-<html class="dark" lang="ru"><head>
+<html class="dark" lang="ru"><head></head><body class="antialiased">```html
+
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>Masters_of_Cum — official site</title>
@@ -145,7 +146,6 @@
             justify-content: center;
         }
     </style>
-</head><body class="antialiased">
 <div class="max-w-6xl mx-auto px-6 py-12" id="main-site-container">
 <!-- Header -->
 <header class="text-center mb-16 relative">
@@ -260,9 +260,21 @@
 </div>
 <div class="terminal-box border border-[#00ff41] p-6 bg-[#00ff41]/5 rounded">
 <div class="mb-4 font-bold uppercase text-xs tracking-widest text-[#00ff41]">CONFIG</div>
+<div class="space-y-4">
+<div>
 <label class="block text-[10px] mb-2 opacity-60">FORMSPREE_ID</label>
-<input class="bg-black border border-[#00ff41] text-[#00ff41] w-full p-3 mb-4 font-mono text-xs outline-none" id="admin-formspree-id" placeholder="e.g. xknyz..." type="text"/>
+<input class="bg-black border border-[#00ff41] text-[#00ff41] w-full p-3 font-mono text-xs outline-none" id="admin-formspree-id" placeholder="e.g. xknyz..." type="text"/>
+</div>
+<div class="pt-2 border-t border-[#00ff41]/20">
+<label class="block text-[10px] mb-2 opacity-60">FIREBASE_DATABASE_URL</label>
+<input class="bg-black border border-[#00ff41] text-[#00ff41] w-full p-3 font-mono text-xs outline-none mb-2" id="admin-fb-url" placeholder="https://..." type="text"/>
+<label class="block text-[10px] mb-2 opacity-60">FIREBASE_API_KEY</label>
+<input class="bg-black border border-[#00ff41] text-[#00ff41] w-full p-3 font-mono text-xs outline-none mb-2" id="admin-fb-key" placeholder="AIza..." type="password"/>
+<label class="block text-[10px] mb-2 opacity-60">FIREBASE_PROJECT_ID</label>
+<input class="bg-black border border-[#00ff41] text-[#00ff41] w-full p-3 font-mono text-xs outline-none" id="admin-fb-pid" placeholder="project-id" type="text"/>
+</div>
 <button class="bg-[#00ff41] text-black w-full py-3 font-bold text-xs uppercase hover:bg-white transition-colors" onclick="saveConfig()">SAVE_CONFIG</button>
+</div>
 </div>
 <div class="terminal-box border border-[#00ff41] p-6 bg-[#00ff41]/5 rounded">
 <div class="mb-4 font-bold uppercase text-xs tracking-widest text-[#00ff41]">AUTH</div>
@@ -332,29 +344,42 @@
 </div>
 </div>
 <script>
-    // --- Firebase Configuration ---
-    // User can update these values
-    const firebaseConfig = {
-        apiKey: "REPLACE_WITH_YOUR_API_KEY",
-        authDomain: "REPLACE_WITH_YOUR_PROJECT_ID.firebaseapp.com",
-        databaseURL: "https://REPLACE_WITH_YOUR_PROJECT_ID-default-rtdb.firebaseio.com",
-        projectId: "REPLACE_WITH_YOUR_PROJECT_ID",
-        storageBucket: "REPLACE_WITH_YOUR_PROJECT_ID.appspot.com",
-        messagingSenderId: "REPLACE_WITH_YOUR_SENDER_ID",
-        appId: "REPLACE_WITH_YOUR_APP_ID"
-    };
-
-    // Initialize Firebase if config is set
+    // --- Global State & Firebase Initialization ---
     let db = null;
-    try {
-        if (firebaseConfig.apiKey !== "REPLACE_WITH_YOUR_API_KEY") {
-            firebase.initializeApp(firebaseConfig);
-            db = firebase.database();
-            console.log("Firebase initialized successfully.");
+    let firebaseReady = false;
+
+    function initFirebase() {
+        const url = localStorage.getItem('fbUrl');
+        const key = localStorage.getItem('fbKey');
+        const pid = localStorage.getItem('fbPid');
+
+        if (url && key && pid) {
+            try {
+                // Check if already initialized to avoid re-init error
+                if (!firebase.apps.length) {
+                    firebase.initializeApp({
+                        apiKey: key,
+                        databaseURL: url,
+                        projectId: pid,
+                        authDomain: `${pid}.firebaseapp.com`,
+                        storageBucket: `${pid}.appspot.com`
+                    });
+                }
+                db = firebase.database();
+                firebaseReady = true;
+                console.log("Firebase dynamically initialized.");
+            } catch (e) {
+                console.error("Firebase dynamic init failed:", e);
+                firebaseReady = false;
+            }
+        } else {
+            console.warn("Firebase config missing in localStorage.");
+            firebaseReady = false;
         }
-    } catch (e) {
-        console.warn("Firebase initialization failed:", e);
     }
+
+    // Initialize on load
+    initFirebase();
 
     let currentGalleryIndex = 0;
     let currentStepIndex = 0;
@@ -621,8 +646,11 @@
             document.body.style.background = '#000';
             document.body.style.backgroundImage = 'none';
             
-            const storedId = localStorage.getItem('formspreeId');
-            if (storedId) document.getElementById('admin-formspree-id').value = storedId;
+            // Fill existing config
+            document.getElementById('admin-formspree-id').value = localStorage.getItem('formspreeId') || '';
+            document.getElementById('admin-fb-url').value = localStorage.getItem('fbUrl') || '';
+            document.getElementById('admin-fb-key').value = localStorage.getItem('fbKey') || '';
+            document.getElementById('admin-fb-pid').value = localStorage.getItem('fbPid') || '';
             
             loadSuggestionsIntoAdmin();
         } else {
@@ -634,11 +662,22 @@
     });
 
     function saveConfig() {
-        const id = document.getElementById('admin-formspree-id').value.trim();
-        localStorage.setItem('formspreeId', id);
+        const fspId = document.getElementById('admin-formspree-id').value.trim();
+        const fbUrl = document.getElementById('admin-fb-url').value.trim();
+        const fbKey = document.getElementById('admin-fb-key').value.trim();
+        const fbPid = document.getElementById('admin-fb-pid').value.trim();
+        
+        localStorage.setItem('formspreeId', fspId);
+        localStorage.setItem('fbUrl', fbUrl);
+        localStorage.setItem('fbKey', fbKey);
+        localStorage.setItem('fbPid', fbPid);
+        
+        // Re-init firebase with new keys
+        initFirebase();
+        
         const output = document.getElementById('terminal-output');
         const entry = document.createElement('div');
-        entry.textContent = `[${new Date().toLocaleTimeString()}] CONFIG_SAVED: FORMSPREE_ID SET TO ${id || 'NULL'}`;
+        entry.textContent = `[${new Date().toLocaleTimeString()}] CONFIG_UPDATE: SYSTEM PARAMETERS RE-INITIALIZED.`;
         output.appendChild(entry);
         output.scrollTop = output.scrollHeight;
     }
@@ -671,10 +710,28 @@
         }
     }
 
-    function loadSuggestionsIntoAdmin() {
+    async function loadSuggestionsIntoAdmin() {
         const list = document.getElementById('admin-suggestions-list');
         const output = document.getElementById('terminal-output');
-        const data = JSON.parse(localStorage.getItem('wplace_suggestions') || localStorage.getItem('moc_suggestions') || '[]');
+        
+        let data = [];
+        const time = new Date().toLocaleTimeString();
+
+        if (firebaseReady && db) {
+            try {
+                const snapshot = await db.ref('suggestions').once('value');
+                const val = snapshot.val();
+                if (val) {
+                    data = Object.keys(val).map(key => ({ ...val[key], fb_id: key }));
+                    data.sort((a,b) => (b.timestamp || 0) - (a.timestamp || 0));
+                }
+            } catch (err) {
+                console.error("Firebase fetch failed, falling back to local:", err);
+                data = JSON.parse(localStorage.getItem('wplace_suggestions') || '[]');
+            }
+        } else {
+            data = JSON.parse(localStorage.getItem('wplace_suggestions') || '[]');
+        }
         
         if (data.length === 0) {
             list.innerHTML = '<p class="text-center py-10 opacity-40 italic">NO_PENDING_SUGGESTIONS</p>';
@@ -686,7 +743,7 @@
                             <span class="text-[#00ff41] font-bold text-xs uppercase tracking-widest">[REC_${(i+1).toString().padStart(3,'0')}]</span>
                             <span class="text-white/40 text-[10px] font-mono">${s.date || s.timestamp || 'N/A'}</span>
                         </div>
-                        <button onclick="removeSuggestion(${i})" class="text-red-500/50 hover:text-red-500 transition-colors"><span class="material-symbols-outlined text-sm">delete</span></button>
+                        <button onclick="removeSuggestion('${s.fb_id}', ${i})" class="text-red-500/50 hover:text-red-500 transition-colors"><span class="material-symbols-outlined text-sm">delete</span></button>
                     </div>
                     <div class="grid grid-cols-1 lg:grid-cols-4 gap-6">
                         ${s.image ? `<div class="lg:col-span-1 aspect-square border border-white/10 rounded overflow-hidden bg-black"><img src="${s.image}" class="w-full h-full object-cover"></div>` : ''}
@@ -706,27 +763,34 @@
             `).join('');
         }
         
-        const time = new Date().toLocaleTimeString();
         const logEntry = document.createElement('div');
-        logEntry.textContent = `[${time}] DATA_RECONCILIATION: ${data.length} RECORDS FOUND.`;
+        logEntry.textContent = `[${time}] DATA_RECONCILIATION: ${data.length} RECORDS ACCESSED.`;
         output.appendChild(logEntry);
         output.scrollTop = output.scrollHeight;
     }
 
-    function removeSuggestion(idx) {
-        let data = JSON.parse(localStorage.getItem('wplace_suggestions') || localStorage.getItem('moc_suggestions') || '[]');
-        data.splice(idx, 1);
-        localStorage.setItem('wplace_suggestions', JSON.stringify(data));
-        localStorage.setItem('moc_suggestions', JSON.stringify(data));
+    async function removeSuggestion(fbId, localIdx) {
+        if (!confirm('DELETE RECORD?')) return;
+
+        if (firebaseReady && db && fbId !== 'undefined') {
+            await db.ref('suggestions/' + fbId).remove();
+        } else {
+            let data = JSON.parse(localStorage.getItem('wplace_suggestions') || '[]');
+            data.splice(localIdx, 1);
+            localStorage.setItem('wplace_suggestions', JSON.stringify(data));
+        }
         loadSuggestionsIntoAdmin();
     }
 
-    function clearSuggestions() {
-        if(confirm('PURGE ALL RECORDS?')) {
+    async function clearSuggestions() {
+        if(!confirm('PURGE ALL RECORDS FOREVER?')) return;
+        
+        if (firebaseReady && db) {
+            await db.ref('suggestions').remove();
+        } else {
             localStorage.setItem('wplace_suggestions', '[]');
-            localStorage.setItem('moc_suggestions', '[]');
-            loadSuggestionsIntoAdmin();
         }
+        loadSuggestionsIntoAdmin();
     }
 
     if(window.location.hash === '#admin') window.dispatchEvent(new Event('hashchange'));
@@ -751,6 +815,13 @@ async function submitSuggestion(e) {
     const btn = form.querySelector('button[type="submit"]'); 
     const originalText = btn.innerHTML; 
     
+    // Check if configuration exists
+    const hasConfig = !!(localStorage.getItem('fbUrl') || localStorage.getItem('formspreeId'));
+    if (!hasConfig) {
+        showToast('ОШИБКА: СИСТЕМА НЕ НАСТРОЕНА. ОБРАТИТЕСЬ К АДМИНИСТРАТОРУ.', true);
+        return;
+    }
+
     btn.disabled = true; 
     btn.innerHTML = '<span class="material-symbols-outlined animate-spin">sync</span> ОБРАБОТКА...'; 
     
@@ -758,13 +829,14 @@ async function submitSuggestion(e) {
         const formData = new FormData(form);
         const dataObj = Object.fromEntries(formData.entries());
         
-        // Handle image conversion to DataURL
-        let imageToSave = dataObj.image_url;
+        // Handle image conversion to Base64
+        let base64Image = null;
         const fileInput = document.getElementById('sug-file');
         if (fileInput.files && fileInput.files[0]) {
-            imageToSave = await new Promise((resolve) => {
+            base64Image = await new Promise((resolve, reject) => {
                 const reader = new FileReader();
                 reader.onload = (ev) => resolve(ev.target.result);
+                reader.onerror = (err) => reject(err);
                 reader.readAsDataURL(fileInput.files[0]);
             });
         }
@@ -773,46 +845,49 @@ async function submitSuggestion(e) {
             title: dataObj.art_title,
             contact: dataObj.contact,
             comment: dataObj.message,
-            image: imageToSave,
+            image: base64Image || dataObj.image_url || null,
             date: new Date().toLocaleString(),
             timestamp: Date.now()
         };
 
-        // --- GLOBAL SYNC: Firebase Push ---
-        let firebaseSuccess = false;
-        if (db) {
+        let syncResults = { firebase: false, formspree: false };
+
+        // 1. Firebase Sync (Primary)
+        if (firebaseReady && db) {
             try {
                 await db.ref('suggestions').push(suggestionRecord);
-                firebaseSuccess = true;
-                console.log("Record synced with Firebase.");
+                syncResults.firebase = true;
             } catch (fbErr) {
                 console.error("Firebase sync failed:", fbErr);
             }
         }
 
-        // --- EMAIL NOTIFICATION: Formspree ---
-        // We always try this as a backup/notification layer
+        // 2. Formspree Sync (Backup/Notification)
         const formspreeId = localStorage.getItem('formspreeId') || 'xqevzpqv';
-        const response = await fetch(`https://formspree.io/f/${formspreeId}`, {
-            method: 'POST',
-            body: formData,
-            headers: { 'Accept': 'application/json' }
-        });
+        try {
+            const response = await fetch(`https://formspree.io/f/${formspreeId}`, {
+                method: 'POST',
+                body: formData,
+                headers: { 'Accept': 'application/json' }
+            });
+            if (response.ok) syncResults.formspree = true;
+        } catch (fspErr) {
+            console.error("Formspree backup failed:", fspErr);
+        }
 
-        if (response.ok || firebaseSuccess) {
+        if (syncResults.firebase || syncResults.formspree) {
             showToast('ПРЕДЛОЖЕНИЕ УСПЕШНО ОТПРАВЛЕНО!'); 
             
-            // Local fallback storage
+            // Local fallback for immediate visibility
             let existing = JSON.parse(localStorage.getItem('wplace_suggestions') || '[]');
             existing.unshift(suggestionRecord);
-            localStorage.setItem('wplace_suggestions', JSON.stringify(existing.slice(0, 50))); // Keep last 50 locally
+            localStorage.setItem('wplace_suggestions', JSON.stringify(existing.slice(0, 20))); 
             
             form.reset(); 
             form.querySelector('input[type="file"]').nextElementSibling.querySelector('span').textContent = 'ВЫБРАТЬ ФАЙЛ'; 
             document.getElementById('sug-file-data').value = '';
         } else {
-            const errorData = await response.json();
-            throw new Error(errorData.error || 'ОШИБКА СЕРВЕРА');
+            throw new Error('СБОЙ ВСЕХ КАНАЛОВ СВЯЗИ');
         }
         
     } catch (err) { 
@@ -824,4 +899,4 @@ async function submitSuggestion(e) {
     } 
 }
 </script>
-</body></html>
+```</body></html>
