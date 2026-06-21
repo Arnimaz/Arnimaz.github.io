@@ -1,5 +1,4 @@
-<html class="dark" lang="ru"><head></head><body class="antialiased">```html
-
+<html class="dark" lang="ru"><head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>Masters_of_Cum — official site</title>
@@ -146,6 +145,8 @@
             justify-content: center;
         }
     </style>
+</head>
+<body class="antialiased">
 <div class="max-w-6xl mx-auto px-6 py-12" id="main-site-container">
 <!-- Header -->
 <header class="text-center mb-16 relative">
@@ -261,25 +262,9 @@
 <div class="terminal-box border border-[#00ff41] p-6 bg-[#00ff41]/5 rounded">
 <div class="mb-4 font-bold uppercase text-xs tracking-widest text-[#00ff41]">CONFIG</div>
 <div class="space-y-4">
-<div>
-<label class="block text-[10px] mb-2 opacity-60">FORMSPREE_ID</label>
-<input class="bg-black border border-[#00ff41] text-[#00ff41] w-full p-3 font-mono text-xs outline-none" id="admin-formspree-id" placeholder="e.g. xknyz..." type="text"/>
+<div class="text-[10px] text-white/40 font-mono italic">CONFIG_HARDCODED_IN_SOURCE</div>
+<button class="bg-[#00ff41]/10 text-[#00ff41] border border-[#00ff41] w-full py-3 font-bold text-xs uppercase opacity-50 cursor-not-allowed">RELOAD_RECORDS</button>
 </div>
-<div class="pt-2 border-t border-[#00ff41]/20">
-<label class="block text-[10px] mb-2 opacity-60">FIREBASE_DATABASE_URL</label>
-<input class="bg-black border border-[#00ff41] text-[#00ff41] w-full p-3 font-mono text-xs outline-none mb-2" id="admin-fb-url" placeholder="https://..." type="text"/>
-<label class="block text-[10px] mb-2 opacity-60">FIREBASE_API_KEY</label>
-<input class="bg-black border border-[#00ff41] text-[#00ff41] w-full p-3 font-mono text-xs outline-none mb-2" id="admin-fb-key" placeholder="AIza..." type="password"/>
-<label class="block text-[10px] mb-2 opacity-60">FIREBASE_PROJECT_ID</label>
-<input class="bg-black border border-[#00ff41] text-[#00ff41] w-full p-3 font-mono text-xs outline-none" id="admin-fb-pid" placeholder="project-id" type="text"/>
-</div>
-<button class="bg-[#00ff41] text-black w-full py-3 font-bold text-xs uppercase hover:bg-white transition-colors" onclick="saveConfig()">SAVE_CONFIG</button>
-</div>
-</div>
-<div class="terminal-box border border-[#00ff41] p-6 bg-[#00ff41]/5 rounded">
-<div class="mb-4 font-bold uppercase text-xs tracking-widest text-[#00ff41]">AUTH</div>
-<input class="bg-black border border-[#00ff41] text-[#00ff41] w-full p-3 mb-4 font-mono text-xs outline-none" placeholder="GITHUB_TOKEN" type="password"/>
-<button class="bg-[#00ff41] text-black w-full py-3 font-bold text-xs uppercase hover:bg-white transition-colors">CONNECT</button>
 </div>
 </div>
 <div class="md:col-span-3 border border-[#00ff41] p-8 bg-[#00ff41]/5 rounded min-h-[500px]">
@@ -290,7 +275,7 @@
 </div>
 <div class="font-mono text-xs space-y-2 opacity-80" id="terminal-output">
 <div class="">[00:00:00] SYSTEM INITIALIZED...</div>
-<div class="">[00:00:01] LOADING LOCAL_STORAGE DATA...</div>
+<div class="">[00:00:01] FIREBASE_CONFIG_LOADED...</div>
 <div class="">[00:00:01] READY.</div>
 </div>
 </div>
@@ -327,7 +312,7 @@
 <div class="text-on-surface-variant leading-relaxed mb-12 text-lg" id="modal-desc"></div>
 <div class="flex flex-col gap-4 mt-auto">
 <button class="btn-obsidian w-full py-5 rounded flex items-center justify-center gap-3 text-xs tracking-widest uppercase" id="modal-download" onclick="downloadModalImage()" style="display: none;">
-<span class="material-symbols-outlined">download</span> DOWNLOAD ASSET
+<span class="material-symbols-outlined">download</span> СКАЧАТЬ АРТ
                     </button>
 <div class="flex items-center justify-between bg-white/5 p-1 rounded border border-white/10" id="modal-nav-row">
 <button class="p-4 hover:bg-white/5 hover:text-accent transition-colors" id="modal-prev" onclick="event.stopPropagation(); navModal(-1)">
@@ -344,41 +329,35 @@
 </div>
 </div>
 <script>
-    // --- Global State & Firebase Initialization ---
+    // --- Firebase Configuration (Hardcoded) ---
+    const firebaseConfig = {
+      apiKey: "AIzaSyBb88pnDmYYH9Z7aPIOymSgINA4L_K_9gc",
+      authDomain: "wl-site-4f2a1.firebaseapp.com",
+      databaseURL: "https://wl-site-4f2a1-default-rtdb.firebaseio.com",
+      projectId: "wl-site-4f2a1",
+      storageBucket: "wl-site-4f2a1.firebasestorage.app",
+      messagingSenderId: "443308679935",
+      appId: "1:443308679935:web:856f60bfa1c2eb0d87e2ca",
+      measurementId: "G-PP1LZGWVX5"
+    };
+
     let db = null;
     let firebaseReady = false;
 
     function initFirebase() {
-        const url = localStorage.getItem('fbUrl');
-        const key = localStorage.getItem('fbKey');
-        const pid = localStorage.getItem('fbPid');
-
-        if (url && key && pid) {
-            try {
-                // Check if already initialized to avoid re-init error
-                if (!firebase.apps.length) {
-                    firebase.initializeApp({
-                        apiKey: key,
-                        databaseURL: url,
-                        projectId: pid,
-                        authDomain: `${pid}.firebaseapp.com`,
-                        storageBucket: `${pid}.appspot.com`
-                    });
-                }
-                db = firebase.database();
-                firebaseReady = true;
-                console.log("Firebase dynamically initialized.");
-            } catch (e) {
-                console.error("Firebase dynamic init failed:", e);
-                firebaseReady = false;
+        try {
+            if (!firebase.apps.length) {
+                firebase.initializeApp(firebaseConfig);
             }
-        } else {
-            console.warn("Firebase config missing in localStorage.");
+            db = firebase.database();
+            firebaseReady = true;
+            console.log("Firebase initialized from hardcoded config.");
+        } catch (e) {
+            console.error("Firebase init failed:", e);
             firebaseReady = false;
         }
     }
 
-    // Initialize on load
     initFirebase();
 
     let currentGalleryIndex = 0;
@@ -452,7 +431,7 @@
         document.getElementById("site-footer").innerHTML = footerHtml;
 
         const homeData = await loadJSON('/content/home.json', {
-            title: "АКТУАЛЬНЫЙ АРТ", image: "", description: "Соединение с сервером...", location: "", help_wplace: [], help_blue: [], help_helper: []
+            title: "АКТУАЛЬНЫЙ АРТ", image: "", description: "Загрузка данных...", location: "", help_wplace: [], help_blue: [], help_helper: []
         });
         window._homeData = homeData;
         
@@ -474,7 +453,7 @@
                                     <span class="material-symbols-outlined">explore</span> GOTO_SECTOR_WPLACE
                                 </a>
                             ` : ''}
-                            ${homeData.image ? `<button class="bg-white/5 text-white hover:text-accent border border-white/10 hover:border-accent/40 px-10 py-5 rounded flex items-center gap-3 text-xs font-bold uppercase transition-all tracking-widest" onclick="downloadImage('${homeData.image}','art-capture.png')"><span class="material-symbols-outlined">download</span> GET_ASSET</button>` : ''}
+                            ${homeData.image ? `<button class="bg-white/5 text-white hover:text-accent border border-white/10 hover:border-accent/40 px-10 py-5 rounded flex items-center gap-3 text-xs font-bold uppercase transition-all tracking-widest" onclick="downloadImage('${homeData.image}','art-capture.png')"><span class="material-symbols-outlined">download</span> СКАЧАТЬ АРТ</button>` : ''}
                         </div>
                     </div>
                 </div>
@@ -493,22 +472,22 @@
         if (guidesData.length > 0) {
             document.getElementById('guides-content').innerHTML = guidesData.map(g => {
                 let html = '';
-                if (g.install_pc && g.install_pc.length > 0) html += `<div class="bg-accent/5 border border-accent/20 px-4 py-2 text-[10px] font-bold text-accent uppercase mb-4 mt-8 inline-block tracking-[0.2em] rounded">🖥 DESKTOP</div><div class="bg-black/20 rounded-lg border border-white/5 p-1"><ol class="space-y-1 list-none">${renderStepsList(g.install_pc, 'guide_pc_'+g.title)}</ol></div>`;
+                if (g.install_pc && g.install_pc.length > 0) html += `<div class="bg-accent/5 border border-accent/20 px-4 py-2 text-[10px] font-bold text-accent uppercase mb-4 mt-8 inline-block tracking-[0.2em] rounded">🖥 ПК</div><div class="bg-black/20 rounded-lg border border-white/5 p-1"><ol class="space-y-1 list-none">${renderStepsList(g.install_pc, 'guide_pc_'+g.title)}</ol></div>`;
                 if (g.install_phone && g.install_phone.length > 0) {
                     const sections = {};
                     g.install_phone.forEach(step => {
                         const sd = typeof step === 'object' ? step : { text: step, section: "" };
-                        const name = sd.section || 'MOBILE_TERMINAL';
+                        const name = sd.section || 'МОБИЛЬНЫЕ';
                         if (!sections[name]) sections[name] = [];
                         sections[name].push(sd);
                     });
                     for (const [title, steps] of Object.entries(sections)) if (steps.length > 0) html += `<div class="bg-accent/5 border border-accent/20 px-4 py-2 text-[10px] font-bold text-accent uppercase mb-4 mt-8 inline-block tracking-[0.2em] rounded">${title}</div><div class="bg-black/20 rounded-lg border border-white/5 p-1"><ol class="space-y-1 list-none">${renderStepsList(steps, 'guide_phone_'+g.title)}</ol></div>`;
                 }
                 return `<div class="obsidian-card p-10 md:p-14 mb-12 rounded-xl border-t-2 border-t-accent/40">
-                    <h3 class="text-3xl font-black text-white mb-8 uppercase tracking-tight font-display neon-glow">${g.title}</h3>
+                    <h3 class="text-3xl font-black text-white mb-8 uppercase tracking-tight font-display neon-glow">ГАЙД: ${g.title}</h3>
                     <p class="text-on-surface-variant mb-10 text-lg leading-relaxed">${makeLinksClickable(g.description)}</p>
                     ${html}
-                    ${g.note && g.note.toString().trim() ? `<div class="mt-12 p-8 rounded bg-accent/5 border-l-4 border-accent text-sm italic text-on-surface-variant font-mono leading-relaxed"><span class="text-accent not-italic font-bold block mb-4 uppercase tracking-[0.2em] text-[10px]">[!] SYSTEM_LOG_ENTRY:</span>${makeLinksClickable(g.note)}</div>` : ''}
+                    ${g.note && g.note.toString().trim() ? `<div class="mt-12 p-8 rounded bg-accent/5 border-l-4 border-accent text-sm italic text-on-surface-variant font-mono leading-relaxed"><span class="text-accent not-italic font-bold block mb-4 uppercase tracking-[0.2em] text-[10px]">[!] ЗАМЕТКА:</span>${makeLinksClickable(g.note)}</div>` : ''}
                 </div>`;
             }).join('');
         }
@@ -517,13 +496,13 @@
     }
 
     function renderStepsList(steps, type) {
-        if (!steps || steps.length === 0) return '<li class="p-4 opacity-40 italic font-mono text-[10px] uppercase text-center">DATA_MISSING</li>';
+        if (!steps || steps.length === 0) return '<li class="p-4 opacity-40 italic font-mono text-[10px] uppercase text-center">ДАННЫЕ_ОТСУТСТВУЮТ</li>';
         return steps.map((s, i) => {
             const stepData = typeof s === 'object' ? s : { text: s, image: "", detail: "" };
             return `<li class="p-5 flex items-center justify-between group cursor-pointer hover:bg-white/5 rounded transition-all" onclick="openStepModal('${type}', ${i})">
                 <span class="flex items-center gap-6">
                     <span class="w-8 h-8 flex items-center justify-center rounded bg-accent/10 text-accent text-[10px] font-bold border border-accent/20 group-hover:bg-accent group-hover:text-black transition-all font-mono">${(i + 1).toString().padStart(2, '0')}</span>
-                    <span class="text-sm font-bold uppercase tracking-widest text-on-surface-variant group-hover:text-white transition-colors">${makeLinksClickable(stepData.text || 'LOG_FILE '+(i+1))}</span>
+                    <span class="text-sm font-bold uppercase tracking-widest text-on-surface-variant group-hover:text-white transition-colors">${makeLinksClickable(stepData.text || 'ШАГ '+(i+1))}</span>
                 </span>
                 <span class="material-symbols-outlined opacity-10 group-hover:opacity-100 transition-opacity text-accent text-lg">chevron_right</span>
             </li>`;
@@ -562,9 +541,9 @@
         const img = document.getElementById("modal-img");
         img.src = stepData.image || "";
         img.closest('.image-container').style.display = stepData.image ? 'block' : 'none';
-        document.getElementById("modal-title").textContent = `STEP ${(currentStepIndex + 1).toString().padStart(2, '0')}`;
-        document.getElementById("modal-desc").innerHTML = `<div class="text-2xl font-bold mb-10 uppercase tracking-tight text-white font-display">${makeLinksClickable(stepData.text || "NO_DESCRIPTION")}</div>` + (stepData.detail && stepData.detail.toString().trim() ? '<div class="text-left p-8 rounded bg-black/40 text-sm border border-white/5 font-mono leading-relaxed"><div class="text-accent font-black mb-4 uppercase tracking-[0.3em] text-[10px]">DECODED_DATA:</div>' + makeLinksClickable(stepData.detail) + '</div>' : '');
-        document.getElementById("modal-counter").textContent = "OPERATIONAL_INTEL";
+        document.getElementById("modal-title").textContent = `ШАГ ${(currentStepIndex + 1).toString().padStart(2, '0')}`;
+        document.getElementById("modal-desc").innerHTML = `<div class="text-2xl font-bold mb-10 uppercase tracking-tight text-white font-display">${makeLinksClickable(stepData.text || "НЕТ_ОПИСАНИЯ")}</div>` + (stepData.detail && stepData.detail.toString().trim() ? '<div class="text-left p-8 rounded bg-black/40 text-sm border border-white/5 font-mono leading-relaxed"><div class="text-accent font-black mb-4 uppercase tracking-[0.3em] text-[10px]">ДАННЫЕ:</div>' + makeLinksClickable(stepData.detail) + '</div>' : '');
+        document.getElementById("modal-counter").textContent = "ИНФОРМАЦИЯ_О_ШАГЕ";
     }
 
     function renderGalleryGrid(data) {
@@ -576,7 +555,7 @@
                 </div>
                 <h4 class="text-center font-bold text-white text-[10px] uppercase tracking-[0.3em] px-2 truncate font-mono">${item.title}</h4>
             </div>
-        `).join('') : '<p class="col-span-full text-center py-20 text-on-surface-variant font-mono uppercase tracking-widest opacity-40">ARCHIVE_EMPTY</p>';
+        `).join('') : '<p class="col-span-full text-center py-20 text-on-surface-variant font-mono uppercase tracking-widest opacity-40">АРХИВ_ПУСТ</p>';
     }
 
     function openGalleryItem(index) {
@@ -606,9 +585,9 @@
         const img = document.getElementById("modal-img");
         img.closest('.image-container').style.display = 'block';
         img.src = data.image || "";
-        document.getElementById("modal-title").textContent = (data.title || "UNTITLED_RECORD").toUpperCase();
-        document.getElementById("modal-desc").innerHTML = `<div class="text-lg leading-relaxed text-on-surface-variant font-medium">${makeLinksClickable(data.description || "NO_ADDITIONAL_DATA_FOUND_IN_RECORD")}</div>`;
-        document.getElementById("modal-counter").textContent = `ARCHIVE_FILE • ${currentGalleryIndex + 1} / ${window._galleryData.length}`;
+        document.getElementById("modal-title").textContent = (data.title || "БЕЗ_НАЗВАНИЯ").toUpperCase();
+        document.getElementById("modal-desc").innerHTML = `<div class="text-lg leading-relaxed text-on-surface-variant font-medium">${makeLinksClickable(data.description || "ОПИСАНИЕ_ОТСУТСТВУЕТ")}</div>`;
+        document.getElementById("modal-counter").textContent = `АРХИВНЫЙ_ФАЙЛ • ${currentGalleryIndex + 1} / ${window._galleryData.length}`;
         document.getElementById("modal-nav-counter").textContent = `${(currentGalleryIndex + 1).toString().padStart(2, '0')} / ${window._galleryData.length.toString().padStart(2, '0')}`;
     }
 
@@ -645,13 +624,6 @@
             document.getElementById('admin-panel-container').style.display = 'block';
             document.body.style.background = '#000';
             document.body.style.backgroundImage = 'none';
-            
-            // Fill existing config
-            document.getElementById('admin-formspree-id').value = localStorage.getItem('formspreeId') || '';
-            document.getElementById('admin-fb-url').value = localStorage.getItem('fbUrl') || '';
-            document.getElementById('admin-fb-key').value = localStorage.getItem('fbKey') || '';
-            document.getElementById('admin-fb-pid').value = localStorage.getItem('fbPid') || '';
-            
             loadSuggestionsIntoAdmin();
         } else {
             document.getElementById('main-site-container').style.display = 'block';
@@ -660,27 +632,6 @@
             document.body.style.backgroundImage = '';
         }
     });
-
-    function saveConfig() {
-        const fspId = document.getElementById('admin-formspree-id').value.trim();
-        const fbUrl = document.getElementById('admin-fb-url').value.trim();
-        const fbKey = document.getElementById('admin-fb-key').value.trim();
-        const fbPid = document.getElementById('admin-fb-pid').value.trim();
-        
-        localStorage.setItem('formspreeId', fspId);
-        localStorage.setItem('fbUrl', fbUrl);
-        localStorage.setItem('fbKey', fbKey);
-        localStorage.setItem('fbPid', fbPid);
-        
-        // Re-init firebase with new keys
-        initFirebase();
-        
-        const output = document.getElementById('terminal-output');
-        const entry = document.createElement('div');
-        entry.textContent = `[${new Date().toLocaleTimeString()}] CONFIG_UPDATE: SYSTEM PARAMETERS RE-INITIALIZED.`;
-        output.appendChild(entry);
-        output.scrollTop = output.scrollHeight;
-    }
 
     function switchAdminTab(tab) {
         const logs = document.getElementById('admin-tab-logs');
@@ -726,15 +677,12 @@
                     data.sort((a,b) => (b.timestamp || 0) - (a.timestamp || 0));
                 }
             } catch (err) {
-                console.error("Firebase fetch failed, falling back to local:", err);
-                data = JSON.parse(localStorage.getItem('wplace_suggestions') || '[]');
+                console.error("Firebase fetch failed:", err);
             }
-        } else {
-            data = JSON.parse(localStorage.getItem('wplace_suggestions') || '[]');
         }
         
         if (data.length === 0) {
-            list.innerHTML = '<p class="text-center py-10 opacity-40 italic">NO_PENDING_SUGGESTIONS</p>';
+            list.innerHTML = '<p class="text-center py-10 opacity-40 italic">НЕТ_ПРЕДЛОЖЕНИЙ</p>';
         } else {
             list.innerHTML = data.map((s, i) => `
                 <div class="border border-[#00ff41]/20 p-6 bg-[#00ff41]/5 rounded group relative">
@@ -764,33 +712,25 @@
         }
         
         const logEntry = document.createElement('div');
-        logEntry.textContent = `[${time}] DATA_RECONCILIATION: ${data.length} RECORDS ACCESSED.`;
+        logEntry.textContent = `[${time}] СИНХРОНИЗАЦИЯ: ${data.length} ЗАПИСЕЙ ДОСТУПНО.`;
         output.appendChild(logEntry);
         output.scrollTop = output.scrollHeight;
     }
 
     async function removeSuggestion(fbId, localIdx) {
-        if (!confirm('DELETE RECORD?')) return;
-
+        if (!confirm('УДАЛИТЬ ЗАПИСЬ?')) return;
         if (firebaseReady && db && fbId !== 'undefined') {
             await db.ref('suggestions/' + fbId).remove();
-        } else {
-            let data = JSON.parse(localStorage.getItem('wplace_suggestions') || '[]');
-            data.splice(localIdx, 1);
-            localStorage.setItem('wplace_suggestions', JSON.stringify(data));
+            loadSuggestionsIntoAdmin();
         }
-        loadSuggestionsIntoAdmin();
     }
 
     async function clearSuggestions() {
-        if(!confirm('PURGE ALL RECORDS FOREVER?')) return;
-        
+        if(!confirm('ОЧИСТИТЬ ВСЕ ПРЕДЛОЖЕНИЯ?')) return;
         if (firebaseReady && db) {
             await db.ref('suggestions').remove();
-        } else {
-            localStorage.setItem('wplace_suggestions', '[]');
+            loadSuggestionsIntoAdmin();
         }
-        loadSuggestionsIntoAdmin();
     }
 
     if(window.location.hash === '#admin') window.dispatchEvent(new Event('hashchange'));
@@ -815,21 +755,18 @@ async function submitSuggestion(e) {
     const btn = form.querySelector('button[type="submit"]'); 
     const originalText = btn.innerHTML; 
     
-    // Check if configuration exists
-    const hasConfig = !!(localStorage.getItem('fbUrl') || localStorage.getItem('formspreeId'));
-    if (!hasConfig) {
-        showToast('ОШИБКА: СИСТЕМА НЕ НАСТРОЕНА. ОБРАТИТЕСЬ К АДМИНИСТРАТОРУ.', true);
+    if (!firebaseReady || !db) {
+        showToast('ОШИБКА: СИСТЕМА НЕ ГОТОВА. ПОПРОБУЙТЕ ПОЗЖЕ.', true);
         return;
     }
 
     btn.disabled = true; 
-    btn.innerHTML = '<span class="material-symbols-outlined animate-spin">sync</span> ОБРАБОТКА...'; 
+    btn.innerHTML = '<span class="material-symbols-outlined animate-spin">sync</span> ОТПРАВКА...'; 
     
     try { 
         const formData = new FormData(form);
         const dataObj = Object.fromEntries(formData.entries());
         
-        // Handle image conversion to Base64
         let base64Image = null;
         const fileInput = document.getElementById('sug-file');
         if (fileInput.files && fileInput.files[0]) {
@@ -850,45 +787,21 @@ async function submitSuggestion(e) {
             timestamp: Date.now()
         };
 
-        let syncResults = { firebase: false, formspree: false };
+        // Send to Firebase Realtime Database
+        await db.ref('suggestions').push(suggestionRecord);
 
-        // 1. Firebase Sync (Primary)
-        if (firebaseReady && db) {
-            try {
-                await db.ref('suggestions').push(suggestionRecord);
-                syncResults.firebase = true;
-            } catch (fbErr) {
-                console.error("Firebase sync failed:", fbErr);
-            }
-        }
+        // Also notify via Formspree
+        const formspreeId = 'xqevzpqv';
+        fetch(`https://formspree.io/f/${formspreeId}`, {
+            method: 'POST',
+            body: formData,
+            headers: { 'Accept': 'application/json' }
+        }).catch(err => console.warn("Formspree notification failed", err));
 
-        // 2. Formspree Sync (Backup/Notification)
-        const formspreeId = localStorage.getItem('formspreeId') || 'xqevzpqv';
-        try {
-            const response = await fetch(`https://formspree.io/f/${formspreeId}`, {
-                method: 'POST',
-                body: formData,
-                headers: { 'Accept': 'application/json' }
-            });
-            if (response.ok) syncResults.formspree = true;
-        } catch (fspErr) {
-            console.error("Formspree backup failed:", fspErr);
-        }
-
-        if (syncResults.firebase || syncResults.formspree) {
-            showToast('ПРЕДЛОЖЕНИЕ УСПЕШНО ОТПРАВЛЕНО!'); 
-            
-            // Local fallback for immediate visibility
-            let existing = JSON.parse(localStorage.getItem('wplace_suggestions') || '[]');
-            existing.unshift(suggestionRecord);
-            localStorage.setItem('wplace_suggestions', JSON.stringify(existing.slice(0, 20))); 
-            
-            form.reset(); 
-            form.querySelector('input[type="file"]').nextElementSibling.querySelector('span').textContent = 'ВЫБРАТЬ ФАЙЛ'; 
-            document.getElementById('sug-file-data').value = '';
-        } else {
-            throw new Error('СБОЙ ВСЕХ КАНАЛОВ СВЯЗИ');
-        }
+        showToast('ПРЕДЛОЖЕНИЕ УСПЕШНО ОТПРАВЛЕНО!'); 
+        form.reset(); 
+        form.querySelector('input[type="file"]').nextElementSibling.querySelector('span').textContent = 'ВЫБРАТЬ ФАЙЛ'; 
+        document.getElementById('sug-file-data').value = '';
         
     } catch (err) { 
         console.error(err); 
@@ -899,4 +812,4 @@ async function submitSuggestion(e) {
     } 
 }
 </script>
-```</body></html>
+</body></html>
