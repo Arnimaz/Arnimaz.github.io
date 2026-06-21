@@ -585,6 +585,16 @@
 
     if (token) { showAdmin(); loadAll(); }
 
+    function formatTimestamp(input) {
+        if (!input) return "—";
+        const date = new Date(input);
+        if (isNaN(date.getTime())) return input;
+        
+        const d = date.toLocaleDateString('ru-RU');
+        const t = date.toLocaleTimeString('ru-RU', { hour12: false });
+        return `${d}, ${t}`;
+    }
+
     function toast(msg, type) {
         const t = document.getElementById("toast");
         const body = document.getElementById("toast-body");
@@ -838,7 +848,7 @@
         
         document.getElementById('modal-preview-img').src = item.image;
         document.getElementById('modal-art-title').textContent = item.title || 'БЕЗ НАЗВАНИЯ';
-        document.getElementById('modal-art-date').textContent = item.date || '—';
+        document.getElementById('modal-art-date').textContent = formatTimestamp(item.date);
         document.getElementById('modal-art-comment').textContent = item.comment || 'ОПИСАНИЕ ОТСУТСТВУЕТ';
         document.getElementById('modal-art-contact').textContent = item.contact || item.author || 'ANON';
         
@@ -934,7 +944,7 @@
             toast("ОПУБЛИКОВАНО В ГАЛЕРЕЮ. СОХРАНИТЕ ДАННЫЕ.", "success");
             switchTab('gallery-tab', document.querySelector('button[onclick*="gallery-tab"]'));
         } catch(e) {
-            toast("ОШИБКА ПУБЛИКАЦИИ", "error");
+            toast("ОШИБКА ППУБЛИКАЦИИ", "error");
         }
     }
 
@@ -1162,7 +1172,7 @@
             array.forEach(item => {
                 firebaseDb.ref('suggestions').push({
                     ...item,
-                    date: item.date || new Date().toLocaleString('ru-RU')
+                    date: item.date || new Date().toISOString()
                 });
             });
             toast(`ИМПОРТИРОВАНО ${array.length} ЗАПИСЕЙ`, "success");
