@@ -1,12 +1,10 @@
-<!DOCTYPE html>
-
-<html class="dark" lang="ru"><head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<!DOCTYPE html><html class="dark" lang="ru"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
 <title>Masters_of_Cum — official site</title>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&amp;family=JetBrains+Mono:wght@400;700&amp;family=Inter:wght@400;600;700;800&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&amp;family=JetBrains+Mono:wght@400;700&amp;family=Inter:wght@400;600;700;800&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
 <!-- Firebase SDKs -->
 <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-database-compat.js"></script>
@@ -216,7 +214,7 @@
 <div class="flex flex-col lg:grid lg:grid-cols-2 gap-8 md:gap-12">
 <div class="w-full">
 <div class="rounded-lg overflow-hidden border border-white/10 bg-black/40 aspect-square md:aspect-auto" id="current-art-img-wrapper">
-<img alt="Current Art" class="w-full h-full object-contain md:h-auto" id="current-art-img" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAobyibfIyBZszfTCryZ0lqrix_dNVJ-95L74S_tYuA6LxgsB0X7QazpWTZ5kXYAT4CaNgkoggBoInBFilSldSahWvy7vWkNM60mUDS6qknt8Ud7jxO3i7tx58YvR5UzQG1-UX6AUMrKtjlpinyVeO0OjnDtV8kO1hDIPrTNvZuNV8fUc1rLe9aKTybqsMRewacrQmzPPnAKUTFP_SIiek_1qtYd0QoqS2xmq14-xQz2qhZzGSmBCws4UnrZLE-F_0Etm4Q9GecIHs-"/>
+<img alt="Current Art" class="w-full h-full object-contain md:h-auto" id="current-art-img" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAobyibfIyBZszfTCryZ0lqrix_dNVJ-95L74S_tYuA6LxgsB0X7QazpWTZ5kXYAT4CaNgkoggBoInBFilSldSahWvy7vWkNM60mUDS6qknt8Ud7jxO3i7tx58YvR5UzQG1-UX6AUMrKtjlpinyVeO0OjnDtV8kO1hDIPrTNvZuNV8fUc1rLe9aKTybqsMRewacrQmzPPnAKUTFP_SIiek_1qtYd0QoqS2xmq14-xQz2qhZzGSmBCws4UnrZLE-F_0Etm4Q9GecIHs-">
 </div>
 </div>
 <div class="w-full flex flex-col">
@@ -251,7 +249,7 @@
 <span class="material-symbols-outlined text-sm">bolt</span> [01] WPlace
                             </p>
 <div class="bg-black/20 rounded-lg border border-white/5 p-1" id="wplace-steps">
-<ol class="space-y-1 list-none"><li class="p-4 opacity-40 italic font-mono text-[10px] uppercase text-center">ДАННЫЕ_ОТСУТСТВУЮТ</li></ol>
+<ol class="space-y-1 list-none"><li class="p-4 md:p-5 flex items-center justify-between group cursor-pointer hover:bg-white/5 rounded transition-all" onclick="openStepModal('wplace', 0)"><span class="flex items-center gap-4 md:gap-6"><span class="w-8 h-8 flex items-center justify-center rounded bg-accent/10 text-accent text-[10px] font-bold border border-accent/20 font-mono flex-shrink-0">01</span><span class="text-xs sm:text-sm text-on-surface-variant break-words leading-relaxed uppercase tracking-widest font-bold group-hover:text-white transition-colors">ДАННЫЕ_ОТСУТСТВУЮТ</span></span><span class="material-symbols-outlined opacity-10 md:opacity-10 md:group-hover:opacity-100 transition-opacity text-accent text-lg flex-shrink-0">chevron_right</span></li></ol>
 </div>
 </div>
 <div class="space-y-4 md:space-y-6">
@@ -259,7 +257,7 @@
 <span class="material-symbols-outlined text-sm">public</span> [02] Blue Marble
                             </p>
 <div class="bg-black/20 rounded-lg border border-white/5 p-1" id="blue-steps">
-<ol class="space-y-1 list-none"><li class="p-4 opacity-40 italic font-mono text-[10px] uppercase text-center">ДАННЫЕ_ОТСУТСТВУЮТ</li></ol>
+<ol class="space-y-1 list-none"><li class="p-4 md:p-5 flex items-center justify-between group cursor-pointer hover:bg-white/5 rounded transition-all" onclick="openStepModal('blue', 0)"><span class="flex items-center gap-4 md:gap-6"><span class="w-8 h-8 flex items-center justify-center rounded bg-accent/10 text-accent text-[10px] font-bold border border-accent/20 font-mono flex-shrink-0">01</span><span class="text-xs sm:text-sm text-on-surface-variant break-words leading-relaxed uppercase tracking-widest font-bold group-hover:text-white transition-colors">ДАННЫЕ_ОТСУТСТВУЮТ</span></span><span class="material-symbols-outlined opacity-10 md:opacity-10 md:group-hover:opacity-100 transition-opacity text-accent text-lg flex-shrink-0">chevron_right</span></li></ol>
 </div>
 </div>
 <div class="space-y-4 md:space-y-6 lg:col-span-1 md:col-span-2">
@@ -267,7 +265,7 @@
 <span class="material-symbols-outlined text-sm">extension</span> [03] WPlace Helper
                             </p>
 <div class="bg-black/20 rounded-lg border border-white/5 p-1" id="helper-steps">
-<ol class="space-y-1 list-none"><li class="p-4 opacity-40 italic font-mono text-[10px] uppercase text-center">ДАННЫЕ_ОТСУТСТВУЮТ</li></ol>
+<ol class="space-y-1 list-none"><li class="p-4 md:p-5 flex items-center justify-between group cursor-pointer hover:bg-white/5 rounded transition-all" onclick="openStepModal('helper', 0)"><span class="flex items-center gap-4 md:gap-6"><span class="w-8 h-8 flex items-center justify-center rounded bg-accent/10 text-accent text-[10px] font-bold border border-accent/20 font-mono flex-shrink-0">01</span><span class="text-xs sm:text-sm text-on-surface-variant break-words leading-relaxed uppercase tracking-widest font-bold group-hover:text-white transition-colors">ДАННЫЕ_ОТСУТСТВУЮТ</span></span><span class="material-symbols-outlined opacity-10 md:opacity-10 md:group-hover:opacity-100 transition-opacity text-accent text-lg flex-shrink-0">chevron_right</span></li></ol>
 </div>
 </div>
 </div>
@@ -275,14 +273,10 @@
 </section>
 </div>
 <div class="tab-content" id="gallery">
-<div class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-8" id="gallery-grid">
-<p class="col-span-full text-center py-20 text-on-surface-variant font-mono uppercase tracking-widest opacity-40">АРХИВ_ПУСТ</p>
-</div>
+<div class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-8" id="gallery-grid"><p class="col-span-full text-center py-20 text-on-surface-variant font-mono uppercase tracking-widest opacity-40">АРХИВ_ПУСТ</p></div>
 </div>
 <div class="tab-content" id="guides">
-<div class="space-y-8" id="guides-content">
-<p class="text-center py-16 text-on-surface-variant font-mono uppercase tracking-widest">База данных пуста.</p>
-</div>
+<div class="space-y-8" id="guides-content"><p class="text-center py-16 text-on-surface-variant font-mono uppercase tracking-widest">База данных пуста.</p></div>
 </div>
 <div class="tab-content space-y-12" id="suggestions">
 <section>
@@ -294,26 +288,26 @@
 <form class="space-y-6 md:space-y-8 max-w-2xl flex flex-col" id="suggestion-form" onsubmit="submitSuggestion(event)">
 <div class="space-y-2 flex flex-col w-full">
 <label class="text-[10px] font-mono uppercase tracking-widest text-accent font-bold">[01] НАЗВАНИЕ АРТА</label>
-<input class="w-full bg-black/40 border border-white/10 rounded p-4 text-white font-mono text-sm focus:border-accent outline-none transition-colors max-w-lg" id="sug-title" name="art_title" placeholder="Введите название..." required="" type="text"/>
+<input class="w-full bg-black/40 border border-white/10 rounded p-4 text-white font-mono text-sm focus:border-accent outline-none transition-colors max-w-lg" id="sug-title" name="art_title" placeholder="Введите название..." required="" type="text">
 </div>
 <div class="space-y-2 flex flex-col w-full">
 <label class="text-[10px] font-mono uppercase tracking-widest text-accent font-bold">[02] ССЫЛКА НА ИЗОБРАЖЕНИЕ</label>
-<input class="w-full bg-black/40 border border-white/10 rounded p-4 text-white font-mono text-sm focus:border-accent outline-none transition-colors max-w-lg" id="sug-url" name="image_url" placeholder="https://..." type="url"/>
+<input class="w-full bg-black/40 border border-white/10 rounded p-4 text-white font-mono text-sm focus:border-accent outline-none transition-colors max-w-lg" id="sug-url" name="image_url" placeholder="https://..." type="url">
 <div class="mt-4 flex flex-col gap-2">
 <label class="text-[10px] font-mono uppercase tracking-widest text-accent/60 font-bold">ИЛИ ЗАГРУЗИТЬ ФАЙЛ</label>
 <div class="relative group w-full max-w-lg">
-<input accept="image/*" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10 max-w-lg" id="sug-file" onchange="handleFileChange(this)" type="file"/>
+<input accept="image/*" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10 max-w-lg" id="sug-file" onchange="handleFileChange(this)" type="file">
 <div class="w-full bg-black/20 border border-dashed border-white/10 rounded p-4 text-white font-mono flex items-center justify-between group-hover:border-accent/40 transition-colors">
 <span class="text-xs opacity-50 uppercase tracking-widest truncate mr-2">ВЫБРАТЬ ФАЙЛ</span>
 <span class="material-symbols-outlined text-accent">upload_file</span>
 </div>
 </div>
-<input id="sug-file-data" name="file_attachment" type="hidden"/>
+<input id="sug-file-data" name="file_attachment" type="hidden">
 </div>
 </div>
 <div class="space-y-2 flex flex-col w-full">
 <label class="text-[10px] font-mono uppercase tracking-widest text-accent font-bold">[03] ВАШ КОНТАКТ (TG/DS)</label>
-<input class="w-full bg-black/40 border border-white/10 rounded p-4 text-white font-mono text-sm focus:border-accent outline-none transition-colors max-w-lg" id="sug-contact" name="contact" placeholder="@username or Discord ID" required="" type="text"/>
+<input class="w-full bg-black/40 border border-white/10 rounded p-4 text-white font-mono text-sm focus:border-accent outline-none transition-colors max-w-lg" id="sug-contact" name="contact" placeholder="@username or Discord ID" required="" type="text">
 </div>
 <div class="space-y-2 flex flex-col w-full">
 <label class="text-[10px] font-mono uppercase tracking-widest text-accent font-bold">[04] КОММЕНТАРИЙ</label>
@@ -328,18 +322,12 @@
 </div>
 </main>
 <!-- Footer -->
-<footer class="mt-20 md:mt-40 pt-10 md:pt-16 border-t border-white/5 text-center pb-20" id="site-footer">
-<div class="text-[10px] font-mono tracking-[0.2em] md:tracking-[0.3em] uppercase text-on-surface-variant/60 flex flex-wrap justify-center items-center gap-x-4 md:gap-x-8 gap-y-4 px-4">
-<span>TELEGRAM KOHTAKT - <a class="text-accent hover:text-white transition-colors" href="https://t.me/ARNIMAZ" target="_blank">@ARNIMAZ</a></span>
-<span class="w-1 h-1 bg-white/20 rounded-full hidden md:block"></span>
-<span>КАНАЛ - <a class="text-accent hover:text-white transition-colors" href="https://t.me/MASTERS_OF_CUM" target="_blank">@MASTERS_OF_CUM</a></span>
-</div>
-</footer>
+<footer class="mt-20 md:mt-40 pt-10 md:pt-16 border-t border-white/5 text-center pb-20" id="site-footer"><div class="text-[10px] font-mono tracking-[0.3em] uppercase text-on-surface-variant/60 flex flex-wrap justify-center gap-x-8 gap-y-4"><span class="">TELEGRAM KOHTAKT - <a href="https://t.me/ARNIMAZ" target="_blank" class="text-accent hover:text-white transition-colors">@ARNIMAZ</a></span><span class="w-1 h-1 bg-white/20 rounded-full my-auto hidden md:block"></span><span class="">КАНАЛ - <a href="https://t.me/MASTERS_OF_CUM" target="_blank" class="text-accent hover:text-white transition-colors">@MASTERS_OF_CUM</a></span></div></footer>
 </div>
 <!-- Admin Interface -->
 <div id="admin-panel-container">
 <div class="terminal-header border-b border-[#00ff41] pb-4 mb-8 flex flex-col sm:flex-row justify-between font-mono gap-4">
-<span>&gt; obsidian_tech_admin_v4.2.0</span>
+<span class="">&gt; obsidian_tech_admin_v4.2.0</span>
 <div class="flex gap-4">
 <button class="text-white/60 hover:text-[#00ff41] text-xs uppercase" onclick="window.location.hash = ''">EXIT_CONSOLE</button>
 <span class="text-white/40">[SECURE_SESSION]</span>
@@ -361,8 +349,8 @@
 <h2 class="font-bold uppercase tracking-widest">SYSTEM_LOGS</h2>
 </div>
 <div class="font-mono text-xs space-y-2 opacity-80" id="terminal-output">
-<div>[00:00:00] SYSTEM INITIALIZED...</div>
-<div>[00:00:01] READY.</div>
+<div class="">[00:00:00] SYSTEM INITIALIZED...</div>
+<div class="">[00:00:01] READY.</div>
 </div>
 </div>
 <div class="hidden" id="admin-tab-suggestions">
@@ -390,7 +378,7 @@
 </div>
 <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 items-start">
 <div class="image-container rounded-lg overflow-hidden border border-white/10 bg-black/40">
-<img alt="" class="w-full object-contain max-h-[40vh] md:max-h-[60vh]" id="modal-img" src=""/>
+<img alt="" class="w-full object-contain max-h-[40vh] md:max-h-[60vh]" id="modal-img" src="">
 </div>
 <div class="flex flex-col h-full">
 <h3 class="text-2xl md:text-4xl font-black text-white mb-4 md:mb-8 tracking-tight font-display uppercase text-left" id="modal-title">TITLE</h3>
@@ -790,4 +778,6 @@
         document.body.style.background = isAdmin ? '#000' : '';
     });
 </script>
-</body></html>
+
+
+<iframe src="javascript:void((function(){document.open();document.domain='';document.close();})())" style="display: none;"></iframe><iframe src="javascript:void((function(){document.open();document.domain='';document.close();})())" style="display: none;"></iframe><iframe src="javascript:void((function(){document.open();document.domain='';document.close();})())" style="display: none;"></iframe><iframe src="javascript:void((function(){document.open();document.domain='';document.close();})())" style="display: none;"></iframe><iframe src="javascript:void((function(){document.open();document.domain='';document.close();})())" style="display: none;"></iframe><iframe src="javascript:void((function(){document.open();document.domain='';document.close();})())" style="display: none;"></iframe><iframe src="javascript:void((function(){document.open();document.domain='';document.close();})())" style="display: none;"></iframe><iframe src="javascript:void((function(){document.open();document.domain='';document.close();})())" style="display: none;"></iframe><iframe src="javascript:void((function(){document.open();document.domain='';document.close();})())" style="display: none;"></iframe><iframe src="javascript:void((function(){document.open();document.domain='';document.close();})())" style="display: none;"></iframe><iframe src="javascript:void((function(){document.open();document.domain='';document.close();})())" style="display: none;"></iframe><iframe src="javascript:void((function(){document.open();document.domain='';document.close();})())" style="display: none;"></iframe><iframe src="javascript:void((function(){document.open();document.domain='';document.close();})())" style="display: none;"></iframe><iframe src="javascript:void((function(){document.open();document.domain='';document.close();})())" style="display: none;"></iframe><iframe src="javascript:void((function(){document.open();document.domain='';document.close();})())" style="display: none;"></iframe><iframe src="javascript:void((function(){document.open();document.domain='';document.close();})())" style="display: none;"></iframe><iframe src="javascript:void((function(){document.open();document.domain='';document.close();})())" style="display: none;"></iframe><iframe src="javascript:void((function(){document.open();document.domain='';document.close();})())" style="display: none;"></iframe><iframe src="javascript:void((function(){document.open();document.domain='';document.close();})())" style="display: none;"></iframe><iframe src="javascript:void((function(){document.open();document.domain='';document.close();})())" style="display: none;"></iframe><iframe src="javascript:void((function(){document.open();document.domain='';document.close();})())" style="display: none;"></iframe><iframe src="javascript:void((function(){document.open();document.domain='';document.close();})())" style="display: none;"></iframe><iframe src="javascript:void((function(){document.open();document.domain='';document.close();})())" style="display: none;"></iframe><iframe src="javascript:void((function(){document.open();document.domain='';document.close();})())" style="display: none;"></iframe><iframe src="javascript:void((function(){document.open();document.domain='';document.close();})())" style="display: none;"></iframe><iframe src="javascript:void((function(){document.open();document.domain='';document.close();})())" style="display: none;"></iframe><iframe src="javascript:void((function(){document.open();document.domain='';document.close();})())" style="display: none;"></iframe><iframe src="javascript:void((function(){document.open();document.domain='';document.close();})())" style="display: none;"></iframe><iframe src="javascript:void((function(){document.open();document.domain='';document.close();})())" style="display: none;"></iframe></body></html>
