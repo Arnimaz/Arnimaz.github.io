@@ -38,6 +38,12 @@
         "image": "https://arnimaz.github.io/images/guides/5.png",
         "detail": "",
         "section": "💻 ПК"
+      },
+      {
+        "text": "123",
+        "image": "",
+        "detail": "",
+        "section": "💻 ПК"
       }
     ],
     "install_phone": [
@@ -55,6 +61,12 @@
       },
       {
         "text": "Нажмите 'Установить'",
+        "image": "",
+        "detail": "",
+        "section": "📱 Android (Edge)"
+      },
+      {
+        "text": "123",
         "image": "",
         "detail": "",
         "section": "📱 Android (Edge)"
