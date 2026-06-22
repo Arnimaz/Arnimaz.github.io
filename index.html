@@ -449,15 +449,19 @@
     window._guidesData = [];
 
     /**
-     * Robust fetch with timeout and error handling
+     * Robust fetch with cache busting
      */
     async function fetchWithTimeout(resource, options = {}) {
         const { timeout = 8000 } = options;
         const controller = new AbortController();
         const id = setTimeout(() => controller.abort(), timeout);
         
+        // Anti-caching query param
+        const url = new URL(resource, window.location.origin);
+        url.searchParams.set('t', Date.now());
+
         try {
-            const response = await fetch(resource, {
+            const response = await fetch(url.toString(), {
                 ...options,
                 signal: controller.signal
             });
@@ -581,14 +585,20 @@
         } catch (e) { console.error("UI Update Error (Home):", e); }
     }
 
-    function renderStepsList(steps, type, offset = 0) {
+    /**
+     * Revised Step Renderer
+     */
+    function renderStepsList(steps, type, startIndex = 0) {
         if (!steps || steps.length === 0) return '<li class="p-4 opacity-40 italic font-mono text-[10px] uppercase text-center">ДАННЫЕ_ОТСУТСТВУЮТ</li>';
+        
         return steps.map((s, i) => {
             const sd = typeof s === 'object' ? s : { text: s };
-            const actualIndex = i + offset;
-            return `<li class="p-4 md:p-5 flex items-center justify-between group cursor-pointer hover:bg-white/5 rounded transition-all" onclick="openStepModal('${type}', ${actualIndex})">
+            const displayNum = i + 1;
+            const absoluteDataIndex = startIndex + i;
+
+            return `<li class="p-4 md:p-5 flex items-center justify-between group cursor-pointer hover:bg-white/5 rounded transition-all" onclick="openStepModal('${type}', ${absoluteDataIndex}, ${displayNum})">
                 <span class="flex items-center gap-4 md:gap-6">
-                    <span class="w-8 h-8 flex items-center justify-center rounded bg-accent/10 text-accent text-[10px] font-bold border border-accent/20 font-mono flex-shrink-0">${(actualIndex + 1).toString().padStart(2, '0')}</span>
+                    <span class="w-8 h-8 flex items-center justify-center rounded bg-accent/10 text-accent text-[10px] font-bold border border-accent/20 font-mono flex-shrink-0">${displayNum.toString().padStart(2, '0')}</span>
                     <span class="text-xs md:text-sm font-bold uppercase tracking-widest text-on-surface-variant group-hover:text-white transition-colors line-clamp-1">${sd.text || 'ОПИСАНИЕ_ОТСУТСТВУЕТ'}</span>
                 </span>
                 <span class="material-symbols-outlined opacity-10 md:group-hover:opacity-100 transition-opacity text-accent text-lg flex-shrink-0">chevron_right</span>
@@ -614,6 +624,9 @@
         `).join('');
     }
 
+    /**
+     * Improved Guides Rendering Logic with iPhone fix
+     */
     function renderGuides(data) {
         const container = document.getElementById('guides-content');
         if (!container) return;
@@ -621,34 +634,49 @@
             container.innerHTML = '<p class="text-center py-20 text-on-surface-variant font-mono uppercase tracking-widest opacity-40">Гайды не добавлены</p>';
             return;
         }
+        
         container.innerHTML = data.map((g, idx) => {
             let sectionsHtml = '';
-            
-            // Remove "ГАЙД:" prefix if present in guide title
             const cleanTitle = (g.title || 'БЕЗ НАЗВАНИЯ').replace(/^ГАЙД:\s*/i, '');
 
+            // 🖥 PC Section
             if (g.install_pc && g.install_pc.length) {
                 sectionsHtml += `
                     <div class="bg-accent/5 border border-accent/20 px-3 py-1.5 md:px-4 md:py-2 text-[9px] md:text-[10px] font-bold text-accent uppercase mb-4 mt-6 md:mt-8 inline-block tracking-[0.2em] rounded">🖥 ПК (WINDOWS)</div>
-                    <div class="bg-black/20 rounded-lg border border-white/5 p-1">
+                    <div class="bg-black/20 rounded-lg border border-white/5 p-1 mb-8">
                         <ol class="space-y-1 list-none">${renderStepsList(g.install_pc, 'guide_pc_' + idx)}</ol>
                     </div>`;
             }
+
+            // 📱 Mobile Section Logic (Updated for dynamic filtering)
             if (g.install_phone && g.install_phone.length) {
-                const androidSteps = g.install_phone.slice(0, 3);
-                const iphoneSteps = g.install_phone.slice(3, 6);
+                // Check if items have 'section' metadata for flexible filtering
+                const androidSteps = g.install_phone.filter(step => 
+                    (typeof step === 'object' && (!step.section || step.section.toLowerCase().includes('android'))) || 
+                    (typeof step === 'string' && !g.install_phone.some(s => s.section && s.section.includes('iPhone')))
+                );
+                
+                const iphoneSteps = g.install_phone.filter(step => 
+                    typeof step === 'object' && step.section && step.section.includes('iPhone')
+                );
 
-                sectionsHtml += `
-                    <div class="bg-accent/5 border border-accent/20 px-3 py-1.5 md:px-4 md:py-2 text-[9px] md:text-[10px] font-bold text-accent uppercase mb-4 mt-6 md:mt-8 inline-block tracking-[0.2em] rounded">📱 Android (Edge)</div>
-                    <div class="bg-black/20 rounded-lg border border-white/5 p-1">
-                        <ol class="space-y-1 list-none">${renderStepsList(androidSteps, 'guide_phone_' + idx, 0)}</ol>
-                    </div>`;
+                // Fallback for legacy data (index-based) if no sections found
+                const finalAndroid = (androidSteps.length === 0 && iphoneSteps.length === 0) ? g.install_phone.slice(0, 3) : androidSteps;
+                const finalIphone = (androidSteps.length === 0 && iphoneSteps.length === 0) ? g.install_phone.slice(3) : iphoneSteps;
 
-                if (iphoneSteps.length > 0) {
+                if (finalAndroid.length > 0) {
                     sectionsHtml += `
-                        <div class="bg-accent/5 border border-accent/20 px-3 py-1.5 md:px-4 md:py-2 text-[9px] md:text-[10px] font-bold text-accent uppercase mb-4 mt-6 md:mt-8 inline-block tracking-[0.2em] rounded">📱 iPhone (iOS)</div>
-                        <div class="bg-black/20 rounded-lg border border-white/5 p-1">
-                            <ol class="space-y-1 list-none">${renderStepsList(iphoneSteps, 'guide_phone_' + idx, 3)}</ol>
+                        <div class="bg-accent/5 border border-accent/20 px-3 py-1.5 md:px-4 md:py-2 text-[9px] md:text-[10px] font-bold text-accent uppercase mb-4 mt-2 inline-block tracking-[0.2em] rounded">📱 Android (Edge)</div>
+                        <div class="bg-black/20 rounded-lg border border-white/5 p-1 mb-8">
+                            <ol class="space-y-1 list-none">${renderStepsList(finalAndroid, 'guide_phone_android_' + idx)}</ol>
+                        </div>`;
+                }
+
+                if (finalIphone.length > 0) {
+                    sectionsHtml += `
+                        <div class="bg-accent/5 border border-accent/20 px-3 py-1.5 md:px-4 md:py-2 text-[9px] md:text-[10px] font-bold text-accent uppercase mb-4 mt-2 inline-block tracking-[0.2em] rounded">📱 iPhone (iOS)</div>
+                        <div class="bg-black/20 rounded-lg border border-white/5 p-1 mb-8">
+                            <ol class="space-y-1 list-none">${renderStepsList(finalIphone, 'guide_phone_iphone_' + idx)}</ol>
                         </div>`;
                 }
             }
@@ -697,10 +725,7 @@
         if (!item) return;
         const imgEl = document.getElementById("modal-img");
         imgEl.src = item.image || "";
-        
-        // Remove "ГАЙД:" prefix if present
         const cleanTitle = (item.title || "БЕЗ_НАЗВАНИЯ").replace(/^ГАЙД:\s*/i, '');
-        
         document.getElementById("modal-title").textContent = cleanTitle.toUpperCase();
         document.getElementById("modal-desc").innerHTML = `<div class="text-sm md:text-lg leading-relaxed text-on-surface-variant">${makeLinksClickable(item.description || "")}</div>`;
         document.getElementById("modal-nav-counter").textContent = `${(currentGalleryIndex + 1).toString().padStart(2, '0')} / ${window._galleryData.length.toString().padStart(2, '0')}`;
@@ -713,9 +738,9 @@
         }
     }
 
-    function openStepModal(type, index) {
-        currentStepType = type; currentStepIndex = index; modalMode = 'step';
-        const data = getStepData(type, index);
+    function openStepModal(type, absIndex, displayNum = null) {
+        currentStepType = type; currentStepIndex = absIndex; modalMode = 'step';
+        const data = getStepData(type, absIndex);
         if (!data) return;
         
         const sd = typeof data === 'object' ? data : { text: data };
@@ -724,9 +749,12 @@
         imgEl.src = sd.image || "";
         document.getElementById("modal-img-container").style.display = sd.image ? 'block' : 'none';
         
-        // Ensure that the step number appears simply as "Шаг [номер]"
-        document.getElementById("modal-title").textContent = `ШАГ ${index + 1}`;
-        document.getElementById("modal-desc").innerHTML = `<div class="text-xl md:text-2xl font-bold mb-4 md:mb-6 uppercase text-white">${sd.text || ""}</div>` + (sd.detail ? `<div class="text-xs md:text-sm font-mono opacity-70 mt-4 border-t border-white/10 pt-4">${makeLinksClickable(sd.detail)}</div>` : "");
+        const visualNumber = displayNum || (absIndex + 1);
+        document.getElementById("modal-title").textContent = `ШАГ ${visualNumber}`;
+        
+        document.getElementById("modal-desc").innerHTML = 
+            `<div class="text-xl md:text-2xl font-bold mb-4 md:mb-6 uppercase text-white">${sd.text || ""}</div>` + 
+            (sd.detail ? `<div class="text-xs md:text-sm font-mono opacity-70 mt-4 border-t border-white/10 pt-4">${makeLinksClickable(sd.detail)}</div>` : "");
         
         document.getElementById("modal-overlay").classList.add("active");
         document.getElementById("modal-nav-row").style.display = 'none';
@@ -738,11 +766,22 @@
         if (type === 'blue') return window._homeData.help_blue[index];
         if (type === 'helper') return window._homeData.help_helper[index];
         
-        const parts = type.split('_');
+        const parts = type.split('_'); // guide, pc/phone, android/iphone, index
         if (parts[0] === 'guide') {
-            const guideIdx = parseInt(parts[2]);
+            const guideIdx = parseInt(parts[parts.length - 1]);
             const g = window._guidesData[guideIdx];
-            if (g) return parts[1] === 'pc' ? g.install_pc[index] : g.install_phone[index];
+            if (!g) return null;
+            
+            if (parts[1] === 'pc') return g.install_pc[index];
+            if (parts[1] === 'phone') {
+                const subType = parts[2]; // android or iphone
+                const filtered = g.install_phone.filter(s => {
+                    if (subType === 'android') return (typeof s === 'object' && (!s.section || s.section.includes('Android'))) || typeof s === 'string';
+                    if (subType === 'iphone') return (typeof s === 'object' && s.section && s.section.includes('iPhone'));
+                    return true;
+                });
+                return filtered[index];
+            }
         }
         return null;
     }
