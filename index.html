@@ -285,7 +285,7 @@
 <div class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-8" id="gallery-grid"><p class="col-span-full text-center py-20 text-on-surface-variant font-mono uppercase tracking-widest opacity-40">АРХИВ_ПУСТ</p></div>
 </div>
 <div class="tab-content" id="guides">
-<div class="space-y-8" id="guides-content"><p class="text-center py-20 text-on-surface-variant font-mono uppercase tracking-widest opacity-40">ЗАГРУЗКА_ДАННЫХ...</p></div>
+<div class="space-y-8" id="guides-content"><p class="text-center py-20 text-on-surface-variant font-mono uppercase tracking-widest opacity-40">ЗАГРУЗЗКА_ДАННЫХ...</p></div>
 </div>
 <div class="tab-content space-y-12" id="suggestions">
 <section>
@@ -635,7 +635,7 @@
                 // 📱 Android and iPhone Sections from install_phone using section key
                 if (g.install_phone && g.install_phone.length > 0) {
                     const androidSteps = g.install_phone.filter(step => step.section === '📱 Android (Edge)');
-                    const iphoneSteps = g.install_phone.filter(step => step.section === '📱 iPhone (iOS)');
+                    const iphoneSteps = g.install_phone.filter(step => step.section === '📱 iPhone (EDGE)');
 
                     if (androidSteps.length > 0) {
                         sectionsHtml += `
@@ -647,7 +647,7 @@
 
                     if (iphoneSteps.length > 0) {
                         sectionsHtml += `
-                            <div class="bg-accent/5 border border-accent/20 px-3 py-1.5 md:px-4 md:py-2 text-[9px] md:text-[10px] font-bold text-accent uppercase mb-4 mt-2 inline-block tracking-[0.2em] rounded">📱 iPhone (iOS)</div>
+                            <div class="bg-accent/5 border border-accent/20 px-3 py-1.5 md:px-4 md:py-2 text-[9px] md:text-[10px] font-bold text-accent uppercase mb-4 mt-2 inline-block tracking-[0.2em] rounded">📱 iPhone (EDGE)</div>
                             <div class="bg-black/20 rounded-lg border border-white/5 p-1 mb-8">
                                 <ol class="space-y-1 list-none pixel-list">${renderStepsList(iphoneSteps, 'guide_iphone_' + idx)}</ol>
                             </div>`;
@@ -741,7 +741,7 @@
                     return (guide.install_phone || []).filter(s => s.section === '📱 Android (Edge)')[index];
                 }
                 if (platform === 'iphone') {
-                    return (guide.install_phone || []).filter(s => s.section === '📱 iPhone (iOS)')[index];
+                    return (guide.install_phone || []).filter(s => s.section === '📱 iPhone (EDGE)')[index];
                 }
             }
             return null;
