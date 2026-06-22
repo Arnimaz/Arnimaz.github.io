@@ -632,7 +632,20 @@
     async function loadAll() {
         try { const h = await loadJSON("content/home.json"); homeData = h.content; homeData._sha = h.sha; renderHome(); } catch(e) { console.error(e); }
         try { const g = await loadJSON("content/gallery.json"); galleryData = g.content; galleryData._sha = g.sha; renderGallery(); } catch(e) { console.error(e); }
-        try { const gu = await loadJSON("content/guides.json"); guidesData = gu.content; guidesData._sha = gu.sha; renderGuides(); } catch(e) { console.error(e); }
+        try { 
+            const gu = await loadJSON("content/guides.json"); 
+            // Migration: Ensure all legacy labels are updated to new ones when loading
+            guidesData = gu.content.map(g => {
+                const pc = (g.install_pc || []).map(s => ({...s, section: s.section === '💻 PC' ? '💻 PC' : s.section}));
+                const phone = (g.install_phone || []).map(s => ({
+                    ...s, 
+                    section: (s.section && (s.section.includes('iPhone (iOS)') || s.section.includes('iPhone (EDGE)'))) ? '📱 iPhone (EDGE)' : s.section
+                }));
+                return { ...g, install_pc: pc, install_phone: phone };
+            });
+            guidesData._sha = gu.sha; 
+            renderGuides(); 
+        } catch(e) { console.error(e); }
         try { 
             const s = await loadJSON("content/settings.json"); 
             settingsData = s.content; 
@@ -860,7 +873,7 @@
             const pcSteps = g.install_pc || [];
             const phoneSteps = g.install_phone || [];
             const androidSteps = phoneSteps.filter(s => s.section === '📱 Android (Edge)');
-            const iphoneSteps = phoneSteps.filter(s => s.section === '📱 iPhone (iOS)');
+            const iphoneSteps = phoneSteps.filter(s => s.section === '📱 iPhone (EDGE)');
             
             return `<div class="terminal-border p-6 bg-[#0f0f15] rounded-xl">
                 <div class="flex items-center justify-between mb-8 border-b border-white/5 pb-6">
@@ -877,7 +890,7 @@
                         <div class="space-y-4" id="guide-${i}-android">${renderGuideStepsListHTML(androidSteps, i, 'android')}</div>
                     </div>
                     <div>
-                        <div class="flex items-center justify-between mb-4"><span class="text-[10px] font-bold uppercase text-white/40 tracking-wider">📱 iPhone</span><button onclick="addGuideStep(${i}, 'iphone')" class="text-[10px] font-bold text-emerald-primary uppercase">+ ШАГ</button></div>
+                        <div class="flex items-center justify-between mb-4"><span class="text-[10px] font-bold uppercase text-white/40 tracking-wider">📱 iPhone (EDGE)</span><button onclick="addGuideStep(${i}, 'iphone')" class="text-[10px] font-bold text-emerald-primary uppercase">+ ШАГ</button></div>
                         <div class="space-y-4" id="guide-${i}-iphone">${renderGuideStepsListHTML(iphoneSteps, i, 'iphone')}</div>
                     </div>
                 </div>
@@ -901,7 +914,7 @@
             guide.install_pc[si][field] = v;
         } else {
             if (!guide.install_phone) guide.install_phone = [];
-            const targetSection = colType === 'android' ? '📱 Android (Edge)' : '📱 iPhone (iOS)';
+            const targetSection = colType === 'android' ? '📱 Android (Edge)' : '📱 iPhone (EDGE)';
             let filtered = guide.install_phone.filter(s => s.section === targetSection);
             if (filtered[si]) filtered[si][field] = v;
         }
@@ -914,7 +927,7 @@
             guide.install_pc.push({ text: "", image: "", detail: "", section: "💻 ПК" });
         } else {
             if (!guide.install_phone) guide.install_phone = [];
-            const section = colType === 'android' ? '📱 Android (Edge)' : '📱 iPhone (iOS)';
+            const section = colType === 'android' ? '📱 Android (Edge)' : '📱 iPhone (EDGE)';
             guide.install_phone.push({ text: "", image: "", detail: "", section: section });
         }
         renderGuides();
@@ -925,7 +938,7 @@
         if (colType === 'pc') {
             guide.install_pc.splice(si, 1);
         } else {
-            const targetSection = colType === 'android' ? '📱 Android (Edge)' : '📱 iPhone (iOS)';
+            const targetSection = colType === 'android' ? '📱 Android (Edge)' : '📱 iPhone (EDGE)';
             let indices = [];
             guide.install_phone.forEach((s, idx) => { if (s.section === targetSection) indices.push(idx); });
             if (indices[si] !== undefined) guide.install_phone.splice(indices[si], 1);
@@ -937,13 +950,11 @@
 
     async function saveGuides() {
         try {
-            // Processing logic to ensure data matches requested structure
             const processed = guidesData.map(g => {
                 const pc = (g.install_pc || []).map(s => ({...s, section: '💻 ПК'}));
-                // install_phone column is combined Android + iPhone steps
                 const phone = (g.install_phone || []).map(s => ({
                     ...s, 
-                    section: (s.section && s.section.includes('iPhone')) ? '📱 iPhone (iOS)' : '📱 Android (Edge)'
+                    section: (s.section && (s.section.includes('iPhone (iOS)') || s.section.includes('iPhone (EDGE)'))) ? '📱 iPhone (EDGE)' : '📱 Android (Edge)'
                 }));
                 return { ...g, install_pc: pc, install_phone: phone };
             });
@@ -1000,7 +1011,17 @@
             try { 
                 const d = JSON.parse(ev.target.result); 
                 if(d.home) homeData = d.home; if(d.gallery) galleryData = d.gallery; 
-                if(d.guides) guidesData = d.guides; if(d.settings) settingsData = d.settings;
+                if(d.guides) {
+                    guidesData = d.guides.map(g => {
+                        const pc = (g.install_pc || []).map(s => ({...s, section: s.section === '💻 PC' ? '💻 PC' : s.section}));
+                        const phone = (g.install_phone || []).map(s => ({
+                            ...s, 
+                            section: (s.section && (s.section.includes('iPhone (iOS)') || s.section.includes('iPhone (EDGE)'))) ? '📱 iPhone (EDGE)' : s.section
+                        }));
+                        return { ...g, install_pc: pc, install_phone: phone };
+                    });
+                }
+                if(d.settings) settingsData = d.settings;
                 renderHome(); renderGallery(); renderGuides(); renderSettings();
                 toast("ИМПОРТИРОВАНО", "success");
             } catch(er) { toast("ОШИБКА JSON", "error"); }
