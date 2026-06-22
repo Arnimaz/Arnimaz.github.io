@@ -171,6 +171,14 @@
         .custom-scrollbar::-webkit-scrollbar {
             width: 4px;
         }
+
+        /* Numbered list styling */
+        .pixel-list {
+            counter-reset: step-counter;
+        }
+        .pixel-list li {
+            counter-increment: step-counter;
+        }
     </style>
 </head>
 <body class="antialiased overflow-x-hidden break-words">
@@ -251,7 +259,7 @@
 <span class="material-symbols-outlined text-sm">bolt</span> [01] WPlace
                             </p>
 <div class="bg-black/20 rounded-lg border border-white/5 p-1 break-words" id="wplace-steps">
-<ol class="space-y-1 list-none"><li class="p-4 opacity-40 italic font-mono text-[10px] uppercase text-center">ДАННЫЕ_ОТСУТСТВУЮТ</li></ol>
+<ol class="space-y-1 list-none pixel-list"><li class="p-4 opacity-40 italic font-mono text-[10px] uppercase text-center">ДАННЫЕ_ОТСУТСТВУЮТ</li></ol>
 </div>
 </div>
 <div class="space-y-4 md:space-y-6">
@@ -259,7 +267,7 @@
 <span class="material-symbols-outlined text-sm">public</span> [02] Blue Marble
                             </p>
 <div class="bg-black/20 rounded-lg border border-white/5 p-1 break-words" id="blue-steps">
-<ol class="space-y-1 list-none"><li class="p-4 opacity-40 italic font-mono text-[10px] uppercase text-center">ДАННЫЕ_ОТСУТСТВУЮТ</li></ol>
+<ol class="space-y-1 list-none pixel-list"><li class="p-4 opacity-40 italic font-mono text-[10px] uppercase text-center">ДАННЫЕ_ОТСУТСТВУЮТ</li></ol>
 </div>
 </div>
 <div class="space-y-4 md:space-y-6 lg:col-span-1 md:col-span-2">
@@ -267,7 +275,7 @@
 <span class="material-symbols-outlined text-sm">extension</span> [03] WPlace Helper
                             </p>
 <div class="bg-black/20 rounded-lg border border-white/5 p-1 break-words" id="helper-steps">
-<ol class="space-y-1 list-none"><li class="p-4 opacity-40 italic font-mono text-[10px] uppercase text-center">ДАННЫЕ_ОТСУТСТВУЮТ</li></ol>
+<ol class="space-y-1 list-none pixel-list"><li class="p-4 opacity-40 italic font-mono text-[10px] uppercase text-center">ДАННЫЕ_ОТСУТСТВУЮТ</li></ol>
 </div>
 </div>
 </div>
@@ -463,6 +471,7 @@
         try {
             const response = await fetch(url.toString(), {
                 ...options,
+                cache: 'no-store', // Extra protection
                 signal: controller.signal
             });
             clearTimeout(id);
@@ -527,16 +536,18 @@
     async function initContent() {
         initFirebase();
 
+        // Using timestamp as per request for cache busting
+        const t = Date.now();
         const [settings, home, gallery, guides] = await Promise.all([
-            fetchWithTimeout('content/settings.json').then(res => res || {
+            fetchWithTimeout(`content/settings.json?t=${t}`).then(res => res || {
                 siteTitle: "Masters_of_Cum — official site", 
                 headerTitle: "Masters_of_Cum",
                 headerSubtitle: "official site", 
                 footer: "TELEGRAM KOHTAKT - @ARNIMAZ | КАНАЛ - @MASTERS_OF_CUM"
             }),
-            fetchWithTimeout('content/home.json').then(res => res || FALLBACK_HOME),
-            fetchWithTimeout('content/gallery.json').then(res => res || []),
-            fetchWithTimeout('content/guides.json').then(res => res || [])
+            fetchWithTimeout(`content/home.json?t=${t}`).then(res => res || FALLBACK_HOME),
+            fetchWithTimeout(`content/gallery.json?t=${t}`).then(res => res || []),
+            fetchWithTimeout(`content/guides.json?t=${t}`).then(res => res || [])
         ]);
 
         window._homeData = home;
@@ -586,17 +597,16 @@
     }
 
     /**
-     * Revised Step Renderer
+     * Step Renderer
      */
-    function renderStepsList(steps, type, startIndex = 0) {
+    function renderStepsList(steps, type) {
         if (!steps || steps.length === 0) return '<li class="p-4 opacity-40 italic font-mono text-[10px] uppercase text-center">ДАННЫЕ_ОТСУТСТВУЮТ</li>';
         
         return steps.map((s, i) => {
             const sd = typeof s === 'object' ? s : { text: s };
             const displayNum = i + 1;
-            const absoluteDataIndex = startIndex + i;
 
-            return `<li class="p-4 md:p-5 flex items-center justify-between group cursor-pointer hover:bg-white/5 rounded transition-all" onclick="openStepModal('${type}', ${absoluteDataIndex}, ${displayNum})">
+            return `<li class="p-4 md:p-5 flex items-center justify-between group cursor-pointer hover:bg-white/5 rounded transition-all" onclick="openStepModal('${type}', ${i})">
                 <span class="flex items-center gap-4 md:gap-6">
                     <span class="w-8 h-8 flex items-center justify-center rounded bg-accent/10 text-accent text-[10px] font-bold border border-accent/20 font-mono flex-shrink-0">${displayNum.toString().padStart(2, '0')}</span>
                     <span class="text-xs md:text-sm font-bold uppercase tracking-widest text-on-surface-variant group-hover:text-white transition-colors line-clamp-1">${sd.text || 'ОПИСАНИЕ_ОТСУТСТВУЕТ'}</span>
@@ -625,7 +635,8 @@
     }
 
     /**
-     * Improved Guides Rendering Logic with iPhone fix
+     * Guides Rendering Logic
+     * Explicitly separates steps based on 'section' metadata for multi-platform support
      */
     function renderGuides(data) {
         const container = document.getElementById('guides-content');
@@ -639,44 +650,34 @@
             let sectionsHtml = '';
             const cleanTitle = (g.title || 'БЕЗ НАЗВАНИЯ').replace(/^ГАЙД:\s*/i, '');
 
-            // 🖥 PC Section
-            if (g.install_pc && g.install_pc.length) {
+            // 💻 ПК Section
+            const pcSteps = (g.install_pc || []).filter(step => !step.section || step.section === '💻 ПК');
+            if (pcSteps.length) {
                 sectionsHtml += `
-                    <div class="bg-accent/5 border border-accent/20 px-3 py-1.5 md:px-4 md:py-2 text-[9px] md:text-[10px] font-bold text-accent uppercase mb-4 mt-6 md:mt-8 inline-block tracking-[0.2em] rounded">🖥 ПК (WINDOWS)</div>
+                    <div class="bg-accent/5 border border-accent/20 px-3 py-1.5 md:px-4 md:py-2 text-[9px] md:text-[10px] font-bold text-accent uppercase mb-4 mt-6 md:mt-8 inline-block tracking-[0.2em] rounded">💻 ПК (WINDOWS)</div>
                     <div class="bg-black/20 rounded-lg border border-white/5 p-1 mb-8">
-                        <ol class="space-y-1 list-none">${renderStepsList(g.install_pc, 'guide_pc_' + idx)}</ol>
+                        <ol class="space-y-1 list-none pixel-list">${renderStepsList(pcSteps, 'guide_pc_' + idx)}</ol>
                     </div>`;
             }
 
-            // 📱 Mobile Section Logic (Updated for dynamic filtering)
+            // 📱 Mobile Logic (Explicitly split by section)
             if (g.install_phone && g.install_phone.length) {
-                // Check if items have 'section' metadata for flexible filtering
-                const androidSteps = g.install_phone.filter(step => 
-                    (typeof step === 'object' && (!step.section || step.section.toLowerCase().includes('android'))) || 
-                    (typeof step === 'string' && !g.install_phone.some(s => s.section && s.section.includes('iPhone')))
-                );
-                
-                const iphoneSteps = g.install_phone.filter(step => 
-                    typeof step === 'object' && step.section && step.section.includes('iPhone')
-                );
+                const androidSteps = g.install_phone.filter(step => step.section === '📱 Android (Edge)');
+                const iphoneSteps = g.install_phone.filter(step => step.section === '📱 iPhone (iOS)');
 
-                // Fallback for legacy data (index-based) if no sections found
-                const finalAndroid = (androidSteps.length === 0 && iphoneSteps.length === 0) ? g.install_phone.slice(0, 3) : androidSteps;
-                const finalIphone = (androidSteps.length === 0 && iphoneSteps.length === 0) ? g.install_phone.slice(3) : iphoneSteps;
-
-                if (finalAndroid.length > 0) {
+                if (androidSteps.length > 0) {
                     sectionsHtml += `
                         <div class="bg-accent/5 border border-accent/20 px-3 py-1.5 md:px-4 md:py-2 text-[9px] md:text-[10px] font-bold text-accent uppercase mb-4 mt-2 inline-block tracking-[0.2em] rounded">📱 Android (Edge)</div>
                         <div class="bg-black/20 rounded-lg border border-white/5 p-1 mb-8">
-                            <ol class="space-y-1 list-none">${renderStepsList(finalAndroid, 'guide_phone_android_' + idx)}</ol>
+                            <ol class="space-y-1 list-none pixel-list">${renderStepsList(androidSteps, 'guide_android_' + idx)}</ol>
                         </div>`;
                 }
 
-                if (finalIphone.length > 0) {
+                if (iphoneSteps.length > 0) {
                     sectionsHtml += `
                         <div class="bg-accent/5 border border-accent/20 px-3 py-1.5 md:px-4 md:py-2 text-[9px] md:text-[10px] font-bold text-accent uppercase mb-4 mt-2 inline-block tracking-[0.2em] rounded">📱 iPhone (iOS)</div>
                         <div class="bg-black/20 rounded-lg border border-white/5 p-1 mb-8">
-                            <ol class="space-y-1 list-none">${renderStepsList(finalIphone, 'guide_phone_iphone_' + idx)}</ol>
+                            <ol class="space-y-1 list-none pixel-list">${renderStepsList(iphoneSteps, 'guide_iphone_' + idx)}</ol>
                         </div>`;
                 }
             }
@@ -738,9 +739,12 @@
         }
     }
 
-    function openStepModal(type, absIndex, displayNum = null) {
-        currentStepType = type; currentStepIndex = absIndex; modalMode = 'step';
-        const data = getStepData(type, absIndex);
+    function openStepModal(type, index) {
+        currentStepType = type; 
+        currentStepIndex = index; 
+        modalMode = 'step';
+        
+        const data = getStepData(type, index);
         if (!data) return;
         
         const sd = typeof data === 'object' ? data : { text: data };
@@ -749,8 +753,7 @@
         imgEl.src = sd.image || "";
         document.getElementById("modal-img-container").style.display = sd.image ? 'block' : 'none';
         
-        const visualNumber = displayNum || (absIndex + 1);
-        document.getElementById("modal-title").textContent = `ШАГ ${visualNumber}`;
+        document.getElementById("modal-title").textContent = `ШАГ ${(index + 1).toString().padStart(2, '0')}`;
         
         document.getElementById("modal-desc").innerHTML = 
             `<div class="text-xl md:text-2xl font-bold mb-4 md:mb-6 uppercase text-white">${sd.text || ""}</div>` + 
@@ -766,22 +769,16 @@
         if (type === 'blue') return window._homeData.help_blue[index];
         if (type === 'helper') return window._homeData.help_helper[index];
         
-        const parts = type.split('_'); // guide, pc/phone, android/iphone, index
+        const parts = type.split('_');
         if (parts[0] === 'guide') {
-            const guideIdx = parseInt(parts[parts.length - 1]);
-            const g = window._guidesData[guideIdx];
-            if (!g) return null;
-            
-            if (parts[1] === 'pc') return g.install_pc[index];
-            if (parts[1] === 'phone') {
-                const subType = parts[2]; // android or iphone
-                const filtered = g.install_phone.filter(s => {
-                    if (subType === 'android') return (typeof s === 'object' && (!s.section || s.section.includes('Android'))) || typeof s === 'string';
-                    if (subType === 'iphone') return (typeof s === 'object' && s.section && s.section.includes('iPhone'));
-                    return true;
-                });
-                return filtered[index];
-            }
+            const platform = parts[1];
+            const guideIdx = parseInt(parts[2]);
+            const guide = window._guidesData[guideIdx];
+            if (!guide) return null;
+
+            if (platform === 'pc') return (guide.install_pc || []).filter(s => !s.section || s.section === '💻 ПК')[index];
+            if (platform === 'android') return (guide.install_phone || []).filter(s => s.section === '📱 Android (Edge)')[index];
+            if (platform === 'iphone') return (guide.install_phone || []).filter(s => s.section === '📱 iPhone (iOS)')[index];
         }
         return null;
     }
