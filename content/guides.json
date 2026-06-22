@@ -58,26 +58,28 @@
         "image": "",
         "detail": "",
         "section": "📱 Android (Edge)"
-      },
+      }
+    ],
+    "note": " ",
+    "install_iphone_ios": [
       {
         "text": "Скачайте браузер Edge",
         "image": "",
         "detail": "",
-        "section": "📱 iPhone (iOS)"
+        "section": ""
       },
       {
         "text": "Откройте меню \"Расширения\"",
-        "image": " ",
+        "image": "",
         "detail": "",
-        "section": "📱 iPhone (iOS)"
+        "section": ""
       },
       {
         "text": "Установите расширение \"Blue Marble\"",
         "image": "",
         "detail": "",
-        "section": "📱 iPhone (iOS)"
+        "section": ""
       }
-    ],
-    "note": " "
+    ]
   }
 ]
