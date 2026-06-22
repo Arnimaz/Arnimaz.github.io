@@ -5,7 +5,7 @@
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>Masters_of_Cum — official site</title>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&amp;family=JetBrains+Mono:wght@400;700&amp;family=Inter:wght@400;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&amp;family=JetBrains+Mono:wght@400;700&amp;family=Inter:wght@400;600;700;800&amp;family=VT323&amp;family=Press+Start+2P&amp;display=swap" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
 <!-- Firebase SDKs -->
 <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
@@ -38,6 +38,8 @@
                         "display": ["Geist", "sans-serif"],
                         "mono": ["JetBrains Mono", "monospace"],
                         "body": ["Inter", "sans-serif"],
+                        "pixel": ["'Press Start 2P'", "cursive"],
+                        "terminal": ["'VT323'", "monospace"],
                     }
                 },
             },
@@ -586,9 +588,12 @@
         return steps.map((s, i) => {
             const sd = typeof s === 'object' ? s : { text: s };
             const actualIndex = i + offset;
+            // Clean digits only for step number
+            const displayIndex = (actualIndex + 1).toString();
+            
             return `<li class="p-4 md:p-5 flex items-center justify-between group cursor-pointer hover:bg-white/5 rounded transition-all" onclick="openStepModal('${type}', ${actualIndex})">
                 <span class="flex items-center gap-4 md:gap-6">
-                    <span class="w-8 h-8 flex items-center justify-center rounded bg-accent/10 text-accent text-[10px] font-bold border border-accent/20 font-mono flex-shrink-0">${(actualIndex + 1).toString().padStart(2, '0')}</span>
+                    <span class="w-8 h-8 flex items-center justify-center rounded bg-accent/10 text-accent text-[10px] font-bold border border-accent/20 font-pixel flex-shrink-0">${displayIndex}</span>
                     <span class="text-xs md:text-sm font-bold uppercase tracking-widest text-on-surface-variant group-hover:text-white transition-colors line-clamp-1">${sd.text || 'ОПИСАНИЕ_ОТСУТСТВУЕТ'}</span>
                 </span>
                 <span class="material-symbols-outlined opacity-10 md:group-hover:opacity-100 transition-opacity text-accent text-lg flex-shrink-0">chevron_right</span>
@@ -609,7 +614,7 @@
                     <img src="${item.image || ''}" alt="${item.title || ''}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
                     <div class="absolute inset-0 bg-accent/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
                 </div>
-                <h4 class="text-center font-bold text-white text-[9px] md:text-[10px] uppercase tracking-[0.2em] md:tracking-[0.3em] px-1 truncate font-mono">${item.title || 'БЕЗ НАЗВАНИЯ'}</h4>
+                <h4 class="text-center font-bold text-white text-[9px] md:text-[10px] uppercase tracking-[0.2em] md:tracking-[0.3em] px-1 truncate font-pixel">${item.title || 'БЕЗ НАЗВАНИЯ'}</h4>
             </div>
         `).join('');
     }
@@ -623,27 +628,33 @@
         }
         container.innerHTML = data.map((g, idx) => {
             let sectionsHtml = '';
+            
+            // Sections grouping: PC
             if (g.install_pc && g.install_pc.length) {
                 sectionsHtml += `
-                    <div class="bg-accent/5 border border-accent/20 px-3 py-1.5 md:px-4 md:py-2 text-[9px] md:text-[10px] font-bold text-accent uppercase mb-4 mt-6 md:mt-8 inline-block tracking-[0.2em] rounded">🖥 ПК (WINDOWS)</div>
-                    <div class="bg-black/20 rounded-lg border border-white/5 p-1">
+                    <div class="bg-accent/5 border border-accent/20 px-3 py-1.5 md:px-4 md:py-2 text-[9px] md:text-[10px] font-bold text-accent uppercase mb-4 mt-6 md:mt-8 inline-block tracking-[0.2em] rounded font-pixel">🖥 ПК (WINDOWS)</div>
+                    <div class="bg-black/20 rounded-lg border border-white/5 p-1 mb-6">
                         <ol class="space-y-1 list-none">${renderStepsList(g.install_pc, 'guide_pc_' + idx)}</ol>
                     </div>`;
             }
+
+            // Sections grouping: Android (Edge) and iPhone (iOS)
             if (g.install_phone && g.install_phone.length) {
                 const androidSteps = g.install_phone.slice(0, 3);
                 const iphoneSteps = g.install_phone.slice(3, 6);
 
-                sectionsHtml += `
-                    <div class="bg-accent/5 border border-accent/20 px-3 py-1.5 md:px-4 md:py-2 text-[9px] md:text-[10px] font-bold text-accent uppercase mb-4 mt-6 md:mt-8 inline-block tracking-[0.2em] rounded">📱 Android (Edge)</div>
-                    <div class="bg-black/20 rounded-lg border border-white/5 p-1">
-                        <ol class="space-y-1 list-none">${renderStepsList(androidSteps, 'guide_phone_' + idx, 0)}</ol>
-                    </div>`;
+                if (androidSteps.length > 0) {
+                    sectionsHtml += `
+                        <div class="bg-accent/5 border border-accent/20 px-3 py-1.5 md:px-4 md:py-2 text-[9px] md:text-[10px] font-bold text-accent uppercase mb-4 mt-6 md:mt-8 inline-block tracking-[0.2em] rounded font-pixel">📱 Android (Edge)</div>
+                        <div class="bg-black/20 rounded-lg border border-white/5 p-1 mb-6">
+                            <ol class="space-y-1 list-none">${renderStepsList(androidSteps, 'guide_phone_' + idx, 0)}</ol>
+                        </div>`;
+                }
 
                 if (iphoneSteps.length > 0) {
                     sectionsHtml += `
-                        <div class="bg-accent/5 border border-accent/20 px-3 py-1.5 md:px-4 md:py-2 text-[9px] md:text-[10px] font-bold text-accent uppercase mb-4 mt-6 md:mt-8 inline-block tracking-[0.2em] rounded">📱 iPhone (iOS)</div>
-                        <div class="bg-black/20 rounded-lg border border-white/5 p-1">
+                        <div class="bg-accent/5 border border-accent/20 px-3 py-1.5 md:px-4 md:py-2 text-[9px] md:text-[10px] font-bold text-accent uppercase mb-4 mt-6 md:mt-8 inline-block tracking-[0.2em] rounded font-pixel">📱 iPhone (iOS)</div>
+                        <div class="bg-black/20 rounded-lg border border-white/5 p-1 mb-6">
                             <ol class="space-y-1 list-none">${renderStepsList(iphoneSteps, 'guide_phone_' + idx, 3)}</ol>
                         </div>`;
                 }
@@ -716,9 +727,16 @@
         imgEl.src = sd.image || "";
         document.getElementById("modal-img-container").style.display = sd.image ? 'block' : 'none';
         
+        // Digit only step number
         document.getElementById("modal-title").textContent = `${(index + 1).toString()}`;
-        document.getElementById("modal-desc").innerHTML = `<div class="text-xl md:text-2xl font-bold mb-4 md:mb-6 uppercase text-white">${sd.text || ""}</div>` + (sd.detail ? `<div class="text-xs md:text-sm font-mono opacity-70 mt-4 border-t border-white/10 pt-4">${makeLinksClickable(sd.detail)}</div>` : "");
         
+        // Building detail content
+        let detailHtml = `<div class="text-xl md:text-2xl font-bold mb-4 md:mb-6 uppercase text-white font-pixel">${sd.text || ""}</div>`;
+        if (sd.detail) {
+            detailHtml += `<div class="text-xs md:text-sm font-mono opacity-80 mt-4 border-t border-accent/20 pt-6 leading-relaxed custom-scrollbar max-h-[300px] overflow-y-auto">${makeLinksClickable(sd.detail)}</div>`;
+        }
+        
+        document.getElementById("modal-desc").innerHTML = detailHtml;
         document.getElementById("modal-overlay").classList.add("active");
         document.getElementById("modal-nav-row").style.display = 'none';
         document.getElementById("modal-download").style.display = 'none';
