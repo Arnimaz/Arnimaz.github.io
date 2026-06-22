@@ -1,12 +1,11 @@
 <!DOCTYPE html>
 
-<html lang="ru" style=""><head>
+<html lang="ru"><head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>Admin panel</title>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 <link href="https://fonts.googleapis.com/css2?family=VT323&amp;family=Inter:wght@400;600;700&amp;family=Geist:wght@700;800&amp;family=JetBrains+Mono:wght@700&amp;family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&amp;display=swap" rel="stylesheet"/>
-<!-- Firebase Compat SDKs -->
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
 <script id="tailwind-config">
@@ -167,7 +166,6 @@
             border: 1px solid rgba(0, 228, 121, 0.2);
         }
 
-        /* Custom Scrollbar */
         ::-webkit-scrollbar { width: 6px; background: var(--bg-black); }
         ::-webkit-scrollbar-thumb { background: rgba(0, 228, 121, 0.3); border-radius: 3px; }
         
@@ -175,7 +173,6 @@
     </style>
 </head>
 <body class="selection:bg-emerald-primary/30 selection:text-white" data-mode="connect">
-<!-- LOGIN PAGE -->
 <div class="fixed inset-0 z-50 flex items-center justify-center bg-[#0a0a0f]" id="login-page">
 <div class="w-full max-w-md p-10 obsidian-card rounded-2xl">
 <div class="text-center mb-10">
@@ -197,15 +194,12 @@
 </div>
 </div>
 <button class="btn-emerald w-full py-4 text-sm font-bold flex items-center justify-center gap-3" onclick="login()">
-<span class="material-symbols-outlined text-xl">login</span>
-                ВЫПОЛНИТЬ ВХОД
+<span class="material-symbols-outlined text-xl">login</span> ВЫПОЛНИТЬ ВХОД
             </button>
 </div>
 </div>
 </div>
-<!-- ADMIN DASHBOARD -->
 <div class="hidden min-h-[1024px] flex flex-col lg:flex-row" id="admin-page">
-<!-- Sidebar -->
 <aside class="w-full lg:w-72 border-b lg:border-b-0 lg:border-r border-white/10 bg-[#0f0f15] flex flex-col relative lg:fixed lg:h-full z-20">
 <div class="p-6 border-b border-white/5">
 <div class="flex items-center gap-3">
@@ -220,57 +214,49 @@
 </div>
 <nav class="flex-1 p-4 flex flex-row lg:flex-col gap-1 lg:space-y-1 overflow-x-auto lg:overflow-x-visible">
 <button class="sidebar-btn active w-full flex items-center gap-3 px-4 py-3 text-sm font-medium transition-all whitespace-nowrap rounded-lg text-white/60 hover:text-white hover:bg-white/5" onclick="switchTab('home-tab', this)">
-<span class="material-symbols-outlined text-xl">dashboard</span>
-                ГЛАВНЫЙ ЭКРАН
+<span class="material-symbols-outlined text-xl">dashboard</span> ГЛАВНЫЙ ЭКРАН
             </button>
 <button class="sidebar-btn w-full flex items-center gap-3 px-4 py-3 text-sm font-medium transition-all whitespace-nowrap rounded-lg text-white/60 hover:text-white hover:bg-white/5" onclick="switchTab('gallery-tab', this)">
-<span class="material-symbols-outlined text-xl">image</span>
-                ГАЛЕРЕЯ
+<span class="material-symbols-outlined text-xl">image</span> ГАЛЕРЕЯ
             </button>
-<button class="sidebar-btn w-full flex items-center gap-3 px-4 py-3 text-sm font-medium transition-all whitespace-nowrap rounded-lg text-white/60 hover:text-white hover:bg-white/5" onclick="switchTab('guides-tab', this)"><span class="material-symbols-outlined text-xl">auto_stories</span>
-                ГАЙДЫ</button>
+<button class="sidebar-btn w-full flex items-center gap-3 px-4 py-3 text-sm font-medium transition-all whitespace-nowrap rounded-lg text-white/60 hover:text-white hover:bg-white/5" onclick="switchTab('guides-tab', this)">
+<span class="material-symbols-outlined text-xl">auto_stories</span> ГАЙДЫ
+            </button>
 <button class="sidebar-btn w-full flex items-center gap-3 px-4 py-3 text-sm font-medium transition-all whitespace-nowrap rounded-lg text-white/60 hover:text-white hover:bg-white/5" onclick="switchTab('suggestions-tab', this)">
-<span class="material-symbols-outlined text-xl">inbox</span>
-                ПРЕДЛОЖКА
+<span class="material-symbols-outlined text-xl">inbox</span> ПРЕДЛОЖКА
             </button>
 <button class="sidebar-btn w-full flex items-center gap-3 px-4 py-3 text-sm font-medium transition-all whitespace-nowrap rounded-lg text-white/60 hover:text-white hover:bg-white/5" id="accepted-tab-btn" onclick="switchTab('accepted-tab', this)">
-<span class="material-symbols-outlined text-xl">verified</span>
-                ПРИНЯТЫЕ
+<span class="material-symbols-outlined text-xl">verified</span> ПРИНЯТЫЕ
             </button>
 <button class="sidebar-btn w-full flex items-center gap-3 px-4 py-3 text-sm font-medium transition-all whitespace-nowrap rounded-lg text-white/60 hover:text-white hover:bg-white/5" onclick="switchTab('settings-tab', this)">
-<span class="material-symbols-outlined text-xl">settings</span>
-                НАСТРОЙКИ
+<span class="material-symbols-outlined text-xl">settings</span> НАСТРОЙКИ
             </button>
 </nav>
 <div class="p-4 border-t border-white/5 space-y-2">
 <a class="flex items-center justify-center gap-2 w-full py-2.5 text-xs font-bold text-white/40 hover:text-emerald-primary border border-white/10 rounded-lg transition-colors" href="/" target="_blank">
-<span class="material-symbols-outlined text-sm">open_in_new</span>
-                ПРОСМОТР САЙТА
+<span class="material-symbols-outlined text-sm">open_in_new</span> ПРОСМОТР САЙТА
             </a>
 <button class="flex items-center justify-center gap-2 w-full py-2.5 text-xs font-bold text-white/40 hover:text-white border border-white/10 rounded-lg transition-colors" onclick="loadAll()">
-<span class="material-symbols-outlined text-sm">refresh</span>
-                ОБНОВИТЬ
+<span class="material-symbols-outlined text-sm">refresh</span> ОБНОВИТЬ
             </button>
 <button class="flex items-center justify-center gap-2 w-full py-2.5 text-xs font-bold text-red-500/60 hover:text-red-500 border border-white/10 rounded-lg transition-colors" onclick="logout()">
-<span class="material-symbols-outlined text-sm">logout</span>
-                ВЫЙТИ
+<span class="material-symbols-outlined text-sm">logout</span> ВЫЙТИ
             </button>
 </div>
 </aside>
-<!-- Main Content -->
 <main class="flex-1 lg:ml-72 flex flex-col bg-[#131319]">
-<!-- Top Bar -->
 <header class="min-h-16 h-auto py-3 md:py-0 border-b border-white/5 bg-[#0f0f15]/80 backdrop-blur-md sticky top-0 z-10 px-6 md:px-8 flex flex-col md:flex-row items-center justify-between gap-4">
 <div class="flex items-center gap-6">
 <div class="flex items-center gap-2 px-3 py-1.5 bg-emerald-primary/5 rounded-full border border-emerald-primary/10 text-[10px]">
 <div class="w-1.5 h-1.5 bg-emerald-primary rounded-full animate-pulse shadow-[0_0_8px_#00e479]" id="connection-dot"></div>
 <span class="font-bold uppercase text-emerald-primary/80" id="connection-status">API CONNECTED</span>
 </div>
-<button class="btn-emerald px-5 py-2 text-xs font-bold flex items-center gap-2 h-9 px-8 h-10 text-sm shadow-[0_0_15px_#00e479] uppercase" onclick="publishAll()"><span class="material-symbols-outlined text-lg">cloud_upload</span> СОХРАНИТЬ ВСЁ</button>
+<button class="btn-emerald px-8 h-10 text-sm shadow-[0_0_15px_#00e479] uppercase flex items-center gap-2" onclick="publishAll()">
+<span class="material-symbols-outlined text-lg">cloud_upload</span> СОХРАНИТЬ ВСЁ
+                </button>
 </div>
 </header>
 <div class="p-8 pb-20">
-<!-- HOME TAB -->
 <div class="tab-content space-y-8" id="home-tab">
 <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
 <div class="terminal-border p-6 rounded-xl bg-[#0f0f15] shadow-[0_0_10px_rgba(0,228,121,0.05)] space-y-6">
@@ -299,7 +285,7 @@
 <span class="material-symbols-outlined text-emerald-primary">image_search</span> ПРЕДПРОСМОТР
                         </h3>
 <div class="flex-1 rounded-lg border border-dashed border-white/10 flex items-center justify-center overflow-hidden min-h-[250px] bg-black/20" id="home-image-preview">
-<img alt="" class="max-w-full max-h-[400px] object-contain hidden" id="home-preview-img" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MDAiIGhlaWdodD0iMzAwIj48cmVjdCB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgcng9IjgiIGZpbGw9IiNlOGVhZWQiLz48cGF0aCBkPSJNMTcwIDEzMCBsMzAgNDAgbDIwLTE1IGw0MCA1NSBIMTQweiIgZmlsbD0iI2JkYzFjNiIvPjxjaXJjbGUgY3g9IjI1MCIgY3k9IjEyMCIgcj0iMTgiIGZpbGw9IiNiZGMxYzYiLz48L3N2Zz4="/>
+<img alt="" class="max-w-full max-h-[400px] object-contain hidden" id="home-preview-img" src=""/>
 <div class="text-center opacity-20" id="no-preview">
 <span class="material-symbols-outlined text-5xl block mb-2">image_not_supported</span>
 <p class="text-xs uppercase font-bold tracking-widest">НЕТ ИЗОБРАЖЕНИЯ</p>
@@ -337,12 +323,11 @@
 </div>
 </div>
 <div class="flex justify-end pt-8 border-t border-white/5">
-<button class="btn-emerald px-8 py-3.5 text-sm font-bold flex items-center gap-3 w-full md:w-auto px-12 shadow-[0_0_20px_#00e479]" onclick="publishAll()">
+<button class="btn-emerald px-12 py-3.5 text-sm font-bold flex items-center gap-3 w-full md:w-auto shadow-[0_0_20px_#00e479]" onclick="publishAll()">
 <span class="material-symbols-outlined">save</span> СОХРАНИТЬ ИЗМЕНЕНИЯ
                     </button>
 </div>
 </div>
-<!-- GALLERY TAB -->
 <div class="tab-content hidden" id="gallery-tab">
 <div class="flex items-center justify-between mb-8 border-b border-white/5 pb-6">
 <h2 class="text-2xl font-black uppercase text-white tracking-tight">АРХИВ ИЗОБРАЖЕНИЙ</h2>
@@ -362,7 +347,6 @@
                     </button>
 </div>
 </div>
-<!-- GUIDES TAB -->
 <div class="tab-content hidden space-y-8" id="guides-tab">
 <div class="flex items-center justify-between mb-6 border-b border-white/5 pb-6">
 <h2 class="text-2xl font-black uppercase text-white tracking-tight">СПИСОК ГАЙДОВ</h2>
@@ -375,7 +359,6 @@
                     </button>
 </div>
 </div>
-<!-- SUGGESTIONS TAB -->
 <div class="tab-content hidden space-y-8" id="suggestions-tab">
 <div class="terminal-border p-6 rounded-xl bg-[#0f0f15] mb-8 shadow-[0_0_10px_rgba(0,228,121,0.05)]">
 <h3 class="text-sm font-bold mb-4 flex items-center gap-2 text-white uppercase tracking-widest"><span class="material-symbols-outlined text-emerald-primary text-lg">cloud_sync</span> Синхронизация данных (Firebase)</h3>
@@ -428,12 +411,13 @@
 <th class="p-4 text-[10px] font-bold text-white/30 uppercase tracking-wider text-right">ДЕЙСТВИЯ</th>
 </tr>
 </thead>
-<tbody class="divide-y divide-white/5" id="suggestions-body"><tr><td class="p-10 text-center opacity-20 text-sm uppercase tracking-widest font-bold animate-pulse" colspan="5">ЗАГРУЗКА ОЧЕРЕДИ...</td></tr></tbody>
+<tbody class="divide-y divide-white/5" id="suggestions-body">
+<tr><td class="p-10 text-center opacity-20 text-sm uppercase tracking-widest font-bold animate-pulse" colspan="5">ЗАГРУЗКА ОЧЕРЕДИ...</td></tr>
+</tbody>
 </table>
 </div>
 </div>
 </div>
-<!-- ACCEPTED TAB -->
 <div class="tab-content hidden space-y-8" id="accepted-tab">
 <div class="flex items-center justify-between mb-8 border-b border-white/5 pb-6">
 <h2 class="text-2xl font-black uppercase text-white tracking-tight">ОДОБРЕННЫЕ К ПУБЛИКАЦИИ</h2>
@@ -457,7 +441,6 @@
 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-6 selection:bg-emerald-primary/30" id="accepted-items"></div>
 <div class="p-10 text-center opacity-20 text-sm uppercase tracking-widest font-bold hidden" id="accepted-empty">СПИСОК ПУСТ</div>
 </div>
-<!-- SETTINGS TAB -->
 <div class="tab-content hidden" id="settings-tab">
 <div class="max-w-4xl mx-auto space-y-8">
 <div class="terminal-border p-8 rounded-xl bg-[#0f0f15]">
@@ -514,7 +497,7 @@
 </div>
 </main>
 </div>
-<!-- SUGGESTION MODAL -->
+<!-- MODALS -->
 <div class="fixed inset-0 z-[100] flex items-center justify-center bg-black/80 backdrop-blur-sm hidden" id="suggestion-modal" onclick="closeSuggestionModal()">
 <div class="w-full max-w-2xl obsidian-card rounded-2xl p-8 border border-emerald-primary/30 shadow-[0_0_30px_rgba(0,228,121,0.1)]" onclick="event.stopPropagation()">
 <div class="flex justify-between items-start mb-6">
@@ -523,17 +506,25 @@
 <span class="material-symbols-outlined">close</span>
 </button>
 </div>
-<div class="space-y-6" id="modal-content"><div class="grid grid-cols-1 md:grid-cols-2 gap-8"><div class="aspect-square rounded-xl bg-black/40 border border-white/10 overflow-hidden flex items-center justify-center shadow-inner group"><img class="max-w-full max-h-full object-contain transition-transform group-hover:scale-105 duration-500" id="modal-preview-img" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MDAiIGhlaWdodD0iMzAwIj48cmVjdCB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgcng9IjgiIGZpbGw9IiNlOGVhZWQiLz48cGF0aCBkPSJNMTcwIDEzMCBsMzAgNDAgbDIwLTE1IGw0MCA1NSBIMTQweiIgZmlsbD0iI2JkYzFjNiIvPjxjaXJjbGUgY3g9IjI1MCIgY3k9IjEyMCIgcj0iMTgiIGZpbGw9IiNiZGMxYzYiLz48L3N2Zz4="/></div><div class="flex flex-col h-full"><div class="space-y-5 flex-1"><div><label class="block text-[10px] font-bold text-white/30 uppercase tracking-widest mb-1">НАЗВАНИЕ АРТА</label><p class="text-lg font-black text-white uppercase" id="modal-art-title">—</p></div><div class="grid grid-cols-2 gap-4"><div><label class="block text-[10px] font-bold text-white/30 uppercase tracking-widest mb-1">РАЗМЕР (X/Y)</label><p class="text-sm font-bold text-white/80 font-mono" id="modal-art-res">—</p></div><div><label class="block text-[10px] font-bold text-white/30 uppercase tracking-widest mb-1">ДАТА ОТПРАВКИ</label><p class="text-sm font-bold text-emerald-primary/80 font-mono" id="modal-art-date">—</p></div></div><div><label class="block text-[10px] font-bold text-white/30 uppercase tracking-widest mb-1">АНАЛИЗ ПЛОТНОСТИ (PX)</label><div class="px-3 py-2 bg-emerald-primary/5 border border-emerald-primary/10 rounded font-mono text-emerald-primary text-xs break-all uppercase flex flex-col gap-1"><div class="" id="modal-pixel-total">ОБЩЕЕ: —</div><div class="text-white" id="modal-pixel-opaque">ПЛОЩАДЬ (PX): —</div></div></div><div><label class="block text-[10px] font-bold text-white/30 uppercase tracking-widest mb-1">КОНТАКТ / ИМЯ</label><p class="text-xs text-emerald-primary font-mono font-bold" id="modal-art-contact">—</p></div><div><label class="block text-[10px] font-bold text-white/30 uppercase tracking-widest mb-1">КОММЕНТАРИЙ</label><div class="max-h-[100px] overflow-y-auto pr-2 custom-scrollbar"><p class="text-xs text-white/60 leading-relaxed italic border-l-2 border-emerald-primary/30 pl-3" id="modal-art-comment">—</p></div></div></div></div></div></div>
-<div class="mt-8 pt-6 border-t border-white/5 flex flex-wrap items-center justify-between gap-4"><div class="flex gap-3"><button class="btn-emerald px-6 py-2.5 text-xs flex items-center gap-2" id="modal-download-btn"><span class="material-symbols-outlined text-sm">download</span> СКАЧАТЬ АРТ</button><button class="hidden px-6 py-2.5 text-xs font-bold text-red-500/60 hover:text-red-500 border border-red-500/20 rounded-lg transition-colors flex items-center gap-2" id="modal-delete-btn"><span class="material-symbols-outlined text-sm">delete</span> УДАЛИТЬ</button></div><div class="flex gap-4"><button class="px-6 py-2.5 text-xs font-bold text-white/40 hover:text-white border border-white/10 rounded-lg transition-colors" onclick="closeSuggestionModal()">ЗАКРЫТЬ</button><button class="btn-emerald px-8 py-2.5 text-xs shadow-[0_0_15px_rgba(0,228,121,0.3)]" id="modal-accept-btn">ПЕРЕНЕСТИ В ОДОБРЕННЫЕ</button></div></div>
+<div class="space-y-6" id="modal-content"></div>
+<div class="mt-8 pt-6 border-t border-white/5 flex flex-wrap items-center justify-between gap-4">
+<div class="flex gap-3">
+<button class="btn-emerald px-6 py-2.5 text-xs flex items-center gap-2" id="modal-download-btn"><span class="material-symbols-outlined text-sm">download</span> СКАЧАТЬ АРТ</button>
+<button class="hidden px-6 py-2.5 text-xs font-bold text-red-500/60 hover:text-red-500 border border-red-500/20 rounded-lg transition-colors flex items-center gap-2" id="modal-delete-btn"><span class="material-symbols-outlined text-sm">delete</span> УДАЛИТЬ</button>
+</div>
+<div class="flex gap-4">
+<button class="px-6 py-2.5 text-xs font-bold text-white/40 hover:text-white border border-white/10 rounded-lg transition-colors" onclick="closeSuggestionModal()">ЗАКРЫТЬ</button>
+<button class="btn-emerald px-8 py-2.5 text-xs shadow-[0_0_15px_rgba(0,228,121,0.3)]" id="modal-accept-btn">ПЕРЕНЕСТИ В ОДОБРЕННЫЕ</button>
 </div>
 </div>
-<!-- ACCEPT PUBLISH MODAL -->
+</div>
+</div>
 <div class="fixed inset-0 z-[110] flex items-center justify-center bg-black/90 backdrop-blur-md hidden" id="publish-modal" onclick="this.classList.add('hidden')">
 <div class="w-full max-w-lg obsidian-card rounded-2xl p-8" onclick="event.stopPropagation()">
 <h3 class="text-xl font-black text-white uppercase tracking-tight mb-6">ПУБЛИКАЦИЯ В ГАЛЕРЕЮ</h3>
 <div class="space-y-6">
 <div class="aspect-video rounded-lg border border-white/10 overflow-hidden bg-black/40">
-<img class="w-full h-full object-contain" id="publish-preview-img" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MDAiIGhlaWdodD0iMzAwIj48cmVjdCB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgcng9IjgiIGZpbGw9IiNlOGVhZWQiLz48cGF0aCBkPSJNMTcwIDEzMCBsMzAgNDAgbDIwLTE1IGw0MCA1NSBIMTQweiIgZmlsbD0iI2JkYzFjNiIvPjxjaXJjbGUgY3g9IjI1MCIgY3k9IjEyMCIgcj0iMTgiIGZpbGw9IiNiZGMxYzYiLz48L3N2Zz4="/>
+<img class="w-full h-full object-contain" id="publish-preview-img" src=""/>
 </div>
 <div>
 <label class="block text-[10px] font-bold text-white/30 uppercase tracking-widest mb-2">НАЗВАНИЕ</label>
@@ -550,13 +541,10 @@
 </div>
 </div>
 </div>
-<!-- TOAST NOTIFICATION -->
 <div class="fixed bottom-10 right-10 z-[100] hidden" id="toast">
 <div class="obsidian-card rounded-xl flex items-center gap-4 p-4 min-w-[300px]" id="toast-body">
 <span class="material-symbols-outlined text-2xl" id="toast-icon"></span>
-<div>
-<p class="font-bold text-xs uppercase tracking-widest text-white" id="toast-msg"></p>
-</div>
+<div><p class="font-bold text-xs uppercase tracking-widest text-white" id="toast-msg"></p></div>
 </div>
 </div>
 <script>
@@ -585,10 +573,7 @@
         if (!input) return "—";
         const date = new Date(input);
         if (isNaN(date.getTime())) return input;
-        
-        const d = date.toLocaleDateString('ru-RU');
-        const t = date.toLocaleTimeString('ru-RU', { hour12: false });
-        return `${d}, ${t}`;
+        return `${date.toLocaleDateString('ru-RU')}, ${date.toLocaleTimeString('ru-RU', { hour12: false })}`;
     }
 
     function toast(msg, type) {
@@ -627,13 +612,11 @@
         const res = await fetch(`https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${path}?ref=${BRANCH}`, { headers: { Authorization: `token ${token}`, Accept: "application/vnd.github.v3+json" } });
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
         const data = await res.json();
-        // Fix for Unicode and Base64 decoding
         const content = JSON.parse(decodeURIComponent(escape(atob(data.content.replace(/\n/g, "")))));
         return { content: content, sha: data.sha };
     }
 
     async function saveJSON(path, content, sha) {
-        // Fix for Unicode and Base64 encoding
         const body = { 
             message: `terminal_sync: ${path}`, 
             content: btoa(unescape(encodeURIComponent(JSON.stringify(content, null, 2)))), 
@@ -678,7 +661,6 @@
                 finalizeFirebaseInit();
             }
         } catch(e) {
-            toast("FIREBASE INIT ERROR", "error");
             updateFirebaseStatus("CONFIG ERROR", "bg-red-500/50");
         }
     }
@@ -700,23 +682,8 @@
         if (!firebaseDb) return;
         firebaseDb.ref('suggestions').on('value', async (snapshot) => {
             suggestionsData = snapshot.val() || {};
-            await autoAnalyzeSuggestions();
             renderSuggestionsTable();
         });
-    }
-
-    async function autoAnalyzeSuggestions() {
-        for (let key in suggestionsData) {
-            if (!suggestionsData[key].width || !suggestionsData[key].height) {
-                const stats = await analyzePixelData(suggestionsData[key].image);
-                if (stats) {
-                    firebaseDb.ref(`suggestions/${key}`).update({ 
-                        width: stats.width, 
-                        height: stats.height 
-                    });
-                }
-            }
-        }
     }
 
     function startAcceptedListener() {
@@ -734,23 +701,14 @@
             img.crossOrigin = "Anonymous";
             img.onload = () => {
                 const canvas = document.createElement('canvas');
-                canvas.width = img.width;
-                canvas.height = img.height;
+                canvas.width = img.width; canvas.height = img.height;
                 const ctx = canvas.getContext('2d');
                 ctx.drawImage(img, 0, 0);
                 try {
-                    const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-                    const data = imageData.data;
+                    const data = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
                     let opaqueCount = 0;
-                    for (let i = 3; i < data.length; i += 4) {
-                        if (data[i] > 10) opaqueCount++; 
-                    }
-                    resolve({
-                        width: img.width,
-                        height: img.height,
-                        total: img.width * img.height,
-                        opaque: opaqueCount
-                    });
+                    for (let i = 3; i < data.length; i += 4) { if (data[i] > 10) opaqueCount++; }
+                    resolve({ width: img.width, height: img.height, total: img.width * img.height, opaque: opaqueCount });
                 } catch(e) { resolve(null); }
             };
             img.onerror = () => resolve(null);
@@ -758,41 +716,17 @@
         });
     }
 
-    function sortSuggestions(val) {
-        currentSuggestionSort = val;
-        renderSuggestionsTable();
-    }
-
-    function sortAccepted(val) {
-        currentAcceptedSort = val;
-        renderAcceptedItems();
-    }
+    function sortSuggestions(val) { currentSuggestionSort = val; renderSuggestionsTable(); }
+    function sortAccepted(val) { currentAcceptedSort = val; renderAcceptedItems(); }
 
     function getSortedKeys(data, sortType) {
         let keys = Object.keys(data);
         keys.sort((a, b) => {
-            const itemA = data[a];
-            const itemB = data[b];
-            
-            if (sortType === 'alpha_asc') {
-                return (itemA.title || "").localeCompare(itemB.title || "");
-            } else if (sortType === 'date_desc') {
-                return new Date(itemB.date || 0) - new Date(itemA.date || 0);
-            } else if (sortType === 'date_asc') {
-                return new Date(itemA.date || 0) - new Date(itemB.date || 0);
-            } else if (sortType === 'size_desc') {
-                const areaA = (itemA.width || 0) * (itemA.height || 0);
-                const areaB = (itemB.width || 0) * (itemB.height || 0);
-                return areaB - areaA;
-            } else if (sortType === 'has_contact') {
-                const aHas = (itemA.contact || itemA.author) ? 1 : 0;
-                const bHas = (itemB.contact || itemB.author) ? 1 : 0;
-                return bHas - aHas;
-            } else if (sortType === 'has_comment') {
-                const aHas = itemA.comment ? 1 : 0;
-                const bHas = itemB.comment ? 1 : 0;
-                return bHas - aHas;
-            }
+            const itemA = data[a]; const itemB = data[b];
+            if (sortType === 'alpha_asc') return (itemA.title || "").localeCompare(itemB.title || "");
+            if (sortType === 'date_desc') return new Date(itemB.date || 0) - new Date(itemA.date || 0);
+            if (sortType === 'date_asc') return new Date(itemA.date || 0) - new Date(itemB.date || 0);
+            if (sortType === 'size_desc') return (itemB.width * itemB.height || 0) - (itemA.width * itemA.height || 0);
             return 0;
         });
         return keys;
@@ -800,179 +734,83 @@
 
     function renderSuggestionsTable() {
         const tbody = document.getElementById('suggestions-body');
-        const countEl = document.getElementById('suggestion-count');
         const keys = getSortedKeys(suggestionsData, currentSuggestionSort);
-        countEl.textContent = `${keys.length} ЗАЯВОК`;
-        
+        document.getElementById('suggestion-count').textContent = `${keys.length} ЗАЯВОК`;
         if (keys.length === 0) {
             tbody.innerHTML = '<tr><td colspan="5" class="p-10 text-center opacity-20 text-sm uppercase tracking-widest font-bold">ОЧЕРЕДЬ ПУСТА</td></tr>';
             return;
         }
-
         tbody.innerHTML = keys.map(key => {
             const s = suggestionsData[key];
-            const sizeDisplay = s.width && s.height ? `РАЗМЕР: ${s.width}x${s.height}` : 'РАЗМЕР: ???';
-            return `
-            <tr onclick="viewSuggestion('${key}')" class="group cursor-pointer hover:bg-white/[0.04] transition-colors border-b border-white/5 last:border-0">
-                <td class="p-4">
-                    <div class="w-12 h-12 rounded border border-white/10 bg-black/40 overflow-hidden group-hover:border-emerald-primary/40 transition-colors">
-                        <img class="w-full h-full object-cover" src="${s.image || ''}" onerror="this.style.display='none'">
-                    </div>
-                </td>
-                <td class="p-4">
-                    <div class="text-xs font-bold text-white uppercase tracking-wider group-hover:text-emerald-primary transition-colors">${s.title || 'БЕЗ НАЗВАНИЯ'}</div>
-                    <div class="text-[10px] text-white/30 uppercase mt-1">ОТ: ${s.contact || s.author || 'ANON'}</div>
-                </td>
-                <td class="p-4 font-mono text-[10px] text-emerald-primary/80 font-bold uppercase">${sizeDisplay}</td>
+            return `<tr onclick="viewSuggestion('${key}')" class="group cursor-pointer hover:bg-white/[0.04] transition-colors border-b border-white/5 last:border-0">
+                <td class="p-4"><div class="w-12 h-12 rounded border border-white/10 bg-black/40 overflow-hidden"><img class="w-full h-full object-cover" src="${s.image || ''}"></div></td>
+                <td class="p-4"><div class="text-xs font-bold text-white uppercase group-hover:text-emerald-primary transition-colors">${s.title || 'БЕЗ НАЗВАНИЯ'}</div><div class="text-[10px] text-white/30 uppercase mt-1">ОТ: ${s.contact || s.author || 'ANON'}</div></td>
+                <td class="p-4 font-mono text-[10px] text-emerald-primary/80 font-bold uppercase">${s.width ? s.width+'x'+s.height : '???'}</td>
                 <td class="p-4"><span class="px-2 py-0.5 rounded text-[9px] font-bold bg-emerald-primary/10 text-emerald-primary uppercase">CLOUD</span></td>
-                <td class="p-4 text-right">
-                    <div class="flex justify-end gap-2" onclick="event.stopPropagation()">
-                        <button onclick="acceptSuggestion('${key}')" class="w-8 h-8 rounded bg-white/5 text-white/60 hover:bg-emerald-primary hover:text-black transition-all flex items-center justify-center"><span class="material-symbols-outlined text-lg">check_circle</span></button>
-                        <button onclick="deleteSuggestion('${key}')" class="w-8 h-8 rounded bg-red-500/10 text-red-500 hover:bg-red-500 hover:text-white flex items-center justify-center transition-all"><span class="material-symbols-outlined text-lg">delete</span></button>
-                    </div>
-                </td>
+                <td class="p-4 text-right"><div class="flex justify-end gap-2" onclick="event.stopPropagation()"><button onclick="acceptSuggestion('${key}')" class="w-8 h-8 rounded bg-white/5 text-white/60 hover:bg-emerald-primary hover:text-black transition-all flex items-center justify-center"><span class="material-symbols-outlined text-lg">check_circle</span></button><button onclick="deleteSuggestion('${key}')" class="w-8 h-8 rounded bg-red-500/10 text-red-500 hover:bg-red-500 hover:text-white flex items-center justify-center transition-all"><span class="material-symbols-outlined text-lg">delete</span></button></div></td>
             </tr>`;
         }).join('');
     }
 
     async function acceptSuggestion(key) {
-        const item = suggestionsData[key];
-        if(!item) return;
+        const item = suggestionsData[key]; if(!item) return;
         try {
-            const data = {...item, acceptedAt: new Date().toISOString()};
-            await firebaseDb.ref('accepted').push(data);
+            await firebaseDb.ref('accepted').push({...item, acceptedAt: new Date().toISOString()});
             await firebaseDb.ref(`suggestions/${key}`).remove();
             toast("ЗАЯВКА ОДОБРЕНА", "success");
         } catch(e) { toast("ОШИБКА ПЕРЕНОСА", "error"); }
     }
 
     async function viewSuggestion(key) {
-        const item = suggestionsData[key] || acceptedData[key];
-        if(!item) return;
+        const item = suggestionsData[key] || acceptedData[key]; if(!item) return;
         const modal = document.getElementById('suggestion-modal');
-        
-        document.getElementById('modal-preview-img').src = item.image;
-        document.getElementById('modal-art-title').textContent = item.title || 'БЕЗ НАЗВАНИЯ';
-        document.getElementById('modal-art-date').textContent = formatTimestamp(item.date);
-        document.getElementById('modal-art-comment').textContent = item.comment || 'ОПИСАНИЕ ОТСУТСТВУЕТ';
-        document.getElementById('modal-art-contact').textContent = item.contact || item.author || 'ANON';
-        
-        document.getElementById('modal-art-res').textContent = "АНАЛИЗ...";
-        document.getElementById('modal-pixel-total').textContent = "ОБЩЕЕ: —";
-        document.getElementById('modal-pixel-opaque').textContent = "ЧИСТЫЙ ВЕС: —";
-        
+        const content = document.getElementById('modal-content');
         modal.classList.remove('hidden');
-
-        const stats = await analyzePixelData(item.image);
-        if (stats) {
-            document.getElementById('modal-art-res').textContent = `${stats.width} x ${stats.height}`;
-            document.getElementById('modal-pixel-total').textContent = `ОБЩЕЕ: ${stats.total.toLocaleString()} PX`;
-            document.getElementById('modal-pixel-opaque').textContent = `ЧИСТЫЙ ВЕС: ${stats.opaque.toLocaleString()} PX`;
-            if(suggestionsData[key]) {
-                firebaseDb.ref(`suggestions/${key}`).update({ width: stats.width, height: stats.height });
-            }
-        } else {
-            document.getElementById('modal-art-res').textContent = "ОШИБКА";
-        }
-            
-        document.getElementById('modal-download-btn').onclick = () => downloadImage(item.image, `${item.title || 'art'}.png`);
-        
-        const deleteBtn = document.getElementById('modal-delete-btn');
+        content.innerHTML = `<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div class="aspect-square rounded-xl bg-black/40 border border-white/10 overflow-hidden flex items-center justify-center"><img src="${item.image}" class="max-w-full max-h-full object-contain"></div>
+            <div class="space-y-4">
+                <div><label class="block text-[10px] font-bold text-white/30 uppercase mb-1">НАЗВАНИЕ</label><p class="text-lg font-black text-white uppercase">${item.title || '—'}</p></div>
+                <div><label class="block text-[10px] font-bold text-white/30 uppercase mb-1">КОНТАКТ</label><p class="text-sm font-bold text-emerald-primary uppercase">${item.contact || item.author || 'ANON'}</p></div>
+                <div><label class="block text-[10px] font-bold text-white/30 uppercase mb-1">КОММЕНТАРИЙ</label><p class="text-xs text-white/60 italic">${item.comment || 'ОТСУТСТВУЕТ'}</p></div>
+            </div>
+        </div>`;
+        document.getElementById('modal-download-btn').onclick = () => window.open(item.image, '_blank');
         const acceptBtn = document.getElementById('modal-accept-btn');
-        
-        deleteBtn.classList.add('hidden'); 
-        
         if(suggestionsData[key]) {
-            acceptBtn.classList.remove('hidden');
-            acceptBtn.textContent = "ПЕРЕНЕСТИ В ОДОБРЕННЫЕ";
-            acceptBtn.onclick = async () => {
-                await acceptSuggestion(key);
-                closeSuggestionModal();
-            };
-        } else {
-            acceptBtn.classList.add('hidden');
-        }
+            acceptBtn.classList.remove('hidden'); acceptBtn.onclick = () => { acceptSuggestion(key); closeSuggestionModal(); };
+        } else { acceptBtn.classList.add('hidden'); }
     }
 
     function renderAcceptedItems() {
         const el = document.getElementById("accepted-items");
-        const empty = document.getElementById("accepted-empty");
-        const countEl = document.getElementById("accepted-count");
         const keys = getSortedKeys(acceptedData, currentAcceptedSort);
-        
-        countEl.textContent = `${keys.length} АРТОВ`;
-        if (keys.length === 0) {
-            el.innerHTML = '';
-            empty.classList.remove("hidden");
-            return;
-        }
-        empty.classList.add("hidden");
-
+        document.getElementById("accepted-count").textContent = `${keys.length} АРТОВ`;
+        if (keys.length === 0) { el.innerHTML = ''; document.getElementById("accepted-empty").classList.remove("hidden"); return; }
+        document.getElementById("accepted-empty").classList.add("hidden");
         el.innerHTML = keys.map(key => {
             const item = acceptedData[key];
-            const sizeDisplay = item.width && item.height ? `РАЗМЕР: ${item.width}x${item.height}` : 'РАЗМЕР: ???';
-            return `
-            <div class="terminal-border bg-[#0f0f15] p-4 group rounded-xl hover:border-emerald-primary/40 transition-all flex flex-col cursor-pointer" onclick="viewSuggestion('${key}')">
-                <div class="aspect-square mb-4 rounded-lg border border-white/5 relative overflow-hidden bg-black/20">
-                    <img src="${item.image}" class="w-full h-full object-contain">
-                </div>
-                <div class="flex-1 space-y-2">
-                    <div class="text-sm font-bold text-white uppercase truncate">${item.title || 'Untitled'}</div>
-                    <div class="text-[10px] text-white/40 uppercase">ОТ: ${item.contact || item.author || 'ANON'}</div>
-                    <div class="text-[10px] text-emerald-primary font-mono font-bold tracking-wider uppercase">${sizeDisplay}</div>
-                </div>
+            return `<div class="terminal-border bg-[#0f0f15] p-4 group rounded-xl hover:border-emerald-primary/40 transition-all flex flex-col cursor-pointer" onclick="viewSuggestion('${key}')">
+                <div class="aspect-square mb-4 rounded-lg border border-white/5 overflow-hidden bg-black/20"><img src="${item.image}" class="w-full h-full object-contain"></div>
+                <div class="flex-1 space-y-1"><div class="text-sm font-bold text-white uppercase truncate">${item.title || 'Untitled'}</div><div class="text-[10px] text-white/40 uppercase">ОТ: ${item.contact || 'ANON'}</div></div>
                 <div class="mt-4 flex flex-col gap-2" onclick="event.stopPropagation()">
-                    <button onclick="publishToGallery('${key}')" class="btn-emerald w-full py-2.5 text-[10px] flex items-center justify-center gap-2">
-                        <span class="material-symbols-outlined text-sm">publish</span> ОПУБЛИКОВАТЬ
-                    </button>
-                    <button onclick="deleteAccepted('${key}')" class="w-full py-2 text-[10px] font-bold text-red-500/60 hover:text-white hover:bg-red-500/20 border border-red-500/10 rounded transition-colors flex items-center justify-center gap-2">
-                        <span class="material-symbols-outlined text-sm">delete</span> УДАЛИТЬ
-                    </button>
+                    <button onclick="publishToGallery('${key}')" class="btn-emerald w-full py-2.5 text-[10px] flex items-center justify-center gap-2"><span class="material-symbols-outlined text-sm">publish</span> ОПУБЛИКОВАТЬ</button>
+                    <button onclick="deleteAccepted('${key}')" class="w-full py-2 text-[10px] font-bold text-red-500/60 hover:text-white hover:bg-red-500/20 border border-red-500/10 rounded transition-colors flex items-center justify-center gap-2"><span class="material-symbols-outlined text-sm">delete</span> УДАЛИТЬ</button>
                 </div>
             </div>`;
         }).join("");
     }
 
     async function publishToGallery(key) {
-        const item = acceptedData[key];
-        if(!item) return;
-        
-        galleryData.push({
-            title: item.title || "Новый арт",
-            description: item.comment || "",
-            image: item.image
-        });
-        
-        try {
-            await firebaseDb.ref(`accepted/${key}`).remove();
-            renderGallery();
-            toast("ОПУБЛИКОВАНО В ГАЛЕРЕЮ. СОХРАНИТЕ ДАННЫЕ.", "success");
-            switchTab('gallery-tab', document.querySelector('button[onclick*="gallery-tab"]'));
-        } catch(e) {
-            toast("ОШИБКА ПУБЛИКАЦИИ", "error");
-        }
+        const item = acceptedData[key]; if(!item) return;
+        galleryData.push({ title: item.title || "Новый арт", description: item.comment || "", image: item.image });
+        await firebaseDb.ref(`accepted/${key}`).remove();
+        renderGallery(); toast("ОПУБЛИКОВАНО В ГАЛЕРЕЮ", "success");
     }
 
-    function deleteAccepted(key) {
-        firebaseDb.ref(`accepted/${key}`).remove();
-    }
-
-    function deleteSuggestion(key) {
-        firebaseDb.ref(`suggestions/${key}`).remove();
-    }
-
-    function clearFirebaseSuggestions() {
-        firebaseDb.ref('suggestions').set(null);
-    }
-
-    function downloadImage(url, filename) {
-        const link = document.createElement("a");
-        link.href = url;
-        link.download = filename;
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-    }
+    function deleteAccepted(key) { firebaseDb.ref(`accepted/${key}`).remove(); }
+    function deleteSuggestion(key) { firebaseDb.ref(`suggestions/${key}`).remove(); }
+    function clearFirebaseSuggestions() { firebaseDb.ref('suggestions').set(null); }
+    function closeSuggestionModal() { document.getElementById('suggestion-modal').classList.add('hidden'); }
 
     function renderHome() {
         document.getElementById("home-title").value = homeData.title || "";
@@ -986,177 +824,133 @@
     }
 
     function renderStepsAdmin(type, steps) {
-        const el = document.getElementById(`steps-${type}`);
-        if (!el) return;
+        const el = document.getElementById(`steps-${type}`); if (!el) return;
         el.innerHTML = steps.length === 0 ? '<p class="opacity-30 text-center py-2 text-[10px] uppercase font-bold italic">МОДУЛЬ ПУСТ</p>' : steps.map((s, i) => {
             const sd = typeof s === 'object' ? s : { text: s, image: "", detail: "" };
-            return `<div class="p-3 border border-white/5 space-y-2.5 bg-black/20 rounded-lg relative group">
-                <div class="flex gap-2"><span class="text-[10px] font-bold text-emerald-primary/50">${i+1}</span><input class="input-field w-full py-1 px-2 text-xs border-none !bg-white/5" value="${(sd.text||'').replace(/"/g,'&quot;')}" onchange="updateStepField('${type}',${i},'text',this.value)" placeholder="ТЕКСТ ШАГА"></div>
-                <input class="input-field w-full py-1 px-2 text-[10px] border-none !bg-white/5 opacity-50 focus:opacity-100" value="${sd.image||''}" onchange="updateStepField('${type}',${i},'image',this.value)" placeholder="URL ИЗОБРАЖЕНИЯ">
-                <textarea class="input-field w-full py-1 px-2 text-[10px] border-none !bg-white/5 opacity-50 focus:opacity-100" onchange="updateStepField('${type}',${i},'detail',this.value)" placeholder="ДЕТАЛИ..." rows="2">${(sd.detail||'').replace(/</g,'&lt;')}</textarea>
-                <button class="absolute top-1 right-1 opacity-0 group-hover:opacity-100 text-red-500 transition-opacity" onclick="removeStep('${type}',${i})"><span class="material-symbols-outlined text-sm">close</span></button>
+            return `<div class="p-3 border border-white/5 space-y-2 bg-black/20 rounded-lg relative group">
+                <div class="flex gap-2"><span class="text-[10px] font-bold text-emerald-primary/50">${i+1}</span><input class="input-field w-full py-1 px-2 text-xs border-none bg-white/5" value="${(sd.text||'').replace(/"/g,'&quot;')}" onchange="updateStepField('${type}',${i},'text',this.value)"></div>
+                <input class="input-field w-full py-1 px-2 text-[10px] border-none bg-white/5 opacity-50" value="${sd.image||''}" onchange="updateStepField('${type}',${i},'image',this.value)" placeholder="URL">
+                <button class="absolute top-1 right-1 opacity-0 group-hover:opacity-100 text-red-500" onclick="removeStep('${type}',${i})"><span class="material-symbols-outlined text-sm">close</span></button>
             </div>`;
         }).join("");
     }
-
-    function updateStepField(type, i, field, v) {
-        const key = type==="wplace"?"help_wplace":type==="blue"?"help_blue":"help_helper";
-        if(!homeData[key]) homeData[key]=[];
-        if(typeof homeData[key][i]!=='object') homeData[key][i]={text:homeData[key][i]||"",image:"",detail:""};
-        homeData[key][i][field]=v;
-    }
-    function addStep(type) {
-        const key = type==="wplace"?"help_wplace":type==="blue"?"help_blue":"help_helper";
-        if(!homeData[key]) homeData[key]=[];
-        homeData[key].push({text:"",image:"",detail:""});
-        renderStepsAdmin(type, homeData[key]);
-    }
-    function removeStep(type, i) {
-        const key = type==="wplace"?"help_wplace":type==="blue"?"help_blue":"help_helper";
-        homeData[key].splice(i,1);
-        renderStepsAdmin(type, homeData[key]);
-    }
-    function previewHomeImage() {
-        const url = document.getElementById("home-image").value;
-        const img = document.getElementById("home-preview-img");
-        const placeholder = document.getElementById("no-preview");
-        if (url) {
-            img.src = url; img.classList.remove("hidden"); placeholder.classList.add("hidden");
-            img.onerror = () => { img.classList.add("hidden"); placeholder.classList.remove("hidden"); };
-        } else { img.classList.add("hidden"); placeholder.classList.remove("hidden"); }
-    }
-
-    async function saveHome() {
-        homeData.title = document.getElementById("home-title").value;
-        homeData.image = document.getElementById("home-image").value;
-        homeData.description = document.getElementById("home-desc").value;
-        homeData.location = document.getElementById("home-location").value;
-        try { 
-            const newSha = await saveJSON("content/home.json", homeData, homeData._sha); 
-            homeData._sha = newSha;
-            return true; 
-        } catch(e) { toast(e.message, "error"); return false; }
-    }
+    function updateStepField(type, i, field, v) { const k = type==="wplace"?"help_wplace":type==="blue"?"help_blue":"help_helper"; if(!homeData[k][i]) homeData[k][i]={}; homeData[k][i][field]=v; }
+    function addStep(type) { const k = type==="wplace"?"help_wplace":type==="blue"?"help_blue":"help_helper"; if(!homeData[k]) homeData[k]=[]; homeData[k].push({text:"",image:"",detail:""}); renderStepsAdmin(type, homeData[k]); }
+    function removeStep(type, i) { const k = type==="wplace"?"help_wplace":type==="blue"?"help_blue":"help_helper"; homeData[k].splice(i,1); renderStepsAdmin(type, homeData[k]); }
+    function previewHomeImage() { const url = document.getElementById("home-image").value; const img = document.getElementById("home-preview-img"); const p = document.getElementById("no-preview"); if (url) { img.src = url; img.classList.remove("hidden"); p.classList.add("hidden"); } else { img.classList.add("hidden"); p.classList.remove("hidden"); } }
 
     function renderGallery() {
-        const el = document.getElementById("gallery-items");
-        if (!el) return;
-        if (galleryData.length === 0) { el.innerHTML = '<div class="col-span-full py-20 text-center opacity-20 text-sm uppercase tracking-widest font-bold">АРХИВ ПУСТ</div>'; return; }
-        el.innerHTML = galleryData.map((item, i) => `
-            <div class="terminal-border bg-[#0f0f15] p-4 group rounded-xl hover:border-emerald-primary/40 transition-all">
-                <div class="aspect-video mb-4 rounded-lg border border-white/5 relative overflow-hidden bg-black/20">
-                    ${item.image ? `<img src="${item.image}" class="w-full h-full object-contain">` : '<div class="flex items-center justify-center h-full opacity-10"><span class="material-symbols-outlined text-4xl">broken_image</span></div>'}
-                    <div class="absolute inset-0 bg-[#0a0a0f]/90 opacity-0 group-hover:opacity-100 flex items-center justify-center gap-3 transition-opacity">
-                        <button onclick="moveGalleryItem(${i},-1)" class="w-10 h-10 rounded-lg bg-white/5 hover:bg-white/10 flex items-center justify-center text-white transition-colors"><span class="material-symbols-outlined text-xl">arrow_back</span></button>
-                        <button onclick="moveGalleryItem(${i},1)" class="w-10 h-10 rounded-lg bg-white/5 hover:bg-white/10 flex items-center justify-center text-white transition-colors"><span class="material-symbols-outlined text-xl">arrow_forward</span></button>
-                        <button onclick="galleryData.splice(${i},1);renderGallery();" class="w-10 h-10 rounded-lg bg-red-500/10 hover:bg-red-500 text-red-500 hover:text-white flex items-center justify-center transition-colors"><span class="material-symbols-outlined text-xl">delete</span></button>
-                    </div>
-                </div>
-                <div class="space-y-2">
-                    <input placeholder="НАЗВАНИЕ" value="${item.title||''}" onchange="galleryData[${i}].title=this.value" class="input-field w-full text-sm font-bold py-2 px-3 !bg-white/5 border-none">
-                    <textarea placeholder="ОПИСАНИЕ" rows="2" onchange="galleryData[${i}].description=this.value" class="input-field w-full text-[11px] py-2 px-3 !bg-white/5 border-none opacity-60 focus:opacity-100">${item.description||''}</textarea>
-                    <input placeholder="URL ИЗОБРАЖЕНИЯ" value="${item.image||''}" onchange="galleryData[${i}].image=this.value;renderGallery();" class="input-field w-full text-[10px] py-1.5 px-3 border-none !bg-white/5 opacity-40 focus:opacity-100">
-                </div>
-            </div>`).join("");
+        const el = document.getElementById("gallery-items"); if (!el) return;
+        el.innerHTML = galleryData.map((item, i) => `<div class="terminal-border bg-[#0f0f15] p-4 group rounded-xl">
+            <div class="aspect-video mb-4 rounded-lg border border-white/5 overflow-hidden bg-black/20"><img src="${item.image}" class="w-full h-full object-contain"></div>
+            <div class="space-y-2">
+                <input placeholder="НАЗВАНИЕ" value="${item.title||''}" onchange="galleryData[${i}].title=this.value" class="input-field w-full text-sm font-bold py-2 px-3 border-none bg-white/5">
+                <input placeholder="URL" value="${item.image||''}" onchange="galleryData[${i}].image=this.value;renderGallery();" class="input-field w-full text-[10px] py-1 px-3 border-none bg-white/5 opacity-40">
+                <button onclick="galleryData.splice(${i},1);renderGallery();" class="w-full py-2 text-[10px] font-bold text-red-500/60 hover:text-white hover:bg-red-500 border border-red-500/10 rounded transition-all">УДАЛИТЬ</button>
+            </div>
+        </div>`).join("");
     }
     function addGalleryItem() { galleryData.push({ title: "", description: "", image: "" }); renderGallery(); }
-    function moveGalleryItem(i, d) { const n = i+d; if(n<0||n>=galleryData.length)return; [galleryData[i], galleryData[n]] = [galleryData[n], galleryData[i]]; renderGallery(); }
     function sortGallery() { galleryData.sort((a,b) => (a.title||"").localeCompare(b.title||"")); renderGallery(); }
-    async function saveGallery() { try { 
-        const newSha = await saveJSON("content/gallery.json", galleryData, galleryData._sha); 
-        galleryData._sha = newSha;
-        return true; 
-    } catch(e) { toast(e.message, "error"); return false; } }
 
     function renderGuides() {
-        const el = document.getElementById("guides-items");
-        if (!el) return;
-        if (guidesData.length === 0) { el.innerHTML = '<div class="py-20 text-center opacity-20 text-sm uppercase tracking-widest font-bold">ИНСТРУКЦИЙ НЕ НАЙДЕНЫ</div>'; return; }
-        el.innerHTML = guidesData.map((g, i) => `
-            <div class="terminal-border p-6 bg-[#0f0f15] rounded-xl">
+        const el = document.getElementById("guides-items"); if (!el) return;
+        if (guidesData.length === 0) { el.innerHTML = '<div class="py-20 text-center opacity-20 text-sm uppercase font-bold">ИНСТРУКЦИЙ НЕ НАЙДЕНЫ</div>'; return; }
+        el.innerHTML = guidesData.map((g, i) => {
+            const pcSteps = g.install_pc || [];
+            const phoneSteps = g.install_phone || [];
+            const androidSteps = phoneSteps.filter(s => s.section === '📱 Android (Edge)');
+            const iphoneSteps = phoneSteps.filter(s => s.section === '📱 iPhone (iOS)');
+            
+            return `<div class="terminal-border p-6 bg-[#0f0f15] rounded-xl">
                 <div class="flex items-center justify-between mb-8 border-b border-white/5 pb-6">
-                    <div class="flex-1 mr-4">
-                        <input class="input-field w-full text-xl font-black bg-transparent border-none px-0 focus:ring-0 uppercase text-white" placeholder="ТЕМАТИКА" value="${g.title||''}" onchange="guidesData[${i}].title=this.value">
-                        <textarea class="input-field w-full text-sm opacity-60 bg-transparent border-none px-0 mt-2 focus:ring-0 text-white" placeholder="ВВОДНАЯ ИНФОРМАЦИЯ..." rows="1" onchange="guidesData[${i}].description=this.value">${g.description||''}</textarea>
-                    </div>
-                    <button class="w-10 h-10 rounded-lg bg-red-500/10 hover:bg-red-500 text-red-500 hover:text-white transition-colors flex items-center justify-center" onclick="guidesData.splice(${i},1);renderGuides();">
-                        <span class="material-symbols-outlined text-xl">delete</span>
-                    </button>
+                    <input class="input-field w-full text-xl font-black bg-transparent border-none px-0 uppercase text-white" placeholder="ТЕМАТИКА" value="${g.title||''}" onchange="guidesData[${i}].title=this.value">
+                    <button class="w-10 h-10 rounded-lg bg-red-500/10 hover:bg-red-500 text-red-500 hover:text-white transition-colors" onclick="guidesData.splice(${i},1);renderGuides();"><span class="material-symbols-outlined text-xl">delete</span></button>
                 </div>
                 <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
                     <div>
-                        <div class="flex items-center justify-between mb-4"><span class="text-[10px] font-bold uppercase text-white/40 tracking-wider flex items-center gap-2"><span class="material-symbols-outlined text-sm">desktop_windows</span> 💻 ПК</span><button onclick="addGuideStep(${i}, 'pc', '💻 ПК')" class="text-[10px] font-bold text-emerald-primary/60 hover:text-emerald-primary uppercase tracking-widest transition-colors">+ ШАГ</button></div>
-                        <div class="space-y-4">${renderGuideStepsHTML(g.install_pc||[], i, 'pc')}</div>
+                        <div class="flex items-center justify-between mb-4"><span class="text-[10px] font-bold uppercase text-white/40 tracking-wider">💻 ПК</span><button onclick="addGuideStep(${i}, 'pc')" class="text-[10px] font-bold text-emerald-primary uppercase">+ ШАГ</button></div>
+                        <div class="space-y-4" id="guide-${i}-pc">${renderGuideStepsListHTML(pcSteps, i, 'pc')}</div>
                     </div>
                     <div>
-                        <div class="flex items-center justify-between mb-4"><span class="text-[10px] font-bold uppercase text-white/40 tracking-wider flex items-center gap-2"><span class="material-symbols-outlined text-sm">smartphone</span> 📱 Android (Edge)</span><button onclick="addGuideStep(${i}, 'phone', '📱 Android (Edge)')" class="text-[10px] font-bold text-emerald-primary/60 hover:text-emerald-primary uppercase tracking-widest transition-colors">+ ШАГ</button></div>
-                        <div class="space-y-4">${renderGuideStepsHTML(g.install_phone||[], i, 'phone')}</div>
+                        <div class="flex items-center justify-between mb-4"><span class="text-[10px] font-bold uppercase text-white/40 tracking-wider">📱 Android</span><button onclick="addGuideStep(${i}, 'android')" class="text-[10px] font-bold text-emerald-primary uppercase">+ ШАГ</button></div>
+                        <div class="space-y-4" id="guide-${i}-android">${renderGuideStepsListHTML(androidSteps, i, 'android')}</div>
                     </div>
                     <div>
-                        <div class="flex items-center justify-between mb-4"><span class="text-[10px] font-bold uppercase text-white/40 tracking-wider flex items-center gap-2"><span class="material-symbols-outlined text-sm">smartphone</span> 📱 iPhone (iOS)</span><button onclick="addGuideStep(${i}, 'iphone_ios', '📱 iPhone (iOS)')" class="text-[10px] font-bold text-emerald-primary/60 hover:text-emerald-primary uppercase tracking-widest transition-colors">+ ШАГ</button></div>
-                        <div class="space-y-4">${renderGuideStepsHTML(g.install_iphone_ios||[], i, 'iphone_ios')}</div>
+                        <div class="flex items-center justify-between mb-4"><span class="text-[10px] font-bold uppercase text-white/40 tracking-wider">📱 iPhone</span><button onclick="addGuideStep(${i}, 'iphone')" class="text-[10px] font-bold text-emerald-primary uppercase">+ ШАГ</button></div>
+                        <div class="space-y-4" id="guide-${i}-iphone">${renderGuideStepsListHTML(iphoneSteps, i, 'iphone')}</div>
                     </div>
                 </div>
-            </div>`).join("");
-    }
-    function renderGuideStepsHTML(steps, gi, type) {
-        if (!steps || steps.length === 0) return '<p class="text-[10px] opacity-20 uppercase font-bold text-center py-4 border border-dashed border-white/5 rounded-lg">ПУСТО</p>';
-        return steps.map((s, si) => {
-            const sd = typeof s === 'object' ? s : { text: s, image: "", detail: "", section: "" };
-            // Ensure section consistency during render based on container type
-            const correctSection = type === 'pc' ? '💻 ПК' : (type === 'phone' ? '📱 Android (Edge)' : '📱 iPhone (iOS)');
-            return `<div class="p-4 bg-white/5 border border-white/5 rounded-lg relative group space-y-3">
-                <div class="flex gap-2"><input value="${(sd.text||'').replace(/"/g,'&quot;')}" onchange="updateGuideField(${gi},'${type}',${si},'text',this.value)" class="flex-1 py-1 px-3 text-xs bg-black/40 border-none rounded focus:ring-1 focus:ring-emerald-primary/50 text-white" placeholder="ИНСТРУКЦИЯ"></div>
-                <input value="${sd.image||''}" onchange="updateGuideField(${gi},'${type}',${si},'image',this.value)" class="w-full py-1 px-3 text-[10px] bg-black/20 border-none rounded text-white/40 focus:text-white" placeholder="URL СКРИНШОТА">
-                <textarea onchange="updateGuideField(${gi},'${type}',${si},'detail',this.value)" class="w-full py-1.5 px-3 text-[10px] bg-black/40 border-none rounded text-white/60 focus:text-white" placeholder="ПОДРОБНОСТИ (ОПИСАНИЕ, ССЫЛКИ...)" rows="2">${(sd.detail||'').replace(/</g,'&lt;')}</textarea>
-                <div class="text-[9px] uppercase font-bold text-emerald-primary/40 px-2 select-none">${correctSection}</div>
-                <button class="absolute -top-2 -right-2 w-6 h-6 bg-red-600 rounded-full text-white font-bold opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity shadow-lg" onclick="guidesData[${gi}].install_${type}.splice(${si},1);renderGuides();"><span class="material-symbols-outlined text-sm">close</span></button>
             </div>`;
         }).join("");
     }
-    function updateGuideField(gi, type, si, field, v) {
-        const key = `install_${type}`;
-        if (!guidesData[gi][key]) guidesData[gi][key] = [];
-        if (typeof guidesData[gi][key][si] !== 'object') {
-            const sectionMap = { 'pc': '💻 ПК', 'phone': '📱 Android (Edge)', 'iphone_ios': '📱 iPhone (iOS)' };
-            guidesData[gi][key][si] = { text: guidesData[gi][key][si] || "", image: "", detail: "", section: sectionMap[type] };
+
+    function renderGuideStepsListHTML(steps, gi, colType) {
+        if (steps.length === 0) return '<p class="text-[10px] opacity-10 uppercase text-center py-4 border border-dashed border-white/5 rounded-lg">ПУСТО</p>';
+        return steps.map((s, si) => `<div class="p-4 bg-white/5 border border-white/5 rounded-lg relative group space-y-2">
+            <input value="${(s.text||'').replace(/"/g,'&quot;')}" onchange="updateGuideField(${gi},'${colType}',${si},'text',this.value)" class="w-full py-1 px-3 text-xs bg-black/40 border-none rounded text-white" placeholder="ИНСТРУКЦИЯ">
+            <input value="${s.image||''}" onchange="updateGuideField(${gi},'${colType}',${si},'image',this.value)" class="w-full py-1 px-3 text-[10px] bg-black/20 border-none rounded text-white/40" placeholder="URL КАРТИНКИ">
+            <button class="absolute -top-2 -right-2 w-6 h-6 bg-red-600 rounded-full text-white opacity-0 group-hover:opacity-100 flex items-center justify-center transition-all" onclick="removeGuideStep(${gi}, '${colType}', ${si})"><span class="material-symbols-outlined text-sm">close</span></button>
+        </div>`).join("");
+    }
+
+    function updateGuideField(gi, colType, si, field, v) {
+        let guide = guidesData[gi];
+        if (colType === 'pc') {
+            if (!guide.install_pc) guide.install_pc = [];
+            guide.install_pc[si][field] = v;
+        } else {
+            if (!guide.install_phone) guide.install_phone = [];
+            const targetSection = colType === 'android' ? '📱 Android (Edge)' : '📱 iPhone (iOS)';
+            let filtered = guide.install_phone.filter(s => s.section === targetSection);
+            if (filtered[si]) filtered[si][field] = v;
         }
-        guidesData[gi][key][si][field] = v;
     }
-    function addGuideItem() { guidesData.push({ title: "", description: "", install_pc: [], install_phone: [], install_iphone_ios: [], note: "" }); renderGuides(); }
-    function addGuideStep(gi, type, sectionName) { 
-        const key = `install_${type}`; 
-        if(!guidesData[gi][key]) guidesData[gi][key]=[]; 
-        guidesData[gi][key].push({ text: "", image: "", detail: "", section: sectionName }); 
-        renderGuides(); 
+
+    function addGuideStep(gi, colType) {
+        let guide = guidesData[gi];
+        if (colType === 'pc') {
+            if (!guide.install_pc) guide.install_pc = [];
+            guide.install_pc.push({ text: "", image: "", detail: "", section: "💻 ПК" });
+        } else {
+            if (!guide.install_phone) guide.install_phone = [];
+            const section = colType === 'android' ? '📱 Android (Edge)' : '📱 iPhone (iOS)';
+            guide.install_phone.push({ text: "", image: "", detail: "", section: section });
+        }
+        renderGuides();
     }
-    async function saveGuides() { 
-        try { 
-            // Rigid binding of sections before final storage to ensure data integrity
-            guidesData.forEach(guide => {
-                const types = [
-                    { key: 'install_pc', section: '💻 ПК' },
-                    { key: 'install_phone', section: '📱 Android (Edge)' },
-                    { key: 'install_iphone_ios', section: '📱 iPhone (iOS)' }
-                ];
-                
-                types.forEach(config => {
-                    if (guide[config.key]) {
-                        guide[config.key] = guide[config.key].map(step => {
-                            if (typeof step !== 'object') {
-                                return { text: step, image: "", detail: "", section: config.section };
-                            }
-                            // Hard overwrite of section property to match its container column
-                            return { ...step, section: config.section };
-                        });
-                    }
-                });
+
+    function removeGuideStep(gi, colType, si) {
+        let guide = guidesData[gi];
+        if (colType === 'pc') {
+            guide.install_pc.splice(si, 1);
+        } else {
+            const targetSection = colType === 'android' ? '📱 Android (Edge)' : '📱 iPhone (iOS)';
+            let indices = [];
+            guide.install_phone.forEach((s, idx) => { if (s.section === targetSection) indices.push(idx); });
+            if (indices[si] !== undefined) guide.install_phone.splice(indices[si], 1);
+        }
+        renderGuides();
+    }
+
+    function addGuideItem() { guidesData.push({ title: "", install_pc: [], install_phone: [] }); renderGuides(); }
+
+    async function saveGuides() {
+        try {
+            // Processing logic to ensure data matches requested structure
+            const processed = guidesData.map(g => {
+                const pc = (g.install_pc || []).map(s => ({...s, section: '💻 ПК'}));
+                // install_phone column is combined Android + iPhone steps
+                const phone = (g.install_phone || []).map(s => ({
+                    ...s, 
+                    section: (s.section && s.section.includes('iPhone')) ? '📱 iPhone (iOS)' : '📱 Android (Edge)'
+                }));
+                return { ...g, install_pc: pc, install_phone: phone };
             });
-            
-            const newSha = await saveJSON("content/guides.json", guidesData, guidesData._sha); 
+            const newSha = await saveJSON("content/guides.json", processed, guidesData._sha); 
             guidesData._sha = newSha;
-            return true; 
-        } catch(e) { toast(e.message, "error"); return false; } 
+            return true;
+        } catch(e) { toast(e.message, "error"); return false; }
     }
 
     function renderSettings() {
@@ -1166,31 +960,15 @@
         document.getElementById("settings-footer").value = settingsData.footer || "";
     }
 
-    async function saveSettings() {
-        settingsData.siteTitle = document.getElementById("settings-siteTitle").value;
-        settingsData.headerTitle = document.getElementById("settings-headerTitle").value;
-        settingsData.headerSubtitle = document.getElementById("settings-headerSubtitle").value;
-        settingsData.footer = document.getElementById("settings-footer").value;
-        try { 
-            const newSha = await saveJSON("content/settings.json", settingsData, settingsData._sha); 
-            settingsData._sha = newSha;
-            return true; 
-        } catch(e) { toast(e.message, "error"); return false; } 
-    }
-
     async function publishAll() {
-        toast("СИНХРОНИЗАЦИЯ С ОБЛАКОМ...", "info");
+        toast("СИНХРОНИЗАЦИЯ...", "info");
         try {
-            const h = await saveHome();
-            const g = await saveGallery();
+            const h = await saveJSON("content/home.json", homeData, homeData._sha); homeData._sha = h;
+            const g = await saveJSON("content/gallery.json", galleryData, galleryData._sha); galleryData._sha = g;
+            const s = await saveJSON("content/settings.json", settingsData, settingsData._sha); settingsData._sha = s;
             const gu = await saveGuides();
-            const s = await saveSettings();
-            if (h && g && gu && s) {
-                toast("ДАННЫЕ УСПЕШНО ЗАПИСАНЫ", "success");
-            } else {
-                toast("ОШИБКА ПРИ ПЕРЕДАЧЕ ДАННЫХ", "error");
-            }
-        } catch(e) { toast("ОШИБКА ПРИ ПЕРЕДАЧЕ ДАННЫХ", "error"); }
+            if (gu) toast("ДАННЫЕ УСПЕШНО ЗАПИСАНЫ", "success");
+        } catch(e) { toast("ОШИБКА ПЕРЕДАЧИ", "error"); }
     }
 
     function switchTab(tabId, btn) {
@@ -1201,55 +979,47 @@
         window.scrollTo(0,0);
     }
 
-    async function resetAll() {
+    function resetAll() {
         if(!confirm("СБРОСИТЬ ВСЕ ДАННЫЕ?")) return;
-        homeData = { title: "", image: "", description: "", location: "", help_wplace: [], help_blue: [], help_helper: [] };
+        homeData = { title: "", image: "", help_wplace: [], help_blue: [], help_helper: [] };
         galleryData = []; guidesData = [];
         settingsData = { siteTitle: "Admin panel", headerTitle: "⚔ WPLACE ⚔", headerSubtitle: "Pixel Art Community", footer: "© 2025" };
-        await publishAll();
-        renderHome(); renderGallery(); renderGuides(); renderSettings();
+        publishAll();
     }
 
     function exportAll() {
-        const data = { home: homeData, gallery: galleryData, guides: guidesData, settings: settingsData, date: new Date().toISOString() };
-        const b = new Blob([JSON.stringify(data,null,2)],{type:"application/json"}); const a = document.createElement("a"); a.href = URL.createObjectURL(b); a.download = `terminal-export-${Date.now()}.json`; a.click();
+        const data = { home: homeData, gallery: galleryData, guides: guidesData, settings: settingsData };
+        const b = new Blob([JSON.stringify(data,null,2)],{type:"application/json"}); 
+        const a = document.createElement("a"); a.href = URL.createObjectURL(b); a.download = `terminal-export.json`; a.click();
     }
+
     function importAll() { document.getElementById("import-file").click(); }
     function handleImport(e) {
-        const f = e.target.files[0]; if(!f)return; const r = new FileReader();
-        r.onload = function(ev) { try { 
-            const d = JSON.parse(ev.target.result); 
-            if(d.home){homeData=d.home;renderHome();} 
-            if(d.gallery){galleryData=d.gallery;renderGallery();} 
-            if(d.guides){guidesData=d.guides;renderGuides();} 
-            if(d.settings){settingsData=d.settings;renderSettings();} 
-            toast("ДАННЫЕ ЗАГРУЖЕНЫ В БУФЕР. СОХРАНИТЕ ДЛЯ ЗАПИСИ.", "info"); 
-        } catch(er) { toast("ОШИБКА ПРОВЕРКИ ЦЕЛОСТНОСТИ", "error"); } };
-        r.readAsText(f); e.target.value = "";
+        const f = e.target.files[0]; if(!f) return; const r = new FileReader();
+        r.onload = (ev) => {
+            try { 
+                const d = JSON.parse(ev.target.result); 
+                if(d.home) homeData = d.home; if(d.gallery) galleryData = d.gallery; 
+                if(d.guides) guidesData = d.guides; if(d.settings) settingsData = d.settings;
+                renderHome(); renderGallery(); renderGuides(); renderSettings();
+                toast("ИМПОРТИРОВАНО", "success");
+            } catch(er) { toast("ОШИБКА JSON", "error"); }
+        };
+        r.readAsText(f);
     }
 
     function importSuggestionsJSON() {
-        const input = prompt("ВСТАВЬТЕ JSON МАССИВ ЗАЯВОК:");
-        if (!input || !firebaseDb) return;
+        const input = prompt("ВСТАВЬТЕ JSON МАССИВ:"); if (!input || !firebaseDb) return;
         try {
             const data = JSON.parse(input);
-            const array = Array.isArray(data) ? data : [data];
-            array.forEach(item => {
-                firebaseDb.ref('suggestions').push({
-                    ...item,
-                    date: item.date || new Date().toISOString()
-                });
-            });
-            toast(`ИМПОРТИРОВАНО ${array.length} ЗАПИСЕЙ`, "success");
+            (Array.isArray(data) ? data : [data]).forEach(item => firebaseDb.ref('suggestions').push({...item, date: item.date || new Date().toISOString()}));
+            toast("ИМПОРТИРОВАНО", "success");
         } catch(e) { toast("ОШИБКА JSON", "error"); }
     }
 
-    function closeSuggestionModal() { document.getElementById('suggestion-modal').classList.add('hidden'); }
-
-    document.addEventListener("keydown", function(e) {
+    document.addEventListener("keydown", (e) => {
         if ((e.ctrlKey||e.metaKey) && e.key === "s") { e.preventDefault(); publishAll(); }
         if (e.key === "Escape") { closeSuggestionModal(); document.getElementById('publish-modal').classList.add('hidden'); }
     });
-    document.getElementById("token-input").addEventListener("keydown", e => { if(e.key==="Enter")login(); });
 </script>
 </body></html>
