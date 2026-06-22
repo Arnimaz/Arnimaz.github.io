@@ -968,7 +968,7 @@
     function renderHome() {
         document.getElementById("home-title").value = homeData.title || "";
         document.getElementById("home-image").value = homeData.image || "";
-        document.getElementById("home-desc").value = homeData.description || "";
+        document.getElementById("home-description").value = homeData.description || "";
         document.getElementById("home-location").value = homeData.location || "";
         renderStepsAdmin("wplace", homeData.help_wplace || []);
         renderStepsAdmin("blue", homeData.help_blue || []);
@@ -1019,7 +1019,7 @@
     async function saveHome() {
         homeData.title = document.getElementById("home-title").value;
         homeData.image = document.getElementById("home-image").value;
-        homeData.description = document.getElementById("home-desc").value;
+        homeData.description = document.getElementById("home-description").value;
         homeData.location = document.getElementById("home-location").value;
         try { homeData._sha = await saveJSON("content/home.json", homeData, homeData._sha); return true; } catch(e) { toast(e.message, "error"); return false; }
     }
@@ -1065,14 +1065,18 @@
                         <span class="material-symbols-outlined text-xl">delete</span>
                     </button>
                 </div>
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
                     <div>
                         <div class="flex items-center justify-between mb-4"><span class="text-[10px] font-bold uppercase text-white/40 tracking-wider flex items-center gap-2"><span class="material-symbols-outlined text-sm">desktop_windows</span> ПЛАТФОРМА PC</span><button onclick="addGuideStep(${i},'pc')" class="text-[10px] font-bold text-emerald-primary/60 hover:text-emerald-primary uppercase tracking-widest transition-colors">+ ШАГ</button></div>
                         <div class="space-y-4">${renderGuideStepsHTML(g.install_pc||[], i, 'pc')}</div>
                     </div>
                     <div>
-                        <div class="flex items-center justify-between mb-4"><span class="text-[10px] font-bold uppercase text-white/40 tracking-wider flex items-center gap-2"><span class="material-symbols-outlined text-sm">smartphone</span> ПЛАТФОРМА MOBILE</span><button onclick="addGuideStep(${i},'phone')" class="text-[10px] font-bold text-emerald-primary/60 hover:text-emerald-primary uppercase tracking-widest transition-colors">+ ШАГ</button></div>
+                        <div class="flex items-center justify-between mb-4"><span class="text-[10px] font-bold uppercase text-white/40 tracking-wider flex items-center gap-2"><span class="material-symbols-outlined text-sm">smartphone</span> 📱 Android (Edge)</span><button onclick="addGuideStep(${i},'phone')" class="text-[10px] font-bold text-emerald-primary/60 hover:text-emerald-primary uppercase tracking-widest transition-colors">+ ШАГ</button></div>
                         <div class="space-y-4">${renderGuideStepsHTML(g.install_phone||[], i, 'phone')}</div>
+                    </div>
+                    <div>
+                        <div class="flex items-center justify-between mb-4"><span class="text-[10px] font-bold uppercase text-white/40 tracking-wider flex items-center gap-2"><span class="material-symbols-outlined text-sm">smartphone</span> 📱 iPhone (iOS)</span><button onclick="addGuideStep(${i},'iphone_ios')" class="text-[10px] font-bold text-emerald-primary/60 hover:text-emerald-primary uppercase tracking-widest transition-colors">+ ШАГ</button></div>
+                        <div class="space-y-4">${renderGuideStepsHTML(g.install_iphone_ios||[], i, 'iphone_ios')}</div>
                     </div>
                 </div>
             </div>`).join("");
@@ -1097,7 +1101,7 @@
         }
         guidesData[gi][key][si][field] = v;
     }
-    function addGuideItem() { guidesData.push({ title: "", description: "", install_pc: [], install_phone: [], note: "" }); renderGuides(); }
+    function addGuideItem() { guidesData.push({ title: "", description: "", install_pc: [], install_phone: [], install_iphone_ios: [], note: "" }); renderGuides(); }
     function addGuideStep(gi, type) { const key = `install_${type}`; if(!guidesData[gi][key])guidesData[gi][key]=[]; guidesData[gi][key].push({text:"",image:"",detail:"",section:""}); renderGuides(); }
     async function saveGuides() { try { guidesData._sha = await saveJSON("content/guides.json", guidesData, guidesData._sha); return true; } catch(e) { toast(e.message, "error"); return false; } }
 
