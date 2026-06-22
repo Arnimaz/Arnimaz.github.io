@@ -1,9 +1,11 @@
-<!DOCTYPE html><html lang="ru" style=""><head>
-<meta charset="utf-8">
-<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<!DOCTYPE html>
+
+<html lang="ru" style=""><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>Admin panel</title>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=VT323&amp;family=Inter:wght@400;600;700&amp;family=Geist:wght@700;800&amp;family=JetBrains+Mono:wght@700&amp;family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=VT323&amp;family=Inter:wght@400;600;700&amp;family=Geist:wght@700;800&amp;family=JetBrains+Mono:wght@700&amp;family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&amp;display=swap" rel="stylesheet"/>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
 <script id="tailwind-config">
@@ -184,10 +186,10 @@
 <div class="">
 <label class="block text-[11px] font-bold text-white/50 uppercase tracking-widest mb-3 font-label-caps">АВТОРИЗАЦИЯ В СИСТЕМЕ</label>
 <div class="relative">
-<input autofocus="" class="input-field w-full py-4 px-5 text-sm" id="token-input" placeholder="ghp_************************************" type="password">
+<input autofocus="" class="input-field w-full py-4 px-5 text-sm" id="token-input" placeholder="ghp_************************************" type="password"/>
 </div>
 <div class="flex items-center gap-2 mt-4 mb-2">
-<input class="w-4 h-4 rounded border-white/10 bg-white/5 text-emerald-primary focus:ring-emerald-primary/20" id="remember-me" type="checkbox">
+<input class="w-4 h-4 rounded border-white/10 bg-white/5 text-emerald-primary focus:ring-emerald-primary/20" id="remember-me" type="checkbox"/>
 <label class="text-[10px] font-bold text-white/40 uppercase tracking-wider cursor-pointer" for="remember-me">ЗАПОМНИТЬ МЕНЯ</label>
 </div>
 </div>
@@ -242,14 +244,14 @@
             </button>
 </div>
 </aside>
-<main class="flex-1 lg:ml-72 flex flex-col bg-[#131319] min-w-0">
-<header class="min-h-16 h-auto py-4 md:py-0 border-b border-white/5 bg-[#0f0f15]/80 backdrop-blur-md sticky top-16 lg:top-0 z-10 px-4 md:px-8 flex flex-row items-center justify-between gap-2">
+<main class="flex-1 lg:ml-72 flex flex-col bg-[#131319] min-w-0 min-h-screen">
+<header class="min-h-16 h-auto py-4 md:py-0 border-b border-white/5 bg-[#0f0f15]/80 backdrop-blur-md sticky top-16 lg:top-0 z-10 px-4 md:px-8 flex flex-row items-center justify-between gap-2 flex-wrap">
 <div class="flex items-center gap-6">
 <div class="flex items-center gap-2 px-3 py-1.5 bg-emerald-primary/5 rounded-full border border-emerald-primary/10 text-[10px]">
 <div class="w-1.5 h-1.5 bg-emerald-primary rounded-full animate-pulse shadow-[0_0_8px_#00e479]" id="connection-dot"></div>
 <span class="font-bold uppercase text-emerald-primary/80" id="connection-status">API CONNECTED</span>
 </div>
-<button class="btn-emerald px-8 h-10 text-sm shadow-[0_0_15px_#00e479] uppercase flex items-center gap-2" onclick="publishAll()"><span class="material-symbols-outlined text-lg">cloud_upload</span> <span class="hidden sm:inline">СОХРАНИТЬ ВСЁ</span></button>
+<button class="btn-emerald px-8 h-10 text-sm shadow-[0_0_15px_#00e479] uppercase flex items-center gap-2 px-4" onclick="publishAll()"><span class="material-symbols-outlined text-lg">cloud_upload</span> <span class="hidden sm:inline">СОХРАНИТЬ ВСЁ</span></button>
 </div>
 </header>
 <div class="p-4 md:p-8 pb-20">
@@ -260,15 +262,15 @@
 <div class="space-y-4">
 <div>
 <label class="block text-[10px] font-bold text-white/30 uppercase mb-1.5 tracking-wider">ЗАГОЛОВОК АРТА</label>
-<input class="input-field w-full p-3 text-sm" id="home-title" type="text">
+<input class="input-field w-full p-3 text-sm" id="home-title" type="text"/>
 </div>
 <div>
 <label class="block text-[10px] font-bold text-white/30 uppercase mb-1.5 tracking-wider">URL ИЗОБРАЖЕНИЯ</label>
-<input class="input-field w-full p-3 text-sm" id="home-image" oninput="previewHomeImage()" type="text">
+<input class="input-field w-full p-3 text-sm" id="home-image" oninput="previewHomeImage()" type="text"/>
 </div>
 <div>
 <label class="block text-[10px] font-bold text-white/30 uppercase mb-1.5 tracking-wider">ЛОКАЦИЯ / ССЫЛКА</label>
-<input class="input-field w-full p-3 text-sm" id="home-location" type="text">
+<input class="input-field w-full p-3 text-sm" id="home-location" type="text"/>
 </div>
 <div>
 <label class="block text-[10px] font-bold text-white/30 uppercase mb-1.5 tracking-wider">ОПИСАНИЕ</label>
@@ -281,7 +283,7 @@
 <span class="material-symbols-outlined text-emerald-primary">image_search</span> ПРЕДПРОСМОТР
                         </h3>
 <div class="flex-1 rounded-lg border border-dashed border-white/10 flex items-center justify-center overflow-hidden min-h-[250px] bg-black/20" id="home-image-preview">
-<img alt="" class="max-w-full max-h-[400px] object-contain hidden" id="home-preview-img" src="">
+<img alt="" class="max-w-full max-h-[400px] object-contain hidden" id="home-preview-img" src=""/>
 <div class="text-center opacity-20" id="no-preview">
 <span class="material-symbols-outlined text-5xl block mb-2">image_not_supported</span>
 <p class="text-xs uppercase font-bold tracking-widest">НЕТ ИЗОБРАЖЕНИЯ</p>
@@ -351,7 +353,7 @@
 </div>
 </div>
 <div class="tab-content hidden space-y-8" id="suggestions-tab">
-<div class="terminal-border p-6 rounded-xl bg-[#0f0f15] mb-8 shadow-[0_0_10px_rgba(0,228,121,0.05)]">
+<div class="terminal-border p-6 rounded-xl bg-[#0f0f15] mb-8 shadow-[0_0_10px_rgba(0,228,121,0.05)] overflow-x-auto">
 <h3 class="text-sm font-bold mb-4 flex items-center gap-2 text-white uppercase tracking-widest"><span class="material-symbols-outlined text-emerald-primary text-lg">cloud_sync</span> Синхронизация данных (Firebase)</h3>
 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
 <div>
@@ -390,7 +392,7 @@
 </div>
 </div>
 </div>
-<div class="terminal-border rounded-xl bg-[#0f0f15] overflow-hidden shadow-[0_0_10px_rgba(0,228,121,0.05)]">
+<div class="terminal-border rounded-xl bg-[#0f0f15] overflow-hidden shadow-[0_0_10px_rgba(0,228,121,0.05)] overflow-x-auto">
 <div class="overflow-x-auto min-w-full">
 <table class="w-full text-left border-collapse">
 <thead>
@@ -431,21 +433,21 @@
 <div class="space-y-6">
 <div>
 <label class="block text-[10px] font-bold text-white/30 uppercase mb-2 tracking-wider">НАЗВАНИЕ ВКЛАДКИ</label>
-<input class="input-field w-full p-3 text-sm" id="settings-siteTitle" type="text">
+<input class="input-field w-full p-3 text-sm" id="settings-siteTitle" type="text"/>
 </div>
 <div>
 <label class="block text-[10px] font-bold text-white/30 uppercase mb-2 tracking-wider">ГЛАВНЫЙ ЗАГОЛОВОК</label>
-<input class="input-field w-full p-3 text-sm" id="settings-headerTitle" type="text">
+<input class="input-field w-full p-3 text-sm" id="settings-headerTitle" type="text"/>
 </div>
 </div>
 <div class="space-y-6">
 <div>
 <label class="block text-[10px] font-bold text-white/30 uppercase mb-2 tracking-wider">ПОДЗАГОЛОВОК ШАПКИ</label>
-<input class="input-field w-full p-3 text-sm" id="settings-headerSubtitle" type="text">
+<input class="input-field w-full p-3 text-sm" id="settings-headerSubtitle" type="text"/>
 </div>
 <div>
 <label class="block text-[10px] font-bold text-white/30 uppercase mb-2 tracking-wider">КОПИРАЙТ ФУТЕРА</label>
-<input class="input-field w-full p-3 text-sm" id="settings-footer" type="text">
+<input class="input-field w-full p-3 text-sm" id="settings-footer" type="text"/>
 </div>
 </div>
 </div>
@@ -464,7 +466,7 @@
 <button class="px-6 py-3.5 text-xs font-bold text-red-500 hover:bg-red-500/10 border border-red-500/20 rounded-lg flex items-center gap-2 transition-all" onclick="resetAll()">
 <span class="material-symbols-outlined text-lg">delete_forever</span> СБРОС ДО ЗАВОДСКИХ
                             </button>
-<input accept=".json" class="hidden" id="import-file" onchange="handleImport(event)" type="file">
+<input accept=".json" class="hidden" id="import-file" onchange="handleImport(event)" type="file"/>
 </div>
 </div>
 </div>
@@ -479,15 +481,15 @@
 </div>
 <!-- MODALS -->
 <div class="fixed inset-0 z-[100] flex items-center justify-center bg-black/80 backdrop-blur-sm hidden" id="suggestion-modal" onclick="closeSuggestionModal()">
-<div class="w-[95%] max-w-4xl obsidian-card rounded-2xl p-4 md:p-8 border border-emerald-primary/30 shadow-[0_0_30px_rgba(0,228,121,0.1)]" onclick="event.stopPropagation()">
+<div class="w-[95%] max-w-4xl obsidian-card rounded-2xl p-4 md:p-8 border border-emerald-primary/30 shadow-[0_0_30px_rgba(0,228,121,0.1)] max-h-[90vh] overflow-y-auto" onclick="event.stopPropagation()">
 <div class="flex justify-between items-start mb-6">
 <h3 class="text-xl font-black text-white uppercase tracking-tight font-display-lg" id="modal-title-header">ДЕТАЛИ ЗАЯВКИ (АРТ)</h3>
 <button class="text-white/40 hover:text-white transition-colors" onclick="closeSuggestionModal()">
 <span class="material-symbols-outlined">close</span>
 </button>
 </div>
-<div class="space-y-6 min-h-0" id="modal-content"></div>
-<div class="mt-8 pt-6 border-t border-white/5 flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4">
+<div class="space-y-6 min-h-0 w-full" id="modal-content"></div>
+<div class="mt-8 pt-6 border-t border-white/5 flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4 gap-2">
 <div class="flex flex-col sm:flex-row gap-3">
 <button class="btn-emerald px-6 py-2.5 text-xs flex items-center gap-2 min-h-[48px]" id="modal-download-btn"><span class="material-symbols-outlined text-sm">download</span> СКАЧАТЬ АРТ</button>
 <button class="hidden px-6 py-2.5 text-xs font-bold text-red-500/60 hover:text-red-500 border border-red-500/20 rounded-lg transition-colors flex items-center gap-2 min-h-[48px]" id="modal-delete-btn"><span class="material-symbols-outlined text-sm">delete</span> УДАЛИТЬ</button>
@@ -504,11 +506,11 @@
 <h3 class="text-xl font-black text-white uppercase tracking-tight mb-6">ПУБЛИКАЦИЯ В ГАЛЕРЕЮ</h3>
 <div class="space-y-6">
 <div class="aspect-video rounded-lg border border-white/10 overflow-hidden bg-black/40">
-<img class="w-full h-full object-contain" id="publish-preview-img" src="">
+<img class="w-full h-full object-contain" id="publish-preview-img" src=""/>
 </div>
 <div>
 <label class="block text-[10px] font-bold text-white/30 uppercase tracking-widest mb-2">НАЗВАНИЕ</label>
-<input class="input-field w-full p-3 text-sm" id="publish-title" type="text">
+<input class="input-field w-full p-3 text-sm" id="publish-title" type="text"/>
 </div>
 <div>
 <label class="block text-[10px] font-bold text-white/30 uppercase tracking-widest mb-2">ОПИСАНИЕ АДМИНА / ОПИСАНИЕ</label>
@@ -1085,6 +1087,4 @@
         if (e.key === "Escape") { closeSuggestionModal(); document.getElementById('publish-modal').classList.add('hidden'); }
     });
 </script>
-
-
 </body></html>
