@@ -240,7 +240,7 @@
 <span class="material-symbols-outlined text-sm">refresh</span> ОБНОВИТЬ
             </button>
 <button class="flex items-center justify-center gap-2 w-full py-2.5 text-xs font-bold text-red-500/60 hover:text-red-500 border border-white/10 rounded-lg transition-colors" onclick="logout()">
-<span class="material-symbols-outlined text-sm">logout</span> ВЫЙТИ
+<span class="material-symbols-outlined text-sm">logout</span> ВЫТИ
             </button>
 </div>
 </aside>
@@ -328,11 +328,8 @@
 </div>
 <div class="tab-content hidden" id="gallery-tab">
 <div class="flex items-center justify-between mb-8 border-b border-white/5 pb-6">
-<h2 class="text-2xl font-black uppercase text-white tracking-tight">АРХИВ ИЗОБРАЖЕНИЙ</h2>
+<h2 class="text-2xl font-black uppercase text-white tracking-tight">ГАЛЕREЯ АРТОВ</h2>
 <div class="flex gap-3">
-<button class="px-4 py-2 text-xs font-bold text-white/60 hover:text-white border border-white/10 rounded-lg flex items-center gap-2 transition-all" onclick="sortGallery()">
-<span class="material-symbols-outlined text-lg">sort_by_alpha</span> СОРТИРОВАТЬ
-                        </button>
 <button class="btn-emerald px-6 py-2 text-xs font-bold flex items-center gap-2" onclick="addGalleryItem()">
 <span class="material-symbols-outlined text-lg">add</span> НОВЫЙ ОБЪЕКТ
                         </button>
@@ -420,17 +417,6 @@
 <div class="flex items-center justify-between mb-8 border-b border-white/5 pb-6">
 <h2 class="text-2xl font-black uppercase text-white tracking-tight">ОДОБРЕННЫЕ К ПУБЛИКАЦИИ</h2>
 <div class="flex items-center gap-4">
-<div class="flex items-center gap-2">
-<label class="text-[10px] font-bold text-white/30 uppercase tracking-widest">Сортировка:</label>
-<select class="input-field py-1.5 px-3 text-[10px] font-bold uppercase tracking-wider bg-white/5 border-white/10" onchange="sortAccepted(this.value)">
-<option value="alpha_asc">А-Я (ПО АЛФАВИТУ)</option>
-<option value="date_desc">ДАТА ОТПРАВКИ (НОВЫЕ)</option>
-<option value="date_asc">ДАТА ОТПРАВКИ (СТАРЫЕ)</option>
-<option value="size_desc">РАЗМЕР (MAX)</option>
-<option value="has_contact">С КОНТАКТОМ</option>
-<option value="has_comment">ПО НАЛИЧИЮ КОММЕНТАРИЯ</option>
-</select>
-</div>
 <div class="flex items-center gap-2 px-3 py-1.5 bg-emerald-primary/5 rounded-full border border-emerald-primary/10 text-[10px]">
 <span class="font-bold uppercase text-emerald-primary/80" id="accepted-count">0 АРТОВ</span>
 </div>
@@ -497,22 +483,22 @@
 </div>
 <!-- MODALS -->
 <div class="fixed inset-0 z-[100] flex items-center justify-center bg-black/80 backdrop-blur-sm hidden" id="suggestion-modal" onclick="closeSuggestionModal()">
-<div class="w-full max-w-4xl obsidian-card rounded-2xl p-8 border border-emerald-primary/30 shadow-[0_0_30px_rgba(0,228,121,0.1)]" onclick="event.stopPropagation()">
+<div class="w-[95%] max-w-4xl obsidian-card rounded-2xl p-4 md:p-8 border border-emerald-primary/30 shadow-[0_0_30px_rgba(0,228,121,0.1)]" onclick="event.stopPropagation()">
 <div class="flex justify-between items-start mb-6">
 <h3 class="text-xl font-black text-white uppercase tracking-tight font-display-lg" id="modal-title-header">ДЕТАЛИ ЗАЯВКИ (АРТ)</h3>
 <button class="text-white/40 hover:text-white transition-colors" onclick="closeSuggestionModal()">
 <span class="material-symbols-outlined">close</span>
 </button>
 </div>
-<div class="space-y-6" id="modal-content"></div>
-<div class="mt-8 pt-6 border-t border-white/5 flex flex-wrap items-center justify-between gap-4">
-<div class="flex gap-3">
-<button class="btn-emerald px-6 py-2.5 text-xs flex items-center gap-2" id="modal-download-btn"><span class="material-symbols-outlined text-sm">download</span> СКАЧАТЬ АРТ</button>
-<button class="hidden px-6 py-2.5 text-xs font-bold text-red-500/60 hover:text-red-500 border border-red-500/20 rounded-lg transition-colors flex items-center gap-2" id="modal-delete-btn"><span class="material-symbols-outlined text-sm">delete</span> УДАЛИТЬ</button>
+<div class="space-y-6 min-h-0" id="modal-content"></div>
+<div class="mt-8 pt-6 border-t border-white/5 flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4">
+<div class="flex flex-col sm:flex-row gap-3">
+<button class="btn-emerald px-6 py-2.5 text-xs flex items-center gap-2 min-h-[48px]" id="modal-download-btn"><span class="material-symbols-outlined text-sm">download</span> СКАЧАТЬ АРТ</button>
+<button class="hidden px-6 py-2.5 text-xs font-bold text-red-500/60 hover:text-red-500 border border-red-500/20 rounded-lg transition-colors flex items-center gap-2 min-h-[48px]" id="modal-delete-btn"><span class="material-symbols-outlined text-sm">delete</span> УДАЛИТЬ</button>
 </div>
-<div class="flex gap-4">
-<button class="px-6 py-2.5 text-xs font-bold text-white/40 hover:text-white border border-white/10 rounded-lg transition-colors" onclick="closeSuggestionModal()">ЗАКРЫТЬ</button>
-<button class="btn-emerald px-8 py-2.5 text-xs shadow-[0_0_15px_rgba(0,228,121,0.3)]" id="modal-accept-btn">ПЕРЕНЕСТИ В ОДОБРЕННЫЕ</button>
+<div class="flex flex-col sm:flex-row gap-3">
+<button class="px-6 py-2.5 text-xs font-bold text-white/40 hover:text-white border border-white/10 rounded-lg transition-colors min-h-[48px]" onclick="closeSuggestionModal()">ЗАКРЫТЬ</button>
+<button class="btn-emerald px-8 py-2.5 text-xs shadow-[0_0_15px_rgba(0,228,121,0.3)] min-h-[48px]" id="modal-accept-btn">ПЕРЕНЕСТИ В ОДОБРЕННЫЕ</button>
 </div>
 </div>
 </div>
@@ -733,7 +719,6 @@
     }
 
     function sortSuggestions(val) { currentSuggestionSort = val; renderSuggestionsTable(); }
-    function sortAccepted(val) { currentAcceptedSort = val; renderAcceptedItems(); }
 
     function getSortedKeys(data, sortType) {
         let keys = Object.keys(data);
@@ -844,7 +829,7 @@
 
     function renderAcceptedItems() {
         const el = document.getElementById("accepted-items");
-        const keys = getSortedKeys(acceptedData, currentAcceptedSort);
+        const keys = Object.keys(acceptedData);
         document.getElementById("accepted-count").textContent = `${keys.length} АРТОВ`;
         if (keys.length === 0) { el.innerHTML = ''; document.getElementById("accepted-empty").classList.remove("hidden"); return; }
         document.getElementById("accepted-empty").classList.add("hidden");
@@ -908,15 +893,24 @@
         const el = document.getElementById("gallery-items"); if (!el) return;
         el.innerHTML = galleryData.map((item, i) => `<div class="terminal-border bg-[#0f0f15] p-4 group rounded-xl">
             <div class="aspect-video mb-4 rounded-lg border border-white/5 overflow-hidden bg-black/20"><img src="${item.image}" class="w-full h-full object-contain"></div>
-            <div class="space-y-2">
-                <input placeholder="НАЗВАНИЕ" value="${item.title||''}" onchange="galleryData[${i}].title=this.value" class="input-field w-full text-sm font-bold py-2 px-3 border-none bg-white/5">
-                <input placeholder="URL" value="${item.image||''}" onchange="galleryData[${i}].image=this.value;renderGallery();" class="input-field w-full text-[10px] py-1 px-3 border-none bg-white/5 opacity-40">
+            <div class="space-y-3">
+                <div>
+                    <label class="block text-[9px] font-bold text-white/30 uppercase mb-1">Название</label>
+                    <input placeholder="НАЗВАНИЕ" value="${item.title||''}" onchange="galleryData[${i}].title=this.value" class="input-field w-full text-sm font-bold py-2 px-3 border-none bg-white/5">
+                </div>
+                <div>
+                    <label class="block text-[9px] font-bold text-white/30 uppercase mb-1">Комментарий</label>
+                    <textarea placeholder="ОПИСАНИЕ" onchange="galleryData[${i}].description=this.value" class="input-field w-full text-xs py-2 px-3 border-none bg-white/5 h-20 resize-none">${item.description||''}</textarea>
+                </div>
+                <div>
+                    <label class="block text-[9px] font-bold text-white/30 uppercase mb-1">URL изображения</label>
+                    <input placeholder="URL" value="${item.image||''}" onchange="galleryData[${i}].image=this.value;renderGallery();" class="input-field w-full text-[10px] py-1 px-3 border-none bg-white/5 opacity-40">
+                </div>
                 <button onclick="galleryData.splice(${i},1);renderGallery();" class="w-full py-2 text-[10px] font-bold text-red-500/60 hover:text-white hover:bg-red-500 border border-red-500/10 rounded transition-all">УДАЛИТЬ</button>
             </div>
         </div>`).join("");
     }
     function addGalleryItem() { galleryData.push({ title: "", description: "", image: "" }); renderGallery(); }
-    function sortGallery() { galleryData.sort((a,b) => (a.title||"").localeCompare(b.title||"")); renderGallery(); }
 
     function renderGuides() {
         const el = document.getElementById("guides-items"); if (!el) return;
