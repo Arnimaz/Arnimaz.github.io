@@ -627,14 +627,23 @@
         const res = await fetch(`https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${path}?ref=${BRANCH}`, { headers: { Authorization: `token ${token}`, Accept: "application/vnd.github.v3+json" } });
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
         const data = await res.json();
-        return { content: JSON.parse(decodeURIComponent(escape(atob(data.content.replace(/\n/g, ""))))), sha: data.sha };
+        // Fix for Unicode and Base64 decoding
+        const content = JSON.parse(decodeURIComponent(escape(atob(data.content.replace(/\n/g, "")))));
+        return { content: content, sha: data.sha };
     }
 
     async function saveJSON(path, content, sha) {
-        const body = { message: `terminal_sync: ${path}`, content: btoa(unescape(encodeURIComponent(JSON.stringify(content, null, 2)))), sha: sha, branch: BRANCH };
+        // Fix for Unicode and Base64 encoding
+        const body = { 
+            message: `terminal_sync: ${path}`, 
+            content: btoa(unescape(encodeURIComponent(JSON.stringify(content, null, 2)))), 
+            sha: sha, 
+            branch: BRANCH 
+        };
         const res = await fetch(`https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${path}`, { method: "PUT", headers: { Authorization: `token ${token}`, "Content-Type": "application/json" }, body: JSON.stringify(body) });
         if (!res.ok) { const err = await res.json().catch(() => ({})); throw new Error(err.message || `HTTP ${res.status}`); }
-        return (await res.json()).content.sha;
+        const result = await res.json();
+        return result.content.sha;
     }
 
     async function loadAll() {
@@ -930,7 +939,7 @@
         
         galleryData.push({
             title: item.title || "Новый арт",
-            description: "",
+            description: item.comment || "",
             image: item.image
         });
         
@@ -940,7 +949,7 @@
             toast("ОПУБЛИКОВАНО В ГАЛЕРЕЮ. СОХРАНИТЕ ДАННЫЕ.", "success");
             switchTab('gallery-tab', document.querySelector('button[onclick*="gallery-tab"]'));
         } catch(e) {
-            toast("ОШИБКА ППУБЛИКАЦИИ", "error");
+            toast("ОШИБКА ПУБЛИКАЦИИ", "error");
         }
     }
 
@@ -968,7 +977,7 @@
     function renderHome() {
         document.getElementById("home-title").value = homeData.title || "";
         document.getElementById("home-image").value = homeData.image || "";
-        document.getElementById("home-description").value = homeData.description || "";
+        document.getElementById("home-desc").value = homeData.description || "";
         document.getElementById("home-location").value = homeData.location || "";
         renderStepsAdmin("wplace", homeData.help_wplace || []);
         renderStepsAdmin("blue", homeData.help_blue || []);
@@ -992,6 +1001,7 @@
 
     function updateStepField(type, i, field, v) {
         const key = type==="wplace"?"help_wplace":type==="blue"?"help_blue":"help_helper";
+        if(!homeData[key]) homeData[key]=[];
         if(typeof homeData[key][i]!=='object') homeData[key][i]={text:homeData[key][i]||"",image:"",detail:""};
         homeData[key][i][field]=v;
     }
@@ -1019,9 +1029,13 @@
     async function saveHome() {
         homeData.title = document.getElementById("home-title").value;
         homeData.image = document.getElementById("home-image").value;
-        homeData.description = document.getElementById("home-description").value;
+        homeData.description = document.getElementById("home-desc").value;
         homeData.location = document.getElementById("home-location").value;
-        try { homeData._sha = await saveJSON("content/home.json", homeData, homeData._sha); return true; } catch(e) { toast(e.message, "error"); return false; }
+        try { 
+            const newSha = await saveJSON("content/home.json", homeData, homeData._sha); 
+            homeData._sha = newSha;
+            return true; 
+        } catch(e) { toast(e.message, "error"); return false; }
     }
 
     function renderGallery() {
@@ -1048,7 +1062,11 @@
     function addGalleryItem() { galleryData.push({ title: "", description: "", image: "" }); renderGallery(); }
     function moveGalleryItem(i, d) { const n = i+d; if(n<0||n>=galleryData.length)return; [galleryData[i], galleryData[n]] = [galleryData[n], galleryData[i]]; renderGallery(); }
     function sortGallery() { galleryData.sort((a,b) => (a.title||"").localeCompare(b.title||"")); renderGallery(); }
-    async function saveGallery() { try { galleryData._sha = await saveJSON("content/gallery.json", galleryData, galleryData._sha); return true; } catch(e) { toast(e.message, "error"); return false; } }
+    async function saveGallery() { try { 
+        const newSha = await saveJSON("content/gallery.json", galleryData, galleryData._sha); 
+        galleryData._sha = newSha;
+        return true; 
+    } catch(e) { toast(e.message, "error"); return false; } }
 
     function renderGuides() {
         const el = document.getElementById("guides-items");
@@ -1089,7 +1107,7 @@
                 <div class="flex gap-2"><input value="${(sd.text||'').replace(/"/g,'&quot;')}" onchange="updateGuideField(${gi},'${type}',${si},'text',this.value)" class="flex-1 py-1 px-3 text-xs bg-black/40 border-none rounded focus:ring-1 focus:ring-emerald-primary/50 text-white" placeholder="ИНСТРУКЦИЯ"></div>
                 <input value="${sd.image||''}" onchange="updateGuideField(${gi},'${type}',${si},'image',this.value)" class="w-full py-1 px-3 text-[10px] bg-black/20 border-none rounded text-white/40 focus:text-white" placeholder="URL СКРИНШОТА">
                 <textarea onchange="updateGuideField(${gi},'${type}',${si},'detail',this.value)" class="w-full py-1.5 px-3 text-[10px] bg-black/40 border-none rounded text-white/60 focus:text-white" placeholder="ПОДРОБНОСТИ (ОПИСАНИЕ, ССЫЛКИ...)" rows="2">${(sd.detail||'').replace(/</g,'&lt;')}</textarea>
-                <button class="absolute -top-2 -right-2 w-6 h-6 bg-red-600 rounded-full text-white font-bold opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity shadow-lg" onclick="guidesData[gi].install_${type}.splice(${si},1);renderGuides();"><span class="material-symbols-outlined text-sm">close</span></button>
+                <button class="absolute -top-2 -right-2 w-6 h-6 bg-red-600 rounded-full text-white font-bold opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity shadow-lg" onclick="guidesData[${gi}].install_${type}.splice(${si},1);renderGuides();"><span class="material-symbols-outlined text-sm">close</span></button>
             </div>`;
         }).join("");
     }
@@ -1102,8 +1120,17 @@
         guidesData[gi][key][si][field] = v;
     }
     function addGuideItem() { guidesData.push({ title: "", description: "", install_pc: [], install_phone: [], install_iphone_ios: [], note: "" }); renderGuides(); }
-    function addGuideStep(gi, type) { const key = `install_${type}`; if(!guidesData[gi][key])guidesData[gi][key]=[]; guidesData[gi][key].push({text:"",image:"",detail:"",section:""}); renderGuides(); }
-    async function saveGuides() { try { guidesData._sha = await saveJSON("content/guides.json", guidesData, guidesData._sha); return true; } catch(e) { toast(e.message, "error"); return false; } }
+    function addGuideStep(gi, type) { 
+        const key = `install_${type}`; 
+        if(!guidesData[gi][key]) guidesData[gi][key]=[]; 
+        guidesData[gi][key].push({text:"",image:"",detail:"",section:""}); 
+        renderGuides(); 
+    }
+    async function saveGuides() { try { 
+        const newSha = await saveJSON("content/guides.json", guidesData, guidesData._sha); 
+        guidesData._sha = newSha;
+        return true; 
+    } catch(e) { toast(e.message, "error"); return false; } }
 
     function renderSettings() {
         document.getElementById("settings-siteTitle").value = settingsData.siteTitle || "";
@@ -1117,7 +1144,11 @@
         settingsData.headerTitle = document.getElementById("settings-headerTitle").value;
         settingsData.headerSubtitle = document.getElementById("settings-headerSubtitle").value;
         settingsData.footer = document.getElementById("settings-footer").value;
-        try { settingsData._sha = await saveJSON("content/settings.json", settingsData, settingsData._sha); return true; } catch(e) { toast(e.message, "error"); return false; } 
+        try { 
+            const newSha = await saveJSON("content/settings.json", settingsData, settingsData._sha); 
+            settingsData._sha = newSha;
+            return true; 
+        } catch(e) { toast(e.message, "error"); return false; } 
     }
 
     async function publishAll() {
@@ -1127,7 +1158,11 @@
             const g = await saveGallery();
             const gu = await saveGuides();
             const s = await saveSettings();
-            if (h && g && gu && s) toast("ДАННЫЕ УСПЕШНО ЗАПИСАНЫ", "success");
+            if (h && g && gu && s) {
+                toast("ДАННЫЕ УСПЕШНО ЗАПИСАНЫ", "success");
+            } else {
+                toast("ОШИБКА ПРИ ПЕРЕДАЧЕ ДАННЫХ", "error");
+            }
         } catch(e) { toast("ОШИБКА ПРИ ПЕРЕДАЧЕ ДАННЫХ", "error"); }
     }
 
@@ -1140,6 +1175,7 @@
     }
 
     async function resetAll() {
+        if(!confirm("СБРОСИТЬ ВСЕ ДАННЫЕ?")) return;
         homeData = { title: "", image: "", description: "", location: "", help_wplace: [], help_blue: [], help_helper: [] };
         galleryData = []; guidesData = [];
         settingsData = { siteTitle: "Admin panel", headerTitle: "⚔ WPLACE ⚔", headerSubtitle: "Pixel Art Community", footer: "© 2025" };
@@ -1149,7 +1185,6 @@
 
     function exportAll() {
         const data = { home: homeData, gallery: galleryData, guides: guidesData, settings: settingsData, date: new Date().toISOString() };
-        delete data.home._sha; delete data.gallery._sha; delete data.guides._sha; delete data.settings._sha;
         const b = new Blob([JSON.stringify(data,null,2)],{type:"application/json"}); const a = document.createElement("a"); a.href = URL.createObjectURL(b); a.download = `terminal-export-${Date.now()}.json`; a.click();
     }
     function importAll() { document.getElementById("import-file").click(); }
