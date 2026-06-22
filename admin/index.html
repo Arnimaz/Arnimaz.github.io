@@ -406,7 +406,7 @@
 <tr class="border-b border-white/5 bg-white/5">
 <th class="p-4 text-[10px] font-bold text-white/30 uppercase tracking-wider">ПРЕВЬЮ</th>
 <th class="p-4 text-[10px] font-bold text-white/30 uppercase tracking-wider">ИНФОРМАЦИЯ</th>
-<th class="p-4 text-[10px] font-bold text-white/30 uppercase tracking-wider">РАЗМЕР (X/Y)</th>
+<th class="p-4 text-[10px] font-bold text-white/30 uppercase tracking-wider">ТЕХНИЧЕСКИЕ ДАННЫЕ</th>
 <th class="p-4 text-[10px] font-bold text-white/30 uppercase tracking-wider">СТАТУС</th>
 <th class="p-4 text-[10px] font-bold text-white/30 uppercase tracking-wider text-right">ДЕЙСТВИЯ</th>
 </tr>
@@ -499,7 +499,7 @@
 </div>
 <!-- MODALS -->
 <div class="fixed inset-0 z-[100] flex items-center justify-center bg-black/80 backdrop-blur-sm hidden" id="suggestion-modal" onclick="closeSuggestionModal()">
-<div class="w-full max-w-2xl obsidian-card rounded-2xl p-8 border border-emerald-primary/30 shadow-[0_0_30px_rgba(0,228,121,0.1)]" onclick="event.stopPropagation()">
+<div class="w-full max-w-4xl obsidian-card rounded-2xl p-8 border border-emerald-primary/30 shadow-[0_0_30px_rgba(0,228,121,0.1)]" onclick="event.stopPropagation()">
 <div class="flex justify-between items-start mb-6">
 <h3 class="text-xl font-black text-white uppercase tracking-tight font-display-lg" id="modal-title-header">ДЕТАЛИ ЗАЯВКИ (АРТ)</h3>
 <button class="text-white/40 hover:text-white transition-colors" onclick="closeSuggestionModal()">
@@ -569,11 +569,17 @@
 
     if (token) { showAdmin(); loadAll(); }
 
-    function formatTimestamp(input) {
+    function formatFullDate(input) {
         if (!input) return "—";
         const date = new Date(input);
         if (isNaN(date.getTime())) return input;
-        return `${date.toLocaleDateString('ru-RU')}, ${date.toLocaleTimeString('ru-RU', { hour12: false })}`;
+        const d = String(date.getDate()).padStart(2, '0');
+        const m = String(date.getMonth() + 1).padStart(2, '0');
+        const y = date.getFullYear();
+        const hh = String(date.getHours()).padStart(2, '0');
+        const mm = String(date.getMinutes()).padStart(2, '0');
+        const ss = String(date.getSeconds()).padStart(2, '0');
+        return `${d}.${m}.${y} / ${hh}:${mm}:${ss}`;
     }
 
     function toast(msg, type) {
@@ -634,7 +640,6 @@
         try { const g = await loadJSON("content/gallery.json"); galleryData = g.content; galleryData._sha = g.sha; renderGallery(); } catch(e) { console.error(e); }
         try { 
             const gu = await loadJSON("content/guides.json"); 
-            // Migration: Ensure all legacy labels are updated to new ones when loading
             guidesData = gu.content.map(g => {
                 const pc = (g.install_pc || []).map(s => ({...s, section: s.section === '💻 PC' ? '💻 PC' : s.section}));
                 const phone = (g.install_phone || []).map(s => ({
@@ -718,11 +723,11 @@
                 const ctx = canvas.getContext('2d');
                 ctx.drawImage(img, 0, 0);
                 try {
-                    const data = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
+                    const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
                     let opaqueCount = 0;
-                    for (let i = 3; i < data.length; i += 4) { if (data[i] > 10) opaqueCount++; }
+                    for (let i = 3; i < imageData.length; i += 4) { if (imageData[i] > 10) opaqueCount++; }
                     resolve({ width: img.width, height: img.height, total: img.width * img.height, opaque: opaqueCount });
-                } catch(e) { resolve(null); }
+                } catch(e) { resolve({ width: img.width, height: img.height, total: img.width * img.height, opaque: 'ERR' }); }
             };
             img.onerror = () => resolve(null);
             img.src = imageUrl;
@@ -755,10 +760,12 @@
         }
         tbody.innerHTML = keys.map(key => {
             const s = suggestionsData[key];
+            const sizeStr = s.width ? `${s.width}x${s.height} PX` : 'CALC...';
+            const areaStr = s.opaque ? ` (${s.opaque} CLN)` : '';
             return `<tr onclick="viewSuggestion('${key}')" class="group cursor-pointer hover:bg-white/[0.04] transition-colors border-b border-white/5 last:border-0">
                 <td class="p-4"><div class="w-12 h-12 rounded border border-white/10 bg-black/40 overflow-hidden"><img class="w-full h-full object-cover" src="${s.image || ''}"></div></td>
                 <td class="p-4"><div class="text-xs font-bold text-white uppercase group-hover:text-emerald-primary transition-colors">${s.title || 'БЕЗ НАЗВАНИЯ'}</div><div class="text-[10px] text-white/30 uppercase mt-1">ОТ: ${s.contact || s.author || 'ANON'}</div></td>
-                <td class="p-4 font-mono text-[10px] text-emerald-primary/80 font-bold uppercase">${s.width ? s.width+'x'+s.height : '???'}</td>
+                <td class="p-4 font-mono text-[10px] text-emerald-primary/80 font-bold uppercase">${sizeStr}${areaStr}</td>
                 <td class="p-4"><span class="px-2 py-0.5 rounded text-[9px] font-bold bg-emerald-primary/10 text-emerald-primary uppercase">CLOUD</span></td>
                 <td class="p-4 text-right"><div class="flex justify-end gap-2" onclick="event.stopPropagation()"><button onclick="acceptSuggestion('${key}')" class="w-8 h-8 rounded bg-white/5 text-white/60 hover:bg-emerald-primary hover:text-black transition-all flex items-center justify-center"><span class="material-symbols-outlined text-lg">check_circle</span></button><button onclick="deleteSuggestion('${key}')" class="w-8 h-8 rounded bg-red-500/10 text-red-500 hover:bg-red-500 hover:text-white flex items-center justify-center transition-all"><span class="material-symbols-outlined text-lg">delete</span></button></div></td>
             </tr>`;
@@ -779,19 +786,62 @@
         const modal = document.getElementById('suggestion-modal');
         const content = document.getElementById('modal-content');
         modal.classList.remove('hidden');
+        
+        // Initial layout with placeholder for pixel data
         content.innerHTML = `<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div class="aspect-square rounded-xl bg-black/40 border border-white/10 overflow-hidden flex items-center justify-center"><img src="${item.image}" class="max-w-full max-h-full object-contain"></div>
-            <div class="space-y-4">
-                <div><label class="block text-[10px] font-bold text-white/30 uppercase mb-1">НАЗВАНИЕ</label><p class="text-lg font-black text-white uppercase">${item.title || '—'}</p></div>
-                <div><label class="block text-[10px] font-bold text-white/30 uppercase mb-1">КОНТАКТ</label><p class="text-sm font-bold text-emerald-primary uppercase">${item.contact || item.author || 'ANON'}</p></div>
-                <div><label class="block text-[10px] font-bold text-white/30 uppercase mb-1">КОММЕНТАРИЙ</label><p class="text-xs text-white/60 italic">${item.comment || 'ОТСУТСТВУЕТ'}</p></div>
+            <div class="aspect-square rounded-xl bg-black/40 border border-white/10 overflow-hidden flex items-center justify-center"><img src="${item.image}" id="modal-img-node" class="max-w-full max-h-full object-contain"></div>
+            <div class="space-y-6">
+                <div><label class="block text-[10px] font-bold text-white/30 uppercase mb-1 tracking-widest">НАЗВАНИЕ</label><p class="text-xl font-black text-white uppercase">${item.title || '—'}</p></div>
+                <div class="grid grid-cols-2 gap-4">
+                    <div><label class="block text-[10px] font-bold text-white/30 uppercase mb-1 tracking-widest">КОНТАКТ</label><p class="text-sm font-bold text-emerald-primary uppercase">${item.contact || item.author || 'ANON'}</p></div>
+                    <div><label class="block text-[10px] font-bold text-white/30 uppercase mb-1 tracking-widest">ДАТА ПОДАЧИ</label><p class="text-sm font-bold text-white/60 uppercase">${formatFullDate(item.date)}</p></div>
+                </div>
+                <div class="p-4 bg-white/5 rounded-lg border border-white/5 space-y-3" id="pixel-info-container">
+                    <div class="flex items-center justify-center py-4"><div class="w-5 h-5 border-2 border-emerald-primary/30 border-t-emerald-primary rounded-full animate-spin"></div></div>
+                </div>
+                <div><label class="block text-[10px] font-bold text-white/30 uppercase mb-1 tracking-widest">КОММЕНТАРИЙ</label><p class="text-xs text-white/60 leading-relaxed">${item.comment || 'ОТСУТСТВУЕТ'}</p></div>
             </div>
         </div>`;
-        document.getElementById('modal-download-btn').onclick = () => window.open(item.image, '_blank');
+
+        // Action Buttons Setup
+        const dlBtn = document.getElementById('modal-download-btn');
+        dlBtn.onclick = () => {
+            const link = document.createElement('a');
+            link.href = item.image;
+            link.download = `art_${item.title || 'work'}.png`;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        };
+
         const acceptBtn = document.getElementById('modal-accept-btn');
         if(suggestionsData[key]) {
-            acceptBtn.classList.remove('hidden'); acceptBtn.onclick = () => { acceptSuggestion(key); closeSuggestionModal(); };
-        } else { acceptBtn.classList.add('hidden'); }
+            acceptBtn.classList.remove('hidden'); 
+            acceptBtn.onclick = () => { acceptSuggestion(key); closeSuggestionModal(); };
+        } else { 
+            acceptBtn.classList.add('hidden'); 
+        }
+
+        // Async pixel analysis if not present
+        const info = await analyzePixelData(item.image);
+        if (info) {
+            document.getElementById('pixel-info-container').innerHTML = `
+                <div class="grid grid-cols-2 gap-y-3 gap-x-6">
+                    <div><label class="block text-[9px] font-bold text-white/20 uppercase tracking-widest">РАЗМЕР (DIMENSIONS)</label><p class="text-xs font-bold text-emerald-primary uppercase">${info.width} x ${info.height} PX</p></div>
+                    <div><label class="block text-[9px] font-bold text-white/20 uppercase tracking-widest">ВСЕГО ПИКСЕЛЕЙ</label><p class="text-xs font-bold text-white/80 uppercase">${info.total.toLocaleString()} PX</p></div>
+                    <div><label class="block text-[9px] font-bold text-white/20 uppercase tracking-widest">ЧИСТЫЙ АРТ (CLEAN)</label><p class="text-xs font-bold text-white/80 uppercase">${info.opaque.toLocaleString()} PX</p></div>
+                    <div><label class="block text-[9px] font-bold text-white/20 uppercase tracking-widest">ПЛОТНОСТЬ</label><p class="text-xs font-bold text-white/80 uppercase">${Math.round((info.opaque/info.total)*100)}%</p></div>
+                </div>
+            `;
+            // Update local data for subsequent uses
+            if(suggestionsData[key]) {
+                suggestionsData[key].width = info.width;
+                suggestionsData[key].height = info.height;
+                suggestionsData[key].opaque = info.opaque;
+            }
+        } else {
+            document.getElementById('pixel-info-container').innerHTML = `<p class="text-[10px] text-red-500/60 uppercase font-bold text-center py-2">ОШИБКА АНАЛИЗА ДАННЫХ</p>`;
+        }
     }
 
     function renderAcceptedItems() {
@@ -804,7 +854,11 @@
             const item = acceptedData[key];
             return `<div class="terminal-border bg-[#0f0f15] p-4 group rounded-xl hover:border-emerald-primary/40 transition-all flex flex-col cursor-pointer" onclick="viewSuggestion('${key}')">
                 <div class="aspect-square mb-4 rounded-lg border border-white/5 overflow-hidden bg-black/20"><img src="${item.image}" class="w-full h-full object-contain"></div>
-                <div class="flex-1 space-y-1"><div class="text-sm font-bold text-white uppercase truncate">${item.title || 'Untitled'}</div><div class="text-[10px] text-white/40 uppercase">ОТ: ${item.contact || 'ANON'}</div></div>
+                <div class="flex-1 space-y-1">
+                    <div class="text-sm font-bold text-white uppercase truncate">${item.title || 'Untitled'}</div>
+                    <div class="text-[10px] text-white/40 uppercase">ОТ: ${item.contact || 'ANON'}</div>
+                    <div class="text-[9px] text-emerald-primary/40 uppercase font-bold font-mono mt-1">${item.width ? item.width+'x'+item.height : ''}</div>
+                </div>
                 <div class="mt-4 flex flex-col gap-2" onclick="event.stopPropagation()">
                     <button onclick="publishToGallery('${key}')" class="btn-emerald w-full py-2.5 text-[10px] flex items-center justify-center gap-2"><span class="material-symbols-outlined text-sm">publish</span> ОПУБЛИКОВАТЬ</button>
                     <button onclick="deleteAccepted('${key}')" class="w-full py-2 text-[10px] font-bold text-red-500/60 hover:text-white hover:bg-red-500/20 border border-red-500/10 rounded transition-colors flex items-center justify-center gap-2"><span class="material-symbols-outlined text-sm">delete</span> УДАЛИТЬ</button>
