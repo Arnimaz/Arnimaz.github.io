@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html lang="ru"><head>
+<html lang="ru" style=""><head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>Admin panel</title>
@@ -227,10 +227,8 @@
 <span class="material-symbols-outlined text-xl">image</span>
                 ГАЛЕРЕЯ
             </button>
-<button class="sidebar-btn w-full flex items-center gap-3 px-4 py-3 text-sm font-medium transition-all whitespace-nowrap rounded-lg text-white/60 hover:text-white hover:bg-white/5" onclick="switchTab('guides-tab', this)">
-<span class="material-symbols-outlined text-xl">auto_stories</span>
-                РУКОВОДСТВА
-            </button>
+<button class="sidebar-btn w-full flex items-center gap-3 px-4 py-3 text-sm font-medium transition-all whitespace-nowrap rounded-lg text-white/60 hover:text-white hover:bg-white/5" onclick="switchTab('guides-tab', this)"><span class="material-symbols-outlined text-xl">auto_stories</span>
+                ГАЙДЫ</button>
 <button class="sidebar-btn w-full flex items-center gap-3 px-4 py-3 text-sm font-medium transition-all whitespace-nowrap rounded-lg text-white/60 hover:text-white hover:bg-white/5" onclick="switchTab('suggestions-tab', this)">
 <span class="material-symbols-outlined text-xl">inbox</span>
                 ПРЕДЛОЖКА
@@ -301,7 +299,7 @@
 <span class="material-symbols-outlined text-emerald-primary">image_search</span> ПРЕДПРОСМОТР
                         </h3>
 <div class="flex-1 rounded-lg border border-dashed border-white/10 flex items-center justify-center overflow-hidden min-h-[250px] bg-black/20" id="home-image-preview">
-<img alt="" class="max-w-full max-h-[400px] object-contain hidden" id="home-preview-img" src=""/>
+<img alt="" class="max-w-full max-h-[400px] object-contain hidden" id="home-preview-img" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MDAiIGhlaWdodD0iMzAwIj48cmVjdCB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgcng9IjgiIGZpbGw9IiNlOGVhZWQiLz48cGF0aCBkPSJNMTcwIDEzMCBsMzAgNDAgbDIwLTE1IGw0MCA1NSBIMTQweiIgZmlsbD0iI2JkYzFjNiIvPjxjaXJjbGUgY3g9IjI1MCIgY3k9IjEyMCIgcj0iMTgiIGZpbGw9IiNiZGMxYzYiLz48L3N2Zz4="/>
 <div class="text-center opacity-20" id="no-preview">
 <span class="material-symbols-outlined text-5xl block mb-2">image_not_supported</span>
 <p class="text-xs uppercase font-bold tracking-widest">НЕТ ИЗОБРАЖЕНИЯ</p>
@@ -367,10 +365,8 @@
 <!-- GUIDES TAB -->
 <div class="tab-content hidden space-y-8" id="guides-tab">
 <div class="flex items-center justify-between mb-6 border-b border-white/5 pb-6">
-<h2 class="text-2xl font-black uppercase text-white tracking-tight">БАЗА ЗНАНИЙ</h2>
-<button class="btn-emerald px-6 py-2 text-xs font-bold flex items-center gap-2" onclick="addGuideItem()">
-<span class="material-symbols-outlined text-lg">library_add</span> НОВАЯ ИНСТРУКЦИЯ
-                    </button>
+<h2 class="text-2xl font-black uppercase text-white tracking-tight">СПИСОК ГАЙДОВ</h2>
+<button class="btn-emerald px-6 py-2 text-xs font-bold flex items-center gap-2" onclick="addGuideItem()"><span class="material-symbols-outlined text-lg">library_add</span> НОВЫЙ ГАЙД</button>
 </div>
 <div class="space-y-12" id="guides-items"></div>
 <div class="flex justify-end pt-8 border-t border-white/5">
@@ -527,7 +523,7 @@
 <span class="material-symbols-outlined">close</span>
 </button>
 </div>
-<div class="space-y-6" id="modal-content"><div class="grid grid-cols-1 md:grid-cols-2 gap-8"><div class="aspect-square rounded-xl bg-black/40 border border-white/10 overflow-hidden flex items-center justify-center shadow-inner group"><img class="max-w-full max-h-full object-contain transition-transform group-hover:scale-105 duration-500" id="modal-preview-img" src=""/></div><div class="flex flex-col h-full"><div class="space-y-5 flex-1"><div><label class="block text-[10px] font-bold text-white/30 uppercase tracking-widest mb-1">НАЗВАНИЕ АРТА</label><p class="text-lg font-black text-white uppercase" id="modal-art-title">—</p></div><div class="grid grid-cols-2 gap-4"><div><label class="block text-[10px] font-bold text-white/30 uppercase tracking-widest mb-1">РАЗМЕР (X/Y)</label><p class="text-sm font-bold text-white/80 font-mono" id="modal-art-res">—</p></div><div><label class="block text-[10px] font-bold text-white/30 uppercase tracking-widest mb-1">ДАТА ОТПРАВКИ</label><p class="text-sm font-bold text-emerald-primary/80 font-mono" id="modal-art-date">—</p></div></div><div><label class="block text-[10px] font-bold text-white/30 uppercase tracking-widest mb-1">АНАЛИЗ ПЛОТНОСТИ (PX)</label><div class="px-3 py-2 bg-emerald-primary/5 border border-emerald-primary/10 rounded font-mono text-emerald-primary text-xs break-all uppercase flex flex-col gap-1"><div id="modal-pixel-total">ОБЩЕЕ: —</div><div class="text-white" id="modal-pixel-opaque">ПЛОЩАДЬ (PX): —</div></div></div><div><label class="block text-[10px] font-bold text-white/30 uppercase tracking-widest mb-1">КОНТАКТ / ИМЯ</label><p class="text-xs text-emerald-primary font-mono font-bold" id="modal-art-contact">—</p></div><div><label class="block text-[10px] font-bold text-white/30 uppercase tracking-widest mb-1">КОММЕНТАРИЙ</label><div class="max-h-[100px] overflow-y-auto pr-2 custom-scrollbar"><p class="text-xs text-white/60 leading-relaxed italic border-l-2 border-emerald-primary/30 pl-3" id="modal-art-comment">—</p></div></div></div></div></div></div>
+<div class="space-y-6" id="modal-content"><div class="grid grid-cols-1 md:grid-cols-2 gap-8"><div class="aspect-square rounded-xl bg-black/40 border border-white/10 overflow-hidden flex items-center justify-center shadow-inner group"><img class="max-w-full max-h-full object-contain transition-transform group-hover:scale-105 duration-500" id="modal-preview-img" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MDAiIGhlaWdodD0iMzAwIj48cmVjdCB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgcng9IjgiIGZpbGw9IiNlOGVhZWQiLz48cGF0aCBkPSJNMTcwIDEzMCBsMzAgNDAgbDIwLTE1IGw0MCA1NSBIMTQweiIgZmlsbD0iI2JkYzFjNiIvPjxjaXJjbGUgY3g9IjI1MCIgY3k9IjEyMCIgcj0iMTgiIGZpbGw9IiNiZGMxYzYiLz48L3N2Zz4="/></div><div class="flex flex-col h-full"><div class="space-y-5 flex-1"><div><label class="block text-[10px] font-bold text-white/30 uppercase tracking-widest mb-1">НАЗВАНИЕ АРТА</label><p class="text-lg font-black text-white uppercase" id="modal-art-title">—</p></div><div class="grid grid-cols-2 gap-4"><div><label class="block text-[10px] font-bold text-white/30 uppercase tracking-widest mb-1">РАЗМЕР (X/Y)</label><p class="text-sm font-bold text-white/80 font-mono" id="modal-art-res">—</p></div><div><label class="block text-[10px] font-bold text-white/30 uppercase tracking-widest mb-1">ДАТА ОТПРАВКИ</label><p class="text-sm font-bold text-emerald-primary/80 font-mono" id="modal-art-date">—</p></div></div><div><label class="block text-[10px] font-bold text-white/30 uppercase tracking-widest mb-1">АНАЛИЗ ПЛОТНОСТИ (PX)</label><div class="px-3 py-2 bg-emerald-primary/5 border border-emerald-primary/10 rounded font-mono text-emerald-primary text-xs break-all uppercase flex flex-col gap-1"><div class="" id="modal-pixel-total">ОБЩЕЕ: —</div><div class="text-white" id="modal-pixel-opaque">ПЛОЩАДЬ (PX): —</div></div></div><div><label class="block text-[10px] font-bold text-white/30 uppercase tracking-widest mb-1">КОНТАКТ / ИМЯ</label><p class="text-xs text-emerald-primary font-mono font-bold" id="modal-art-contact">—</p></div><div><label class="block text-[10px] font-bold text-white/30 uppercase tracking-widest mb-1">КОММЕНТАРИЙ</label><div class="max-h-[100px] overflow-y-auto pr-2 custom-scrollbar"><p class="text-xs text-white/60 leading-relaxed italic border-l-2 border-emerald-primary/30 pl-3" id="modal-art-comment">—</p></div></div></div></div></div></div>
 <div class="mt-8 pt-6 border-t border-white/5 flex flex-wrap items-center justify-between gap-4"><div class="flex gap-3"><button class="btn-emerald px-6 py-2.5 text-xs flex items-center gap-2" id="modal-download-btn"><span class="material-symbols-outlined text-sm">download</span> СКАЧАТЬ АРТ</button><button class="hidden px-6 py-2.5 text-xs font-bold text-red-500/60 hover:text-red-500 border border-red-500/20 rounded-lg transition-colors flex items-center gap-2" id="modal-delete-btn"><span class="material-symbols-outlined text-sm">delete</span> УДАЛИТЬ</button></div><div class="flex gap-4"><button class="px-6 py-2.5 text-xs font-bold text-white/40 hover:text-white border border-white/10 rounded-lg transition-colors" onclick="closeSuggestionModal()">ЗАКРЫТЬ</button><button class="btn-emerald px-8 py-2.5 text-xs shadow-[0_0_15px_rgba(0,228,121,0.3)]" id="modal-accept-btn">ПЕРЕНЕСТИ В ОДОБРЕННЫЕ</button></div></div>
 </div>
 </div>
@@ -537,7 +533,7 @@
 <h3 class="text-xl font-black text-white uppercase tracking-tight mb-6">ПУБЛИКАЦИЯ В ГАЛЕРЕЮ</h3>
 <div class="space-y-6">
 <div class="aspect-video rounded-lg border border-white/10 overflow-hidden bg-black/40">
-<img class="w-full h-full object-contain" id="publish-preview-img" src=""/>
+<img class="w-full h-full object-contain" id="publish-preview-img" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MDAiIGhlaWdodD0iMzAwIj48cmVjdCB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgcng9IjgiIGZpbGw9IiNlOGVhZWQiLz48cGF0aCBkPSJNMTcwIDEzMCBsMzAgNDAgbDIwLTE1IGw0MCA1NSBIMTQweiIgZmlsbD0iI2JkYzFjNiIvPjxjaXJjbGUgY3g9IjI1MCIgY3k9IjEyMCIgcj0iMTgiIGZpbGw9IiNiZGMxYzYiLz48L3N2Zz4="/>
 </div>
 <div>
 <label class="block text-[10px] font-bold text-white/30 uppercase tracking-widest mb-2">НАЗВАНИЕ</label>
@@ -1085,9 +1081,10 @@
         if (!steps || steps.length === 0) return '<p class="text-[10px] opacity-20 uppercase font-bold text-center py-4 border border-dashed border-white/5 rounded-lg">ПУСТО</p>';
         return steps.map((s, si) => {
             const sd = typeof s === 'object' ? s : { text: s, image: "", detail: "", section: "" };
-            return `<div class="p-4 bg-white/5 border border-white/5 rounded-lg relative group">
-                <div class="flex gap-2 mb-3"><input value="${(sd.text||'').replace(/"/g,'&quot;')}" onchange="updateGuideField(${gi},'${type}',${si},'text',this.value)" class="flex-1 py-1 px-3 text-xs bg-black/40 border-none rounded focus:ring-1 focus:ring-emerald-primary/50 text-white" placeholder="ИНСТРУКЦИЯ"></div>
-                <input value="${sd.image||''}" onchange="updateGuideField(${gi},'${type}',${si},'image',this.value)" class="w-full py-1 px-3 text-[10px] bg-black/20 border-none rounded mb-3 text-white/40 focus:text-white" placeholder="URL СКРИНШОТА">
+            return `<div class="p-4 bg-white/5 border border-white/5 rounded-lg relative group space-y-3">
+                <div class="flex gap-2"><input value="${(sd.text||'').replace(/"/g,'&quot;')}" onchange="updateGuideField(${gi},'${type}',${si},'text',this.value)" class="flex-1 py-1 px-3 text-xs bg-black/40 border-none rounded focus:ring-1 focus:ring-emerald-primary/50 text-white" placeholder="ИНСТРУКЦИЯ"></div>
+                <input value="${sd.image||''}" onchange="updateGuideField(${gi},'${type}',${si},'image',this.value)" class="w-full py-1 px-3 text-[10px] bg-black/20 border-none rounded text-white/40 focus:text-white" placeholder="URL СКРИНШОТА">
+                <textarea onchange="updateGuideField(${gi},'${type}',${si},'detail',this.value)" class="w-full py-1.5 px-3 text-[10px] bg-black/40 border-none rounded text-white/60 focus:text-white" placeholder="ПОДРОБНОСТИ (ОПИСАНИЕ, ССЫЛКИ...)" rows="2">${(sd.detail||'').replace(/</g,'&lt;')}</textarea>
                 <button class="absolute -top-2 -right-2 w-6 h-6 bg-red-600 rounded-full text-white font-bold opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity shadow-lg" onclick="guidesData[gi].install_${type}.splice(${si},1);renderGuides();"><span class="material-symbols-outlined text-sm">close</span></button>
             </div>`;
         }).join("");
@@ -1095,7 +1092,9 @@
     function updateGuideField(gi, type, si, field, v) {
         const key = `install_${type}`;
         if (!guidesData[gi][key]) guidesData[gi][key] = [];
-        if (typeof guidesData[gi][key][si] !== 'object') guidesData[gi][key][si] = { text: guidesData[gi][key][si] || "", image: "", detail: "", section: "" };
+        if (typeof guidesData[gi][key][si] !== 'object') {
+            guidesData[gi][key][si] = { text: guidesData[gi][key][si] || "", image: "", detail: "", section: "" };
+        }
         guidesData[gi][key][si][field] = v;
     }
     function addGuideItem() { guidesData.push({ title: "", description: "", install_pc: [], install_phone: [], note: "" }); renderGuides(); }
