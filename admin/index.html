@@ -200,8 +200,8 @@
 </div>
 </div>
 <div class="hidden min-h-[1024px] flex flex-col lg:flex-row" id="admin-page">
-<aside class="w-full lg:w-72 border-b lg:border-b-0 lg:border-r border-white/10 bg-[#0f0f15] flex flex-col relative lg:fixed lg:h-full z-20">
-<div class="p-6 border-b border-white/5">
+<aside class="w-full lg:w-72 border-b lg:border-b-0 lg:border-r border-white/10 bg-[#0f0f15] flex flex-col sticky top-0 lg:fixed lg:h-full z-20">
+<div class="p-6 border-b border-white/5 hidden lg:block">
 <div class="flex items-center gap-3">
 <div class="w-10 h-10 bg-emerald-primary/10 rounded-lg flex items-center justify-center border border-emerald-primary/20">
 <span class="material-symbols-outlined text-2xl text-emerald-primary">shield</span>
@@ -212,27 +212,27 @@
 </div>
 </div>
 </div>
-<nav class="flex-1 p-4 flex flex-row lg:flex-col gap-1 lg:space-y-1 overflow-x-auto lg:overflow-x-visible">
-<button class="sidebar-btn active w-full flex items-center gap-3 px-4 py-3 text-sm font-medium transition-all whitespace-nowrap rounded-lg text-white/60 hover:text-white hover:bg-white/5" onclick="switchTab('home-tab', this)">
+<nav class="flex-1 p-2 lg:p-4 flex flex-row lg:flex-col gap-1 lg:space-y-1 overflow-x-auto lg:overflow-x-visible scrollbar-hide">
+<button class="sidebar-btn active w-full flex items-center gap-3 px-4 py-3 text-sm font-medium transition-all whitespace-nowrap rounded-lg text-white/60 hover:text-white hover:bg-white/5 min-h-[44px]" onclick="switchTab('home-tab', this)">
 <span class="material-symbols-outlined text-xl">dashboard</span> ГЛАВНЫЙ ЭКРАН
             </button>
-<button class="sidebar-btn w-full flex items-center gap-3 px-4 py-3 text-sm font-medium transition-all whitespace-nowrap rounded-lg text-white/60 hover:text-white hover:bg-white/5" onclick="switchTab('gallery-tab', this)">
+<button class="sidebar-btn w-full flex items-center gap-3 px-4 py-3 text-sm font-medium transition-all whitespace-nowrap rounded-lg text-white/60 hover:text-white hover:bg-white/5 min-h-[44px]" onclick="switchTab('gallery-tab', this)">
 <span class="material-symbols-outlined text-xl">image</span> ГАЛЕРЕЯ
             </button>
-<button class="sidebar-btn w-full flex items-center gap-3 px-4 py-3 text-sm font-medium transition-all whitespace-nowrap rounded-lg text-white/60 hover:text-white hover:bg-white/5" onclick="switchTab('guides-tab', this)">
+<button class="sidebar-btn w-full flex items-center gap-3 px-4 py-3 text-sm font-medium transition-all whitespace-nowrap rounded-lg text-white/60 hover:text-white hover:bg-white/5 min-h-[44px]" onclick="switchTab('guides-tab', this)">
 <span class="material-symbols-outlined text-xl">auto_stories</span> ГАЙДЫ
             </button>
-<button class="sidebar-btn w-full flex items-center gap-3 px-4 py-3 text-sm font-medium transition-all whitespace-nowrap rounded-lg text-white/60 hover:text-white hover:bg-white/5" onclick="switchTab('suggestions-tab', this)">
+<button class="sidebar-btn w-full flex items-center gap-3 px-4 py-3 text-sm font-medium transition-all whitespace-nowrap rounded-lg text-white/60 hover:text-white hover:bg-white/5 min-h-[44px]" onclick="switchTab('suggestions-tab', this)">
 <span class="material-symbols-outlined text-xl">inbox</span> ПРЕДЛОЖКА
             </button>
-<button class="sidebar-btn w-full flex items-center gap-3 px-4 py-3 text-sm font-medium transition-all whitespace-nowrap rounded-lg text-white/60 hover:text-white hover:bg-white/5" id="accepted-tab-btn" onclick="switchTab('accepted-tab', this)">
+<button class="sidebar-btn w-full flex items-center gap-3 px-4 py-3 text-sm font-medium transition-all whitespace-nowrap rounded-lg text-white/60 hover:text-white hover:bg-white/5 min-h-[44px]" id="accepted-tab-btn" onclick="switchTab('accepted-tab', this)">
 <span class="material-symbols-outlined text-xl">verified</span> ПРИНЯТЫЕ
             </button>
-<button class="sidebar-btn w-full flex items-center gap-3 px-4 py-3 text-sm font-medium transition-all whitespace-nowrap rounded-lg text-white/60 hover:text-white hover:bg-white/5" onclick="switchTab('settings-tab', this)">
+<button class="sidebar-btn w-full flex items-center gap-3 px-4 py-3 text-sm font-medium transition-all whitespace-nowrap rounded-lg text-white/60 hover:text-white hover:bg-white/5 min-h-[44px]" onclick="switchTab('settings-tab', this)">
 <span class="material-symbols-outlined text-xl">settings</span> НАСТРОЙКИ
             </button>
 </nav>
-<div class="p-4 border-t border-white/5 space-y-2">
+<div class="p-4 border-t border-white/5 space-y-2 hidden lg:block">
 <a class="flex items-center justify-center gap-2 w-full py-2.5 text-xs font-bold text-white/40 hover:text-emerald-primary border border-white/10 rounded-lg transition-colors" href="/" target="_blank">
 <span class="material-symbols-outlined text-sm">open_in_new</span> ПРОСМОТР САЙТА
             </a>
@@ -244,19 +244,17 @@
             </button>
 </div>
 </aside>
-<main class="flex-1 lg:ml-72 flex flex-col bg-[#131319]">
-<header class="min-h-16 h-auto py-3 md:py-0 border-b border-white/5 bg-[#0f0f15]/80 backdrop-blur-md sticky top-0 z-10 px-6 md:px-8 flex flex-col md:flex-row items-center justify-between gap-4">
+<main class="flex-1 lg:ml-72 flex flex-col bg-[#131319] min-w-0">
+<header class="min-h-16 h-auto py-4 md:py-0 border-b border-white/5 bg-[#0f0f15]/80 backdrop-blur-md sticky top-16 lg:top-0 z-10 px-4 md:px-8 flex flex-row items-center justify-between gap-2">
 <div class="flex items-center gap-6">
 <div class="flex items-center gap-2 px-3 py-1.5 bg-emerald-primary/5 rounded-full border border-emerald-primary/10 text-[10px]">
 <div class="w-1.5 h-1.5 bg-emerald-primary rounded-full animate-pulse shadow-[0_0_8px_#00e479]" id="connection-dot"></div>
 <span class="font-bold uppercase text-emerald-primary/80" id="connection-status">API CONNECTED</span>
 </div>
-<button class="btn-emerald px-8 h-10 text-sm shadow-[0_0_15px_#00e479] uppercase flex items-center gap-2" onclick="publishAll()">
-<span class="material-symbols-outlined text-lg">cloud_upload</span> СОХРАНИТЬ ВСЁ
-                </button>
+<button class="btn-emerald px-8 h-10 text-sm shadow-[0_0_15px_#00e479] uppercase flex items-center gap-2" onclick="publishAll()"><span class="material-symbols-outlined text-lg">cloud_upload</span> <span class="hidden sm:inline">СОХРАНИТЬ ВСЁ</span></button>
 </div>
 </header>
-<div class="p-8 pb-20">
+<div class="p-4 md:p-8 pb-20">
 <div class="tab-content space-y-8" id="home-tab">
 <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
 <div class="terminal-border p-6 rounded-xl bg-[#0f0f15] shadow-[0_0_10px_rgba(0,228,121,0.05)] space-y-6">
@@ -387,8 +385,8 @@
 <label class="text-[10px] font-bold text-white/30 uppercase tracking-widest">Сортировка:</label>
 <select class="input-field py-1.5 px-3 text-[10px] font-bold uppercase tracking-wider bg-white/5 border-white/10" onchange="sortSuggestions(this.value)">
 <option value="alpha_asc">А-Я (ПО АЛФАВИТУ)</option>
-<option value="date_desc">ДАТА (НОВЫЕ)</option>
-<option value="date_asc">ДАТА (СТАРЫЕ)</option>
+<option value="date_desc">ДАТА ОТПРАВКИ (НОВЫЕ)</option>
+<option value="date_asc">ДАТА ОТПРАВКИ (СТАРЫЕ)</option>
 <option value="size_desc">РАЗМЕР (MAX)</option>
 <option value="has_contact">С КОНТАКТОМ</option>
 <option value="has_comment">ПО НАЛИЧИЮ КОММЕНТАРИЯ</option>
@@ -400,7 +398,7 @@
 </div>
 </div>
 <div class="terminal-border rounded-xl bg-[#0f0f15] overflow-hidden shadow-[0_0_10px_rgba(0,228,121,0.05)]">
-<div class="overflow-x-auto">
+<div class="overflow-x-auto min-w-full">
 <table class="w-full text-left border-collapse">
 <thead>
 <tr class="border-b border-white/5 bg-white/5">
@@ -426,8 +424,8 @@
 <label class="text-[10px] font-bold text-white/30 uppercase tracking-widest">Сортировка:</label>
 <select class="input-field py-1.5 px-3 text-[10px] font-bold uppercase tracking-wider bg-white/5 border-white/10" onchange="sortAccepted(this.value)">
 <option value="alpha_asc">А-Я (ПО АЛФАВИТУ)</option>
-<option value="date_desc">ДАТА (НОВЫЕ)</option>
-<option value="date_asc">ДАТА (СТАРЫЕ)</option>
+<option value="date_desc">ДАТА ОТПРАВКИ (НОВЫЕ)</option>
+<option value="date_asc">ДАТА ОТПРАВКИ (СТАРЫЕ)</option>
 <option value="size_desc">РАЗМЕР (MAX)</option>
 <option value="has_contact">С КОНТАКТОМ</option>
 <option value="has_comment">ПО НАЛИЧИЮ КОММЕНТАРИЯ</option>
@@ -794,7 +792,7 @@
                 <div><label class="block text-[10px] font-bold text-white/30 uppercase mb-1 tracking-widest">НАЗВАНИЕ</label><p class="text-xl font-black text-white uppercase">${item.title || '—'}</p></div>
                 <div class="grid grid-cols-2 gap-4">
                     <div><label class="block text-[10px] font-bold text-white/30 uppercase mb-1 tracking-widest">КОНТАКТ</label><p class="text-sm font-bold text-emerald-primary uppercase">${item.contact || item.author || 'ANON'}</p></div>
-                    <div><label class="block text-[10px] font-bold text-white/30 uppercase mb-1 tracking-widest">ДАТА ПОДАЧИ</label><p class="text-sm font-bold text-white/60 uppercase">${formatFullDate(item.date)}</p></div>
+                    <div><label class="block text-[10px] font-bold text-white/30 uppercase mb-1 tracking-widest">ДАТА ОТПРАВКИ</label><p class="text-sm font-bold text-white/60 uppercase">${formatFullDate(item.date)}</p></div>
                 </div>
                 <div class="p-4 bg-white/5 rounded-lg border border-white/5 space-y-3" id="pixel-info-container">
                     <div class="flex items-center justify-center py-4"><div class="w-5 h-5 border-2 border-emerald-primary/30 border-t-emerald-primary rounded-full animate-spin"></div></div>
