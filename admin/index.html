@@ -887,14 +887,36 @@
     function removeStep(type, i) { const k = type==="wplace"?"help_wplace":type==="blue"?"help_blue":"help_helper"; homeData[k].splice(i,1); renderStepsAdmin(type, homeData[k]); }
     function previewHomeImage() { const url = document.getElementById("home-image").value; const img = document.getElementById("home-preview-img"); const p = document.getElementById("no-preview"); if (url) { img.src = url; img.classList.remove("hidden"); p.classList.add("hidden"); } else { img.classList.add("hidden"); p.classList.remove("hidden"); } }
 
+    function moveGalleryItem(index, direction) {
+        const newIndex = index + direction;
+        if (newIndex < 0 || newIndex >= galleryData.length) return;
+        const temp = galleryData[index];
+        galleryData[index] = galleryData[newIndex];
+        galleryData[newIndex] = temp;
+        renderGallery();
+    }
+
     function renderGallery() {
         const el = document.getElementById("gallery-items"); if (!el) return;
         el.innerHTML = galleryData.map((item, i) => `<div class="terminal-border bg-[#0f0f15] p-4 group rounded-xl">
+            <div class="flex justify-between items-center mb-3">
+                <div class="flex gap-2">
+                    <button onclick="moveGalleryItem(${i}, -1)" class="w-8 h-8 rounded bg-white/5 hover:bg-emerald-primary hover:text-black flex items-center justify-center transition-all ${i === 0 ? 'opacity-20 pointer-events-none' : ''}">
+                        <span class="material-symbols-outlined text-lg">arrow_upward</span>
+                    </button>
+                    <button onclick="moveGalleryItem(${i}, 1)" class="w-8 h-8 rounded bg-white/5 hover:bg-emerald-primary hover:text-black flex items-center justify-center transition-all ${i === galleryData.length - 1 ? 'opacity-20 pointer-events-none' : ''}">
+                        <span class="material-symbols-outlined text-lg">arrow_downward</span>
+                    </button>
+                </div>
+                <button onclick="galleryData.splice(${i},1);renderGallery();" class="w-8 h-8 rounded bg-red-500/10 text-red-500 hover:bg-red-500 hover:text-white flex items-center justify-center transition-all">
+                    <span class="material-symbols-outlined text-lg">delete</span>
+                </button>
+            </div>
             <div class="aspect-video mb-4 rounded-lg border border-white/5 overflow-hidden bg-black/20"><img src="${item.image}" class="w-full h-full object-contain"></div>
             <div class="space-y-3">
                 <div>
                     <label class="block text-[9px] font-bold text-white/30 uppercase mb-1">Название</label>
-                    <input placeholder="НАЗВАНИЕ" value="${item.title||''}" onchange="galleryData[${i}].title=this.value" class="input-field w-full text-sm font-bold py-2 px-3 border-none bg-white/5">
+                    <input placeholder="НАЗВАНИЕ" value="${(item.title||'').replace(/"/g,'&quot;')}" onchange="galleryData[${i}].title=this.value" class="input-field w-full text-sm font-bold py-2 px-3 border-none bg-white/5">
                 </div>
                 <div>
                     <label class="block text-[9px] font-bold text-white/30 uppercase mb-1">Описание</label>
@@ -904,7 +926,6 @@
                     <label class="block text-[9px] font-bold text-white/30 uppercase mb-1">URL изображения</label>
                     <input placeholder="URL" value="${item.image||''}" onchange="galleryData[${i}].image=this.value;renderGallery();" class="input-field w-full text-[10px] py-1 px-3 border-none bg-white/5 opacity-40">
                 </div>
-                <button onclick="galleryData.splice(${i},1);renderGallery();" class="w-full py-2 text-[10px] font-bold text-red-500/60 hover:text-white hover:bg-red-500 border border-red-500/10 rounded transition-all">УДАЛИТЬ</button>
             </div>
         </div>`).join("");
     }
