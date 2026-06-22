@@ -588,7 +588,7 @@
             const actualIndex = i + offset;
             return `<li class="p-4 md:p-5 flex items-center justify-between group cursor-pointer hover:bg-white/5 rounded transition-all" onclick="openStepModal('${type}', ${actualIndex})">
                 <span class="flex items-center gap-4 md:gap-6">
-                    <span class="w-8 h-8 flex items-center justify-center rounded bg-accent/10 text-accent text-[10px] font-bold border border-accent/20 font-mono flex-shrink-0">ШАГ №${(actualIndex + 1).toString().padStart(2, '0')}</span>
+                    <span class="w-8 h-8 flex items-center justify-center rounded bg-accent/10 text-accent text-[10px] font-bold border border-accent/20 font-mono flex-shrink-0">${(actualIndex + 1).toString().padStart(2, '0')}</span>
                     <span class="text-xs md:text-sm font-bold uppercase tracking-widest text-on-surface-variant group-hover:text-white transition-colors line-clamp-1">${sd.text || 'ОПИСАНИЕ_ОТСУТСТВУЕТ'}</span>
                 </span>
                 <span class="material-symbols-outlined opacity-10 md:group-hover:opacity-100 transition-opacity text-accent text-lg flex-shrink-0">chevron_right</span>
@@ -716,7 +716,7 @@
         imgEl.src = sd.image || "";
         document.getElementById("modal-img-container").style.display = sd.image ? 'block' : 'none';
         
-        document.getElementById("modal-title").textContent = `ШАГ №${(index + 1).toString().padStart(2, '0')}`;
+        document.getElementById("modal-title").textContent = `${(index + 1).toString()}`;
         document.getElementById("modal-desc").innerHTML = `<div class="text-xl md:text-2xl font-bold mb-4 md:mb-6 uppercase text-white">${sd.text || ""}</div>` + (sd.detail ? `<div class="text-xs md:text-sm font-mono opacity-70 mt-4 border-t border-white/10 pt-4">${makeLinksClickable(sd.detail)}</div>` : "");
         
         document.getElementById("modal-overlay").classList.add("active");
