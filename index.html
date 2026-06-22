@@ -172,7 +172,6 @@
             width: 4px;
         }
 
-        /* Numbered list styling */
         .pixel-list {
             counter-reset: step-counter;
         }
@@ -235,10 +234,10 @@
 <div class="flex flex-col sm:flex-row gap-3 md:gap-4 mt-8 md:mt-12 pt-6 md:pt-8 border-t border-white/5">
 <a class="btn-obsidian px-6 py-4 rounded flex items-center justify-center gap-2 text-[10px] tracking-widest uppercase font-bold transition-all flex-1" href="#" id="btn-wplace" rel="noopener noreferrer" target="_blank">
 <span class="material-symbols-outlined text-sm">link</span> ОТКРЫТЬ НА WPLACE
-                                </a>
+                                    </a>
 <button class="btn-obsidian px-6 py-4 rounded flex items-center justify-center gap-2 text-[10px] tracking-widest uppercase font-bold transition-all flex-1" id="btn-download">
 <span class="material-symbols-outlined text-sm">save</span> СКАЧАТЬ АРТ
-                                </button>
+                                    </button>
 </div>
 </div>
 </div>
@@ -257,7 +256,7 @@
 <div class="space-y-4 md:space-y-6">
 <p class="text-accent font-black text-[10px] tracking-widest flex items-center gap-2 uppercase">
 <span class="material-symbols-outlined text-sm">bolt</span> [01] WPlace
-                            </p>
+                                </p>
 <div class="bg-black/20 rounded-lg border border-white/5 p-1 break-words" id="wplace-steps">
 <ol class="space-y-1 list-none pixel-list"><li class="p-4 opacity-40 italic font-mono text-[10px] uppercase text-center">ДАННЫЕ_ОТСУТСТВУЮТ</li></ol>
 </div>
@@ -265,7 +264,7 @@
 <div class="space-y-4 md:space-y-6">
 <p class="text-accent font-black text-[10px] tracking-widest flex items-center gap-2 uppercase">
 <span class="material-symbols-outlined text-sm">public</span> [02] Blue Marble
-                            </p>
+                                </p>
 <div class="bg-black/20 rounded-lg border border-white/5 p-1 break-words" id="blue-steps">
 <ol class="space-y-1 list-none pixel-list"><li class="p-4 opacity-40 italic font-mono text-[10px] uppercase text-center">ДАННЫЕ_ОТСУТСТВУЮТ</li></ol>
 </div>
@@ -273,7 +272,7 @@
 <div class="space-y-4 md:space-y-6 lg:col-span-1 md:col-span-2">
 <p class="text-accent font-black text-[10px] tracking-widest flex items-center gap-2 uppercase">
 <span class="material-symbols-outlined text-sm">extension</span> [03] WPlace Helper
-                            </p>
+                                </p>
 <div class="bg-black/20 rounded-lg border border-white/5 p-1 break-words" id="helper-steps">
 <ol class="space-y-1 list-none pixel-list"><li class="p-4 opacity-40 italic font-mono text-[10px] uppercase text-center">ДАННЫЕ_ОТСУТСТВУЮТ</li></ol>
 </div>
@@ -325,7 +324,7 @@
 </div>
 <button class="btn-obsidian w-full md:w-auto px-12 py-5 rounded flex items-center justify-center gap-3 text-[10px] sm:text-xs tracking-widest uppercase" type="submit">
 <span class="material-symbols-outlined">send</span> ОТПРАВИТЬ ПРЕДЛОЖЕНИЕ
-                        </button>
+                            </button>
 </form>
 </div>
 </section>
@@ -402,7 +401,7 @@
 <div class="flex flex-col gap-4 mt-auto">
 <button class="btn-obsidian w-full py-4 md:py-5 rounded flex items-center justify-center gap-3 text-[10px] md:text-xs tracking-widest uppercase" id="modal-download" onclick="downloadModalImage()">
 <span class="material-symbols-outlined">download</span> СКАЧАТЬ АРТ
-                    </button>
+                        </button>
 <div class="flex items-center justify-between bg-black/40 p-1 md:p-2 rounded border border-accent/20" id="modal-nav-row">
 <button class="p-3 md:p-4 hover:bg-white/5 hover:text-accent transition-colors bg-white/5 rounded border border-white/5" id="modal-prev" onclick="navModal(-1)">
 <span class="material-symbols-outlined">chevron_left</span>
@@ -419,476 +418,453 @@
 </div>
 <div class="fixed inset-0 pointer-events-none z-[200] flex items-end md:items-center justify-center p-4" id="toast-container"></div>
 <script>
-    // --- 1. Firebase Configuration ---
-    const firebaseConfig = {
-      apiKey: "AIzaSyBb88pnDmYYH9Z7aPIOymSgINA4L_K_9gc",
-      authDomain: "wl-site-4f2a1.firebaseapp.com",
-      databaseURL: "https://wl-site-4f2a1-default-rtdb.firebaseio.com",
-      projectId: "wl-site-4f2a1",
-      storageBucket: "wl-site-4f2a1.firebasestorage.app",
-      messagingSenderId: "443308679935",
-      appId: "1:443308679935:web:856f60bfa1c2eb0d87e2ca",
-      measurementId: "G-PP1LZGWVX5"
-    };
+        // --- 1. Firebase Configuration ---
+        const firebaseConfig = {
+          apiKey: "AIzaSyBb88pnDmYYH9Z7aPIOymSgINA4L_K_9gc",
+          authDomain: "wl-site-4f2a1.firebaseapp.com",
+          databaseURL: "https://wl-site-4f2a1-default-rtdb.firebaseio.com",
+          projectId: "wl-site-4f2a1",
+          storageBucket: "wl-site-4f2a1.firebasestorage.app",
+          messagingSenderId: "443308679935",
+          appId: "1:443308679935:web:856f60bfa1c2eb0d87e2ca",
+          measurementId: "G-PP1LZGWVX5"
+        };
 
-    // Global references
-    let db = null;
-    let firebaseReady = false;
+        // Global references
+        let db = null;
+        let firebaseReady = false;
 
-    // Default Fallback Data
-    const FALLBACK_HOME = { 
-        title: "???", 
-        image: "https://lh3.googleusercontent.com/aida-public/AB6AXuAobyibfIyBZszfTCryZ0lqrix_dNVJ-95L74S_tYuA6LxgsB0X7QazpWTZ5kXYAT4CaNgkoggBoInBFilSldSahWvy7vWkNM60mUDS6qknt8Ud7jxO3i7tx58YvR5UzQG1-UX6AUMrKtjlpinyVeO0OjnDtV8kO1hDIPrTNvZuNV8fUc1rLe9aKTybqsMRewacrQmzPPnAKUTFP_SIiek_1qtYd0QoqS2xmq14-xQz2qhZzGSmBCws4UnrZLE-F_0Etm4Q9GecIHs-", 
-        description: "ДАННЫЕ_ОТСУТСТВУЮТ", 
-        location: "#",
-        help_wplace: [], 
-        help_blue: [], 
-        help_helper: [] 
-    };
+        const FALLBACK_HOME = { 
+            title: "???", 
+            image: "https://lh3.googleusercontent.com/aida-public/AB6AXuAobyibfIyBZszfTCryZ0lqrix_dNVJ-95L74S_tYuA6LxgsB0X7QazpWTZ5kXYAT4CaNgkoggBoInBFilSldSahWvy7vWkNM60mUDS6qknt8Ud7jxO3i7tx58YvR5UzQG1-UX6AUMrKtjlpinyVeO0OjnDtV8kO1hDIPrTNvZuNV8fUc1rLe9aKTybqsMRewacrQmzPPnAKUTFP_SIiek_1qtYd0QoqS2xmq14-xQz2qhZzGSmBCws4UnrZLE-F_0Etm4Q9GecIHs-", 
+            description: "ДАННЫЕ_ОТСУТСТВУЮТ", 
+            location: "#",
+            help_wplace: [], 
+            help_blue: [], 
+            help_helper: [] 
+        };
 
-    // State
-    let currentGalleryIndex = 0;
-    let currentStepIndex = 0;
-    let currentStepType = '';
-    let modalMode = 'gallery';
-    
-    window._homeData = { ...FALLBACK_HOME };
-    window._galleryData = [];
-    window._guidesData = [];
-
-    /**
-     * Robust fetch with cache busting
-     */
-    async function fetchWithTimeout(resource, options = {}) {
-        const { timeout = 8000 } = options;
-        const controller = new AbortController();
-        const id = setTimeout(() => controller.abort(), timeout);
+        let currentGalleryIndex = 0;
+        let modalMode = 'gallery';
         
-        // Anti-caching query param
-        const url = new URL(resource, window.location.origin);
-        url.searchParams.set('t', Date.now());
+        window._homeData = { ...FALLBACK_HOME };
+        window._galleryData = [];
+        window._guidesData = [];
 
-        try {
-            const response = await fetch(url.toString(), {
-                ...options,
-                cache: 'no-store', // Extra protection
-                signal: controller.signal
-            });
-            clearTimeout(id);
-            if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-            return await response.json();
-        } catch (error) {
-            clearTimeout(id);
-            console.warn(`Fetch failed for ${resource}: ${error.message}`);
+        async function fetchWithTimeout(resource, options = {}) {
+            const { timeout = 8000 } = options;
+            const controller = new AbortController();
+            const id = setTimeout(() => controller.abort(), timeout);
+            
+            const url = new URL(resource, window.location.origin);
+            url.searchParams.set('t', Date.now());
+
+            try {
+                const response = await fetch(url.toString(), {
+                    ...options,
+                    cache: 'no-store',
+                    signal: controller.signal
+                });
+                clearTimeout(id);
+                if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+                return await response.json();
+            } catch (error) {
+                clearTimeout(id);
+                console.warn(`Fetch failed for ${resource}: ${error.message}`);
+                return null;
+            }
+        }
+
+        function initFirebase() {
+            try {
+                if (typeof firebase !== 'undefined') {
+                    if (!firebase.apps.length) {
+                        firebase.initializeApp(firebaseConfig);
+                    }
+                    db = firebase.database();
+                    firebaseReady = true;
+                    console.log("Firebase system initialized.");
+                }
+            } catch (e) {
+                console.error("Firebase init failed:", e);
+                firebaseReady = false;
+            }
+        }
+
+        function makeLinksClickable(text) {
+            if (!text) return "";
+            return text.toString()
+                .replace(/(https?:\/\/[^\s<>]+)/g, '<a href="$1" target="_blank" class="text-accent hover:text-white transition-colors underline decoration-accent/30 underline-offset-4">$1</a>')
+                .replace(/@([a-zA-Z0-9_]+)/g, '<a href="https://t.me/$1" target="_blank" class="text-accent hover:text-white transition-colors">@$1</a>');
+        }
+
+        function downloadImage(url, filename) {
+            if (!url) return;
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = filename || 'asset.png';
+            a.target = '_blank';
+            a.rel = 'noopener';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+        }
+
+        function downloadModalImage() {
+            const img = document.getElementById('modal-img');
+            if (img && img.src) downloadImage(img.src, 'obsidian-asset.png');
+        }
+
+        async function initContent() {
+            initFirebase();
+            const t = Date.now();
+            const [settings, home, gallery, guides] = await Promise.all([
+                fetchWithTimeout(`content/settings.json?t=${t}`).then(res => res || {
+                    siteTitle: "Masters_of_Cum — official site", 
+                    headerTitle: "Masters_of_Cum",
+                    headerSubtitle: "official site", 
+                    footer: "TELEGRAM KOHTAKT - @ARNIMAZ | КАНАЛ - @MASTERS_OF_CUM"
+                }),
+                fetchWithTimeout(`content/home.json?t=${t}`).then(res => res || FALLBACK_HOME),
+                fetchWithTimeout(`content/gallery.json?t=${t}`).then(res => res || []),
+                fetchWithTimeout(`content/guides.json?t=${t}`).then(res => res || [])
+            ]);
+
+            window._homeData = home;
+            window._galleryData = gallery;
+            window._guidesData = guides;
+
+            updateSettingsUI(settings);
+            updateHomeUI(window._homeData);
+            renderGalleryGrid(window._galleryData);
+            renderGuides(window._guidesData);
+
+            if (firebaseReady) {
+                loadSuggestionsIntoAdmin().catch(err => console.log("Admin preview fail"));
+            }
+        }
+
+        function updateSettingsUI(data) {
+            try {
+                document.title = data.siteTitle || "Masters_of_Cum";
+                document.querySelector(".site-title").textContent = data.headerTitle || "Masters_of_Cum";
+                document.querySelector(".site-subtitle").textContent = (data.headerSubtitle || "official site").toUpperCase();
+                
+                const footerText = data.footer || "TELEGRAM KOHTAKT - @ARNIMAZ | КАНАЛ - @MASTERS_OF_CUM";
+                const footerLinks = footerText.split('|');
+                let footerHtml = '<div class="text-[10px] font-mono tracking-[0.3em] uppercase text-on-surface-variant/60 flex flex-wrap justify-center gap-x-8 gap-y-4">';
+                footerLinks.forEach((link, idx) => {
+                    footerHtml += `<span>${makeLinksClickable(link.trim())}</span>`;
+                    if (idx < footerLinks.length - 1) footerHtml += `<span class="w-1 h-1 bg-white/20 rounded-full my-auto hidden md:block"></span>`;
+                });
+                footerHtml += '</div>';
+                document.getElementById("site-footer").innerHTML = footerHtml;
+            } catch (e) { console.error("UI Update Error (Settings):", e); }
+        }
+
+        function updateHomeUI(data) {
+            try {
+                document.getElementById('current-art-title').textContent = data.title || "???";
+                document.getElementById('current-art-desc').innerHTML = makeLinksClickable(data.description || "ДАННЫЕ_ОТСУТСТВУЮТ");
+                document.getElementById('current-art-img').src = data.image || FALLBACK_HOME.image;
+                document.getElementById('btn-download').onclick = () => downloadImage(data.image || FALLBACK_HOME.image, 'art-capture.png');
+                document.getElementById('btn-wplace').href = data.location || "#";
+                
+                document.querySelector('#wplace-steps ol').innerHTML = renderStepsList(data.help_wplace, 'wplace');
+                document.querySelector('#blue-steps ol').innerHTML = renderStepsList(data.help_blue, 'blue');
+                document.querySelector('#helper-steps ol').innerHTML = renderStepsList(data.help_helper, 'helper');
+            } catch (e) { console.error("UI Update Error (Home):", e); }
+        }
+
+        function renderStepsList(steps, type) {
+            if (!steps || steps.length === 0) return '<li class="p-4 opacity-40 italic font-mono text-[10px] uppercase text-center">ДАННЫЕ_ОТСУТСТВУЮТ</li>';
+            
+            return steps.map((s, i) => {
+                const sd = typeof s === 'object' ? s : { text: s };
+                const displayNum = i + 1;
+
+                return `<li class="p-4 md:p-5 flex items-center justify-between group cursor-pointer hover:bg-white/5 rounded transition-all" onclick="openStepModal('${type}', ${i})">
+                    <span class="flex items-center gap-4 md:gap-6">
+                        <span class="w-8 h-8 flex items-center justify-center rounded bg-accent/10 text-accent text-[10px] font-bold border border-accent/20 font-mono flex-shrink-0">${displayNum.toString().padStart(2, '0')}</span>
+                        <span class="text-xs md:text-sm font-bold uppercase tracking-widest text-on-surface-variant group-hover:text-white transition-colors line-clamp-1">${sd.text || 'ОПИСАНИЕ_ОТСУТСТВУЕТ'}</span>
+                    </span>
+                    <span class="material-symbols-outlined opacity-10 md:group-hover:opacity-100 transition-opacity text-accent text-lg flex-shrink-0">chevron_right</span>
+                </li>`;
+            }).join('');
+        }
+
+        function renderGalleryGrid(data) {
+            const grid = document.getElementById('gallery-grid');
+            if (!grid) return;
+            if (!data || data.length === 0) {
+                grid.innerHTML = '<p class="col-span-full text-center py-20 text-on-surface-variant font-mono uppercase tracking-widest opacity-40">АРХИВ_ПУСТ</p>';
+                return;
+            }
+            grid.innerHTML = data.map((item, i) => `
+                <div class="obsidian-card p-3 md:p-6 cursor-pointer rounded-xl group" onclick="openGalleryItem(${i})">
+                    <div class="rounded-lg overflow-hidden border border-white/5 bg-black mb-3 md:mb-6 aspect-square relative">
+                        <img src="${item.image || ''}" alt="${item.title || ''}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-accent/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                    </div>
+                    <h4 class="text-center font-bold text-white text-[9px] md:text-[10px] uppercase tracking-[0.2em] md:tracking-[0.3em] px-1 truncate font-mono">${item.title || 'БЕЗ НАЗВАНИЯ'}</h4>
+                </div>
+            `).join('');
+        }
+
+        /**
+         * Enhanced Guides Rendering with Strict Section Matching
+         */
+        function renderGuides(data) {
+            const container = document.getElementById('guides-content');
+            if (!container) return;
+            if (!data || data.length === 0) {
+                container.innerHTML = '<p class="text-center py-20 text-on-surface-variant font-mono uppercase tracking-widest opacity-40">Гайды не добавлены</p>';
+                return;
+            }
+            
+            container.innerHTML = data.map((g, idx) => {
+                let sectionsHtml = '';
+                const cleanTitle = (g.title || 'БЕЗ НАЗВАНИЯ').replace(/^ГАЙД:\s*/i, '');
+
+                // Helper to filter steps strictly by section
+                const filterBySection = (steps, sectionName, isDefault = false) => {
+                    if (!steps) return [];
+                    return steps.filter(step => {
+                        if (isDefault) return !step.section;
+                        return step.section === sectionName;
+                    });
+                };
+
+                // 💻 ПК Section
+                const pcSteps = filterBySection(g.install_pc, '💻 ПК', true); // Default to PC if section missing in PC array
+                if (pcSteps.length) {
+                    sectionsHtml += `
+                        <div class="bg-accent/5 border border-accent/20 px-3 py-1.5 md:px-4 md:py-2 text-[9px] md:text-[10px] font-bold text-accent uppercase mb-4 mt-6 md:mt-8 inline-block tracking-[0.2em] rounded">💻 ПК (WINDOWS)</div>
+                        <div class="bg-black/20 rounded-lg border border-white/5 p-1 mb-8">
+                            <ol class="space-y-1 list-none pixel-list">${renderStepsList(pcSteps, 'guide_pc_' + idx)}</ol>
+                        </div>`;
+                }
+
+                // 📱 Mobile Sections (Strict match)
+                if (g.install_phone && g.install_phone.length) {
+                    const androidSteps = filterBySection(g.install_phone, '📱 Android (Edge)');
+                    const iphoneSteps = filterBySection(g.install_phone, '📱 iPhone (iOS)');
+                    // Steps without section field in phone array go to Android by default if desired, or we skip. 
+                    // Let's assume unsectioned in phone array = first available platform (Android).
+                    const otherSteps = filterBySection(g.install_phone, '', true);
+
+                    if (androidSteps.length > 0 || otherSteps.length > 0) {
+                        const finalAndroid = [...androidSteps, ...otherSteps];
+                        sectionsHtml += `
+                            <div class="bg-accent/5 border border-accent/20 px-3 py-1.5 md:px-4 md:py-2 text-[9px] md:text-[10px] font-bold text-accent uppercase mb-4 mt-2 inline-block tracking-[0.2em] rounded">📱 Android (Edge)</div>
+                            <div class="bg-black/20 rounded-lg border border-white/5 p-1 mb-8">
+                                <ol class="space-y-1 list-none pixel-list">${renderStepsList(finalAndroid, 'guide_android_' + idx)}</ol>
+                            </div>`;
+                    }
+
+                    if (iphoneSteps.length > 0) {
+                        sectionsHtml += `
+                            <div class="bg-accent/5 border border-accent/20 px-3 py-1.5 md:px-4 md:py-2 text-[9px] md:text-[10px] font-bold text-accent uppercase mb-4 mt-2 inline-block tracking-[0.2em] rounded">📱 iPhone (iOS)</div>
+                            <div class="bg-black/20 rounded-lg border border-white/5 p-1 mb-8">
+                                <ol class="space-y-1 list-none pixel-list">${renderStepsList(iphoneSteps, 'guide_iphone_' + idx)}</ol>
+                            </div>`;
+                    }
+                }
+
+                return `
+                <div class="obsidian-card p-6 md:p-14 mb-8 md:mb-12 rounded-xl border-t-2 border-t-accent/40">
+                    <h3 class="text-2xl md:text-3xl font-black text-white mb-6 md:mb-8 uppercase tracking-tight font-display neon-glow">${cleanTitle}</h3>
+                    <div class="text-on-surface-variant mb-6 md:mb-10 text-sm md:text-lg leading-relaxed">${makeLinksClickable(g.description || '')}</div>
+                    ${sectionsHtml}
+                </div>`;
+            }).join('');
+        }
+
+        function openTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            const content = document.getElementById(tabId);
+            if (content) content.classList.add('active');
+            const btn = document.getElementById('nav-btn-' + tabId);
+            if (btn) btn.classList.add('active');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function openGalleryItem(index) {
+            if (!window._galleryData || window._galleryData.length === 0) return;
+            currentGalleryIndex = index; 
+            modalMode = 'gallery';
+            showGalleryModal();
+            document.getElementById("modal-overlay").classList.add("active");
+            document.getElementById("modal-nav-row").style.display = 'flex';
+            document.getElementById("modal-download").style.display = 'flex';
+            document.getElementById("modal-img-container").style.display = 'block';
+        }
+
+        function showGalleryModal() {
+            const item = window._galleryData[currentGalleryIndex]; 
+            if (!item) return;
+            const imgEl = document.getElementById("modal-img");
+            imgEl.src = item.image || "";
+            const cleanTitle = (item.title || "БЕЗ_НАЗВАНИЯ").replace(/^ГАЙД:\s*/i, '');
+            document.getElementById("modal-title").textContent = cleanTitle.toUpperCase();
+            document.getElementById("modal-desc").innerHTML = `<div class="text-sm md:text-lg leading-relaxed text-on-surface-variant">${makeLinksClickable(item.description || "")}</div>`;
+            document.getElementById("modal-nav-counter").textContent = `${(currentGalleryIndex + 1).toString().padStart(2, '0')} / ${window._galleryData.length.toString().padStart(2, '0')}`;
+        }
+
+        function navModal(dir) {
+            if (modalMode === 'gallery' && window._galleryData.length > 0) {
+                currentGalleryIndex = (currentGalleryIndex + dir + window._galleryData.length) % window._galleryData.length;
+                showGalleryModal();
+            }
+        }
+
+        function openStepModal(type, index) {
+            modalMode = 'step';
+            const data = getStepData(type, index);
+            if (!data) return;
+            
+            const sd = typeof data === 'object' ? data : { text: data };
+            const imgEl = document.getElementById("modal-img");
+            
+            imgEl.src = sd.image || "";
+            document.getElementById("modal-img-container").style.display = sd.image ? 'block' : 'none';
+            document.getElementById("modal-title").textContent = `ШАГ ${(index + 1).toString().padStart(2, '0')}`;
+            document.getElementById("modal-desc").innerHTML = 
+                `<div class="text-xl md:text-2xl font-bold mb-4 md:mb-6 uppercase text-white">${sd.text || ""}</div>` + 
+                (sd.detail ? `<div class="text-xs md:text-sm font-mono opacity-70 mt-4 border-t border-white/10 pt-4">${makeLinksClickable(sd.detail)}</div>` : "");
+            
+            document.getElementById("modal-overlay").classList.add("active");
+            document.getElementById("modal-nav-row").style.display = 'none';
+            document.getElementById("modal-download").style.display = 'none';
+        }
+
+        function getStepData(type, index) {
+            if (type === 'wplace') return window._homeData.help_wplace[index];
+            if (type === 'blue') return window._homeData.help_blue[index];
+            if (type === 'helper') return window._homeData.help_helper[index];
+            
+            const parts = type.split('_');
+            if (parts[0] === 'guide') {
+                const platform = parts[1];
+                const guideIdx = parseInt(parts[2]);
+                const guide = window._guidesData[guideIdx];
+                if (!guide) return null;
+
+                if (platform === 'pc') {
+                    return (guide.install_pc || []).filter(s => !s.section || s.section === '💻 ПК')[index];
+                }
+                if (platform === 'android') {
+                    const androidSteps = (guide.install_phone || []).filter(s => s.section === '📱 Android (Edge)');
+                    const unsectioned = (guide.install_phone || []).filter(s => !s.section);
+                    return [...androidSteps, ...unsectioned][index];
+                }
+                if (platform === 'iphone') {
+                    return (guide.install_phone || []).filter(s => s.section === '📱 iPhone (iOS)')[index];
+                }
+            }
             return null;
         }
-    }
 
-    /**
-     * Firebase Initialization
-     */
-    function initFirebase() {
-        try {
-            if (typeof firebase !== 'undefined') {
-                if (!firebase.apps.length) {
-                    firebase.initializeApp(firebaseConfig);
-                }
-                db = firebase.database();
-                firebaseReady = true;
-                console.log("Firebase system initialized.");
+        function closeModal() {
+            document.getElementById("modal-overlay").classList.remove("active");
+        }
+
+        async function submitSuggestion(e) { 
+            e.preventDefault(); 
+            const form = e.target;
+            const btn = form.querySelector('button[type="submit"]'); 
+            if (!firebaseReady) {
+                showToast('ОШИБКА: СЕРВЕР НЕДОСТУПЕН', true);
+                return;
             }
-        } catch (e) {
-            console.error("Firebase init failed:", e);
-            firebaseReady = false;
+            const originalText = btn.innerHTML; 
+            btn.disabled = true; 
+            btn.innerHTML = '<span class="material-symbols-outlined animate-spin text-sm">sync</span> ОТПРАВКА...'; 
+            try { 
+                const formData = new FormData(form);
+                const dataObj = Object.fromEntries(formData.entries());
+                const record = {
+                    title: dataObj.art_title,
+                    contact: dataObj.contact,
+                    comment: dataObj.message,
+                    image: document.getElementById('sug-file-data').value || dataObj.image_url || null,
+                    timestamp: Date.now(),
+                    date: new Date().toLocaleString()
+                };
+                await db.ref('suggestions').push(record);
+                showToast('ПРЕДЛОЖЕНИЕ ОТПРАВЛЕНО!'); 
+                form.reset(); 
+                document.getElementById('sug-file-data').value = '';
+                form.querySelector('#sug-file').nextElementSibling.querySelector('span').textContent = 'ВЫБРАТЬ ФАЙЛ';
+            } catch (err) { 
+                showToast('ОШИБКА ПРИ ОТПРАВКЕ', true); 
+            } finally { 
+                btn.disabled = false; 
+                btn.innerHTML = originalText; 
+            } 
         }
-    }
 
-    /**
-     * Utility Functions
-     */
-    function makeLinksClickable(text) {
-        if (!text) return "";
-        return text.toString()
-            .replace(/(https?:\/\/[^\s<>]+)/g, '<a href="$1" target="_blank" class="text-accent hover:text-white transition-colors underline decoration-accent/30 underline-offset-4">$1</a>')
-            .replace(/@([a-zA-Z0-9_]+)/g, '<a href="https://t.me/$1" target="_blank" class="text-accent hover:text-white transition-colors">@$1</a>');
-    }
-
-    function downloadImage(url, filename) {
-        if (!url) return;
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = filename || 'asset.png';
-        a.target = '_blank';
-        a.rel = 'noopener';
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-    }
-
-    function downloadModalImage() {
-        const img = document.getElementById('modal-img');
-        if (img && img.src) downloadImage(img.src, 'obsidian-asset.png');
-    }
-
-    /**
-     * Content Loader
-     */
-    async function initContent() {
-        initFirebase();
-
-        // Using timestamp as per request for cache busting
-        const t = Date.now();
-        const [settings, home, gallery, guides] = await Promise.all([
-            fetchWithTimeout(`content/settings.json?t=${t}`).then(res => res || {
-                siteTitle: "Masters_of_Cum — official site", 
-                headerTitle: "Masters_of_Cum",
-                headerSubtitle: "official site", 
-                footer: "TELEGRAM KOHTAKT - @ARNIMAZ | КАНАЛ - @MASTERS_OF_CUM"
-            }),
-            fetchWithTimeout(`content/home.json?t=${t}`).then(res => res || FALLBACK_HOME),
-            fetchWithTimeout(`content/gallery.json?t=${t}`).then(res => res || []),
-            fetchWithTimeout(`content/guides.json?t=${t}`).then(res => res || [])
-        ]);
-
-        window._homeData = home;
-        window._galleryData = gallery;
-        window._guidesData = guides;
-
-        updateSettingsUI(settings);
-        updateHomeUI(window._homeData);
-        renderGalleryGrid(window._galleryData);
-        renderGuides(window._guidesData);
-
-        if (firebaseReady) {
-            loadSuggestionsIntoAdmin().catch(err => console.log("Admin preview fail"));
+        function handleFileChange(input) {
+            if (input.files?.[0]) {
+                input.nextElementSibling.querySelector('span').textContent = input.files[0].name;
+                const reader = new FileReader();
+                reader.onload = e => document.getElementById('sug-file-data').value = e.target.result;
+                reader.readAsDataURL(input.files[0]);
+            }
         }
-    }
 
-    function updateSettingsUI(data) {
-        try {
-            document.title = data.siteTitle || "Masters_of_Cum";
-            document.querySelector(".site-title").textContent = data.headerTitle || "Masters_of_Cum";
-            document.querySelector(".site-subtitle").textContent = (data.headerSubtitle || "official site").toUpperCase();
-            
-            const footerText = data.footer || "TELEGRAM KOHTAKT - @ARNIMAZ | КАНАЛ - @MASTERS_OF_CUM";
-            const footerLinks = footerText.split('|');
-            let footerHtml = '<div class="text-[10px] font-mono tracking-[0.3em] uppercase text-on-surface-variant/60 flex flex-wrap justify-center gap-x-8 gap-y-4">';
-            footerLinks.forEach((link, idx) => {
-                footerHtml += `<span>${makeLinksClickable(link.trim())}</span>`;
-                if (idx < footerLinks.length - 1) footerHtml += `<span class="w-1 h-1 bg-white/20 rounded-full my-auto hidden md:block"></span>`;
-            });
-            footerHtml += '</div>';
-            document.getElementById("site-footer").innerHTML = footerHtml;
-        } catch (e) { console.error("UI Update Error (Settings):", e); }
-    }
-
-    function updateHomeUI(data) {
-        try {
-            document.getElementById('current-art-title').textContent = data.title || "???";
-            document.getElementById('current-art-desc').innerHTML = makeLinksClickable(data.description || "ДАННЫЕ_ОТСУТСТВУЮТ");
-            document.getElementById('current-art-img').src = data.image || FALLBACK_HOME.image;
-            document.getElementById('btn-download').onclick = () => downloadImage(data.image || FALLBACK_HOME.image, 'art-capture.png');
-            document.getElementById('btn-wplace').href = data.location || "#";
-            
-            document.querySelector('#wplace-steps ol').innerHTML = renderStepsList(data.help_wplace, 'wplace');
-            document.querySelector('#blue-steps ol').innerHTML = renderStepsList(data.help_blue, 'blue');
-            document.querySelector('#helper-steps ol').innerHTML = renderStepsList(data.help_helper, 'helper');
-        } catch (e) { console.error("UI Update Error (Home):", e); }
-    }
-
-    /**
-     * Step Renderer
-     */
-    function renderStepsList(steps, type) {
-        if (!steps || steps.length === 0) return '<li class="p-4 opacity-40 italic font-mono text-[10px] uppercase text-center">ДАННЫЕ_ОТСУТСТВУЮТ</li>';
-        
-        return steps.map((s, i) => {
-            const sd = typeof s === 'object' ? s : { text: s };
-            const displayNum = i + 1;
-
-            return `<li class="p-4 md:p-5 flex items-center justify-between group cursor-pointer hover:bg-white/5 rounded transition-all" onclick="openStepModal('${type}', ${i})">
-                <span class="flex items-center gap-4 md:gap-6">
-                    <span class="w-8 h-8 flex items-center justify-center rounded bg-accent/10 text-accent text-[10px] font-bold border border-accent/20 font-mono flex-shrink-0">${displayNum.toString().padStart(2, '0')}</span>
-                    <span class="text-xs md:text-sm font-bold uppercase tracking-widest text-on-surface-variant group-hover:text-white transition-colors line-clamp-1">${sd.text || 'ОПИСАНИЕ_ОТСУТСТВУЕТ'}</span>
-                </span>
-                <span class="material-symbols-outlined opacity-10 md:group-hover:opacity-100 transition-opacity text-accent text-lg flex-shrink-0">chevron_right</span>
-            </li>`;
-        }).join('');
-    }
-
-    function renderGalleryGrid(data) {
-        const grid = document.getElementById('gallery-grid');
-        if (!grid) return;
-        if (!data || data.length === 0) {
-            grid.innerHTML = '<p class="col-span-full text-center py-20 text-on-surface-variant font-mono uppercase tracking-widest opacity-40">АРХИВ_ПУСТ</p>';
-            return;
+        function showToast(msg, isErr = false) {
+            const container = document.getElementById('toast-container');
+            if (!container) return;
+            const toast = document.createElement('div');
+            toast.className = `obsidian-glass p-4 md:p-6 rounded-lg border-l-4 ${isErr ? 'border-red-500' : 'border-accent'} text-white font-mono text-[10px] md:text-xs uppercase tracking-widest pointer-events-auto transition-all duration-300 opacity-0 transform translate-y-4 mb-4 shadow-2xl`;
+            toast.textContent = msg;
+            container.appendChild(toast);
+            setTimeout(() => toast.classList.remove('opacity-0', 'translate-y-4'), 10);
+            setTimeout(() => {
+                toast.classList.add('opacity-0', 'translate-y-4');
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
         }
-        grid.innerHTML = data.map((item, i) => `
-            <div class="obsidian-card p-3 md:p-6 cursor-pointer rounded-xl group" onclick="openGalleryItem(${i})">
-                <div class="rounded-lg overflow-hidden border border-white/5 bg-black mb-3 md:mb-6 aspect-square relative">
-                    <img src="${item.image || ''}" alt="${item.title || ''}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                    <div class="absolute inset-0 bg-accent/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+
+        async function loadSuggestionsIntoAdmin() {
+            if (!firebaseReady) return;
+            const list = document.getElementById('admin-suggestions-list');
+            if (!list) return;
+            const snap = await db.ref('suggestions').limitToLast(50).once('value');
+            const data = snap.val();
+            if (!data) {
+                list.innerHTML = '<p class="text-center py-10 opacity-40 italic">NO_PENDING_SUGGESTIONS</p>';
+                return;
+            }
+            const entries = Object.entries(data).reverse();
+            list.innerHTML = entries.map(([id, s]) => `
+                <div class="border border-[#00ff41]/20 p-4 bg-[#00ff41]/5 rounded flex gap-4">
+                    ${s.image ? `<img src="${s.image}" class="w-16 h-16 object-cover border border-[#00ff41]/20">` : ''}
+                    <div class="flex-1 text-xs">
+                        <div class="font-bold text-[#00ff41]">${s.title || 'Untitled'}</div>
+                        <div class="opacity-60">${s.contact || 'No contact'}</div>
+                        <div class="mt-1">${s.comment || ''}</div>
+                    </div>
                 </div>
-                <h4 class="text-center font-bold text-white text-[9px] md:text-[10px] uppercase tracking-[0.2em] md:tracking-[0.3em] px-1 truncate font-mono">${item.title || 'БЕЗ НАЗВАНИЯ'}</h4>
-            </div>
-        `).join('');
-    }
-
-    /**
-     * Guides Rendering Logic
-     * Explicitly separates steps based on 'section' metadata for multi-platform support
-     */
-    function renderGuides(data) {
-        const container = document.getElementById('guides-content');
-        if (!container) return;
-        if (!data || data.length === 0) {
-            container.innerHTML = '<p class="text-center py-20 text-on-surface-variant font-mono uppercase tracking-widest opacity-40">Гайды не добавлены</p>';
-            return;
-        }
-        
-        container.innerHTML = data.map((g, idx) => {
-            let sectionsHtml = '';
-            const cleanTitle = (g.title || 'БЕЗ НАЗВАНИЯ').replace(/^ГАЙД:\s*/i, '');
-
-            // 💻 ПК Section
-            const pcSteps = (g.install_pc || []).filter(step => !step.section || step.section === '💻 ПК');
-            if (pcSteps.length) {
-                sectionsHtml += `
-                    <div class="bg-accent/5 border border-accent/20 px-3 py-1.5 md:px-4 md:py-2 text-[9px] md:text-[10px] font-bold text-accent uppercase mb-4 mt-6 md:mt-8 inline-block tracking-[0.2em] rounded">💻 ПК (WINDOWS)</div>
-                    <div class="bg-black/20 rounded-lg border border-white/5 p-1 mb-8">
-                        <ol class="space-y-1 list-none pixel-list">${renderStepsList(pcSteps, 'guide_pc_' + idx)}</ol>
-                    </div>`;
-            }
-
-            // 📱 Mobile Logic (Explicitly split by section)
-            if (g.install_phone && g.install_phone.length) {
-                const androidSteps = g.install_phone.filter(step => step.section === '📱 Android (Edge)');
-                const iphoneSteps = g.install_phone.filter(step => step.section === '📱 iPhone (iOS)');
-
-                if (androidSteps.length > 0) {
-                    sectionsHtml += `
-                        <div class="bg-accent/5 border border-accent/20 px-3 py-1.5 md:px-4 md:py-2 text-[9px] md:text-[10px] font-bold text-accent uppercase mb-4 mt-2 inline-block tracking-[0.2em] rounded">📱 Android (Edge)</div>
-                        <div class="bg-black/20 rounded-lg border border-white/5 p-1 mb-8">
-                            <ol class="space-y-1 list-none pixel-list">${renderStepsList(androidSteps, 'guide_android_' + idx)}</ol>
-                        </div>`;
-                }
-
-                if (iphoneSteps.length > 0) {
-                    sectionsHtml += `
-                        <div class="bg-accent/5 border border-accent/20 px-3 py-1.5 md:px-4 md:py-2 text-[9px] md:text-[10px] font-bold text-accent uppercase mb-4 mt-2 inline-block tracking-[0.2em] rounded">📱 iPhone (iOS)</div>
-                        <div class="bg-black/20 rounded-lg border border-white/5 p-1 mb-8">
-                            <ol class="space-y-1 list-none pixel-list">${renderStepsList(iphoneSteps, 'guide_iphone_' + idx)}</ol>
-                        </div>`;
-                }
-            }
-
-            return `
-            <div class="obsidian-card p-6 md:p-14 mb-8 md:mb-12 rounded-xl border-t-2 border-t-accent/40">
-                <h3 class="text-2xl md:text-3xl font-black text-white mb-6 md:mb-8 uppercase tracking-tight font-display neon-glow">${cleanTitle}</h3>
-                <div class="text-on-surface-variant mb-6 md:mb-10 text-sm md:text-lg leading-relaxed">${makeLinksClickable(g.description || '')}</div>
-                ${sectionsHtml}
-            </div>`;
-        }).join('');
-    }
-
-    /**
-     * Tab Handling
-     */
-    function openTab(tabId) {
-        document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
-        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-        
-        const content = document.getElementById(tabId);
-        if (content) content.classList.add('active');
-        
-        const btn = document.getElementById('nav-btn-' + tabId);
-        if (btn) btn.classList.add('active');
-        
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-
-    /**
-     * Modal Logic
-     */
-    function openGalleryItem(index) {
-        if (!window._galleryData || window._galleryData.length === 0) return;
-        currentGalleryIndex = index; 
-        modalMode = 'gallery';
-        showGalleryModal();
-        document.getElementById("modal-overlay").classList.add("active");
-        document.getElementById("modal-nav-row").style.display = 'flex';
-        document.getElementById("modal-download").style.display = 'flex';
-        document.getElementById("modal-img-container").style.display = 'block';
-    }
-
-    function showGalleryModal() {
-        const item = window._galleryData[currentGalleryIndex]; 
-        if (!item) return;
-        const imgEl = document.getElementById("modal-img");
-        imgEl.src = item.image || "";
-        const cleanTitle = (item.title || "БЕЗ_НАЗВАНИЯ").replace(/^ГАЙД:\s*/i, '');
-        document.getElementById("modal-title").textContent = cleanTitle.toUpperCase();
-        document.getElementById("modal-desc").innerHTML = `<div class="text-sm md:text-lg leading-relaxed text-on-surface-variant">${makeLinksClickable(item.description || "")}</div>`;
-        document.getElementById("modal-nav-counter").textContent = `${(currentGalleryIndex + 1).toString().padStart(2, '0')} / ${window._galleryData.length.toString().padStart(2, '0')}`;
-    }
-
-    function navModal(dir) {
-        if (modalMode === 'gallery' && window._galleryData.length > 0) {
-            currentGalleryIndex = (currentGalleryIndex + dir + window._galleryData.length) % window._galleryData.length;
-            showGalleryModal();
-        }
-    }
-
-    function openStepModal(type, index) {
-        currentStepType = type; 
-        currentStepIndex = index; 
-        modalMode = 'step';
-        
-        const data = getStepData(type, index);
-        if (!data) return;
-        
-        const sd = typeof data === 'object' ? data : { text: data };
-        const imgEl = document.getElementById("modal-img");
-        
-        imgEl.src = sd.image || "";
-        document.getElementById("modal-img-container").style.display = sd.image ? 'block' : 'none';
-        
-        document.getElementById("modal-title").textContent = `ШАГ ${(index + 1).toString().padStart(2, '0')}`;
-        
-        document.getElementById("modal-desc").innerHTML = 
-            `<div class="text-xl md:text-2xl font-bold mb-4 md:mb-6 uppercase text-white">${sd.text || ""}</div>` + 
-            (sd.detail ? `<div class="text-xs md:text-sm font-mono opacity-70 mt-4 border-t border-white/10 pt-4">${makeLinksClickable(sd.detail)}</div>` : "");
-        
-        document.getElementById("modal-overlay").classList.add("active");
-        document.getElementById("modal-nav-row").style.display = 'none';
-        document.getElementById("modal-download").style.display = 'none';
-    }
-
-    function getStepData(type, index) {
-        if (type === 'wplace') return window._homeData.help_wplace[index];
-        if (type === 'blue') return window._homeData.help_blue[index];
-        if (type === 'helper') return window._homeData.help_helper[index];
-        
-        const parts = type.split('_');
-        if (parts[0] === 'guide') {
-            const platform = parts[1];
-            const guideIdx = parseInt(parts[2]);
-            const guide = window._guidesData[guideIdx];
-            if (!guide) return null;
-
-            if (platform === 'pc') return (guide.install_pc || []).filter(s => !s.section || s.section === '💻 ПК')[index];
-            if (platform === 'android') return (guide.install_phone || []).filter(s => s.section === '📱 Android (Edge)')[index];
-            if (platform === 'iphone') return (guide.install_phone || []).filter(s => s.section === '📱 iPhone (iOS)')[index];
-        }
-        return null;
-    }
-
-    function closeModal() {
-        document.getElementById("modal-overlay").classList.remove("active");
-    }
-
-    /**
-     * Suggestions Submission
-     */
-    async function submitSuggestion(e) { 
-        e.preventDefault(); 
-        const form = e.target;
-        const btn = form.querySelector('button[type="submit"]'); 
-        
-        if (!firebaseReady) {
-            showToast('ОШИБКА: СЕРВЕР НЕДОСТУПЕН', true);
-            return;
+            `).join('');
         }
 
-        const originalText = btn.innerHTML; 
-        btn.disabled = true; 
-        btn.innerHTML = '<span class="material-symbols-outlined animate-spin text-sm">sync</span> ОТПРАВКА...'; 
-        
-        try { 
-            const formData = new FormData(form);
-            const dataObj = Object.fromEntries(formData.entries());
-            const record = {
-                title: dataObj.art_title,
-                contact: dataObj.contact,
-                comment: dataObj.message,
-                image: document.getElementById('sug-file-data').value || dataObj.image_url || null,
-                timestamp: Date.now(),
-                date: new Date().toLocaleString()
-            };
-            await db.ref('suggestions').push(record);
-            showToast('ПРЕДЛОЖЕНИЕ ОТПРАВЛЕНО!'); 
-            form.reset(); 
-            document.getElementById('sug-file-data').value = '';
-            form.querySelector('#sug-file').nextElementSibling.querySelector('span').textContent = 'ВЫБРАТЬ ФАЙЛ';
-        } catch (err) { 
-            showToast('ОШИБКА ПРИ ОТПРАВКЕ', true); 
-        } finally { 
-            btn.disabled = false; 
-            btn.innerHTML = originalText; 
-        } 
-    }
-
-    function handleFileChange(input) {
-        if (input.files?.[0]) {
-            input.nextElementSibling.querySelector('span').textContent = input.files[0].name;
-            const reader = new FileReader();
-            reader.onload = e => document.getElementById('sug-file-data').value = e.target.result;
-            reader.readAsDataURL(input.files[0]);
+        function switchAdminTab(tab) {
+            document.getElementById('admin-tab-logs').classList.toggle('hidden', tab !== 'logs');
+            document.getElementById('admin-tab-suggestions').classList.toggle('hidden', tab !== 'suggestions');
+            document.getElementById('admin-nav-logs').className = (tab === 'logs' ? "text-left py-2 px-4 bg-[#00ff41] text-black font-bold text-xs uppercase" : "text-left py-2 px-4 border border-[#00ff41]/40 text-[#00ff41] hover:bg-[#00ff41]/10 font-bold text-xs uppercase");
+            document.getElementById('admin-nav-suggestions').className = (tab === 'suggestions' ? "text-left py-2 px-4 bg-[#00ff41] text-black font-bold text-xs uppercase" : "text-left py-2 px-4 border border-[#00ff41]/40 text-[#00ff41] hover:bg-[#00ff41]/10 font-bold text-xs uppercase");
         }
-    }
 
-    function showToast(msg, isErr = false) {
-        const container = document.getElementById('toast-container');
-        if (!container) return;
-        const toast = document.createElement('div');
-        toast.className = `obsidian-glass p-4 md:p-6 rounded-lg border-l-4 ${isErr ? 'border-red-500' : 'border-accent'} text-white font-mono text-[10px] md:text-xs uppercase tracking-widest pointer-events-auto transition-all duration-300 opacity-0 transform translate-y-4 mb-4 shadow-2xl`;
-        toast.textContent = msg;
-        container.appendChild(toast);
-        setTimeout(() => toast.classList.remove('opacity-0', 'translate-y-4'), 10);
-        setTimeout(() => {
-            toast.classList.add('opacity-0', 'translate-y-4');
-            setTimeout(() => toast.remove(), 300);
-        }, 3000);
-    }
+        window.addEventListener('load', initContent);
 
-    async function loadSuggestionsIntoAdmin() {
-        if (!firebaseReady) return;
-        const list = document.getElementById('admin-suggestions-list');
-        if (!list) return;
-        const snap = await db.ref('suggestions').limitToLast(50).once('value');
-        const data = snap.val();
-        if (!data) {
-            list.innerHTML = '<p class="text-center py-10 opacity-40 italic">NO_PENDING_SUGGESTIONS</p>';
-            return;
-        }
-        const entries = Object.entries(data).reverse();
-        list.innerHTML = entries.map(([id, s]) => `
-            <div class="border border-[#00ff41]/20 p-4 bg-[#00ff41]/5 rounded flex gap-4">
-                ${s.image ? `<img src="${s.image}" class="w-16 h-16 object-cover border border-[#00ff41]/20">` : ''}
-                <div class="flex-1 text-xs">
-                    <div class="font-bold text-[#00ff41]">${s.title || 'Untitled'}</div>
-                    <div class="opacity-60">${s.contact || 'No contact'}</div>
-                    <div class="mt-1">${s.comment || ''}</div>
-                </div>
-            </div>
-        `).join('');
-    }
-
-    function switchAdminTab(tab) {
-        document.getElementById('admin-tab-logs').classList.toggle('hidden', tab !== 'logs');
-        document.getElementById('admin-tab-suggestions').classList.toggle('hidden', tab !== 'suggestions');
-        document.getElementById('admin-nav-logs').className = (tab === 'logs' ? "text-left py-2 px-4 bg-[#00ff41] text-black font-bold text-xs uppercase" : "text-left py-2 px-4 border border-[#00ff41]/40 text-[#00ff41] hover:bg-[#00ff41]/10 font-bold text-xs uppercase");
-        document.getElementById('admin-nav-suggestions').className = (tab === 'suggestions' ? "text-left py-2 px-4 bg-[#00ff41] text-black font-bold text-xs uppercase" : "text-left py-2 px-4 border border-[#00ff41]/40 text-[#00ff41] hover:bg-[#00ff41]/10 font-bold text-xs uppercase");
-    }
-
-    // --- Init Application ---
-    window.addEventListener('load', initContent);
-
-    window.addEventListener('hashchange', () => {
-        const isAdmin = window.location.hash === '#admin';
-        document.getElementById('main-site-container').style.display = isAdmin ? 'none' : 'block';
-        document.getElementById('admin-panel-container').style.display = isAdmin ? 'block' : 'none';
-        document.body.style.background = isAdmin ? '#000' : '';
-    });
-</script>
+        window.addEventListener('hashchange', () => {
+            const isAdmin = window.location.hash === '#admin';
+            document.getElementById('main-site-container').style.display = isAdmin ? 'none' : 'block';
+            document.getElementById('admin-panel-container').style.display = isAdmin ? 'block' : 'none';
+            document.body.style.background = isAdmin ? '#000' : '';
+        });
+    </script>
 </body></html>
