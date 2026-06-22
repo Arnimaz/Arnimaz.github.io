@@ -18,5 +18,15 @@
     "title": "Albedo",
     "description": "https://wplace.live/?lat=53.56677953305217&lng=27.86879882812499&zoom=12.462407933527613",
     "image": "https://arnimaz.github.io/images/Albedo.jpg"
+  },
+  {
+    "title": "Loona",
+    "description": "",
+    "image": "https://arnimaz.github.io/images/Loona.png"
+  },
+  {
+    "title": "Jinx",
+    "description": "",
+    "image": "https://arnimaz.github.io/images/Jinx.png"
   }
 ]
